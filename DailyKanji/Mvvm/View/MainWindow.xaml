@@ -1,0 +1,144 @@
+﻿<Window x:Class="DailyKanji.Mvvm.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
+        Title="DailyKanji" Height="450" Width="600">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="1" Key="D1"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="2" Key="D2"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="3" Key="D3"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="4" Key="D4"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="5" Key="D5"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="6" Key="D6"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="7" Key="D7"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="8" Key="D8"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="9" Key="D9"/>
+        <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="0" Key="D0"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Richtige Antworten:"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Falsche  Antworten:"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Rate:"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Model.RightAnswerCount}"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Model.WrongAnswers.Count}"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=Model.CurrentRateText}"/>
+
+        </Grid>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding Path=Model.CurrentAskSign}"
+                   Width="200"
+                   Height="200"
+                   Padding="0 50 0 0"
+                   FontSize="80"
+                   TextAlignment="Center"
+                   Background="{Binding Path=Model.CurrentAskSignColor}"
+                   HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <TextBlock Text="Fehlerliste" HorizontalAlignment="Center"/>
+            <ScrollViewer >
+                <DataGrid ItemsSource="{Binding Path=Model.WrongAnswers}"/>
+            </ScrollViewer>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    Content="{Binding Path=Model.PossibleAnswers[0].Roomaji}"
+                    FontSize="50"
+                    Height="100"
+                    Width="100"
+                    Background="{Binding Path=Model.AnswerButtonColor[0]}"
+                    Click="Button_Click" />
+
+            <Button Grid.Row="0"
+                    Grid.Column="1"
+                    Content="{Binding Path=Model.PossibleAnswers[1].Roomaji}"
+                    FontSize="50"
+                    Height="100"
+                    Width="100"
+                    Background="{Binding Path=Model.AnswerButtonColor[1]}"
+                    Click="Button_Click" />
+
+            <Button Grid.Row="0"
+                    Grid.Column="2"
+                    Content="{Binding Path=Model.PossibleAnswers[2].Roomaji}"
+                    FontSize="50"
+                    Height="100"
+                    Width="100"
+                    Background="{Binding Path=Model.AnswerButtonColor[2]}"
+                    Click="Button_Click" />
+
+            <Button Grid.Row="0"
+                    Grid.Column="3"
+                    Content="{Binding Path=Model.PossibleAnswers[3].Roomaji}"
+                    FontSize="50"
+                    Height="100"
+                    Width="100"
+                    Background="{Binding Path=Model.AnswerButtonColor[3]}"
+                    Click="Button_Click" />
+
+            <Button Grid.Row="0"
+                    Grid.Column="4"
+                    Content="{Binding Path=Model.PossibleAnswers[4].Roomaji}"
+                    FontSize="50"
+                    Height="100"
+                    Width="100"
+                    Background="{Binding Path=Model.AnswerButtonColor[4]}"
+                    Click="Button_Click" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Text="1"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="2"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Text="3"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Text="4"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Text="5"/>
+
+        </Grid>
+
+    </Grid>
+
+</Window>
