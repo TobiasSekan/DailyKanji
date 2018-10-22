@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.Model
@@ -16,14 +17,7 @@ namespace DailyKanji.Mvvm.Model
         public bool IgnoreInput { get; set; }
 
         public int MainWindowWidth
-        {
-            get => _mainWindowWidth;
-            set
-            {
-                _mainWindowWidth = value;
-                OnPropertyChanged();
-            }
-        }
+            => 100 + (MaximumAnswer * 100);
 
         /// <summary>
         /// The current sign quest
@@ -138,7 +132,18 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The count of maximum answers
         /// </summary>
-        public byte MaximumAnswer { get; set; }
+        public byte MaximumAnswer
+        {
+            get => _maximumAnswer;
+            set
+            {
+                _maximumAnswer = value;
+                OnPropertyChanged(nameof(MainWindowWidth));
+            }
+        }
+
+        public IEnumerable<byte> ChoosableAnswerCountList
+            => Enumerable.Range(2, 9).Select(Convert.ToByte);
 
         #endregion Public Properties
 
@@ -178,11 +183,7 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentAskSign"/>
         /// </summary>
         private string _currentAskSign;
-
-        /// <summary>
-        /// Backing-field for <see cref="MainWindowWidth"/>
-        /// </summary>
-        private int _mainWindowWidth;
+        private byte _maximumAnswer;
 
         #endregion Private Backing-Fields
 
@@ -191,7 +192,6 @@ namespace DailyKanji.Mvvm.Model
         public MainModel()
         {
             MaximumAnswer     = 5;
-            MainWindowWidth   = 600;
             Randomizer        = new Random();
             AnswerButtonColor = new ObservableCollection<Brush>();
             PossibleAnswers   = new ObservableCollection<TestModel>();

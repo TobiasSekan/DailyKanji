@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using DailyKanji.Mvvm.ViewModel;
+using System;
 using System.Windows.Controls;
-using DailyKanji.Mvvm.ViewModel;
 
 namespace DailyKanji.Mvvm.View
 {
@@ -24,7 +24,7 @@ namespace DailyKanji.Mvvm.View
 
         #region Private Methods
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, EventArgs e)
         {
             if(!(sender is Button button))
             {
@@ -39,6 +39,10 @@ namespace DailyKanji.Mvvm.View
             ViewModel.CheckAnswer(answer);
         }
 
+        private void ComboBox_SelectionChanged(object sender, EventArgs e)
+            => ViewModel.ChangeAnswerCount.Execute(null);
+
         #endregion Private Methods
+
     }
 }

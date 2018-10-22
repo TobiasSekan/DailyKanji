@@ -36,6 +36,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -47,10 +49,17 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Falsche  Antworten:"/>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Rate:"/>
 
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Antworten:"/>
+
             <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Model.RightAnswerCount}"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Model.WrongAnswers.Count}"/>
             <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=Model.CurrentRateText}"/>
 
+            <ComboBox Grid.Row="4"
+                      Grid.Column="2"
+                      ItemsSource="{Binding Path=Model.ChoosableAnswerCountList}"
+                      SelectedItem="{Binding Path=Model.MaximumAnswer}"
+                      SelectionChanged="ComboBox_SelectionChanged" />
         </Grid>
 
         <TextBlock Grid.Row="0"

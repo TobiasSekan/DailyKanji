@@ -42,11 +42,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model = new MainModel();
 
-            // only for testing
-            Model.MaximumAnswer   = 7;
-            Model.MainWindowWidth = 100 + (Model.MaximumAnswer * 100);
-
-            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
             }
@@ -65,6 +61,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
         public ICommand AnswerNumber
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
+
+        public ICommand ChangeAnswerCount
+            => new CommandHelper((_) =>
+            {
+                CreateNewTest();
+            });
 
         #endregion Public Commands
 
@@ -121,7 +123,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.CurrentTest
             };
 
-            while(list.Count < Model.MaximumAnswer)
+            while(list.Count < 10)
             {
                 var possbleAnswer = GetRandomTest();
 
@@ -189,7 +191,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.LightCoral);
 
-            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber]
                     = new SolidColorBrush(Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
@@ -205,7 +207,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.Transparent);
 
-            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
             }
@@ -222,7 +224,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Build all answer buttons (with text and colours)
         /// </summary>
         internal void BuildAnswerButtons()
-            => _mainWindow.Dispatcher.Invoke(new Action(() =>
+            => _mainWindow?.Dispatcher?.Invoke(new Action(() =>
             {
                 _mainWindow.AnswerButtonArea.Children.Clear();
 
