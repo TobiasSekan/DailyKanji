@@ -5,9 +5,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
@@ -41,19 +42,42 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model = new MainModel();
 
+            // only for testing
+            Model.MaximumAnswer   = 7;
+            Model.MainWindowWidth = 100 + (Model.MaximumAnswer * 100);
+
+            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+            {
+                Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
+            }
+
+            _mainWindow = new MainWindow(this);
+
             CreateNewTest();
             RemoveAnswerColors();
 
-            _mainWindow = new MainWindow(this);
             _mainWindow.Show();
         }
 
         #endregion Public Constructors
 
+        #region Public Commands
+
+        public ICommand AnswerNumber
+            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
+
+        #endregion Public Commands
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Create a new test with new question and new possible answers
+        /// </summary>
         internal void CreateNewTest()
         {
             ChooseNewSign();
             ChooseNewPossibleAnswers();
+            BuildAnswerButtons();
             Model.IgnoreInput = false;
         }
 
@@ -138,7 +162,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.WrongAnswers.Add(Model.CurrentTest);
 
-            _mainWindow.Dispatcher.Invoke(new Action(() => SetAnswerColors()), DispatcherPriority.DataBind);
+            _mainWindow.Dispatcher.Invoke(new Action(() =>
+            {
+                SetAnswerColors();
+                BuildAnswerButtons();
+            }));
 
             var timer = new System.Timers.Timer(1500)
             {
@@ -147,7 +175,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             timer.Elapsed += (_, __) =>
             {
-                _mainWindow.Dispatcher.Invoke(new Action(() => RemoveAnswerColors()), DispatcherPriority.DataBind);
+                _mainWindow.Dispatcher.Invoke(new Action(() => RemoveAnswerColors()));
                 CreateNewTest();
             };
 
@@ -190,7 +218,48 @@ namespace DailyKanji.Mvvm.ViewModel
         internal TestModel GetRandomTest()
             => Model.TestList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.TestList.Count)) ?? Model.TestList.FirstOrDefault();
 
-        public ICommand AnswerNumber
-            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
+        /// <summary>
+        /// Build all answer buttons (with text and colours)
+        /// </summary>
+        internal void BuildAnswerButtons() =>
+
+            _mainWindow.Dispatcher.Invoke(new Action(() =>
+            {
+                _mainWindow.AnswerButtonArea.Children.Clear();
+
+                for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+                {
+                    var stackPanel = new StackPanel();
+
+                    var buttonText = new TextBlock
+                    {
+                        Text     = Model.PossibleAnswers[answerNumber].Roomaji,
+                        FontSize = 50
+                    };
+
+                    var button = new Button
+                    {
+                        Content          = buttonText,
+                        Height           = 100,
+                        Width            = 100,
+                        Background       = Model.AnswerButtonColor[answerNumber],
+                        CommandParameter = $"{answerNumber + 1}",
+                        Command          = AnswerNumber
+                    };
+
+                    var noteText = new TextBlock
+                    {
+                        Text = $"{answerNumber + 1}",
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    };
+
+                    stackPanel.Children.Add(button);
+                    stackPanel.Children.Add(noteText);
+
+                    _mainWindow.AnswerButtonArea.Children.Add(stackPanel);
+                }
+            }));
+
+        #endregion Internal Methods
     }
 }

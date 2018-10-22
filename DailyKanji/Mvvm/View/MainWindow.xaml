@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
-        Title="DailyKanji" Height="450" Width="600">
+        Title="DailyKanji" Height="450" Width="{Binding Path=Model.MainWindowWidth}" >
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="1" Key="D1"/>
@@ -71,74 +71,11 @@
             </ScrollViewer>
         </StackPanel>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="10" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <Button Grid.Row="0"
-                    Grid.Column="0"
-                    Content="{Binding Path=Model.PossibleAnswers[0].Roomaji}"
-                    FontSize="50"
-                    Height="100"
-                    Width="100"
-                    Background="{Binding Path=Model.AnswerButtonColor[0]}"
-                    Click="Button_Click" />
-
-            <Button Grid.Row="0"
-                    Grid.Column="1"
-                    Content="{Binding Path=Model.PossibleAnswers[1].Roomaji}"
-                    FontSize="50"
-                    Height="100"
-                    Width="100"
-                    Background="{Binding Path=Model.AnswerButtonColor[1]}"
-                    Click="Button_Click" />
-
-            <Button Grid.Row="0"
-                    Grid.Column="2"
-                    Content="{Binding Path=Model.PossibleAnswers[2].Roomaji}"
-                    FontSize="50"
-                    Height="100"
-                    Width="100"
-                    Background="{Binding Path=Model.AnswerButtonColor[2]}"
-                    Click="Button_Click" />
-
-            <Button Grid.Row="0"
-                    Grid.Column="3"
-                    Content="{Binding Path=Model.PossibleAnswers[3].Roomaji}"
-                    FontSize="50"
-                    Height="100"
-                    Width="100"
-                    Background="{Binding Path=Model.AnswerButtonColor[3]}"
-                    Click="Button_Click" />
-
-            <Button Grid.Row="0"
-                    Grid.Column="4"
-                    Content="{Binding Path=Model.PossibleAnswers[4].Roomaji}"
-                    FontSize="50"
-                    Height="100"
-                    Width="100"
-                    Background="{Binding Path=Model.AnswerButtonColor[4]}"
-                    Click="Button_Click" />
-
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Text="1"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="2"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Text="3"/>
-            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Text="4"/>
-            <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Text="5"/>
-
-        </Grid>
-
+        <StackPanel x:Name="AnswerButtonArea"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"/>
     </Grid>
 
 </Window>

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DailyKanji.Helper;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using DailyKanji.Helper;
 
 namespace DailyKanji.Mvvm.Model
 {
@@ -13,7 +13,17 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Indicate that the current input (mouse and keyboard) will ignore and no processed
         /// </summary>
-        public bool IgnoreInput { get; set;}
+        public bool IgnoreInput { get; set; }
+
+        public int MainWindowWidth
+        {
+            get => _mainWindowWidth;
+            set
+            {
+                _mainWindowWidth = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// The current sign quest
@@ -128,7 +138,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The count of maximum answers
         /// </summary>
-        public byte MaximumAnswer { get; }
+        public byte MaximumAnswer { get; set; }
 
         #endregion Public Properties
 
@@ -169,22 +179,23 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         private string _currentAskSign;
 
+        /// <summary>
+        /// Backing-field for <see cref="MainWindowWidth"/>
+        /// </summary>
+        private int _mainWindowWidth;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
 
         public MainModel()
         {
-            MaximumAnswer   = 5;
-            Randomizer      = new Random();
-            AnswerButtonColor     = new ObservableCollection<Brush>();
-            PossibleAnswers = new ObservableCollection<TestModel>();
-            WrongAnswers    = new ObservableCollection<TestModel>();
-
-            for(var answerNumber = 0; answerNumber < MaximumAnswer; answerNumber++)
-            {
-                AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
-            }
+            MaximumAnswer     = 5;
+            MainWindowWidth   = 600;
+            Randomizer        = new Random();
+            AnswerButtonColor = new ObservableCollection<Brush>();
+            PossibleAnswers   = new ObservableCollection<TestModel>();
+            WrongAnswers      = new ObservableCollection<TestModel>();
 
             TestList = new Collection<TestModel>
             {
