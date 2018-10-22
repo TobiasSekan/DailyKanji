@@ -1,25 +1,25 @@
-﻿using System;
+﻿using DailyKanji.Helper;
+using DailyKanji.Mvvm.Model;
+using DailyKanji.Mvvm.View;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using DailyKanji.Helper;
-using DailyKanji.Mvvm.Model;
-using DailyKanji.Mvvm.View;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
     // TODO: Make kind of question chooseable (Hiragana, Katakana, ...)
-
-    // TODO: Ask wrong answerd question more times
 
     // TODO: Make colors chooseable
     // TODO: Make error highlight time changeable
     // TODO: Save and load setttings from JSON
 
     // TODO: Setable answer count (currently only five)
+
+    // TODO: Ask wrong answerd question more times
 
     public sealed class MainViewModel
     {
@@ -188,16 +188,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         /// <returns>A test</returns>
         internal TestModel GetRandomTest()
-        {
-            var randomQuestNumber = Model.Randomizer.Next(0, Model.TestList.Count);
-
-            if(randomQuestNumber > Model.TestList.Count - 1)
-            {
-                randomQuestNumber = 0;
-            }
-
-            return Model.TestList.ElementAtOrDefault(randomQuestNumber);
-        }
+            => Model.TestList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.TestList.Count)) ?? Model.TestList.FirstOrDefault();
 
         public ICommand AnswerNumber
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
