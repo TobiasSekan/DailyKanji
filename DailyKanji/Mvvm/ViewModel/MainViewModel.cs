@@ -221,9 +221,8 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Build all answer buttons (with text and colours)
         /// </summary>
-        internal void BuildAnswerButtons() =>
-
-            _mainWindow.Dispatcher.Invoke(new Action(() =>
+        internal void BuildAnswerButtons()
+            => _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
                 _mainWindow.AnswerButtonArea.Children.Clear();
 
