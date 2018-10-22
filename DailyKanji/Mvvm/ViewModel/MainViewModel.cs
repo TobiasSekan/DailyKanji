@@ -138,7 +138,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.WrongAnswers.Add(Model.CurrentTest);
 
-            _mainWindow.Dispatcher.Invoke(new Action(() => AddAnswerColors()), DispatcherPriority.DataBind);
+            _mainWindow.Dispatcher.Invoke(new Action(() => SetAnswerColors()), DispatcherPriority.DataBind);
 
             var timer = new System.Timers.Timer(1500)
             {
@@ -155,9 +155,9 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Add colours to all answer buttons (based on the test)
+        /// Set colours to all answer buttons (based on the test)
         /// </summary>
-        internal void AddAnswerColors()
+        internal void SetAnswerColors()
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.LightCoral);
 
