@@ -46,7 +46,7 @@ namespace DailyKanji.Mvvm.Model
         }
 
         public IEnumerable<TestModel> WrongAnswers
-            => TestList.Where(found => found.FailCount > 0);
+            => AllTestsList.Where(found => found.FailCount > 0);
 
         /// <summary>
         /// The count of right answers
@@ -109,7 +109,7 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
-                var wrongAnswerCount = TestList.Sum(found => found.FailCount);
+                var wrongAnswerCount = AllTestsList.Sum(found => found.FailCount);
 
                 return wrongAnswerCount != 0
                     ? $"{Math.Round(100.0 / (wrongAnswerCount + RightAnswerCount) * RightAnswerCount, 2)}%"
@@ -120,7 +120,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// List with all possible tests
         /// </summary>
-        public IReadOnlyCollection<TestModel> TestList { get; }
+        internal IReadOnlyCollection<TestModel> AllTestsList { get; }
 
         /// <summary>
         /// Global random generator
@@ -142,6 +142,8 @@ namespace DailyKanji.Mvvm.Model
 
         public IEnumerable<byte> ChoosableAnswerCountList
             => Enumerable.Range(2, 9).Select(Convert.ToByte);
+
+        public Collection<TestModel> NewQuestionList { get; internal set; }
 
         #endregion Public Properties
 
@@ -188,8 +190,9 @@ namespace DailyKanji.Mvvm.Model
             Randomizer        = new Random();
             AnswerButtonColor = new ObservableCollection<Brush>();
             PossibleAnswers   = new ObservableCollection<TestModel>();
+            NewQuestionList    = new Collection<TestModel>();
 
-            TestList = new Collection<TestModel>
+            AllTestsList = new Collection<TestModel>
             {
                 // Kana Signs, Think Now How Much You Really Want (to learn them).
                 new TestModel("a", "あ", "ア"),

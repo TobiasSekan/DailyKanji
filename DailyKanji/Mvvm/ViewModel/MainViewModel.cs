@@ -20,11 +20,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Setable answer count (currently only five)
 
-    // TODO: Ask wrong answerd question more times
-    //       * Store wrong answer into the kana list
-    //       * build complete question list new (every time or a every startup)
-    //       * add each element (wrong answer cout + 1) times
-
     public sealed class MainViewModel
     {
         #region Public Properties
@@ -77,10 +72,26 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void CreateNewTest()
         {
+            BuildNewQuestionList();
             ChooseNewSign();
             ChooseNewPossibleAnswers();
             BuildAnswerButtons();
             Model.IgnoreInput = false;
+        }
+
+        internal void BuildNewQuestionList()
+        {
+            Model.NewQuestionList.Clear();
+
+            foreach(var question in Model.AllTestsList)
+            {
+                for(var repeatCount = 0; repeatCount < (question.FailCount + 1); repeatCount++)
+                {
+                    Model.NewQuestionList.Add(question);
+                }
+            }
+
+            Debug.WriteLine($"New question list count: {Model.NewQuestionList.Count}");
         }
 
         /// <summary>
@@ -108,7 +119,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             var hiraganaOrKatakana = Model.Randomizer.Next(0, 2);
 
-            Debug.WriteLine(hiraganaOrKatakana);
+            Debug.WriteLine($"Choose quest: {(hiraganaOrKatakana == 0 ? "Hiragana" : "Katakana")}");
 
             Model.CurrentAskSign = hiraganaOrKatakana == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
         }
@@ -123,7 +134,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.CurrentTest
             };
 
-            while(list.Count < 10)
+            while(list.Count < Model.MaximumAnswer)
             {
                 var possbleAnswer = GetRandomTest();
 
@@ -189,7 +200,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.LightCoral);
 
-            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber]
                     = new SolidColorBrush(Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
@@ -216,7 +227,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         /// <returns>A test</returns>
         internal TestModel GetRandomTest()
-            => Model.TestList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.TestList.Count)) ?? Model.TestList.FirstOrDefault();
+            => Model.NewQuestionList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count)) ?? Model.NewQuestionList.FirstOrDefault();
 
         /// <summary>
         /// Build all answer buttons (with text and colours)
