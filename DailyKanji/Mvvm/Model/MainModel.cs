@@ -16,9 +16,6 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         public bool IgnoreInput { get; set; }
 
-        public int MainWindowWidth
-            => 100 + (MaximumAnswer * 100);
-
         /// <summary>
         /// The current sign quest
         /// </summary>
@@ -46,7 +43,7 @@ namespace DailyKanji.Mvvm.Model
         }
 
         public IEnumerable<TestModel> WrongAnswers
-            => AllTestsList.Where(found => found.FailCount > 0);
+            => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
 
         /// <summary>
         /// The count of right answers
@@ -109,7 +106,7 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
-                var wrongAnswerCount = AllTestsList.Sum(found => found.FailCount);
+                var wrongAnswerCount = AllTestsList.Sum(found => found.WrongHiragana + found.WrongKatakana);
 
                 return wrongAnswerCount != 0
                     ? $"{Math.Round(100.0 / (wrongAnswerCount + RightAnswerCount) * RightAnswerCount, 2)}%"
@@ -130,15 +127,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The count of maximum answers
         /// </summary>
-        public byte MaximumAnswer
-        {
-            get => _maximumAnswer;
-            set
-            {
-                _maximumAnswer = value;
-                OnPropertyChanged(nameof(MainWindowWidth));
-            }
-        }
+        public byte MaximumAnswer { get; set; }
 
         public IEnumerable<byte> ChoosableAnswerCountList
             => Enumerable.Range(2, 9).Select(Convert.ToByte);
@@ -178,7 +167,6 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentAskSign"/>
         /// </summary>
         private string _currentAskSign;
-        private byte _maximumAnswer;
 
         #endregion Private Backing-Fields
 

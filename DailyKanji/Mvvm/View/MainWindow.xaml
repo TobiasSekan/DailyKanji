@@ -4,7 +4,7 @@
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen"
-        Title="DailyKanji" Height="450" Width="700" >
+        Title="DailyKanji" Height="450" Width="1000" >
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="1" Key="D1"/>
@@ -27,9 +27,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">

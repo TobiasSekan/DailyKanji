@@ -18,8 +18,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make error highlight time changeable
     // TODO: Save and load setttings from JSON
 
-    // TODO: Setable answer count (currently only five)
-
     public sealed class MainViewModel
     {
         #region Public Properties
@@ -85,7 +83,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             foreach(var question in Model.AllTestsList)
             {
-                for(var repeatCount = 0; repeatCount < (question.FailCount + 1); repeatCount++)
+                for(var repeatCount = 0; repeatCount < (question.WrongHiragana + question.WrongKatakana + 1); repeatCount++)
                 {
                     Model.NewQuestionList.Add(question);
                 }
@@ -171,7 +169,15 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            Model.CurrentTest.FailCount++;
+            if(Model.CurrentAskSign == Model.CurrentTest.Hiragana)
+            {
+                Model.CurrentTest.WrongHiragana++;
+            }
+
+            if(Model.CurrentAskSign == Model.CurrentTest.Katakana)
+            {
+                Model.CurrentTest.WrongKatakana++;
+            }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
@@ -251,7 +257,8 @@ namespace DailyKanji.Mvvm.ViewModel
                     {
                         Content          = buttonText,
                         Height           = 100,
-                        Width            = 100,
+                        Width            = (980 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer,
+                        Margin           = new Thickness(5, 0, 5, 0),
                         Background       = Model.AnswerButtonColor[answerNumber],
                         CommandParameter = $"{answerNumber + 1}",
                         Command          = AnswerNumber

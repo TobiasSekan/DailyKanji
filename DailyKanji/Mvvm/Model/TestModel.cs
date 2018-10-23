@@ -18,9 +18,14 @@
         public string Katakana { get; }
 
         /// <summary>
-        /// The count of wrong answers on this sign
+        /// The count of wrong answers when the hiragana sign was ask
         /// </summary>
-        public uint FailCount { get; set; }
+        public uint WrongHiragana { get; internal set; }
+
+        /// <summary>
+        /// The count of wrong answers when the katakana sign was ask
+        /// </summary>
+        public uint WrongKatakana { get; internal set; }
 
         public TestModel(string roomaji, string hiragana, string katakana)
         {
