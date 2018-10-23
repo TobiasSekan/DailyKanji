@@ -12,11 +12,13 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // TODO: Make kind of question chooseable (Hiragana, Katakana, ...)
+    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...)
 
-    // TODO: Make colors chooseable
+    // TODO: Make colours choose-able
     // TODO: Make error highlight time changeable
-    // TODO: Save and load setttings from JSON
+    // TODO: Save and load settings from JSON
+
+    // TODO: Refresh (only) answers after similarAnswers is unchecked/checked
 
     public sealed class MainViewModel
     {
@@ -42,6 +44,8 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
             }
+
+            Model.SimilarAnswers = true;
 
             _mainWindow = new MainWindow(this);
 
@@ -137,6 +141,19 @@ namespace DailyKanji.Mvvm.ViewModel
                 var possbleAnswer = GetRandomTest();
 
                 if(list.Contains(possbleAnswer))
+                {
+                    continue;
+                }
+
+                if(!Model.SimilarAnswers || Model.CurrentTest.Roomaji.Length == 1)
+                {
+                    list.Add(possbleAnswer);
+                    continue;
+                }
+
+                if(!possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
+                   && !possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
+                   && !possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
                 {
                     continue;
                 }

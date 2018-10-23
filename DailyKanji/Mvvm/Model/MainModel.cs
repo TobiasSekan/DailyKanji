@@ -134,6 +134,8 @@ namespace DailyKanji.Mvvm.Model
 
         public Collection<TestModel> NewQuestionList { get; internal set; }
 
+        public bool SimilarAnswers { get; set; }
+
         #endregion Public Properties
 
         #region Private Backing-Fields
