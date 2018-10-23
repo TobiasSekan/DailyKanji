@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
-        Title="DailyKanji" Height="450" Width="{Binding Path=Model.MainWindowWidth}" >
+        WindowStartupLocation="CenterScreen"
+        Title="DailyKanji" Height="450" Width="700" >
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="1" Key="D1"/>
@@ -18,7 +19,7 @@
         <KeyBinding Command="{Binding AnswerNumber}" CommandParameter="0" Key="D0"/>
     </Window.InputBindings>
 
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
             <RowDefinition Height="50"/>
@@ -26,9 +27,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -76,7 +77,7 @@
         <StackPanel Grid.Row="0" Grid.Column="2">
             <TextBlock Text="Fehlerliste" HorizontalAlignment="Center"/>
             <ScrollViewer >
-                <DataGrid ItemsSource="{Binding Path=Model.WrongAnswers}"/>
+                <DataGrid ItemsSource="{Binding Path=Model.WrongAnswers}" HeadersVisibility="Column"/>
             </ScrollViewer>
         </StackPanel>
 
