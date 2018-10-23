@@ -21,6 +21,9 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Setable answer count (currently only five)
 
     // TODO: Ask wrong answerd question more times
+    //       * Store wrong answer into the kana list
+    //       * build complete question list new (every time or a every startup)
+    //       * add each element (wrong answer cout + 1) times
 
     public sealed class MainViewModel
     {
@@ -63,10 +66,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
 
         public ICommand ChangeAnswerCount
-            => new CommandHelper((_) =>
-            {
-                CreateNewTest();
-            });
+            => new CommandHelper((_) => CreateNewTest());
 
         #endregion Public Commands
 
@@ -90,7 +90,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             if(Model.CurrentTest == null)
             {
-                Model.CurrentTest = GetRandomTest();
+                Model.CurrentTest    = GetRandomTest();
                 Model.CurrentAskSign = Model.Randomizer.Next(0, 1) == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
                 return;
             }
@@ -161,8 +161,6 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             Model.CurrentTest.FailCount++;
-
-            Model.WrongAnswers.Add(Model.CurrentTest);
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {

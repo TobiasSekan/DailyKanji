@@ -45,18 +45,8 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// A list with all wrong answered tests
-        /// </summary>
-        public ObservableCollection<TestModel> WrongAnswers
-        {
-            get => _wrongAnswers;
-            internal set
-            {
-                _wrongAnswers = value;
-                OnPropertyChanged();
-            }
-        }
+        public IEnumerable<TestModel> WrongAnswers
+            => TestList.Where(found => found.FailCount > 0);
 
         /// <summary>
         /// The count of right answers
@@ -108,6 +98,7 @@ namespace DailyKanji.Mvvm.Model
             {
                 _currentAskSign = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(WrongAnswers));
             }
         }
 
@@ -115,9 +106,16 @@ namespace DailyKanji.Mvvm.Model
         /// Return the current rate in percent
         /// </summary>
         public string CurrentRateText
-            => RightAnswerCount != 0 || WrongAnswers.Count != 0
-                ? $"{Math.Round(100.0 / (WrongAnswers.Count + RightAnswerCount) * RightAnswerCount, 2)}%"
-                : "100%";
+        {
+            get
+            {
+                var wrongAnswerCount = TestList.Sum(found => found.FailCount);
+
+                return wrongAnswerCount != 0
+                    ? $"{Math.Round(100.0 / (wrongAnswerCount + RightAnswerCount) * RightAnswerCount, 2)}%"
+                    : "100%";
+            }
+        }
 
         /// <summary>
         /// List with all possible tests
@@ -160,11 +158,6 @@ namespace DailyKanji.Mvvm.Model
         private ObservableCollection<TestModel> _possibleAnswers;
 
         /// <summary>
-        /// Backing-field for <see cref="WrongAnswers"/>
-        /// </summary>
-        private ObservableCollection<TestModel> _wrongAnswers;
-
-        /// <summary>
         /// Backing-field for <see cref="RightAnswerCount"/>
         /// </summary>
         private uint _rightAnswerCount;
@@ -195,7 +188,6 @@ namespace DailyKanji.Mvvm.Model
             Randomizer        = new Random();
             AnswerButtonColor = new ObservableCollection<Brush>();
             PossibleAnswers   = new ObservableCollection<TestModel>();
-            WrongAnswers      = new ObservableCollection<TestModel>();
 
             TestList = new Collection<TestModel>
             {
