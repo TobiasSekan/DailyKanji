@@ -48,13 +48,13 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Richtige Antworten:"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Falsche  Antworten:"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Correct answers:"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Wrong answers:"/>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Rate:"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Antworten:"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Possible answers:"/>
 
-            <TextBlock Grid.Row="6" Grid.Column="0" Text="Similar Answers:"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Similar answers:"/>
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Model.RightAnswerCount}"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Model.WrongAnswers.Count}"/>
@@ -83,7 +83,7 @@
                    HorizontalAlignment="Center"/>
 
         <StackPanel Grid.Row="0" Grid.Column="2">
-            <TextBlock Text="Fehlerliste" HorizontalAlignment="Center"/>
+            <TextBlock Text="Error list" HorizontalAlignment="Center"/>
             <ScrollViewer >
                 <DataGrid ItemsSource="{Binding Path=Model.WrongAnswers}" HeadersVisibility="Column"/>
             </ScrollViewer>
