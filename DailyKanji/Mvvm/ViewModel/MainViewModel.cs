@@ -20,6 +20,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Refresh (only) answers after similarAnswers is unchecked/checked
 
+    // TODO: Menu-bar, Status-bar
+
     public sealed class MainViewModel
     {
         #region Public Properties
@@ -47,6 +49,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.SimilarAnswers = true;
 
+            BuildNewQuestionList();
+            ChooseNewSign();
+
             _mainWindow = new MainWindow(this);
 
             CreateNewTest();
@@ -63,7 +68,18 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
 
         public ICommand ChangeAnswerCount
-            => new CommandHelper((_) => CreateNewTest());
+            => new CommandHelper((_) =>
+            {
+                ChooseNewPossibleAnswers();
+                BuildAnswerButtons();
+            });
+
+        public ICommand ChangeAnswerMode
+            => new CommandHelper((_) =>
+            {
+                ChooseNewPossibleAnswers();
+                BuildAnswerButtons();
+            });
 
         #endregion Public Commands
 
@@ -138,27 +154,27 @@ namespace DailyKanji.Mvvm.ViewModel
 
             while(list.Count < Model.MaximumAnswer)
             {
-                var possbleAnswer = GetRandomTest();
+                var possibleAnswer = GetRandomTest();
 
-                if(list.Contains(possbleAnswer))
+                if(list.Contains(possibleAnswer))
                 {
                     continue;
                 }
 
                 if(!Model.SimilarAnswers || Model.CurrentTest.Roomaji.Length == 1)
                 {
-                    list.Add(possbleAnswer);
+                    list.Add(possibleAnswer);
                     continue;
                 }
 
-                if(!possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
-                   && !possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
-                   && !possbleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
+                if(!possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
+                   && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
+                   && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
                 {
                     continue;
                 }
 
-                list.Add(possbleAnswer);
+                list.Add(possibleAnswer);
             }
 
             list.Shuffle();
