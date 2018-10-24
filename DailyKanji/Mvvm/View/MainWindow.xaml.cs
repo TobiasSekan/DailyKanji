@@ -39,9 +39,6 @@ namespace DailyKanji.Mvvm.View
             ViewModel.CheckAnswer(answer);
         }
 
-        private void ComboBox_SelectionChanged(object sender, EventArgs e)
-            => ViewModel.ChangeAnswerCount.Execute(null);
-
         #endregion Private Methods
 
     }

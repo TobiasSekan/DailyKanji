@@ -127,7 +127,15 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The count of maximum answers
         /// </summary>
-        public byte MaximumAnswer { get; set; }
+        public byte MaximumAnswer
+        {
+            get => _maximumAnswer;
+            set
+            {
+                _maximumAnswer = value;
+                OnPropertyChanged();
+            }
+        }
 
         public IEnumerable<byte> ChoosableAnswerCountList
             => Enumerable.Range(2, 9).Select(Convert.ToByte);
@@ -169,6 +177,7 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentAskSign"/>
         /// </summary>
         private string _currentAskSign;
+        private byte _maximumAnswer;
 
         #endregion Private Backing-Fields
 

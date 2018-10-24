@@ -55,6 +55,7 @@
     <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\Expressions.cs" />
     <Compile Include="Helper\PropertyChangedHelper.cs" />
+    <Compile Include="Helper\ValueToBooleanConverter.cs" />
     <Compile Include="Mvvm\Model\MainModel.cs" />
     <Page Include="Mvvm\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

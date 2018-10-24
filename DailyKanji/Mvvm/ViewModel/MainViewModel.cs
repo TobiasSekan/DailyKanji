@@ -68,8 +68,9 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
 
         public ICommand ChangeAnswerCount
-            => new CommandHelper((_) =>
+            => new CommandHelper((value) =>
             {
+                Model.MaximumAnswer = Convert.ToByte(value);
                 ChooseNewPossibleAnswers();
                 BuildAnswerButtons();
             });
