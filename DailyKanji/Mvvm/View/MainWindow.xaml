@@ -6,7 +6,8 @@
         Width="1000"
         Height="450"
         x:ClassModifier="internal"
-        DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
+        DataContext="{Binding Path=ViewModel,
+                              RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -28,10 +29,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
+
+            <!--  Menu  -->
             <RowDefinition Height="Auto" />
+
             <RowDefinition Height="200" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+
+            <!--  StatusBar  -->
+            <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -56,47 +64,65 @@
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="2"
                               Header="Two answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=2}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=2}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="3"
                               Header="Three answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=3}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=3}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="4"
                               Header="Four answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=4}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=4}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="5"
                               Header="Five answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=5}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=5}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="6"
                               Header="Six answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=6}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=6}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="7"
                               Header="Seven answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=7}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=7}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="8"
                               Header="Eight answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=8}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=8}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="9"
                               Header="Nine answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=9}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=9}" />
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
                               CommandParameter="10"
                               Header="Ten answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=10}" />
+                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=10}" />
 
                 </MenuItem>
 
@@ -108,7 +134,7 @@
 
         </Menu>
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -123,15 +149,6 @@
                 <ColumnDefinition Width="15" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Correct answers:" />
-
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Model.RightAnswerCount}" />
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Wrong answers:" />
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Model.WrongAnswers.Count}" />
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Rate:" />
-            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=Model.CurrentRateText}" />
-
         </Grid>
 
         <TextBlock Grid.Row="1"
@@ -157,6 +174,83 @@
                     Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal" />
+
+        <StatusBar Grid.Row="4" Grid.ColumnSpan="3">
+
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem Grid.Column="0" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Similar answers: " />
+                    <TextBlock Text="{Binding Path=Model.SimilarAnswers}" />
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator Grid.Column="1" />
+
+            <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Correct answers: " />
+                    <TextBlock Text="{Binding Path=Model.RightAnswerCount}" />
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator Grid.Column="3" />
+
+            <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Wrong answers: " />
+                    <TextBlock Text="{Binding Path=Model.WrongAnswers.Count}" />
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator Grid.Column="5" />
+
+            <StatusBarItem Grid.Column="6" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Rate: " />
+                    <TextBlock Text="{Binding Path=Model.CurrentRateText}" />
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator Grid.Column="7" />
+
+            <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Question pool: " />
+                    <TextBlock Text="{Binding Path=Model.NewQuestionList.Count}" />
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator Grid.Column="9" />
+
+            <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Unique questions: " />
+                    <TextBlock Text="{Binding Path=Model.AllTestsList.Count}" />
+                </StackPanel>
+            </StatusBarItem>
+
+        </StatusBar>
+
     </Grid>
 
 </Window>

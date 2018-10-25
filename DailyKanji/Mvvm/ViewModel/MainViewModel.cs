@@ -3,7 +3,6 @@ using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,15 +11,16 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...)
+    // TODO: Menu-bar (missing events)
+
+    // TODO: Recalculate buttons (button width), when window is resized
+
+    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + menu + status-bar
 
     // TODO: Make colours choose-able
     // TODO: Make error highlight time changeable
+
     // TODO: Save and load settings from JSON
-
-    // TODO: Refresh (only) answers after similarAnswers is unchecked/checked
-
-    // TODO: Menu-bar, Status-bar
 
     public sealed class MainViewModel
     {
@@ -100,17 +100,17 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal void BuildNewQuestionList()
         {
-            Model.NewQuestionList.Clear();
+            var questionList = new Collection<TestModel>();
 
             foreach(var question in Model.AllTestsList)
             {
                 for(var repeatCount = 0; repeatCount < (question.WrongHiragana + question.WrongKatakana + 1); repeatCount++)
                 {
-                    Model.NewQuestionList.Add(question);
+                    questionList.Add(question);
                 }
             }
 
-            Debug.WriteLine($"New question list count: {Model.NewQuestionList.Count}");
+            Model.NewQuestionList = questionList;
         }
 
         /// <summary>
@@ -129,18 +129,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             while(newQuest.Roomaji == Model.CurrentTest.Roomaji)
             {
-                Debug.WriteLine("New quest and last ask quest are the same -> choose a new quest");
-
                 newQuest = GetRandomTest();
             }
 
-            Model.CurrentTest = newQuest;
-
-            var hiraganaOrKatakana = Model.Randomizer.Next(0, 2);
-
-            Debug.WriteLine($"Choose quest: {(hiraganaOrKatakana == 0 ? "Hiragana" : "Katakana")}");
-
-            Model.CurrentAskSign = hiraganaOrKatakana == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
+            Model.CurrentTest    = newQuest;
+            Model.CurrentAskSign = Model.Randomizer.Next(0, 2) == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
         }
 
         /// <summary>

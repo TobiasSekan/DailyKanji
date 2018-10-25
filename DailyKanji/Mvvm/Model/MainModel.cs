@@ -12,11 +12,6 @@ namespace DailyKanji.Mvvm.Model
         #region Public Properties
 
         /// <summary>
-        /// Indicate that the current input (mouse and keyboard) will ignore and no processed
-        /// </summary>
-        public bool IgnoreInput { get; set; }
-
-        /// <summary>
         /// The current sign quest
         /// </summary>
         public TestModel CurrentTest
@@ -42,16 +37,13 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        public IEnumerable<TestModel> WrongAnswers
-            => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
-
         /// <summary>
         /// The count of right answers
         /// </summary>
         public uint RightAnswerCount
         {
             get => _rightAnswerCount;
-            set
+            internal set
             {
                 _rightAnswerCount = value;
                 OnPropertyChanged();
@@ -65,7 +57,7 @@ namespace DailyKanji.Mvvm.Model
         public ObservableCollection<Brush> AnswerButtonColor
         {
             get => _buttonColor;
-            set
+            internal set
             {
                 _buttonColor = value;
                 OnPropertyChanged();
@@ -78,7 +70,7 @@ namespace DailyKanji.Mvvm.Model
         public Brush CurrentAskSignColor
         {
             get => _currentAskSignColor;
-            set
+            internal set
             {
                 _currentAskSignColor = value;
                 OnPropertyChanged();
@@ -91,7 +83,7 @@ namespace DailyKanji.Mvvm.Model
         public string CurrentAskSign
         {
             get => _currentAskSign;
-            set
+            internal set
             {
                 _currentAskSign = value;
                 OnPropertyChanged();
@@ -115,16 +107,6 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// List with all possible tests
-        /// </summary>
-        internal IReadOnlyCollection<TestModel> AllTestsList { get; }
-
-        /// <summary>
-        /// Global random generator
-        /// </summary>
-        public Random Randomizer { get; }
-
-        /// <summary>
         /// The count of maximum answers
         /// </summary>
         public byte MaximumAnswer
@@ -137,12 +119,43 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        public IEnumerable<byte> ChoosableAnswerCountList
-            => Enumerable.Range(2, 9).Select(Convert.ToByte);
+        public bool SimilarAnswers
+        {
+            get => _similarAnswers;
+            set
+            {
+                _similarAnswers = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public Collection<TestModel> NewQuestionList { get; internal set; }
+        public IEnumerable<TestModel> WrongAnswers
+            => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
 
-        public bool SimilarAnswers { get; set; }
+        /// <summary>
+        /// Global random generator
+        /// </summary>
+        internal Random Randomizer { get; }
+
+        /// <summary>
+        /// List with all possible tests
+        /// </summary>
+        public IReadOnlyCollection<TestModel> AllTestsList { get; }
+
+        public IReadOnlyCollection<TestModel> NewQuestionList
+        {
+            get => _newQuestionList;
+            internal set
+            {
+                _newQuestionList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate that the current input (mouse and keyboard) will ignore and no processed
+        /// </summary>
+        internal bool IgnoreInput { get; set; }
 
         #endregion Public Properties
 
@@ -178,6 +191,8 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         private string _currentAskSign;
         private byte _maximumAnswer;
+        private bool _similarAnswers;
+        private IReadOnlyCollection<TestModel> _newQuestionList;
 
         #endregion Private Backing-Fields
 
