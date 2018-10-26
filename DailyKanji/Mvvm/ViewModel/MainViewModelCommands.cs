@@ -11,7 +11,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(CreateNewTest);
 
         public ICommand CloseProgram
-            => new CommandHelper(() => Environment.Exit(0));
+            => new CommandHelper(() => _mainWindow.Close());
 
         public ICommand AnswerNumber
             => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
