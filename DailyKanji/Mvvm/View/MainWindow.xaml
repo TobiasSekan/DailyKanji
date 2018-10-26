@@ -51,13 +51,10 @@
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
 
             <MenuItem Header="File">
-                <MenuItem Header="New question" InputGestureText="Ctrl+N" IsEnabled="False" />
+                <MenuItem Command="{Binding Path=NewQuestion}" Header="New question" InputGestureText="Ctrl+N" />
                 <MenuItem Header="Export" IsEnabled="False" />
                 <Separator />
-                <MenuItem Command="{Binding Path=CloseProgram}"
-                          Header="Close Program"
-                          InputGestureText="Alt+F4"
-                          IsEnabled="False" />
+                <MenuItem Command="{Binding Path=CloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
             </MenuItem>
 
             <MenuItem Header="Settings">
