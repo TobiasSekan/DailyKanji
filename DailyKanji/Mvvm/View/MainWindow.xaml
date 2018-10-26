@@ -54,7 +54,10 @@
                 <MenuItem Header="New question" InputGestureText="Ctrl+N" IsEnabled="False" />
                 <MenuItem Header="Export" IsEnabled="False" />
                 <Separator />
-                <MenuItem Header="Close Program" InputGestureText="Alt+F4" IsEnabled="False" />
+                <MenuItem Command="{Binding Path=CloseProgram}"
+                          Header="Close Program"
+                          InputGestureText="Alt+F4"
+                          IsEnabled="False" />
             </MenuItem>
 
             <MenuItem Header="Settings">

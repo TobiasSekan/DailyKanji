@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
@@ -22,7 +21,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Save and load settings from JSON
 
-    public sealed class MainViewModel
+    public sealed partial class MainViewModel
     {
         #region Public Properties
 
@@ -61,28 +60,6 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         #endregion Public Constructors
-
-        #region Public Commands
-
-        public ICommand AnswerNumber
-            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
-
-        public ICommand ChangeAnswerCount
-            => new CommandHelper((value) =>
-            {
-                Model.MaximumAnswer = Convert.ToByte(value);
-                ChooseNewPossibleAnswers();
-                BuildAnswerButtons();
-            });
-
-        public ICommand ChangeAnswerMode
-            => new CommandHelper((_) =>
-            {
-                ChooseNewPossibleAnswers();
-                BuildAnswerButtons();
-            });
-
-        #endregion Public Commands
 
         #region Internal Methods
 
