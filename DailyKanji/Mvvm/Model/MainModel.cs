@@ -128,6 +128,28 @@ namespace DailyKanji.Mvvm.Model
                 OnPropertyChanged();
             }
         }
+        public IReadOnlyCollection<TestModel> NewQuestionList
+        {
+            get => _newQuestionList;
+            internal set
+            {
+                _newQuestionList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The timeout for highlight a wrong answered question
+        /// </summary>
+        public int ErrorTimeout
+        {
+            get => _errorTimeout;
+            set
+            {
+                _errorTimeout = value;
+                OnPropertyChanged();
+            }
+        }
 
         public IEnumerable<TestModel> WrongAnswers
             => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
@@ -141,16 +163,6 @@ namespace DailyKanji.Mvvm.Model
         /// List with all possible tests
         /// </summary>
         public IReadOnlyCollection<TestModel> AllTestsList { get; }
-
-        public IReadOnlyCollection<TestModel> NewQuestionList
-        {
-            get => _newQuestionList;
-            internal set
-            {
-                _newQuestionList = value;
-                OnPropertyChanged();
-            }
-        }
 
         /// <summary>
         /// Indicate that the current input (mouse and keyboard) will ignore and no processed
@@ -190,9 +202,26 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentAskSign"/>
         /// </summary>
         private string _currentAskSign;
+
+        /// <summary>
+        /// Backing-field for <see cref="MaximumAnswer"/>
+        /// </summary>
         private byte _maximumAnswer;
+
+        /// <summary>
+        /// Backing-field for <see cref="SimilarAnswers"/>
+        /// </summary>
         private bool _similarAnswers;
+
+        /// <summary>
+        /// Backing-field for <see cref="NewQuestionList"/>
+        /// </summary>
         private IReadOnlyCollection<TestModel> _newQuestionList;
+
+        /// <summary>
+        /// Backing-field for <see cref="ErrorTimeout"/>
+        /// </summary>
+        private int _errorTimeout;
 
         #endregion Private Backing-Fields
 
@@ -200,11 +229,12 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
+            ErrorTimeout      = 1_500;
             MaximumAnswer     = 5;
             Randomizer        = new Random();
             AnswerButtonColor = new ObservableCollection<Brush>();
             PossibleAnswers   = new ObservableCollection<TestModel>();
-            NewQuestionList    = new Collection<TestModel>();
+            NewQuestionList   = new Collection<TestModel>();
 
             AllTestsList = new Collection<TestModel>
             {

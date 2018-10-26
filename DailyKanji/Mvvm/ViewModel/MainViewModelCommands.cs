@@ -13,8 +13,11 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CloseProgram
             => new CommandHelper(() => _mainWindow.Close());
 
-        public ICommand AnswerNumber
-            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
+        public ICommand ChangeErrorTimeout
+            => new CommandHelper((timeout) =>
+            {
+                Model.ErrorTimeout = Convert.ToInt32(timeout);
+            });
 
         public ICommand ChangeAnswerCount
             => new CommandHelper((value) =>
@@ -30,5 +33,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 ChooseNewPossibleAnswers();
                 BuildAnswerButtons();
             });
+
+        public ICommand AnswerNumber
+            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
     }
 }

@@ -10,16 +10,20 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // TODO: Menu-bar (missing events)
+    // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
+
+    // TODO: Make colours choose-able
 
     // TODO: Recalculate buttons (button width), when window is resized
 
     // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + menu + status-bar
 
-    // TODO: Make colours choose-able
-    // TODO: Make error highlight time changeable
+    // TODO: NewQuestionList -> Add only Hiragana or Katakana of the same question based on the fail count
 
     // TODO: Save and load settings from JSON
+
+    // TODO: Export (XLSX, CSV, JSON, XML)
+    // TODO: Import ???
 
     public sealed partial class MainViewModel
     {
@@ -189,7 +193,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 BuildAnswerButtons();
             }));
 
-            var timer = new System.Timers.Timer(1500)
+            var timer = new System.Timers.Timer(Model.ErrorTimeout)
             {
                 AutoReset = false
             };

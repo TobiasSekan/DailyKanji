@@ -7,7 +7,7 @@ namespace DailyKanji.Helper
     class ValueToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => System.Convert.ToByte(value) == System.Convert.ToByte(parameter);
+            => System.Convert.ToInt32(value) == System.Convert.ToInt32(parameter);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => value;
