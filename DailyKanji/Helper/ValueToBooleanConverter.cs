@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace DailyKanji.Helper
 {
-    class ValueToBooleanConverter : IValueConverter
+    public class ValueToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => System.Convert.ToInt32(value) == System.Convert.ToInt32(parameter);

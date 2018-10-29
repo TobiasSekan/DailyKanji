@@ -101,6 +101,31 @@
 
             <MenuItem Header="Settings">
 
+                <MenuItem Header="Test type">
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="0"
+                              Header="Hiragana and Katakana to Roomaji"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=0}" />
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="1"
+                              Header="Only Hiragana to Roomaji"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=1}" />
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="2"
+                              Header="Only Katakana to Roomaji"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=2}" />
+
+                </MenuItem>
+
                 <MenuItem Header="Possible answers">
 
                     <MenuItem Command="{Binding Path=ChangeAnswerCount}"
@@ -442,7 +467,7 @@
             <StatusBarItem Grid.Column="10"
                            HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Unique questions: " />
+                    <TextBlock Text="Unique tests: " />
                     <TextBlock Text="{Binding Path=Model.AllTestsList.Count}" />
                 </StackPanel>
             </StatusBarItem>

@@ -154,9 +154,19 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        public TestType MainTestType
+        {
+            get => _mainTestType;
+            set
+            {
+                _mainTestType = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string QuestionPoolString
-            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRomaji)}"
-             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRomaji)}";
+            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji)}"
+             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji)}";
 
         public IEnumerable<TestBaseModel> WrongAnswers
             => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
@@ -229,6 +239,7 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ErrorTimeout"/>
         /// </summary>
         private int _errorTimeout;
+        private TestType _mainTestType;
 
         #endregion Private Backing-Fields
 
@@ -236,6 +247,7 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
+            MainTestType      = TestType.HiraganaOrKatakanaToRomaji;
             ErrorTimeout      = 1_500;
             MaximumAnswer     = 5;
             Randomizer        = new Random();

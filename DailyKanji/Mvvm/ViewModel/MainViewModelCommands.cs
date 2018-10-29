@@ -1,4 +1,5 @@
-﻿using DailyKanji.Helper;
+﻿using DailyKanji.Enumerations;
+using DailyKanji.Helper;
 using System;
 using System.Linq;
 using System.Windows.Input;
@@ -12,6 +13,13 @@ namespace DailyKanji.Mvvm.ViewModel
 
         public ICommand CloseProgram
             => new CommandHelper(() => _mainWindow.Close());
+
+        public ICommand ChangeTestType
+            => new CommandHelper((testType) =>
+            {
+                Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRomaji;
+                CreateNewTest();
+            });
 
         public ICommand ChangeErrorTimeout
             => new CommandHelper((timeout) =>

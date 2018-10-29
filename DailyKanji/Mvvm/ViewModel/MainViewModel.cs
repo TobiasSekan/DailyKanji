@@ -13,13 +13,14 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
 
-    // TODO: Make colours choose-able
+    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + status-bar (menu okay)
+    // TODO: Add tests for Roomaji to Katakana and Roomaji to hiragana
 
     // TODO: Recalculate buttons (button width), when window is resized
 
-    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + menu + status-bar
-
     // TODO: Save and load settings from JSON
+
+    // TODO: Make colours choose-able
 
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
@@ -86,12 +87,12 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 for(var repeatCount = 0; repeatCount < question.WrongHiragana + 1; repeatCount++)
                 {
-                    questionList.Add(new TestModel(question, TestType.HiraganaToRomaji));
+                    questionList.Add(new TestModel(question, TestType.HiraganaToRoomaji));
                 }
 
                 for(var repeatCount = 0; repeatCount < question.WrongKatakana + 1; repeatCount++)
                 {
-                    questionList.Add(new TestModel(question, TestType.KatakanaToRomaji));
+                    questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
                 }
             }
 
@@ -106,7 +107,7 @@ namespace DailyKanji.Mvvm.ViewModel
             if(Model.CurrentTest == null)
             {
                 Model.CurrentTest    = GetRandomTest();
-                Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRomaji
+                Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
                                             ? Model.CurrentTest.Hiragana
                                             : Model.CurrentTest.Katakana;
                 return;
@@ -120,7 +121,7 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             Model.CurrentTest    = newQuest;
-            Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRomaji
+            Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
                                         ? Model.CurrentTest.Hiragana
                                         : Model.CurrentTest.Katakana;
         }
