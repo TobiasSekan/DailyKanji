@@ -52,6 +52,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enumerations\TestType.cs" />
     <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\Expressions.cs" />
     <Compile Include="Helper\PropertyChangedHelper.cs" />
@@ -66,6 +67,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mvvm\Model\TestModel.cs" />
+    <Compile Include="Mvvm\Model\TestBaseModel.cs" />
     <Compile Include="Mvvm\ViewModel\MainViewModelCommands.cs" />
     <Compile Include="Mvvm\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

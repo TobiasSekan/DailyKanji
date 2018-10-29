@@ -1,37 +1,12 @@
-﻿namespace DailyKanji.Mvvm.Model
+﻿using DailyKanji.Enumerations;
+
+namespace DailyKanji.Mvvm.Model
 {
-    public sealed class TestModel
+    public sealed class TestModel : TestBaseModel
     {
-        /// <summary>
-        /// The sign in Roomaji
-        /// </summary>
-        public string Roomaji { get; }
+        internal TestType TestType { get; }
 
-        /// <summary>
-        /// The sign in Hiragana
-        /// </summary>
-        public string Hiragana { get; }
-
-        /// <summary>
-        /// The sign in Katakana
-        /// </summary>
-        public string Katakana { get; }
-
-        /// <summary>
-        /// The count of wrong answers when the hiragana sign was ask
-        /// </summary>
-        public uint WrongHiragana { get; internal set; }
-
-        /// <summary>
-        /// The count of wrong answers when the katakana sign was ask
-        /// </summary>
-        public uint WrongKatakana { get; internal set; }
-
-        public TestModel(string roomaji, string hiragana, string katakana)
-        {
-            Roomaji  = roomaji;
-            Hiragana = hiragana;
-            Katakana = katakana;
-        }
+        internal TestModel(TestBaseModel testBaseModel, TestType testType) : base(testBaseModel)
+            => TestType = testType;
     }
 }

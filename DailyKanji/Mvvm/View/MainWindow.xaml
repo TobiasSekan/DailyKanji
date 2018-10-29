@@ -433,7 +433,7 @@
                            HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Question pool: " />
-                    <TextBlock Text="{Binding Path=Model.NewQuestionList.Count}" />
+                    <TextBlock Text="{Binding Path=Model.QuestionPoolString}" />
                 </StackPanel>
             </StatusBarItem>
 

@@ -1,4 +1,5 @@
-﻿using DailyKanji.Helper;
+﻿using DailyKanji.Enumerations;
+using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using System;
@@ -17,8 +18,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Recalculate buttons (button width), when window is resized
 
     // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + menu + status-bar
-
-    // TODO: NewQuestionList -> Add only Hiragana or Katakana of the same question based on the fail count
 
     // TODO: Save and load settings from JSON
 
@@ -85,9 +84,14 @@ namespace DailyKanji.Mvvm.ViewModel
 
             foreach(var question in Model.AllTestsList)
             {
-                for(var repeatCount = 0; repeatCount < (question.WrongHiragana + question.WrongKatakana + 1); repeatCount++)
+                for(var repeatCount = 0; repeatCount < question.WrongHiragana + 1; repeatCount++)
                 {
-                    questionList.Add(question);
+                    questionList.Add(new TestModel(question, TestType.HiraganaToRomaji));
+                }
+
+                for(var repeatCount = 0; repeatCount < question.WrongKatakana + 1; repeatCount++)
+                {
+                    questionList.Add(new TestModel(question, TestType.KatakanaToRomaji));
                 }
             }
 
@@ -102,7 +106,9 @@ namespace DailyKanji.Mvvm.ViewModel
             if(Model.CurrentTest == null)
             {
                 Model.CurrentTest    = GetRandomTest();
-                Model.CurrentAskSign = Model.Randomizer.Next(0, 1) == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
+                Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRomaji
+                                            ? Model.CurrentTest.Hiragana
+                                            : Model.CurrentTest.Katakana;
                 return;
             }
 
@@ -114,7 +120,9 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             Model.CurrentTest    = newQuest;
-            Model.CurrentAskSign = Model.Randomizer.Next(0, 2) == 0 ? Model.CurrentTest.Hiragana : Model.CurrentTest.Katakana;
+            Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRomaji
+                                        ? Model.CurrentTest.Hiragana
+                                        : Model.CurrentTest.Katakana;
         }
 
         /// <summary>
@@ -122,7 +130,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void ChooseNewPossibleAnswers()
         {
-            var list = new ObservableCollection<TestModel>
+            var list = new ObservableCollection<TestBaseModel>
             {
                 Model.CurrentTest
             };
@@ -131,7 +139,7 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 var possibleAnswer = GetRandomTest();
 
-                if(list.Contains(possibleAnswer))
+                if(list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
                 {
                     continue;
                 }
@@ -143,8 +151,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 }
 
                 if(!possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
-                   && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
-                   && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
+                && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
+                && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
                 {
                     continue;
                 }
@@ -177,14 +185,18 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            if(Model.CurrentAskSign == Model.CurrentTest.Hiragana)
+            var test = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
+            if(test != null)
             {
-                Model.CurrentTest.WrongHiragana++;
-            }
+                if(Model.CurrentAskSign == test.Hiragana)
+                {
+                    test.WrongHiragana++;
+                }
 
-            if(Model.CurrentAskSign == Model.CurrentTest.Katakana)
-            {
-                Model.CurrentTest.WrongKatakana++;
+                if(Model.CurrentAskSign == test.Katakana)
+                {
+                    test.WrongKatakana++;
+                }
             }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
