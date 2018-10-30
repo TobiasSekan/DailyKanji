@@ -16,6 +16,11 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + status-bar (menu okay)
     // TODO: Add tests for Roomaji to Katakana and Roomaji to hiragana
 
+    // TODO: On similar answeres, in some circumstance it is easy to direct find the correct answer
+    //       we need a prevention for this 
+    //
+    //       Maybe: Only the first character or last charachter musst the same on less then five answers
+
     // TODO: Recalculate buttons (button width), when window is resized
 
     // TODO: Save and load settings from JSON
@@ -271,7 +276,8 @@ namespace DailyKanji.Mvvm.ViewModel
                     var buttonText = new TextBlock
                     {
                         Text     = Model.PossibleAnswers[answerNumber].Roomaji,
-                        FontSize = 50
+                        FontSize = 100 - (5 * Model.MaximumAnswer),
+                        VerticalAlignment = VerticalAlignment.Center
                     };
 
                     var button = new Button
