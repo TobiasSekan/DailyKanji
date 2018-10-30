@@ -11,21 +11,27 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
+    //       Note: Prevent it direct inside the command handlers
+
+    // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
+    //       we need a prevention for this 
+    //
+    //       Maybe: Only the first character or last character must the same on less then five answers
+
+    // TODO: Count right answers (one counter for Hiragana and one counter Katakana)
+    // TODO: Change test order so that all tests will be ask
+
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
 
     // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + status-bar (menu okay)
     // TODO: Add tests for Roomaji to Katakana and Roomaji to hiragana
 
-    // TODO: On similar answeres, in some circumstance it is easy to direct find the correct answer
-    //       we need a prevention for this 
-    //
-    //       Maybe: Only the first character or last charachter musst the same on less then five answers
-
     // TODO: Recalculate buttons (button width), when window is resized
 
     // TODO: Save and load settings from JSON
 
-    // TODO: Make colours choose-able
+    // TODO: Make colors choose-able
 
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
