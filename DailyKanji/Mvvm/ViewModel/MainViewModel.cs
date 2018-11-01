@@ -32,6 +32,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Make colours choose-able
 
+    // TODO: count time for each test (time between new question and the correct answer)
+    //       - new properties
+    //       - visible timer in 0.1 second (can be deactivated via menu)
+
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
 
