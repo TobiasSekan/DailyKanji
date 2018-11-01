@@ -196,7 +196,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.IgnoreInput = true;
 
             var test = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
-            if(test != null)
+            if(test == null)
             {
                 throw new ArgumentNullException("test", "Test not found");
             }
