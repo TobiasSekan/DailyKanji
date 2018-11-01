@@ -24,7 +24,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
 
-    // TODO: Make kind of question choose-able (Hiragana, Katakana, ...) + status-bar (menu okay)
     // TODO: Add tests for Roomaji to Katakana and Roomaji to hiragana
 
     // TODO: Recalculate buttons (button width), when window is resized
@@ -98,7 +97,7 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 if(Model.MainTestType != TestType.KatakanaToRoomaji)
                 {
-                    for(var repeatCount = 0; repeatCount < question.WrongHiragana + 1; repeatCount++)
+                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
                         questionList.Add(new TestModel(question, TestType.HiraganaToRoomaji));
                     }
@@ -106,7 +105,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 if(Model.MainTestType != TestType.HiraganaToRoomaji)
                 {
-                    for(var repeatCount = 0; repeatCount < question.WrongKatakana + 1; repeatCount++)
+                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
                         questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
                     }
@@ -196,25 +195,36 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.IgnoreInput = true;
 
-            if(answer == Model.CurrentTest.Roomaji)
-            {
-                Model.RightAnswerCount++;
-                CreateNewTest();
-                return;
-            }
-
             var test = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
             if(test != null)
             {
+                throw new ArgumentNullException("test", "Test not found");
+            }
+
+            if(answer == Model.CurrentTest.Roomaji)
+            {
                 if(Model.CurrentAskSign == test.Hiragana)
                 {
-                    test.WrongHiragana++;
+                    test.CorrectHiraganaCount++;
                 }
 
                 if(Model.CurrentAskSign == test.Katakana)
                 {
-                    test.WrongKatakana++;
+                    test.CorrectKatakanaCount++;
                 }
+
+                CreateNewTest();
+                return;
+            }
+
+            if(Model.CurrentAskSign == test.Hiragana)
+            {
+                test.WrongHiraganaCount++;
+            }
+
+            if(Model.CurrentAskSign == test.Katakana)
+            {
+                test.WrongKatakanaCount++;
             }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>

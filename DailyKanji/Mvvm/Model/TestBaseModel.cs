@@ -18,15 +18,31 @@
         public string Katakana { get; internal set; }
 
         /// <summary>
-        /// The count of wrong answers when the hiragana sign was ask
+        /// The count of wrong answers when the Hiragana sign was ask
         /// </summary>
-        public uint WrongHiragana { get; internal set; }
+        public int WrongHiraganaCount { get; internal set; }
 
         /// <summary>
-        /// The count of wrong answers when the katakana sign was ask
+        /// The count of wrong answers when the Katakana sign was ask
         /// </summary>
-        public uint WrongKatakana { get; internal set; }
+        public int WrongKatakanaCount { get; internal set; }
 
+        /// <summary>
+        /// The count of correct answers when the Hiragana sign was ask
+        /// </summary>
+        public int CorrectHiraganaCount { get; internal set; }
+
+        /// <summary>
+        /// The count of correct answers when the Katakana sign was ask
+        /// </summary>
+        public int CorrectKatakanaCount { get; internal set; }
+
+        /// <summary>
+        /// Create a new test, based on the given values
+        /// </summary>
+        /// <param name="roomaji">The sign in Roomaji</param>
+        /// <param name="hiragana">The sign in Hiragana</param>
+        /// <param name="katakana">The sign in Katakana</param>
         public TestBaseModel(string roomaji, string hiragana, string katakana)
         {
             Roomaji  = roomaji;
@@ -34,13 +50,19 @@
             Katakana = katakana;
         }
 
+        /// <summary>
+        /// Create a new test, based on the given <see cref="TestBaseModel"/>
+        /// </summary>
+        /// <param name="testBaseModel">The <see cref="TestBaseModel"/> for this test</param>
         protected TestBaseModel(TestBaseModel testBaseModel)
         {
-            Roomaji       = testBaseModel.Roomaji;
-            Hiragana      = testBaseModel.Hiragana;
-            Katakana      = testBaseModel.Katakana;
-            WrongHiragana = testBaseModel.WrongHiragana;
-            WrongKatakana = testBaseModel.WrongKatakana;
+            Roomaji              = testBaseModel.Roomaji;
+            Hiragana             = testBaseModel.Hiragana;
+            Katakana             = testBaseModel.Katakana;
+            WrongHiraganaCount   = testBaseModel.WrongHiraganaCount;
+            WrongKatakanaCount   = testBaseModel.WrongKatakanaCount;
+            CorrectHiraganaCount = testBaseModel.CorrectHiraganaCount;
+            CorrectKatakanaCount = testBaseModel.CorrectKatakanaCount;
         }
     }
 }

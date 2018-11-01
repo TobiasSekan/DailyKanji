@@ -39,20 +39,6 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The count of right answers
-        /// </summary>
-        public uint RightAnswerCount
-        {
-            get => _rightAnswerCount;
-            internal set
-            {
-                _rightAnswerCount = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(CurrentRateText));
-            }
-        }
-
-        /// <summary>
         /// The current colour of all answer buttons
         /// </summary>
         public ObservableCollection<Brush> AnswerButtonColor
@@ -88,7 +74,8 @@ namespace DailyKanji.Mvvm.Model
             {
                 _currentAskSign = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(WrongAnswers));
+                OnPropertyChanged(nameof(WrongAnswerCountString));
+                OnPropertyChanged(nameof(RightAnswerCountString));
             }
         }
 
@@ -99,10 +86,11 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
-                var wrongAnswerCount = AllTestsList.Sum(found => found.WrongHiragana + found.WrongKatakana);
+                var wrongAnswerCount = AllTestsList.Sum(found => found.WrongHiraganaCount + found.WrongKatakanaCount);
+                var rightAnswerCount = AllTestsList.Sum(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount);
 
                 return wrongAnswerCount != 0
-                    ? $"{Math.Round(100.0 / (wrongAnswerCount + RightAnswerCount) * RightAnswerCount, 2)}%"
+                    ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2)}%"
                     : "100%";
             }
         }
@@ -168,8 +156,13 @@ namespace DailyKanji.Mvvm.Model
             => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji)}"
              + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji)}";
 
-        public IEnumerable<TestBaseModel> WrongAnswers
-            => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
+        public string WrongAnswerCountString
+            => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount)}"
+             + $" K: {AllTestsList.Sum(found => found.WrongKatakanaCount)}";
+
+        public string RightAnswerCountString
+            => $"H: {AllTestsList.Sum(found => found.CorrectHiraganaCount)}"
+             + $" K: {AllTestsList.Sum(found => found.CorrectKatakanaCount)}";
 
         public string TestTypeString
         {
@@ -217,11 +210,6 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="PossibleAnswers"/>
         /// </summary>
         private ObservableCollection<TestBaseModel> _possibleAnswers;
-
-        /// <summary>
-        /// Backing-field for <see cref="RightAnswerCount"/>
-        /// </summary>
-        private uint _rightAnswerCount;
 
         /// <summary>
         /// Backing-field for <see cref="AnswerButtonColor"/>
