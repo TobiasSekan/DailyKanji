@@ -171,6 +171,24 @@ namespace DailyKanji.Mvvm.Model
         public IEnumerable<TestBaseModel> WrongAnswers
             => AllTestsList.Where(found => found.WrongHiragana > 0 || found.WrongKatakana > 0);
 
+        public string TestTypeString
+        {
+            get
+            {
+                switch(MainTestType)
+                {
+                    case TestType.HiraganaToRoomaji:
+                        return "H => R";
+
+                    case TestType.KatakanaToRoomaji:
+                        return "K => R";
+
+                    default:
+                        return "H / K => R";
+                }
+            }
+        }
+
         /// <summary>
         /// Global random generator
         /// </summary>

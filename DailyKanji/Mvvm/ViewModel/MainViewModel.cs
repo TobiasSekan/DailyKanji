@@ -17,10 +17,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
     //       we need a prevention for this 
     //
-    //       Maybe: Only the first character or last character must the same on less then five answers
+    //       Maybe: Only the first character or last character must are the same on less then five answers
 
     // TODO: Count right answers (one counter for Hiragana and one counter Katakana)
-    // TODO: Change test order so that all tests will be ask
+    // TODO: Change test order so that all tests will be ask (based on ask counter)
 
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
 
@@ -31,7 +31,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Save and load settings from JSON
 
-    // TODO: Make colors choose-able
+    // TODO: Make colours choose-able
 
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
@@ -96,14 +96,20 @@ namespace DailyKanji.Mvvm.ViewModel
 
             foreach(var question in Model.AllTestsList)
             {
-                for(var repeatCount = 0; repeatCount < question.WrongHiragana + 1; repeatCount++)
+                if(Model.MainTestType != TestType.KatakanaToRoomaji)
                 {
-                    questionList.Add(new TestModel(question, TestType.HiraganaToRoomaji));
+                    for(var repeatCount = 0; repeatCount < question.WrongHiragana + 1; repeatCount++)
+                    {
+                        questionList.Add(new TestModel(question, TestType.HiraganaToRoomaji));
+                    }
                 }
 
-                for(var repeatCount = 0; repeatCount < question.WrongKatakana + 1; repeatCount++)
+                if(Model.MainTestType != TestType.HiraganaToRoomaji)
                 {
-                    questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
+                    for(var repeatCount = 0; repeatCount < question.WrongKatakana + 1; repeatCount++)
+                    {
+                        questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
+                    }
                 }
             }
 

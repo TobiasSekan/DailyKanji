@@ -364,7 +364,7 @@
                 <ColumnDefinition Width="15" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
         </Grid>
 
         <TextBlock Grid.Row="1"
@@ -380,17 +380,17 @@
 
         <StackPanel Grid.Row="1"
                     Grid.Column="2">
-            
+
             <TextBlock HorizontalAlignment="Center"
                        Text="Error list" />
-            
+
             <ScrollViewer>
-                
+
                 <DataGrid HeadersVisibility="Column"
                           ItemsSource="{Binding Path=Model.WrongAnswers}" />
-                
+
             </ScrollViewer>
-            
+
         </StackPanel>
 
         <StackPanel x:Name="AnswerButtonArea"
@@ -424,14 +424,14 @@
 
             <StatusBarItem Grid.Column="0"
                            HorizontalContentAlignment="Center">
-                
+
                 <StackPanel Orientation="Horizontal">
-                    
+
                     <TextBlock Text="Similar answers: " />
                     <TextBlock Text="{Binding Path=Model.SimilarAnswers}" />
-                    
+
                 </StackPanel>
-                
+
             </StatusBarItem>
 
             <Separator Grid.Column="1" />
@@ -444,65 +444,65 @@
                     <TextBlock Text="Correct answers: " />
 
                     <TextBlock Text="{Binding Path=Model.RightAnswerCount}" />
-                        
+
                 </StackPanel>
-                    
+
             </StatusBarItem>
 
             <Separator Grid.Column="3" />
 
             <StatusBarItem Grid.Column="4"
                            HorizontalContentAlignment="Center">
-                
+
                 <StackPanel Orientation="Horizontal">
-                    
+
                     <TextBlock Text="Wrong answers: " />
                     <TextBlock Text="{Binding Path=Model.WrongAnswers.Count}" />
-                    
+
                 </StackPanel>
-                
+
             </StatusBarItem>
 
             <Separator Grid.Column="5" />
 
             <StatusBarItem Grid.Column="6"
                            HorizontalContentAlignment="Center">
-                
+
                 <StackPanel Orientation="Horizontal">
-                    
+
                     <TextBlock Text="Rate: " />
                     <TextBlock Text="{Binding Path=Model.CurrentRateText}" />
-                    
+
                 </StackPanel>
-                
+
             </StatusBarItem>
 
             <Separator Grid.Column="7" />
 
             <StatusBarItem Grid.Column="8"
                            HorizontalContentAlignment="Center">
-                
+
                 <StackPanel Orientation="Horizontal">
-                    
+
                     <TextBlock Text="Question pool: " />
                     <TextBlock Text="{Binding Path=Model.QuestionPoolString}" />
-                    
+
                 </StackPanel>
-                
+
             </StatusBarItem>
 
             <Separator Grid.Column="9" />
 
             <StatusBarItem Grid.Column="10"
                            HorizontalContentAlignment="Center">
-                
+
                 <StackPanel Orientation="Horizontal">
-                    
-                    <TextBlock Text="Unique tests: " />
-                    <TextBlock Text="{Binding Path=Model.AllTestsList.Count}" />
-                    
+
+                    <TextBlock Text="Test type: " />
+                    <TextBlock Text="{Binding Path=Model.TestTypeString}" />
+
                 </StackPanel>
-                
+
             </StatusBarItem>
 
         </StatusBar>
