@@ -82,10 +82,19 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void CreateNewTest()
         {
+            Model.AllTestsList = Model.AllTestsList
+                                      .OrderByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
+                                      .ThenByDescending(found => found.WrongHiraganaCount)
+                                      .ThenByDescending(found => found.WrongKatakanaCount)
+                                      .ThenByDescending(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount)
+                                      .ThenByDescending(found => found.CorrectHiraganaCount)
+                                      .ThenByDescending(found => found.CorrectKatakanaCount);
+
             BuildNewQuestionList();
             ChooseNewSign();
             ChooseNewPossibleAnswers();
             BuildAnswerButtons();
+
             Model.IgnoreInput = false;
         }
 

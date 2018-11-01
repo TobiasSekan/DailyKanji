@@ -52,7 +52,7 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The current color of the ask sign
+        /// The current colour of the ask sign
         /// </summary>
         public Brush CurrentAskSignColor
         {
@@ -190,7 +190,15 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// List with all possible tests
         /// </summary>
-        public IReadOnlyCollection<TestBaseModel> AllTestsList { get; }
+        public IEnumerable<TestBaseModel> AllTestsList
+        {
+            get => _allTestsList;
+            set
+            {
+                _allTestsList = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Indicate that the current input (mouse and keyboard) will ignore and no processed
@@ -245,7 +253,16 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ErrorTimeout"/>
         /// </summary>
         private int _errorTimeout;
+
+        /// <summary>
+        /// Backing-field for <see cref="MainTestType"/>
+        /// </summary>
         private TestType _mainTestType;
+
+        /// <summary>
+        /// Backing-field for <see cref="AllTestsList"/>
+        /// </summary>
+        private IEnumerable<TestBaseModel> _allTestsList;
 
         #endregion Private Backing-Fields
 

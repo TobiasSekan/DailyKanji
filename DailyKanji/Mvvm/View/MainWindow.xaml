@@ -357,13 +357,28 @@
                    Text="{Binding Path=Model.CurrentAskSign}"
                    TextAlignment="Center" />
 
-        <ScrollViewer Grid.Row="1"
-                      Grid.Column="2">
+            <DataGrid Grid.Row="1"
+                      Grid.Column="2"
+                      HeadersVisibility="Column"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Path=Model.AllTestsList}">
 
-            <DataGrid HeadersVisibility="Column"
-                      ItemsSource="{Binding Path=Model.AllTestsList}" />
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Roomaji" Binding="{Binding Path=Roomaji }" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Hiragana" Binding="{Binding Path=Hiragana}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Katakana" Binding="{Binding Path=Katakana}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Wrong Hiragana" Binding="{Binding Path=WrongHiraganaCount}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Wrong Katakana" Binding="{Binding Path=WrongKatakanaCount}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Correct Hiragana" Binding="{Binding Path=CorrectHiraganaCount}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Correct Katakana" Binding="{Binding Path=CorrectKatakanaCount}" IsReadOnly="True" />
+                </DataGrid.Columns>
 
-        </ScrollViewer>
+            </DataGrid>
 
         <StackPanel x:Name="AnswerButtonArea"
                     Grid.Row="3"
