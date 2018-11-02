@@ -7,17 +7,17 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The sign in Roomaji
         /// </summary>
-        public string Roomaji { get; internal set; }
+        public string Roomaji { get; set; }
 
         /// <summary>
         /// The sign in Hiragana
         /// </summary>
-        public string Hiragana { get; internal set; }
+        public string Hiragana { get; set; }
 
         /// <summary>
         /// The sign in Katakana
         /// </summary>
-        public string Katakana { get; internal set; }
+        public string Katakana { get; set; }
 
         /// <summary>
         /// The count of wrong answers when the Hiragana sign was ask
@@ -25,7 +25,7 @@ namespace DailyKanji.Mvvm.Model
         public int WrongHiraganaCount
         {
             get => _wrongHiraganaCount;
-            internal set
+            set
             {
                 _wrongHiraganaCount = value;
                 OnPropertyChanged();
@@ -38,7 +38,7 @@ namespace DailyKanji.Mvvm.Model
         public int WrongKatakanaCount
         {
             get => _wrongKatakanaCount;
-            internal set
+            set
             {
                 _wrongKatakanaCount = value;
                 OnPropertyChanged();
@@ -51,7 +51,7 @@ namespace DailyKanji.Mvvm.Model
         public int CorrectHiraganaCount
         {
             get => _correctHiraganaCount;
-            internal set
+            set
             {
                 _correctHiraganaCount = value;
                 OnPropertyChanged();
@@ -64,7 +64,7 @@ namespace DailyKanji.Mvvm.Model
         public int CorrectKatakanaCount
         {
             get => _correctKatakanaCount;
-            internal set
+            set
             {
                 _correctKatakanaCount = value;
                 OnPropertyChanged();

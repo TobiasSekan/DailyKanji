@@ -27,8 +27,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Recalculate buttons (button width), when window is resized
 
-    // TODO: Save and load settings from JSON
-
     // TODO: Make colours choose-able
 
     // TODO: count time for each test (time between new question and the correct answer)
@@ -42,7 +40,7 @@ namespace DailyKanji.Mvvm.ViewModel
     {
         #region Public Properties
 
-        public MainModel Model { get; }
+        public MainModel Model { get; private set; }
 
         #endregion Public Properties
 
@@ -58,21 +56,32 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Model = new MainModel();
 
+            LoadSettings();
+
+            var list = KanaHelper.GetKanaList();
+            if(list?.Count() != Model.AllTestsList?.Count())
+            {
+                Model.AllTestsList = list;
+            }
+
+            Model.Randomizer        = new Random();
+            Model.AnswerButtonColor = new ObservableCollection<Brush>();
+            Model.PossibleAnswers   = new ObservableCollection<TestBaseModel>();
+            Model.NewQuestionList   = new Collection<TestModel>();
+
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
             }
 
-            Model.SimilarAnswers = true;
+            _mainWindow = new MainWindow(this);
 
             BuildNewQuestionList();
             ChooseNewSign();
-
-            _mainWindow = new MainWindow(this);
-
             CreateNewTest();
             RemoveAnswerColors();
 
+            _mainWindow.Closed += (_, __) => SaveSettings();
             _mainWindow.Show();
         }
 
@@ -338,6 +347,36 @@ namespace DailyKanji.Mvvm.ViewModel
                     _mainWindow.AnswerButtonArea.Children.Add(stackPanel);
                 }
             }));
+
+        internal void SaveSettings()
+        {
+            try
+            {
+                JsonHelper.WriteJson("settings.json", Model);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show("Can't save settings" + Environment.NewLine + Environment.NewLine + exception.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+        }
+
+        internal void LoadSettings()
+        {
+            try
+            {
+                Model = JsonHelper.ReadJson<MainModel>("settings.json");
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show("Can't load settings" + Environment.NewLine + Environment.NewLine + exception.ToString(),
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+        }
 
         #endregion Internal Methods
     }

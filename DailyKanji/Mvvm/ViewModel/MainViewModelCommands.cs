@@ -22,10 +22,7 @@ namespace DailyKanji.Mvvm.ViewModel
             });
 
         public ICommand ChangeErrorTimeout
-            => new CommandHelper((timeout) =>
-            {
-                Model.ErrorTimeout = Convert.ToInt32(timeout);
-            });
+            => new CommandHelper((timeout) => Model.ErrorTimeout = Convert.ToInt32(timeout));
 
         public ICommand ChangeAnswerCount
             => new CommandHelper((value) =>

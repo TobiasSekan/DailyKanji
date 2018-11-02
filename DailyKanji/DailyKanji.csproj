@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,6 +57,8 @@
     <Compile Include="Enumerations\TestType.cs" />
     <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\Expressions.cs" />
+    <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\KanaHelper.cs" />
     <Compile Include="Helper\PropertyChangedHelper.cs" />
     <Compile Include="Helper\ValueToBooleanConverter.cs" />
     <Compile Include="Mvvm\Model\MainModel.cs" />
@@ -83,6 +87,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

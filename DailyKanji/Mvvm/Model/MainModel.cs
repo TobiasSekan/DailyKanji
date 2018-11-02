@@ -1,5 +1,6 @@
 ﻿using DailyKanji.Enumerations;
 using DailyKanji.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,10 +16,11 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current sign quest
         /// </summary>
+        [JsonIgnore]
         public TestModel CurrentTest
         {
             get => _currentTest;
-            internal set
+            set
             {
                 _currentTest = value;
                 OnPropertyChanged();
@@ -28,10 +30,11 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// A list with possible answers
         /// </summary>
+        [JsonIgnore]
         public ObservableCollection<TestBaseModel> PossibleAnswers
         {
             get => _possibleAnswers;
-            internal set
+            set
             {
                 _possibleAnswers = value;
                 OnPropertyChanged();
@@ -41,10 +44,11 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of all answer buttons
         /// </summary>
+        [JsonIgnore]
         public ObservableCollection<Brush> AnswerButtonColor
         {
             get => _buttonColor;
-            internal set
+            set
             {
                 _buttonColor = value;
                 OnPropertyChanged();
@@ -54,10 +58,11 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of the ask sign
         /// </summary>
+        [JsonIgnore]
         public Brush CurrentAskSignColor
         {
             get => _currentAskSignColor;
-            internal set
+            set
             {
                 _currentAskSignColor = value;
                 OnPropertyChanged();
@@ -67,31 +72,16 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current ask sign
         /// </summary>
+        [JsonIgnore]
         public string CurrentAskSign
         {
             get => _currentAskSign;
-            internal set
+            set
             {
                 _currentAskSign = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(WrongAnswerCountString));
                 OnPropertyChanged(nameof(RightAnswerCountString));
-            }
-        }
-
-        /// <summary>
-        /// Return the current rate in percent
-        /// </summary>
-        public string CurrentRateText
-        {
-            get
-            {
-                var wrongAnswerCount = AllTestsList.Sum(found => found.WrongHiraganaCount + found.WrongKatakanaCount);
-                var rightAnswerCount = AllTestsList.Sum(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount);
-
-                return wrongAnswerCount != 0
-                    ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2)}%"
-                    : "100%";
             }
         }
 
@@ -118,10 +108,11 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        [JsonIgnore]
         public IReadOnlyCollection<TestModel> NewQuestionList
         {
             get => _newQuestionList;
-            internal set
+            set
             {
                 _newQuestionList = value;
                 OnPropertyChanged();
@@ -152,18 +143,35 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// List with all possible tests
+        /// </summary>
+        public IEnumerable<TestBaseModel> AllTestsList
+        {
+            get => _allTestsList;
+            set
+            {
+                _allTestsList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
         public string QuestionPoolString
             => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji)}"
              + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji)}";
 
+        [JsonIgnore]
         public string WrongAnswerCountString
             => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount)}"
              + $" K: {AllTestsList.Sum(found => found.WrongKatakanaCount)}";
 
+        [JsonIgnore]
         public string RightAnswerCountString
             => $"H: {AllTestsList.Sum(found => found.CorrectHiraganaCount)}"
              + $" K: {AllTestsList.Sum(found => found.CorrectKatakanaCount)}";
 
+        [JsonIgnore]
         public string TestTypeString
         {
             get
@@ -182,23 +190,27 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+                /// <summary>
+        /// Return the current rate in percent
+        /// </summary>
+        [JsonIgnore]
+        public string CurrentRateText
+        {
+            get
+            {
+                var wrongAnswerCount = AllTestsList.Sum(found => found.WrongHiraganaCount + found.WrongKatakanaCount);
+                var rightAnswerCount = AllTestsList.Sum(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount);
+
+                return wrongAnswerCount != 0
+                    ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2)}%"
+                    : "100%";
+            }
+        }
+
         /// <summary>
         /// Global random generator
         /// </summary>
-        internal Random Randomizer { get; }
-
-        /// <summary>
-        /// List with all possible tests
-        /// </summary>
-        public IEnumerable<TestBaseModel> AllTestsList
-        {
-            get => _allTestsList;
-            set
-            {
-                _allTestsList = value;
-                OnPropertyChanged();
-            }
-        }
+        internal Random Randomizer { get; set; }
 
         /// <summary>
         /// Indicate that the current input (mouse and keyboard) will ignore and no processed
@@ -270,74 +282,10 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
-            MainTestType      = TestType.HiraganaOrKatakanaToRomaji;
-            ErrorTimeout      = 1_500;
-            MaximumAnswer     = 5;
-            Randomizer        = new Random();
-            AnswerButtonColor = new ObservableCollection<Brush>();
-            PossibleAnswers   = new ObservableCollection<TestBaseModel>();
-            NewQuestionList   = new Collection<TestModel>();
-
-            AllTestsList = new Collection<TestBaseModel>
-            {
-                // Kana Signs, Think Now How Much You Really Want (to learn them).
-                new TestBaseModel("a", "あ", "ア"),
-                new TestBaseModel("i", "い", "イ"),
-                new TestBaseModel("u", "う", "ウ"),
-                new TestBaseModel("e", "え", "エ"),
-                new TestBaseModel("o", "お", "オ"),
-
-                new TestBaseModel("ka", "か", "カ"),
-                new TestBaseModel("ki", "き", "キ"),
-                new TestBaseModel("ku", "く", "ク"),
-                new TestBaseModel("ke", "け", "ケ"),
-                new TestBaseModel("ko", "こ", "コ"),
-
-                new TestBaseModel("sa", "さ", "サ"),
-                new TestBaseModel("shi","し", "シ"),
-                new TestBaseModel("su", "す", "ス"),
-                new TestBaseModel("se", "せ", "セ"),
-                new TestBaseModel("so", "そ", "ソ"),
-
-                new TestBaseModel("ta", "た", "タ"),
-                new TestBaseModel("chi","ち", "チ"),
-                new TestBaseModel("tsu","つ", "ツ"),
-                new TestBaseModel("te", "て", "テ"),
-                new TestBaseModel("to", "と", "ト"),
-
-                new TestBaseModel("na", "な", "ナ"),
-                new TestBaseModel("ni", "に", "ニ"),
-                new TestBaseModel("nu", "ぬ", "ヌ"),
-                new TestBaseModel("ne", "ね", "ネ"),
-                new TestBaseModel("no", "の", "ノ"),
-
-                new TestBaseModel("ha", "は", "ハ"),
-                new TestBaseModel("hi", "ひ", "ヒ"),
-                new TestBaseModel("fu", "ふ", "フ"),
-                new TestBaseModel("he", "へ", "ヘ"),
-                new TestBaseModel("ho", "ほ", "ホ"),
-
-                new TestBaseModel("ma", "ま", "マ"),
-                new TestBaseModel("mi", "み", "ミ"),
-                new TestBaseModel("mu", "む", "ム"),
-                new TestBaseModel("me", "め", "メ"),
-                new TestBaseModel("mo", "も", "モ"),
-
-                new TestBaseModel("ya", "や", "ヤ"),
-                new TestBaseModel("yu", "ゆ", "ユ"),
-                new TestBaseModel("yo", "よ", "ヨ"),
-
-                new TestBaseModel("ra", "ら", "ラ"),
-                new TestBaseModel("ri", "り", "リ"),
-                new TestBaseModel("ru", "る", "ル"),
-                new TestBaseModel("re", "れ", "レ"),
-                new TestBaseModel("ro", "ろ", "ロ"),
-
-                new TestBaseModel("wa", "わ", "ワ"),
-                new TestBaseModel("wo", "を", "ヲ"),
-
-                new TestBaseModel("n",  "ん", "ン")
-            };
+            MainTestType   = TestType.HiraganaOrKatakanaToRomaji;
+            ErrorTimeout   = 1_500;
+            MaximumAnswer  = 5;
+            SimilarAnswers = true;
         }
 
         #endregion Public Constructors
