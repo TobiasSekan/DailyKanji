@@ -19,12 +19,11 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
 
-    // TODO: Count right answers (one counter for Hiragana and one counter Katakana)
     // TODO: Change test order so that all tests will be ask (based on ask counter)
 
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
 
-    // TODO: Add tests for Roomaji to Katakana and Roomaji to hiragana
+    // TODO: Add tests for Roomaji to Katakana and Roomaji to Hiragana
 
     // TODO: Recalculate buttons (button width), when window is resized
 
@@ -310,26 +309,27 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     var buttonText = new TextBlock
                     {
-                        Text     = Model.PossibleAnswers[answerNumber].Roomaji,
-                        FontSize = 100 - (5 * Model.MaximumAnswer),
+                        FontSize          = 100 - (5 * Model.MaximumAnswer),
+                        Text              = Model.PossibleAnswers[answerNumber].Roomaji,
+                        Padding           = new Thickness(0, 0, 0, 20),
                         VerticalAlignment = VerticalAlignment.Center
                     };
 
                     var button = new Button
                     {
+                        Background       = Model.AnswerButtonColor[answerNumber],
+                        Command          = AnswerNumber,
+                        CommandParameter = $"{answerNumber + 1}",
                         Content          = buttonText,
                         Height           = 100,
-                        Width            = (980 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer,
                         Margin           = new Thickness(5, 0, 5, 0),
-                        Background       = Model.AnswerButtonColor[answerNumber],
-                        CommandParameter = $"{answerNumber + 1}",
-                        Command          = AnswerNumber
+                        Width            = (980 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer
                     };
 
                     var noteText = new TextBlock
                     {
-                        Text = $"{answerNumber + 1}",
-                        HorizontalAlignment = HorizontalAlignment.Center
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Text                = $"{answerNumber + 1}",
                     };
 
                     stackPanel.Children.Add(button);
