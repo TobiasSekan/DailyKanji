@@ -217,6 +217,11 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal bool IgnoreInput { get; set; }
 
+        /// <summary>
+        /// The time stamp when the test was start
+        /// </summary>
+        internal DateTime TestStartTime { get; set; }
+
         #endregion Public Properties
 
         #region Private Backing-Fields

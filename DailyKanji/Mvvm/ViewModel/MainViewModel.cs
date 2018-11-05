@@ -29,9 +29,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // TODO: Make colours choose-able
 
-    // TODO: count time for each test (time between new question and the correct answer)
-    //       - new properties
-    //       - visible timer in 0.1 second (can be deactivated via menu)
+    // TODO: visible timer in 0.1 second (can be deactivated via menu)
+    // TODO: show average answer time for the current sign (calculate with the current running answer time)
 
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
@@ -107,7 +106,8 @@ namespace DailyKanji.Mvvm.ViewModel
             ChooseNewPossibleAnswers();
             BuildAnswerButtons();
 
-            Model.IgnoreInput = false;
+            Model.IgnoreInput   = false;
+            Model.TestStartTime = DateTime.UtcNow;
         }
 
         internal void BuildNewQuestionList()
@@ -216,7 +216,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.IgnoreInput = true;
 
-            var test = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
+            var answerTime = DateTime.UtcNow - Model.TestStartTime;
+            var test       = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
+
             if(test == null)
             {
                 throw new ArgumentNullException("test", "Test not found");
@@ -226,11 +228,13 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 if(Model.CurrentAskSign == test.Hiragana)
                 {
+                    test.CompleteAnswerTimeForHiragana += answerTime;
                     test.CorrectHiraganaCount++;
                 }
 
                 if(Model.CurrentAskSign == test.Katakana)
                 {
+                    test.CompleteAnswerTimeForKatakana += answerTime;
                     test.CorrectKatakanaCount++;
                 }
 
@@ -240,11 +244,13 @@ namespace DailyKanji.Mvvm.ViewModel
 
             if(Model.CurrentAskSign == test.Hiragana)
             {
+                test.CompleteAnswerTimeForHiragana += answerTime;
                 test.WrongHiraganaCount++;
             }
 
             if(Model.CurrentAskSign == test.Katakana)
             {
+                test.CompleteAnswerTimeForKatakana += answerTime;
                 test.WrongKatakanaCount++;
             }
 

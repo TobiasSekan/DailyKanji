@@ -1,9 +1,13 @@
 ﻿using DailyKanji.Helper;
+using Newtonsoft.Json;
+using System;
 
 namespace DailyKanji.Mvvm.Model
 {
     public class TestBaseModel : PropertyChangedHelper
     {
+        #region Public Properties
+
         /// <summary>
         /// The sign in Roomaji
         /// </summary>
@@ -71,6 +75,42 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        public TimeSpan CompleteAnswerTimeForHiragana
+        {
+            get => _completeAnswerTimeForHiragana;
+            set
+            {
+                _completeAnswerTimeForHiragana = value;
+                OnPropertyChanged(nameof(AverageAnswerTimeForHiragana));
+            }
+        }
+
+        public TimeSpan CompleteAnswerTimeForKatakana
+        {
+            get => _completeAnswerTimeForKatakana;
+            set
+            {
+                _completeAnswerTimeForKatakana = value;
+                OnPropertyChanged(nameof(AverageAnswerTimeForKatakana));
+            }
+        }
+
+        [JsonIgnore]
+        public TimeSpan AverageAnswerTimeForHiragana
+            => CorrectHiraganaCount + WrongHiraganaCount > 0
+                ? new TimeSpan(CompleteAnswerTimeForHiragana.Ticks / (CorrectHiraganaCount + WrongHiraganaCount))
+                : new TimeSpan();
+
+        [JsonIgnore]
+        public TimeSpan AverageAnswerTimeForKatakana
+            => CorrectKatakanaCount + WrongKatakanaCount > 0
+                ? new TimeSpan(CompleteAnswerTimeForKatakana.Ticks / (CorrectKatakanaCount + WrongKatakanaCount))
+                : new TimeSpan();
+
+        #endregion Public Properties
+
+        #region Private Backing-fields
+
         /// <summary>
         /// Backing-field for <see cref="WrongHiraganaCount"/>
         /// </summary>
@@ -92,6 +132,20 @@ namespace DailyKanji.Mvvm.Model
         private int _correctKatakanaCount;
 
         /// <summary>
+        /// Backing-field for <see cref="CompleteAnswerTimeForHiragana"/>
+        /// </summary>
+        private TimeSpan _completeAnswerTimeForHiragana;
+
+        /// <summary>
+        /// Backing-field for <see cref="CompleteAnswerTimeForKatakana"/>
+        /// </summary>
+        private TimeSpan _completeAnswerTimeForKatakana;
+
+        #endregion Private Backing-fields
+
+        #region Constructors
+
+        /// <summary>
         /// Create a new test, based on the given values
         /// </summary>
         /// <param name="roomaji">The sign in Roomaji</param>
@@ -99,7 +153,7 @@ namespace DailyKanji.Mvvm.Model
         /// <param name="katakana">The sign in Katakana</param>
         public TestBaseModel(string roomaji, string hiragana, string katakana)
         {
-            Roomaji = roomaji;
+            Roomaji  = roomaji;
             Hiragana = hiragana;
             Katakana = katakana;
         }
@@ -110,13 +164,17 @@ namespace DailyKanji.Mvvm.Model
         /// <param name="testBaseModel">The <see cref="TestBaseModel"/> for this test</param>
         protected TestBaseModel(TestBaseModel testBaseModel)
         {
-            Roomaji = testBaseModel.Roomaji;
-            Hiragana = testBaseModel.Hiragana;
-            Katakana = testBaseModel.Katakana;
-            WrongHiraganaCount = testBaseModel.WrongHiraganaCount;
-            WrongKatakanaCount = testBaseModel.WrongKatakanaCount;
-            CorrectHiraganaCount = testBaseModel.CorrectHiraganaCount;
-            CorrectKatakanaCount = testBaseModel.CorrectKatakanaCount;
+            Roomaji               = testBaseModel.Roomaji;
+            Hiragana              = testBaseModel.Hiragana;
+            Katakana              = testBaseModel.Katakana;
+            WrongHiraganaCount    = testBaseModel.WrongHiraganaCount;
+            WrongKatakanaCount    = testBaseModel.WrongKatakanaCount;
+            CorrectHiraganaCount  = testBaseModel.CorrectHiraganaCount;
+            CorrectKatakanaCount  = testBaseModel.CorrectKatakanaCount;
+            CompleteAnswerTimeForHiragana = testBaseModel.CompleteAnswerTimeForHiragana;
+            CompleteAnswerTimeForKatakana = testBaseModel.CompleteAnswerTimeForKatakana;
         }
+
+        #endregion Constructors
     }
 }

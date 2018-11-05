@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:DailyKanji.Helper"
         Title="DailyKanji"
         Width="1000"
-        Height="450"
+        Height="700"
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel,
                               RelativeSource={RelativeSource Mode=Self}}"
@@ -15,47 +15,16 @@
     </Window.Resources>
 
     <Window.InputBindings>
-
-        <KeyBinding Key="D1"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="1" />
-
-        <KeyBinding Key="D2"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="2" />
-
-        <KeyBinding Key="D3"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="3" />
-
-        <KeyBinding Key="D4"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="4" />
-
-        <KeyBinding Key="D5"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="5" />
-
-        <KeyBinding Key="D6"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="6" />
-
-        <KeyBinding Key="D7"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="7" />
-
-        <KeyBinding Key="D8"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="8" />
-
-        <KeyBinding Key="D9"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="9" />
-
-        <KeyBinding Key="D0"
-                    Command="{Binding AnswerNumber}"
-                    CommandParameter="0" />
-
+        <KeyBinding Key="D1" Command="{Binding AnswerNumber}" CommandParameter="1" />
+        <KeyBinding Key="D2" Command="{Binding AnswerNumber}" CommandParameter="2" />
+        <KeyBinding Key="D3" Command="{Binding AnswerNumber}" CommandParameter="3" />
+        <KeyBinding Key="D4" Command="{Binding AnswerNumber}" CommandParameter="4" />
+        <KeyBinding Key="D5" Command="{Binding AnswerNumber}" CommandParameter="5" />
+        <KeyBinding Key="D6" Command="{Binding AnswerNumber}" CommandParameter="6" />
+        <KeyBinding Key="D7" Command="{Binding AnswerNumber}" CommandParameter="7" />
+        <KeyBinding Key="D8" Command="{Binding AnswerNumber}" CommandParameter="8" />
+        <KeyBinding Key="D9" Command="{Binding AnswerNumber}" CommandParameter="9" />
+        <KeyBinding Key="D0" Command="{Binding AnswerNumber}" CommandParameter="0" />
     </Window.InputBindings>
 
     <Grid>
@@ -64,38 +33,35 @@
             <!--  Menu  -->
             <RowDefinition Height="Auto" />
 
+            <!--  Question  -->
             <RowDefinition Height="200" />
+
             <RowDefinition Height="50" />
+
+            <!--  Answers  -->
+            <RowDefinition Height="150" />
+
             <RowDefinition Height="*" />
+
+            <!--  Kana list  -->
+            <RowDefinition Height="200" />
 
             <!--  StatusBar  -->
             <RowDefinition Height="Auto" />
 
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <Menu Grid.Row="0"
-              Grid.ColumnSpan="3">
+        <Menu Grid.Row="0">
 
             <MenuItem Header="File">
 
-                <MenuItem Command="{Binding Path=NewQuestion}"
-                          Header="New question"
-                          InputGestureText="Ctrl+N" />
+                <MenuItem Command="{Binding Path=NewQuestion}" Header="New question" InputGestureText="Ctrl+N" />
 
-                <MenuItem Header="Export"
-                          IsEnabled="False" />
+                <MenuItem Header="Export" IsEnabled="False" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CloseProgram}"
-                          Header="Close Program"
-                          InputGestureText="Alt+F4" />
+                <MenuItem Command="{Binding Path=CloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
 
             </MenuItem>
 
@@ -347,7 +313,6 @@
         </Menu>
 
         <TextBlock Grid.Row="1"
-                   Grid.Column="1"
                    Width="200"
                    Height="200"
                    Padding="0,50,0,0"
@@ -357,37 +322,37 @@
                    Text="{Binding Path=Model.CurrentAskSign}"
                    TextAlignment="Center" />
 
-            <DataGrid Grid.Row="1"
-                      Grid.Column="2"
-                      HeadersVisibility="Column"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      CanUserDeleteRows="False"
-                      CanUserReorderColumns="False"
-                      CanUserResizeColumns="False"
-                      CanUserResizeRows="False"
-                      ItemsSource="{Binding Path=Model.AllTestsList}">
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Roomaji" Binding="{Binding Path=Roomaji }" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Hiragana" Binding="{Binding Path=Hiragana}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Katakana" Binding="{Binding Path=Katakana}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Wrong Hiragana" Binding="{Binding Path=WrongHiraganaCount}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Wrong Katakana" Binding="{Binding Path=WrongKatakanaCount}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Correct Hiragana" Binding="{Binding Path=CorrectHiraganaCount}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Correct Katakana" Binding="{Binding Path=CorrectKatakanaCount}" IsReadOnly="True" />
-                </DataGrid.Columns>
-
-            </DataGrid>
-
         <StackPanel x:Name="AnswerButtonArea"
                     Grid.Row="3"
-                    Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal" />
 
-        <StatusBar Grid.Row="4"
-                   Grid.ColumnSpan="3">
+        <DataGrid Grid.Row="5"
+                  Margin="5"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  HeadersVisibility="Column"
+                  ItemsSource="{Binding Path=Model.AllTestsList}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Roomaji}" Header="Roomaji" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Hiragana}" Header="Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Katakana}" Header="Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}" Header="Wrong Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}" Header="Wrong Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}" Header="Correct Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}" Header="Correct Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana, StringFormat=mm\\:ss\\.ff}" Header="Time Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana, StringFormat=mm\\:ss\\.ff}" Header="Time Katakana" IsReadOnly="True" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StatusBar Grid.Row="6">
 
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -409,8 +374,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            <StatusBarItem Grid.Column="0"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="0" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -423,8 +387,7 @@
 
             <Separator Grid.Column="1" />
 
-            <StatusBarItem Grid.Column="2"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -438,8 +401,7 @@
 
             <Separator Grid.Column="3" />
 
-            <StatusBarItem Grid.Column="4"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -452,8 +414,7 @@
 
             <Separator Grid.Column="5" />
 
-            <StatusBarItem Grid.Column="6"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="6" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -466,8 +427,7 @@
 
             <Separator Grid.Column="7" />
 
-            <StatusBarItem Grid.Column="8"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -480,8 +440,7 @@
 
             <Separator Grid.Column="9" />
 
-            <StatusBarItem Grid.Column="10"
-                           HorizontalContentAlignment="Center">
+            <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 
