@@ -11,6 +11,14 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // TODO: fix temporary deactivated similar answers for (single characters - a, e, i , o, u)
+    //       and fix crash with more than 5 answers, when no more similar answers are found
+    //       notice that there are no similar answeres for the n
+
+    // TODO: Add menu entry to reset the statistics
+
+    // TODO: don't show exception on first program start, when settings file isn't present
+
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
 
