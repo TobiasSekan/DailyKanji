@@ -11,10 +11,6 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // TODO: fix temporary deactivated similar answers for (single characters - a, e, i , o, u)
-    //       and fix crash with more than 5 answers, when no more similar answers are found
-    //       notice that there are no similar answeres for the n
-
     // TODO: Add menu entry to reset the statistics
 
     // TODO: don't show exception on first program start, when settings file isn't present
@@ -151,7 +147,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             if(Model.CurrentTest == null)
             {
-                Model.CurrentTest    = GetRandomTest();
+                Model.CurrentTest = GetRandomTest();
                 Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
                                             ? Model.CurrentTest.Hiragana
                                             : Model.CurrentTest.Katakana;
@@ -165,7 +161,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 newQuest = GetRandomTest();
             }
 
-            Model.CurrentTest    = newQuest;
+            Model.CurrentTest    = GetRandomTest();
             Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
                                         ? Model.CurrentTest.Hiragana
                                         : Model.CurrentTest.Katakana;
@@ -181,29 +177,34 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.CurrentTest
             };
 
+            var tryAddCount = 0;
+
             while(list.Count < Model.MaximumAnswer)
             {
-                var possibleAnswer = GetRandomTest();
+                var possibleAnswer = GetRandomTest(onlyOneRoomajiCharacter: tryAddCount > 20);
 
                 if(list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
                 {
                     continue;
                 }
 
-                if(!Model.SimilarAnswers || Model.CurrentTest.Roomaji.Length == 1)
+                if(!Model.SimilarAnswers)
                 {
                     list.Add(possibleAnswer);
                     continue;
                 }
 
-                if(!possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
+                if(tryAddCount < 50
+                && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.FirstOrDefault())
                 && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(1))
                 && !possibleAnswer.Roomaji.Contains(Model.CurrentTest.Roomaji.ElementAtOrDefault(2)))
                 {
+                    tryAddCount++;
                     continue;
                 }
 
                 list.Add(possibleAnswer);
+                tryAddCount = 0;
             }
 
             list.Shuffle();
@@ -314,9 +315,16 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Return a new random test
         /// </summary>
+        /// <param name="onlyOneRoomajiCharacter">(Optional) Indicate that only a test that have a roomaji character with length one will return</param>
         /// <returns>A test</returns>
-        internal TestModel GetRandomTest()
-            => Model.NewQuestionList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count)) ?? Model.NewQuestionList.FirstOrDefault();
+        internal TestModel GetRandomTest(bool onlyOneRoomajiCharacter = false)
+        {
+            var list = onlyOneRoomajiCharacter
+                        ? Model.NewQuestionList.Where(found => found.Roomaji.Length == 1)
+                        : Model.NewQuestionList;
+
+            return list.ElementAtOrDefault(Model.Randomizer.Next(0, list.Count())) ?? list.FirstOrDefault();
+        }
 
         /// <summary>
         /// Build all answer buttons (with text and colours)
