@@ -4,6 +4,7 @@ using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +13,6 @@ using System.Windows.Media;
 namespace DailyKanji.Mvvm.ViewModel
 {
     // TODO: Add menu entry to reset the statistics
-
-    // TODO: don't show exception on first program start, when settings file isn't present
 
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -41,6 +40,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     public sealed partial class MainViewModel
     {
+        private const string _settingFileName = "settings.json";
+
         #region Public Properties
 
         public MainModel Model { get; private set; }
@@ -374,12 +375,12 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             try
             {
-                JsonHelper.WriteJson("settings.json", Model);
+                JsonHelper.WriteJson(_settingFileName, Model);
             }
             catch(Exception exception)
             {
-                MessageBox.Show("Can't save settings" + Environment.NewLine + Environment.NewLine + exception.ToString(),
-                                "Error",
+                MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{exception}",
+                                $"Error on save {_settingFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
@@ -387,14 +388,19 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal void LoadSettings()
         {
+            if(!File.Exists(_settingFileName))
+            {
+                return;
+            }
+
             try
             {
-                Model = JsonHelper.ReadJson<MainModel>("settings.json");
+                Model = JsonHelper.ReadJson<MainModel>(_settingFileName);
             }
             catch(Exception exception)
             {
-                MessageBox.Show("Can't load settings" + Environment.NewLine + Environment.NewLine + exception.ToString(),
-                                "Error",
+                MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{exception}",
+                                $"Error on load {_settingFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
