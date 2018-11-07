@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:DailyKanji.Helper"
         Title="DailyKanji"
-        Width="1000"
-        Height="700"
+        Width="850"
+        Height="600"
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel,
                               RelativeSource={RelativeSource Mode=Self}}"
@@ -32,18 +32,17 @@
 
             <!--  Menu  -->
             <RowDefinition Height="Auto" />
-
-            <!--  Question  -->
-            <RowDefinition Height="200" />
-
-            <RowDefinition Height="50" />
-
-            <!--  Answers  -->
-            <RowDefinition Height="150" />
-
             <RowDefinition Height="*" />
 
-            <!--  Kana list  -->
+            <!--  Grid - Question  -->
+            <RowDefinition Height="200" />
+            <RowDefinition Height="*" />
+
+            <!--  StackPanel - Answer buttons  -->
+            <RowDefinition Height="115" />
+            <RowDefinition Height="*" />
+
+            <!--  DataGrid - Hiragana and Katakana list  -->
             <RowDefinition Height="200" />
 
             <!--  StatusBar  -->
@@ -312,22 +311,38 @@
 
         </Menu>
 
-        <TextBlock Grid.Row="1"
-                   Width="200"
-                   Height="200"
-                   Padding="0,50,0,0"
-                   HorizontalAlignment="Center"
-                   Background="{Binding Path=Model.CurrentAskSignColor}"
-                   FontSize="100"
-                   Text="{Binding Path=Model.CurrentAskSign}"
-                   TextAlignment="Center" />
+        <Grid Grid.Row="2" Height="200">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1"
+                       Width="200"
+                       Padding="0,25,0,0"
+                       HorizontalAlignment="Center"
+                       Background="{Binding Path=Model.CurrentAskSignColor}"
+                       FontSize="100"
+                       Text="{Binding Path=Model.CurrentAskSign}"
+                       TextAlignment="Center" />
+
+            <StackPanel Grid.Column="2" Margin="10">
+                <TextBlock Text="Wrong answers" />
+                <TextBlock Text="{Binding Path=Model.CurrentTest.WrongCount}" />
+                <TextBlock Text="Correct answers" />
+                <TextBlock Text="{Binding Path=Model.CurrentTest.CorrectCount}" />
+                <TextBlock Text="Average answer time" />
+                <TextBlock Text="{Binding Path=Model.CurrentTest.AverageAnswerTime, StringFormat=mm\\:ss\\.ff}" />
+            </StackPanel>
+        </Grid>
 
         <StackPanel x:Name="AnswerButtonArea"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal" />
 
-        <DataGrid Grid.Row="5"
+        <DataGrid Grid.Row="6"
                   Margin="5"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
@@ -352,14 +367,12 @@
 
         </DataGrid>
 
-        <StatusBar Grid.Row="6">
+        <StatusBar Grid.Row="7">
 
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -378,8 +391,9 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock Text="Similar answers: " />
-                    <TextBlock Text="{Binding Path=Model.SimilarAnswers}" />
+                    <TextBlock Text="Correct answers: " />
+
+                    <TextBlock Text="{Binding Path=Model.RightAnswerCountString}" />
 
                 </StackPanel>
 
@@ -391,9 +405,8 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock Text="Correct answers: " />
-
-                    <TextBlock Text="{Binding Path=Model.RightAnswerCountString}" />
+                    <TextBlock Text="Wrong answers: " />
+                    <TextBlock Text="{Binding Path=Model.WrongAnswerCountString}" />
 
                 </StackPanel>
 
@@ -405,8 +418,8 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock Text="Wrong answers: " />
-                    <TextBlock Text="{Binding Path=Model.WrongAnswerCountString}" />
+                    <TextBlock Text="Rate: " />
+                    <TextBlock Text="{Binding Path=Model.CurrentRateText}" />
 
                 </StackPanel>
 
@@ -418,8 +431,8 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock Text="Rate: " />
-                    <TextBlock Text="{Binding Path=Model.CurrentRateText}" />
+                    <TextBlock Text="Question pool: " />
+                    <TextBlock Text="{Binding Path=Model.QuestionPoolString}" />
 
                 </StackPanel>
 
@@ -428,19 +441,6 @@
             <Separator Grid.Column="7" />
 
             <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
-
-                <StackPanel Orientation="Horizontal">
-
-                    <TextBlock Text="Question pool: " />
-                    <TextBlock Text="{Binding Path=Model.QuestionPoolString}" />
-
-                </StackPanel>
-
-            </StatusBarItem>
-
-            <Separator Grid.Column="9" />
-
-            <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center">
 
                 <StackPanel Orientation="Horizontal">
 

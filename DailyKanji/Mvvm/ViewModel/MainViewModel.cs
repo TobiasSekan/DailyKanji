@@ -33,7 +33,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make colours choose-able
 
     // TODO: visible timer in 0.1 second (can be deactivated via menu)
-    // TODO: show average answer time for the current sign (calculate with the current running answer time)
 
     // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import ???
@@ -355,7 +354,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         Content          = buttonText,
                         Height           = 100,
                         Margin           = new Thickness(5, 0, 5, 0),
-                        Width            = (980 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer
+                        Width            = (_mainWindow.Width - 20 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer
                     };
 
                     var noteText = new TextBlock
