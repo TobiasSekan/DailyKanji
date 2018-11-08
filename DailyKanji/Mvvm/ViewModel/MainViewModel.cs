@@ -12,6 +12,11 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // BUG
+    // ---
+    // TODO: TestType.HiraganaOrKatakanaToRoomaji => no katakana test is shown
+    // TODO: TestType.RoomajiToHiragana && TestType.RoomajiToKatakana => no count of wrong or correct answers
+
     // Next
     // ----
     // TODO: Add last test type for Roomaji to Katakana or Hiragana
