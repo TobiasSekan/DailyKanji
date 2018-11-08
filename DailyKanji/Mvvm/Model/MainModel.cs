@@ -158,8 +158,8 @@ namespace DailyKanji.Mvvm.Model
 
         [JsonIgnore]
         public string QuestionPoolString
-            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji)}"
-             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji)}";
+            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji || found.TestType == TestType.RoomajiToHiragana)}"
+             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji || found.TestType == TestType.RoomajiToKatakana)}";
 
         [JsonIgnore]
         public string WrongAnswerCountString
@@ -178,15 +178,23 @@ namespace DailyKanji.Mvvm.Model
             {
                 switch(MainTestType)
                 {
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                        return "H / K => R";
+
                     case TestType.HiraganaToRoomaji:
                         return "H => R";
 
                     case TestType.KatakanaToRoomaji:
                         return "K => R";
 
-                    default:
-                        return "H / K => R";
+                    case TestType.RoomajiToHiragana:
+                        return "R => H";
+
+                    case TestType.RoomajiToKatakana:
+                        return "R => K";
                 }
+
+                return "unknown";
             }
         }
 
@@ -287,7 +295,7 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
-            MainTestType   = TestType.HiraganaOrKatakanaToRomaji;
+            MainTestType   = TestType.HiraganaOrKatakanaToRoomaji;
             ErrorTimeout   = 1_500;
             MaximumAnswer  = 5;
             SimilarAnswers = true;

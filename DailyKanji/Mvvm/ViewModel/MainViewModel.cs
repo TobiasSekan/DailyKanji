@@ -12,29 +12,30 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // Next
+    // ----
+    // TODO: Add last test type for Roomaji to Katakana or Hiragana
     // TODO: Add menu entry to reset the statistics
+    // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
+    // TODO: Recalculate buttons (button width), when window is resized
+    // TODO: Visible timer in 0.1 second (can be deactivated via menu)
 
+    // Near future
+    // -----------
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
-
+    //
     // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
     //       we need a prevention for this 
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
-
-    // TODO: Change test order so that all tests will be ask (based on ask counter)
-
-    // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
-
-    // TODO: Add tests for Roomaji to Katakana and Roomaji to Hiragana
-
-    // TODO: Recalculate buttons (button width), when window is resized
-
-    // TODO: Make colours choose-able
-
-    // TODO: visible timer in 0.1 second (can be deactivated via menu)
-
+    //
     // TODO: Export (XLSX, CSV, JSON, XML)
+
+    // Later
+    // -----
+    // TODO: Change test order so that all tests will be ask (based on ask counter)
+    // TODO: Make colours choose-able
     // TODO: Import ???
 
     public sealed partial class MainViewModel
@@ -120,7 +121,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             foreach(var question in Model.AllTestsList)
             {
-                if(Model.MainTestType != TestType.KatakanaToRoomaji)
+                if(Model.MainTestType == TestType.HiraganaToRoomaji || Model.MainTestType == TestType.HiraganaOrKatakanaToRoomaji)
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
@@ -128,11 +129,27 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                 }
 
-                if(Model.MainTestType != TestType.HiraganaToRoomaji)
+                if(Model.MainTestType == TestType.KatakanaToRoomaji || Model.MainTestType == TestType.HiraganaOrKatakanaToRoomaji)
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
                         questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
+                    }
+                }
+
+                if(Model.MainTestType == TestType.RoomajiToHiragana)
+                {
+                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
+                    {
+                        questionList.Add(new TestModel(question, TestType.RoomajiToHiragana));
+                    }
+                }
+
+                if(Model.MainTestType == TestType.RoomajiToKatakana)
+                {
+                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
+                    {
+                        questionList.Add(new TestModel(question, TestType.RoomajiToHiragana));
                     }
                 }
             }
@@ -155,10 +172,24 @@ namespace DailyKanji.Mvvm.ViewModel
                 }
             }
 
-            Model.CurrentTest    = newQuest;
-            Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
-                                        ? Model.CurrentTest.Hiragana
-                                        : Model.CurrentTest.Katakana;
+            Model.CurrentTest = newQuest;
+
+            switch(Model.CurrentTest.TestType)
+            {
+                case TestType.HiraganaOrKatakanaToRoomaji:
+                case TestType.HiraganaToRoomaji:
+                    Model.CurrentAskSign = Model.CurrentTest.Hiragana;
+                    break;
+
+                case TestType.KatakanaToRoomaji:
+                    Model.CurrentAskSign = Model.CurrentTest.Katakana;
+                    break;
+
+                case TestType.RoomajiToKatakana:
+                case TestType.RoomajiToHiragana:
+                    Model.CurrentAskSign = Model.CurrentTest.Roomaji;
+                    break;
+            }
         }
 
         /// <summary>
@@ -209,8 +240,8 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Check if the given answer is correct
         /// </summary>
-        /// <param name="answer"></param>
-        internal void CheckAnswer(string answer)
+        /// <param name="answer">The answer to check</param>
+        internal void CheckAnswer(TestBaseModel answer)
         {
             if(Model.IgnoreInput)
             {
@@ -220,41 +251,40 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.IgnoreInput = true;
 
             var answerTime = DateTime.UtcNow - Model.TestStartTime;
-            var test       = Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji);
 
-            if(test == null)
+            if(answer == null)
             {
-                throw new ArgumentNullException("test", "Test not found");
+                throw new ArgumentNullException(nameof(answer), "Test not found");
             }
 
-            if(answer == Model.CurrentTest.Roomaji)
+            if(answer.Roomaji == Model.CurrentTest.Roomaji)
             {
-                if(Model.CurrentAskSign == test.Hiragana)
+                if(Model.CurrentAskSign == answer.Hiragana)
                 {
-                    test.CompleteAnswerTimeForHiragana += answerTime;
-                    test.CorrectHiraganaCount++;
+                    answer.CompleteAnswerTimeForHiragana += answerTime;
+                    answer.CorrectHiraganaCount++;
                 }
 
-                if(Model.CurrentAskSign == test.Katakana)
+                if(Model.CurrentAskSign == answer.Katakana)
                 {
-                    test.CompleteAnswerTimeForKatakana += answerTime;
-                    test.CorrectKatakanaCount++;
+                    answer.CompleteAnswerTimeForKatakana += answerTime;
+                    answer.CorrectKatakanaCount++;
                 }
 
                 CreateNewTest();
                 return;
             }
 
-            if(Model.CurrentAskSign == test.Hiragana)
+            if(Model.CurrentAskSign == answer.Hiragana)
             {
-                test.CompleteAnswerTimeForHiragana += answerTime;
-                test.WrongHiraganaCount++;
+                answer.CompleteAnswerTimeForHiragana += answerTime;
+                answer.WrongHiraganaCount++;
             }
 
-            if(Model.CurrentAskSign == test.Katakana)
+            if(Model.CurrentAskSign == answer.Katakana)
             {
-                test.CompleteAnswerTimeForKatakana += answerTime;
-                test.WrongKatakanaCount++;
+                answer.CompleteAnswerTimeForKatakana += answerTime;
+                answer.WrongKatakanaCount++;
             }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
@@ -330,12 +360,31 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
                 {
+                    var text = string.Empty;
+
+                    switch(Model.MainTestType)
+                    {
+                        case TestType.HiraganaOrKatakanaToRoomaji:
+                        case TestType.HiraganaToRoomaji:
+                        case TestType.KatakanaToRoomaji:
+                            text = Model.PossibleAnswers[answerNumber].Roomaji;
+                            break;
+
+                        case TestType.RoomajiToHiragana:
+                            text = Model.PossibleAnswers[answerNumber].Hiragana;
+                            break;
+
+                        case TestType.RoomajiToKatakana:
+                            text = Model.PossibleAnswers[answerNumber].Katakana;
+                            break;
+                    }
+
                     var stackPanel = new StackPanel();
 
                     var buttonText = new TextBlock
                     {
                         FontSize          = 100 - (5 * Model.MaximumAnswer),
-                        Text              = Model.PossibleAnswers[answerNumber].Roomaji,
+                        Text              = text,
                         Padding           = new Thickness(0, 0, 0, 20),
                         VerticalAlignment = VerticalAlignment.Center
                     };
@@ -343,8 +392,8 @@ namespace DailyKanji.Mvvm.ViewModel
                     var button = new Button
                     {
                         Background       = Model.AnswerButtonColor[answerNumber],
-                        Command          = AnswerNumber,
-                        CommandParameter = $"{answerNumber + 1}",
+                        Command          = AnswerTest,
+                        CommandParameter = Model.PossibleAnswers[answerNumber],
                         Content          = buttonText,
                         Height           = 100,
                         Margin           = new Thickness(5, 0, 5, 0),

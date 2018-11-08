@@ -89,6 +89,20 @@
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2}" />
 
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="3"
+                              Header="Only Roomaji to Hiragana"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=3}" />
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="4"
+                              Header="Only Roomaji to Katakana"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=4}" />
                 </MenuItem>
 
                 <MenuItem Header="Possible answers">

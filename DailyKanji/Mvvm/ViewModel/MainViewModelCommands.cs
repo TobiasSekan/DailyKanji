@@ -1,5 +1,6 @@
 ﻿using DailyKanji.Enumerations;
 using DailyKanji.Helper;
+using DailyKanji.Mvvm.Model;
 using System;
 using System.Linq;
 using System.Windows.Input;
@@ -17,7 +18,7 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand ChangeTestType
             => new CommandHelper((testType) =>
             {
-                Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRomaji;
+                Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRoomaji;
                 CreateNewTest();
             });
 
@@ -39,7 +40,18 @@ namespace DailyKanji.Mvvm.ViewModel
                 BuildAnswerButtons();
             });
 
+        public ICommand AnswerTest
+            => new CommandHelper((parameter) => CheckAnswer(parameter as TestBaseModel));
+
         public ICommand AnswerNumber
-            => new CommandHelper((parameter) => CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(Convert.ToInt32(parameter) - 1)?.Roomaji));
+            => new CommandHelper((parameter) =>
+            {
+                if(!int.TryParse(parameter.ToString(), out var answerNumber))
+                {
+                    return;
+                }
+
+                CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+            });
     }
 }
