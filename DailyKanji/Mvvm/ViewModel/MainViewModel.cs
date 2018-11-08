@@ -145,23 +145,17 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void ChooseNewSign()
         {
-            if(Model.CurrentTest == null)
-            {
-                Model.CurrentTest = GetRandomTest();
-                Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
-                                            ? Model.CurrentTest.Hiragana
-                                            : Model.CurrentTest.Katakana;
-                return;
-            }
-
             var newQuest = GetRandomTest();
 
-            while(newQuest.Roomaji == Model.CurrentTest.Roomaji)
+            if(Model.CurrentTest != null)
             {
-                newQuest = GetRandomTest();
+                while(newQuest.Roomaji == Model.CurrentTest.Roomaji)
+                {
+                    newQuest = GetRandomTest();
+                }
             }
 
-            Model.CurrentTest    = GetRandomTest();
+            Model.CurrentTest    = newQuest;
             Model.CurrentAskSign = Model.CurrentTest.TestType == TestType.HiraganaToRoomaji
                                         ? Model.CurrentTest.Hiragana
                                         : Model.CurrentTest.Katakana;
