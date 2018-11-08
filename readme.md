@@ -1,8 +1,23 @@
 # Current state
 in development
 
+# Features
+* 5 Test types
+  * Hiragana or Katakana to Roomaji
+  * only Hiragana to Roomaji
+  * only Katakana to Roomaji
+  * only Roomaji to Hiragana
+  * only Roomaji to Katakana
+* Highlight wrong and correct answers, when answer was wrong
+* Count answer time (separates counter for Hiragana and Katakana)
+* Can show only similar answers
+* Changeable answer count (from two answer up to ten answers)
+* Changeable error time (highlight when answer was wrong)
+* Automatically load and save test statistics and settings
+
 # Pictures
 ![Daily Kanji](DailyKanji.png)
+![Daily Kanji - Error](DailyKanji-Error.png)
 
 # Goals
 
