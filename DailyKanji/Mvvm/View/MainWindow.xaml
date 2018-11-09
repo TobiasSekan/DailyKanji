@@ -70,7 +70,7 @@
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="0"
-                              Header="Hiragana and Katakana to Roomaji"
+                              Header="Hiragana or Katakana to Roomaji"
                               IsChecked="{Binding Path=Model.MainTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=0}" />
@@ -92,17 +92,24 @@
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="3"
-                              Header="Only Roomaji to Hiragana"
+                              Header="Roomaji to Hiragana or Katakana"
                               IsChecked="{Binding Path=Model.MainTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="4"
-                              Header="Only Roomaji to Katakana"
+                              Header="Only Roomaji to Hiragana"
                               IsChecked="{Binding Path=Model.MainTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4}" />
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="5"
+                              Header="Only Roomaji to Katakana"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=5}" />
                 </MenuItem>
 
                 <MenuItem Header="Possible answers">

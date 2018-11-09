@@ -18,13 +18,18 @@
         KatakanaToRoomaji = 2,
 
         /// <summary>
+        /// Question in Roomaji, Answer in Katakana or Hiragana
+        /// </summary>
+        RoomajiToHiraganaOrKatakana = 3,
+
+        /// <summary>
         /// Question in Roomaji, Answer in Hiragana
         /// </summary>
-        RoomajiToHiragana = 3,
+        RoomajiToHiragana = 4,
 
         /// <summary>
         /// Question in Roomaji, Answer in Katakana
         /// </summary>
-        RoomajiToKatakana = 4
+        RoomajiToKatakana = 5
     }
 }
