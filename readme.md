@@ -6,13 +6,10 @@ in development
 * .Net Framework 4.7 or newer (4.7.1, 4.7.2)
 
 # Current features
-* 6 Test types
-  1. Hiragana or Katakana to Roomaji
-  2. Only Hiragana to Roomaji
-  3. Only Katakana to Roomaji
-  4. Roomaji to Hiragana or Katakana
-  5. Only Roomaji to Hiragana
-  6. Only Roomaji to Katakana
+* 8 Test types
+  * 1. Hiragana or Katakana to Roomaji, 2. Only Hiragana to Roomaji, 3. Only Katakana to Roomaji
+  * 4. Roomaji to Hiragana or Katakana, 5. Only Roomaji to Hiragana, 6. Only Roomaji to Katakana
+  * 7. Only Hiragana to Katakana, 8. Only Katakana to Hiragana
 * Highlight wrong and correct answers, when answer was wrong
 * Count answer time (separates counter for Hiragana and Katakana)
 * Can show only similar answers
@@ -34,8 +31,7 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next
-* Add test type for "Hiragana to Katakana"
-* Add test type for "Katakana to Hiragana"
+* Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add menu entry to reset the statistics
 * Add new answers sub-menu (show current answer inside menu entry with shortcut)

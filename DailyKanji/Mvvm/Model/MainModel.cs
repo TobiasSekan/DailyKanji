@@ -140,6 +140,7 @@ namespace DailyKanji.Mvvm.Model
             {
                 _mainTestType = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TestTypeString));
             }
         }
 
@@ -158,8 +159,8 @@ namespace DailyKanji.Mvvm.Model
 
         [JsonIgnore]
         public string QuestionPoolString
-            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji || found.TestType == TestType.RoomajiToHiragana)}"
-             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji || found.TestType == TestType.RoomajiToKatakana)}";
+            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji || found.TestType == TestType.RoomajiToHiragana || found.TestType == TestType.HiraganaToKatakana)}"
+             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji || found.TestType == TestType.RoomajiToKatakana || found.TestType == TestType.KatakanaToHiragana)}";
 
         [JsonIgnore]
         public string WrongAnswerCountString
@@ -187,11 +188,20 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.KatakanaToRoomaji:
                         return "K => R";
 
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return "R => H / K";
+
                     case TestType.RoomajiToHiragana:
                         return "R => H";
 
                     case TestType.RoomajiToKatakana:
                         return "R => K";
+
+                    case TestType.HiraganaToKatakana:
+                        return "H => K";
+
+                    case TestType.KatakanaToHiragana:
+                        return "K => H";
                 }
 
                 return "unknown";

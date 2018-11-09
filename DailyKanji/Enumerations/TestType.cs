@@ -30,6 +30,16 @@
         /// <summary>
         /// Question in Roomaji, Answer in Katakana
         /// </summary>
-        RoomajiToKatakana = 5
+        RoomajiToKatakana = 5,
+
+        /// <summary>
+        /// Question in Hiragana, Answer in Katakana
+        /// </summary>
+        HiraganaToKatakana = 6,
+
+        /// <summary>
+        /// Question in Katakana, Answer in Hiragana
+        /// </summary>
+        KatakanaToHiragana = 7
     }
 }
