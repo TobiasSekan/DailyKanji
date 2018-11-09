@@ -28,6 +28,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Visible timer in 0.1 second (can be deactivated via menu)
+    // TODO: Add main counter for each test (negative/positive)
+    //       on right answers +1 on wrong answers - 1
+    //       use this counter to calculate count of same tests
+    //       use this count to order bottom test table
 
     // Near future
     // -----------

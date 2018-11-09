@@ -40,6 +40,10 @@ Open a issue ticket or make a pull request
 * Add new answers sub-menu (show current answer inside menu entry with shortcut)
 * Recalculate buttons (button width), when window is resized
 * Visible timer in 0.1 second (can be deactivated via menu)
+* Add main counter for each test (negative/positive)
+  * on right answers +1 on wrong answers - 1
+  * use this counter to calculate count of same tests
+  * use this count to order bottom test table
 
 #### Near future
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
