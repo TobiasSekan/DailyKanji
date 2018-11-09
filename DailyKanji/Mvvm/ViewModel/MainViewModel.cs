@@ -148,7 +148,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 if(Model.MainTestType == TestType.KatakanaToHiragana)
                 {
-                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
+                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
                         questionList.Add(new TestModel(question, TestType.KatakanaToHiragana));
                     }
