@@ -7,9 +7,9 @@ in development
 
 # Current features
 * 8 Test types
-  * 1. Hiragana or Katakana to Roomaji, 2. Only Hiragana to Roomaji, 3. Only Katakana to Roomaji
-  * 4. Roomaji to Hiragana or Katakana, 5. Only Roomaji to Hiragana, 6. Only Roomaji to Katakana
-  * 7. Only Hiragana to Katakana, 8. Only Katakana to Hiragana
+  * Hiragana or Katakana to Roomaji, Only Hiragana to Roomaji, Only Katakana to Roomaji
+  * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
+  * Only Hiragana to Katakana, Only Katakana to Hiragana
 * Highlight wrong and correct answers, when answer was wrong
 * Count answer time (separates counter for Hiragana and Katakana)
 * Can show only similar answers
@@ -31,6 +31,9 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next
+* Show Roomaji on wrong answer test of type "Hiragana to Katakana" and "Katakana to Hiragana"
+* Show Hiragana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Katakana"
+* Show Katakana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Hiragana"
 * Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add menu entry to reset the statistics

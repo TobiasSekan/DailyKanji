@@ -19,6 +19,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
+    // TODO: Show Roomaji on wrong answer test of type "Hiragana to Katakana" and "Katakana to Hiragana"
+    // TODO: Show Hiragana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Katakana"
+    // TODO: Show Katakana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Hiragana"
     // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add menu entry to reset the statistics
