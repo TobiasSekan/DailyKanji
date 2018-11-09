@@ -14,11 +14,10 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // BUG
     // ---
-    // TODO: TestType.RoomajiToHiragana && TestType.RoomajiToKatakana => no count of wrong or correct answers
+    // TODO: TestType.HiraganaOrKatakanaToRoomaji && TestType.RoomajiToHiraganaOrKatakana => no count of wrong or correct answers
 
     // Next
     // ----
-    // TODO: Add last test type for Roomaji to Katakana or Hiragana
     // TODO: Add menu entry to reset the statistics
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Recalculate buttons (button width), when window is resized
@@ -269,32 +268,48 @@ namespace DailyKanji.Mvvm.ViewModel
 
             if(answer.Roomaji == Model.CurrentTest.Roomaji)
             {
-                if(Model.CurrentAskSign == answer.Hiragana)
+                switch(Model.MainTestType)
                 {
-                    answer.CompleteAnswerTimeForHiragana += answerTime;
-                    answer.CorrectHiraganaCount++;
-                }
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        // TODO
+                        break;
 
-                if(Model.CurrentAskSign == answer.Katakana)
-                {
-                    answer.CompleteAnswerTimeForKatakana += answerTime;
-                    answer.CorrectKatakanaCount++;
+                    case TestType.RoomajiToHiragana:
+                    case TestType.HiraganaToRoomaji:
+                        answer.CompleteAnswerTimeForHiragana += answerTime;
+                        answer.CorrectHiraganaCount++;
+                        break;
+
+                    case TestType.KatakanaToRoomaji:
+                    case TestType.RoomajiToKatakana:
+                        answer.CompleteAnswerTimeForKatakana += answerTime;
+                        answer.CorrectKatakanaCount++;
+                        break;
                 }
 
                 CreateNewTest();
                 return;
             }
 
-            if(Model.CurrentAskSign == answer.Hiragana)
+            switch(Model.MainTestType)
             {
-                answer.CompleteAnswerTimeForHiragana += answerTime;
-                answer.WrongHiraganaCount++;
-            }
+                case TestType.HiraganaOrKatakanaToRoomaji:
+                case TestType.RoomajiToHiraganaOrKatakana:
+                    // TODO
+                    break;
 
-            if(Model.CurrentAskSign == answer.Katakana)
-            {
-                answer.CompleteAnswerTimeForKatakana += answerTime;
-                answer.WrongKatakanaCount++;
+                case TestType.RoomajiToHiragana:
+                case TestType.HiraganaToRoomaji:
+                    answer.CompleteAnswerTimeForHiragana += answerTime;
+                    answer.WrongHiraganaCount++;
+                    break;
+
+                case TestType.KatakanaToRoomaji:
+                case TestType.RoomajiToKatakana:
+                    answer.CompleteAnswerTimeForKatakana += answerTime;
+                    answer.WrongKatakanaCount++;
+                    break;
             }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
@@ -429,6 +444,9 @@ namespace DailyKanji.Mvvm.ViewModel
                 }
             }));
 
+        /// <summary>
+        /// Save all settings (data model) of this application
+        /// </summary>
         internal void SaveSettings()
         {
             try
@@ -444,6 +462,9 @@ namespace DailyKanji.Mvvm.ViewModel
             }
         }
 
+        /// <summary>
+        /// Load all settings (data model) of this application
+        /// </summary>
         internal void LoadSettings()
         {
             if(!File.Exists(_settingFileName))
