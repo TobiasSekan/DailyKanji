@@ -47,11 +47,14 @@ Open a issue ticket or make a pull request
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 
   * Maybe: Only the first character or last character must are the same on less then five answers
-* TODO: Export (XLSX, CSV, JSON, XML)
+* Move logic to separate library project in .Net Standard 2.0
+* Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
+* Export (XLSX, CSV, JSON, XML)
 
 #### Later
 * Change test order so that all tests will be ask (based on ask counter)
 * Make colours choose-able
+* Integrate Kanji tests
 
 #### Ideas
 * Import (XLSX, CSV, JSON, XML)
