@@ -146,7 +146,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// List with all possible tests
         /// </summary>
-        public IEnumerable<TestBaseModel> AllTestsList
+        public ICollection<TestBaseModel> AllTestsList
         {
             get => _allTestsList;
             set
@@ -287,7 +287,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="AllTestsList"/>
         /// </summary>
-        private IEnumerable<TestBaseModel> _allTestsList;
+        private ICollection<TestBaseModel> _allTestsList;
 
         #endregion Private Backing-Fields
 

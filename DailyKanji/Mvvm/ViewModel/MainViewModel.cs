@@ -14,7 +14,7 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // BUG
     // ---
-    // TODO: TestType.HiraganaOrKatakanaToRoomaji && TestType.RoomajiToHiraganaOrKatakana => no count of wrong or correct answers
+    // TODO: TestType.RoomajiToHiraganaOrKatakana => no count of wrong or correct answers
 
     // Next
     // ----
@@ -25,6 +25,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Near future
     // -----------
+    // TODO: investigate reference lose of "Model.CurrentTest"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
@@ -68,7 +69,7 @@ namespace DailyKanji.Mvvm.ViewModel
             var list = KanaHelper.GetKanaList();
             if(list?.Count() != Model.AllTestsList?.Count())
             {
-                Model.AllTestsList = list;
+                Model.AllTestsList = list.ToList();
             }
 
             Model.Randomizer        = new Random();
@@ -101,13 +102,17 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void CreateNewTest()
         {
+            // TODO: investigate why "Model.CurrentTest" lose the reference to "Model.AllTestsList" element, and remove theses lines
+            Model.AllTestsList.Remove(Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji));
+            Model.AllTestsList.Add(Model.CurrentTest);
+
             Model.AllTestsList = Model.AllTestsList
                                       .OrderByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
                                       .ThenByDescending(found => found.WrongHiraganaCount)
                                       .ThenByDescending(found => found.WrongKatakanaCount)
                                       .ThenByDescending(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount)
                                       .ThenByDescending(found => found.CorrectHiraganaCount)
-                                      .ThenByDescending(found => found.CorrectKatakanaCount);
+                                      .ThenByDescending(found => found.CorrectKatakanaCount).ToList();
 
             BuildNewQuestionList();
             ChooseNewSign();
@@ -270,21 +275,22 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 switch(Model.MainTestType)
                 {
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        // TODO
-                        break;
-
-                    case TestType.RoomajiToHiragana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
                     case TestType.HiraganaToRoomaji:
-                        answer.CompleteAnswerTimeForHiragana += answerTime;
-                        answer.CorrectHiraganaCount++;
+                    case TestType.RoomajiToHiragana:
+                        Model.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                        Model.CurrentTest.CorrectHiraganaCount++;
                         break;
 
+                    case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
-                        answer.CompleteAnswerTimeForKatakana += answerTime;
-                        answer.CorrectKatakanaCount++;
+                        Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
+                        Model.CurrentTest.CorrectKatakanaCount++;
+                        break;
+
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        // TODO:
                         break;
                 }
 
@@ -294,21 +300,22 @@ namespace DailyKanji.Mvvm.ViewModel
 
             switch(Model.MainTestType)
             {
-                case TestType.HiraganaOrKatakanaToRoomaji:
-                case TestType.RoomajiToHiraganaOrKatakana:
-                    // TODO
-                    break;
-
-                case TestType.RoomajiToHiragana:
+                case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
                 case TestType.HiraganaToRoomaji:
-                    answer.CompleteAnswerTimeForHiragana += answerTime;
-                    answer.WrongHiraganaCount++;
+                case TestType.RoomajiToHiragana:
+                    Model.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                    Model.CurrentTest.WrongHiraganaCount++;
                     break;
 
+                case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
-                    answer.CompleteAnswerTimeForKatakana += answerTime;
-                    answer.WrongKatakanaCount++;
+                    Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
+                    Model.CurrentTest.WrongKatakanaCount++;
+                    break;
+
+               case TestType.RoomajiToHiraganaOrKatakana:
+                    // TODO
                     break;
             }
 
@@ -367,13 +374,10 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <param name="onlyOneRoomajiCharacter">(Optional) Indicate that only a test that have a roomaji character with length one will return</param>
         /// <returns>A test</returns>
         internal TestModel GetRandomTest(bool onlyOneRoomajiCharacter = false)
-        {
-            var list = onlyOneRoomajiCharacter
-                        ? Model.NewQuestionList.Where(found => found.Roomaji.Length == 1)
-                        : Model.NewQuestionList;
-
-            return list.ElementAtOrDefault(Model.Randomizer.Next(0, list.Count())) ?? list.FirstOrDefault();
-        }
+            => onlyOneRoomajiCharacter
+                ? Model.NewQuestionList.Where(found => found.Roomaji.Length == 1)
+                                       .ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count))
+                : Model.NewQuestionList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count));
 
         /// <summary>
         /// Build all answer buttons (with text and colours)
