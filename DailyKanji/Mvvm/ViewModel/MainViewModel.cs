@@ -15,9 +15,13 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // TODO: TestType.RoomajiToHiraganaOrKatakana => no count of wrong or correct answers
+    // TODO: investigate reference lose of "Model.CurrentTest" -> remove TestModel and use only TestBaseModel
 
     // Next
     // ----
+    // TODO: Add test type for "Hiragana to Katakana"
+    // TODO: Add test type for "Katakana to Hiragana"
+    // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add menu entry to reset the statistics
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Recalculate buttons (button width), when window is resized
@@ -25,12 +29,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Near future
     // -----------
-    // TODO: investigate reference lose of "Model.CurrentTest"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
     // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
-    //       we need a prevention for this 
+    //       we need a prevention for this
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
     //
