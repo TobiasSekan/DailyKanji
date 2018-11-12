@@ -137,7 +137,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.HiraganaToKatakana;
                         questionList.Add(question);
                     }
                 }
@@ -146,7 +145,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.KatakanaToHiragana;
                         questionList.Add(question);
                     }
                 }
@@ -155,7 +153,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.HiraganaToRoomaji;
                         questionList.Add(question);
                     }
                 }
@@ -164,7 +161,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.KatakanaToRoomaji;
                         questionList.Add(question);
                     }
                 }
@@ -173,7 +169,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.RoomajiToHiragana;
                         questionList.Add(question);
                     }
                 }
@@ -182,7 +177,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        question.TestType = TestType.RoomajiToKatakana;
                         questionList.Add(question);
                     }
                 }
@@ -208,7 +202,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.CurrentTest = newQuest;
 
-            switch(Model.CurrentTest.TestType)
+            switch(Model.MainTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji:
                     Model.CurrentAskSign = Model.Randomizer.Next(0, 2) == 0

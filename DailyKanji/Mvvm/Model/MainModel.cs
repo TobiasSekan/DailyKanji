@@ -24,6 +24,9 @@ namespace DailyKanji.Mvvm.Model
             {
                 _currentTest = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(WrongCount));
+                OnPropertyChanged(nameof(CorrectCount));
+                OnPropertyChanged(nameof(AverageAnswerTime));
             }
         }
 
@@ -116,7 +119,6 @@ namespace DailyKanji.Mvvm.Model
             {
                 _newQuestionList = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(QuestionPoolString));
             }
         }
 
@@ -156,11 +158,6 @@ namespace DailyKanji.Mvvm.Model
                 OnPropertyChanged();
             }
         }
-
-        [JsonIgnore]
-        public string QuestionPoolString
-            => $"H: {NewQuestionList.Count(found => found.TestType == TestType.HiraganaToRoomaji || found.TestType == TestType.RoomajiToHiragana || found.TestType == TestType.HiraganaToKatakana)}"
-             + $" K: {NewQuestionList.Count(found => found.TestType == TestType.KatakanaToRoomaji || found.TestType == TestType.RoomajiToKatakana || found.TestType == TestType.KatakanaToHiragana)}";
 
         [JsonIgnore]
         public string WrongAnswerCountString
@@ -222,6 +219,84 @@ namespace DailyKanji.Mvvm.Model
                 return wrongAnswerCount != 0
                     ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2)}%"
                     : "100%";
+            }
+        }
+
+        [JsonIgnore]
+        public string WrongCount
+        {
+            get
+            {
+                switch(MainTestType)
+                {
+                    case TestType.HiraganaToRoomaji:
+                    case TestType.HiraganaToKatakana:
+                    case TestType.RoomajiToHiragana:
+                        return $"{CurrentTest.WrongHiraganaCount}";
+
+                    case TestType.KatakanaToRoomaji:
+                    case TestType.RoomajiToKatakana:
+                    case TestType.KatakanaToHiragana:
+                        return $"{CurrentTest.WrongKatakanaCount}";
+
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.WrongHiraganaCount} - K: {CurrentTest.WrongKatakanaCount}";
+                }
+
+                return string.Empty;
+            }
+        }
+
+        [JsonIgnore]
+        public string CorrectCount
+        {
+            get
+            {
+                switch(MainTestType)
+                {
+                    case TestType.HiraganaToRoomaji:
+                    case TestType.HiraganaToKatakana:
+                    case TestType.RoomajiToHiragana:
+                        return $"{CurrentTest.CorrectHiraganaCount}";
+
+                    case TestType.KatakanaToRoomaji:
+                    case TestType.RoomajiToKatakana:
+                    case TestType.KatakanaToHiragana:
+                        return $"{CurrentTest.CorrectKatakanaCount}";
+
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
+                }
+
+                return string.Empty;
+            }
+        }
+
+        [JsonIgnore]
+        public string AverageAnswerTime
+        {
+            get
+            {
+                switch(MainTestType)
+                {
+                    case TestType.HiraganaToRoomaji:
+                    case TestType.HiraganaToKatakana:
+                    case TestType.RoomajiToHiragana:
+                        return $"{CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff}";
+
+                    case TestType.KatakanaToRoomaji:
+                    case TestType.RoomajiToKatakana:
+                    case TestType.KatakanaToHiragana:
+                        return $"{CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
+
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff} - K: {CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
+                }
+
+                return string.Empty;
             }
         }
 
