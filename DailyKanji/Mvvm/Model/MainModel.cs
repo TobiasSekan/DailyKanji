@@ -228,6 +228,11 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
+                if(CurrentTest == null)
+                {
+                    return string.Empty;
+                }
+
                 switch(MainTestType)
                 {
                     case TestType.HiraganaToRoomaji:
@@ -254,6 +259,11 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
+                if(CurrentTest == null)
+                {
+                    return string.Empty;
+                }
+
                 switch(MainTestType)
                 {
                     case TestType.HiraganaToRoomaji:
@@ -280,6 +290,11 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
+                if(CurrentTest == null)
+                {
+                    return string.Empty;
+                }
+
                 switch(MainTestType)
                 {
                     case TestType.HiraganaToRoomaji:
