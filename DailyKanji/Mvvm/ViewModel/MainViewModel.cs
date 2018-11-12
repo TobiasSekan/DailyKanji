@@ -14,15 +14,16 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // Next
     // ----
-    // TODO: Show Roomaji on wrong answer test of type "Hiragana to Katakana" and "Katakana to Hiragana"
-    // TODO: Show Hiragana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Katakana"
-    // TODO: Show Katakana on wrong answer test of type "Hiragana to Roomaji" and "Roomaji to Hiragana"
+    // TODO: Show hint based on selected current ask sign on test type "Hiragana or Katakana to Roomaji"
     // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add menu entry to reset the statistics
+    // TODO: Add menu entry to deactivate hints
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Visible timer in 0.1 second (can be deactivated via menu)
+    // TODO: Add running progress bar with selectable maximum answer time
+    //       when time is zero, the answer is automatic answer wrong
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
@@ -80,12 +81,14 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.Randomizer        = new Random();
             Model.AnswerButtonColor = new ObservableCollection<Brush>();
+            Model.HintTextColor     = new ObservableCollection<Brush>();
             Model.PossibleAnswers   = new Collection<TestBaseModel>();
             Model.NewQuestionList   = new Collection<TestBaseModel>();
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
+                Model.HintTextColor.Add(new SolidColorBrush(Colors.Transparent));
             }
 
             _mainWindow = new MainWindow(this);
@@ -284,15 +287,15 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             // TODO: find a better way to check answer button text without use "_mainWindow" reference
-            var answerList = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>()
-                                                                  .Select(found => found.Children[0])
-                                                                  .OfType<Button>()
-                                                                  .Select(found => found.Content)
-                                                                  .OfType<TextBlock>()
-                                                                  .Select(found => found.Text);
+            var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();
+            var childrens   = stackPanels.Select(found => found.Children);
+            var buttons     = childrens.Select(found => found[1]).OfType<Button>();
+            var contexts    = buttons.Select(found => found.Content);
+            var textBlocks  = contexts.OfType<TextBlock>();
+            var texts       = textBlocks.Select(found => found.Text);
 
-            var isHiragana = answerList.Any(found => found == Model.CurrentTest.Hiragana);
-            var isKatakana = answerList.Any(found => found == Model.CurrentTest.Katakana);
+            var isHiragana = texts.Any(found => found == Model.CurrentTest.Hiragana);
+            var isKatakana = texts.Any(found => found == Model.CurrentTest.Katakana);
 
             if(answer.Roomaji == Model.CurrentTest.Roomaji)
             {
@@ -381,6 +384,8 @@ namespace DailyKanji.Mvvm.ViewModel
                     = new SolidColorBrush(Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
                                             ? Colors.LightGreen
                                             : Colors.LightCoral);
+
+                Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Black);
             }
         }
 
@@ -394,6 +399,7 @@ namespace DailyKanji.Mvvm.ViewModel
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
+                Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
             }
         }
 
@@ -419,8 +425,9 @@ namespace DailyKanji.Mvvm.ViewModel
                 for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
                 {
                     var text = string.Empty;
+                    var hint = string.Empty;
 
-                    switch(Model.MainTestType)
+                    switch (Model.MainTestType)
                     {
                         case TestType.HiraganaOrKatakanaToRoomaji:
                         case TestType.HiraganaToRoomaji:
@@ -448,7 +455,42 @@ namespace DailyKanji.Mvvm.ViewModel
                         throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
                     }
 
+                    switch (Model.MainTestType)
+                    {
+                        case TestType.RoomajiToHiraganaOrKatakana:
+                        case TestType.RoomajiToHiragana:
+                        case TestType.RoomajiToKatakana:
+                            hint = Model.PossibleAnswers[answerNumber].Roomaji;
+                            break;
+
+                        case TestType.HiraganaToRoomaji:
+                        case TestType.HiraganaToKatakana:
+                            hint = Model.PossibleAnswers[answerNumber].Hiragana;
+                            break;
+
+                        case TestType.KatakanaToRoomaji:
+                        case TestType.KatakanaToHiragana:
+                            hint = Model.PossibleAnswers[answerNumber].Katakana;
+                            break;
+
+                        case TestType.HiraganaOrKatakanaToRoomaji:
+                            // TODO: show hint based on selected current ask sign
+                            hint = Model.PossibleAnswers[answerNumber].Hiragana;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
+                    }
+
                     var stackPanel = new StackPanel();
+
+                    var hintText = new TextBlock
+                    {
+                        FontSize            = 32,
+                        Foreground          = Model.HintTextColor[answerNumber],
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Text                = hint,
+                    };
 
                     var buttonText = new TextBlock
                     {
@@ -471,10 +513,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     var noteText = new TextBlock
                     {
+                        FontSize            = 12,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Text                = $"{answerNumber + 1}",
                     };
 
+                    stackPanel.Children.Add(hintText);
                     stackPanel.Children.Add(button);
                     stackPanel.Children.Add(noteText);
 

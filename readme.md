@@ -11,6 +11,7 @@ in development
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Only Hiragana to Katakana, Only Katakana to Hiragana
 * Highlight wrong and correct answers, when answer was wrong
+* Show hint (based on selected test type) of all possible answers, when answer was wrong
 * Count answer time (separates counter for Hiragana and Katakana)
 * Can show only similar answers
 * Changeable answer count (from two answers up to ten answers)
@@ -30,34 +31,35 @@ Open a issue ticket or make a pull request
 
 # Goals
 
-#### Next
-* Show Roomaji on wrong answer test of type "Hiragana to Katakana" and "Katakana to Hiragana"
-* Show Hiragana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Katakana"
-* Show Katakana on wrong answer test of type "Katakana to Roomaji" and "Roomaji to Hiragana"
+#### Next (before 1.0 release)
+* Show hint (based on selected current ask sign) on test type "Hiragana or Katakana to Roomaji"
 * Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add menu entry to reset the statistics
+* Add menu entry to deactivate hints
 * Add new answers sub-menu (show current answer inside menu entry with shortcut)
 * Recalculate buttons (button width), when window is resized
 * Visible timer in 0.1 second (can be deactivated via menu)
+* Add running progress bar with selectable maximum answer time
+  * when time is zero, the answer is automatic answer wrong
 * Add main counter for each test (negative/positive)
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
 
-#### Near future
+#### Near future (before 1.0 release)
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 
   * Maybe: Only the first character or last character must are the same on less then five answers
+* Change test order so that all tests will be ask (based on ask counter)
+
+#### Next versions (after 1.0 release)
 * Move logic to separate library project in .Net Standard 2.0
 * Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
 * Export (XLSX, CSV, JSON, XML)
-
-#### Later
-* Change test order so that all tests will be ask (based on ask counter)
-* Make colours choose-able
 * Integrate Kanji tests
 
 #### Ideas
+* Make colours choose-able
 * Import (XLSX, CSV, JSON, XML)

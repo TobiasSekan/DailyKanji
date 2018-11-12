@@ -35,11 +35,11 @@
             <RowDefinition Height="*" />
 
             <!--  Grid - Question  -->
-            <RowDefinition Height="200" />
+            <RowDefinition Height="150" />
             <RowDefinition Height="*" />
 
             <!--  StackPanel - Answer buttons  -->
-            <RowDefinition Height="115" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
             <!--  DataGrid - Hiragana and Katakana list  -->
@@ -358,7 +358,6 @@
 
             <TextBlock Grid.Column="1"
                        Width="200"
-                       Padding="0,25,0,0"
                        HorizontalAlignment="Center"
                        Background="{Binding Path=Model.CurrentAskSignColor}"
                        FontSize="100"

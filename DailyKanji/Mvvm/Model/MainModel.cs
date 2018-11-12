@@ -46,6 +46,20 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
+        /// The current colour of all answer buttons
+        /// </summary>
+        [JsonIgnore]
+        public ObservableCollection<Brush> HintTextColor
+        {
+            get => _hintTextColor;
+            set
+            {
+                _hintTextColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// The current colour of the ask sign
         /// </summary>
         [JsonIgnore]
@@ -339,6 +353,11 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="AnswerButtonColor"/>
         /// </summary>
         private ObservableCollection<Brush> _buttonColor;
+
+        /// <summary>
+        /// Backing-field for <see cref="HintTextColor"/>
+        /// </summary>
+        private ObservableCollection<Brush> _hintTextColor;
 
         /// <summary>
         /// Backing-field for <see cref="CurrentAskSignColor"/>
