@@ -17,7 +17,7 @@ namespace DailyKanji.Mvvm.Model
         /// The current sign quest
         /// </summary>
         [JsonIgnore]
-        public TestModel CurrentTest
+        public TestBaseModel CurrentTest
         {
             get => _currentTest;
             set
@@ -109,7 +109,7 @@ namespace DailyKanji.Mvvm.Model
         }
 
         [JsonIgnore]
-        public IReadOnlyCollection<TestModel> NewQuestionList
+        public IReadOnlyCollection<TestBaseModel> NewQuestionList
         {
             get => _newQuestionList;
             set
@@ -247,7 +247,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="CurrentTest"/>
         /// </summary>
-        private TestModel _currentTest;
+        private TestBaseModel _currentTest;
 
         /// <summary>
         /// Backing-field for <see cref="PossibleAnswers"/>
@@ -282,7 +282,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="NewQuestionList"/>
         /// </summary>
-        private IReadOnlyCollection<TestModel> _newQuestionList;
+        private IReadOnlyCollection<TestBaseModel> _newQuestionList;
 
         /// <summary>
         /// Backing-field for <see cref="ErrorTimeout"/>

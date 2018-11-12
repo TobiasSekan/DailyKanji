@@ -1,4 +1,5 @@
-﻿using DailyKanji.Helper;
+﻿using DailyKanji.Enumerations;
+using DailyKanji.Helper;
 using Newtonsoft.Json;
 using System;
 
@@ -107,7 +108,21 @@ namespace DailyKanji.Mvvm.Model
                 ? new TimeSpan(CompleteAnswerTimeForKatakana.Ticks / (CorrectKatakanaCount + WrongKatakanaCount))
                 : new TimeSpan();
 
+        [JsonIgnore]
+        public TimeSpan AverageAnswerTime
+            => TestType == TestType.HiraganaToRoomaji ? AverageAnswerTimeForHiragana : AverageAnswerTimeForKatakana;
+
+        [JsonIgnore]
+        public int CorrectCount
+            => TestType == TestType.HiraganaToRoomaji ? CorrectHiraganaCount : CorrectKatakanaCount;
+
+        [JsonIgnore]
+        public int WrongCount
+            => TestType == TestType.HiraganaToRoomaji ? WrongHiraganaCount : WrongKatakanaCount;
+
         #endregion Public Properties
+
+        internal TestType TestType { get; set; }
 
         #region Private Backing-fields
 

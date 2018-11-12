@@ -12,10 +12,6 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // BUG
-    // ---
-    // TODO: investigate reference lose of "Model.CurrentTest" -> remove TestModel and use only TestBaseModel
-
     // Next
     // ----
     // TODO: Show Roomaji on wrong answer test of type "Hiragana to Katakana" and "Katakana to Hiragana"
@@ -85,7 +81,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.Randomizer        = new Random();
             Model.AnswerButtonColor = new ObservableCollection<Brush>();
             Model.PossibleAnswers   = new ObservableCollection<TestBaseModel>();
-            Model.NewQuestionList   = new Collection<TestModel>();
+            Model.NewQuestionList   = new Collection<TestBaseModel>();
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
@@ -112,10 +108,6 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void CreateNewTest()
         {
-            // TODO: investigate why "Model.CurrentTest" lose the reference to "Model.AllTestsList" element, and remove theses lines
-            Model.AllTestsList.Remove(Model.AllTestsList.FirstOrDefault(found => found.Roomaji == Model.CurrentTest.Roomaji));
-            Model.AllTestsList.Add(Model.CurrentTest);
-
             Model.AllTestsList = Model.AllTestsList
                                       .OrderByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
                                       .ThenByDescending(found => found.WrongHiraganaCount)
@@ -135,7 +127,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal void BuildNewQuestionList()
         {
-            var questionList = new Collection<TestModel>();
+            var questionList = new Collection<TestBaseModel>();
 
             // TODO: refactor this
 
@@ -145,7 +137,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.HiraganaToKatakana));
+                        question.TestType = TestType.HiraganaToKatakana;
+                        questionList.Add(question);
                     }
                 }
 
@@ -153,7 +146,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.KatakanaToHiragana));
+                        question.TestType = TestType.KatakanaToHiragana;
+                        questionList.Add(question);
                     }
                 }
 
@@ -161,7 +155,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.HiraganaToRoomaji));
+                        question.TestType = TestType.HiraganaToRoomaji;
+                        questionList.Add(question);
                     }
                 }
 
@@ -169,7 +164,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.KatakanaToRoomaji));
+                        question.TestType = TestType.KatakanaToRoomaji;
+                        questionList.Add(question);
                     }
                 }
 
@@ -177,7 +173,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.RoomajiToHiragana));
+                        question.TestType = TestType.RoomajiToHiragana;
+                        questionList.Add(question);
                     }
                 }
 
@@ -185,7 +182,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
                     {
-                        questionList.Add(new TestModel(question, TestType.RoomajiToKatakana));
+                        question.TestType = TestType.RoomajiToKatakana;
+                        questionList.Add(question);
                     }
                 }
             }
@@ -419,7 +417,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         /// <param name="onlyOneRoomajiCharacter">(Optional) Indicate that only a test that have a roomaji character with length one will return</param>
         /// <returns>A test</returns>
-        internal TestModel GetRandomTest(bool onlyOneRoomajiCharacter = false)
+        internal TestBaseModel GetRandomTest(bool onlyOneRoomajiCharacter = false)
             => onlyOneRoomajiCharacter
                 ? Model.NewQuestionList.Where(found => found.Roomaji.Length == 1)
                                        .ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count))

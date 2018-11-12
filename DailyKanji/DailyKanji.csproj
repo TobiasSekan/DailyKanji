@@ -70,7 +70,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Mvvm\Model\TestModel.cs" />
     <Compile Include="Mvvm\Model\TestBaseModel.cs" />
     <Compile Include="Mvvm\ViewModel\MainViewModelCommands.cs" />
     <Compile Include="Mvvm\View\MainWindow.xaml.cs">
