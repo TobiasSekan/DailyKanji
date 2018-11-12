@@ -158,23 +158,6 @@ namespace DailyKanji.Mvvm.Model
             Katakana = katakana;
         }
 
-        /// <summary>
-        /// Create a new test, based on the given <see cref="TestBaseModel"/>
-        /// </summary>
-        /// <param name="testBaseModel">The <see cref="TestBaseModel"/> for this test</param>
-        protected TestBaseModel(TestBaseModel testBaseModel)
-        {
-            Roomaji                       = testBaseModel.Roomaji;
-            Hiragana                      = testBaseModel.Hiragana;
-            Katakana                      = testBaseModel.Katakana;
-            WrongHiraganaCount            = testBaseModel.WrongHiraganaCount;
-            WrongKatakanaCount            = testBaseModel.WrongKatakanaCount;
-            CorrectHiraganaCount          = testBaseModel.CorrectHiraganaCount;
-            CorrectKatakanaCount          = testBaseModel.CorrectKatakanaCount;
-            CompleteAnswerTimeForHiragana = testBaseModel.CompleteAnswerTimeForHiragana;
-            CompleteAnswerTimeForKatakana = testBaseModel.CompleteAnswerTimeForKatakana;
-        }
-
         #endregion Constructors
     }
 }
