@@ -32,20 +32,6 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// A list with possible answers
-        /// </summary>
-        [JsonIgnore]
-        public ObservableCollection<TestBaseModel> PossibleAnswers
-        {
-            get => _possibleAnswers;
-            set
-            {
-                _possibleAnswers = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
         /// The current colour of all answer buttons
         /// </summary>
         [JsonIgnore]
@@ -206,7 +192,7 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-                /// <summary>
+        /// <summary>
         /// Return the current rate in percent
         /// </summary>
         [JsonIgnore]
@@ -316,6 +302,15 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        #endregion Public Properties
+
+        #region Internal Properties
+
+        /// <summary>
+        /// A list with possible answers
+        /// </summary>
+        internal IList<TestBaseModel> PossibleAnswers { get; set; }
+
         /// <summary>
         /// Global random generator
         /// </summary>
@@ -331,7 +326,7 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal DateTime TestStartTime { get; set; }
 
-        #endregion Public Properties
+        #endregion Internal Properties
 
         #region Private Backing-Fields
 
@@ -339,11 +334,6 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentTest"/>
         /// </summary>
         private TestBaseModel _currentTest;
-
-        /// <summary>
-        /// Backing-field for <see cref="PossibleAnswers"/>
-        /// </summary>
-        private ObservableCollection<TestBaseModel> _possibleAnswers;
 
         /// <summary>
         /// Backing-field for <see cref="AnswerButtonColor"/>

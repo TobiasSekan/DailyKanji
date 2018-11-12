@@ -80,7 +80,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.Randomizer        = new Random();
             Model.AnswerButtonColor = new ObservableCollection<Brush>();
-            Model.PossibleAnswers   = new ObservableCollection<TestBaseModel>();
+            Model.PossibleAnswers   = new Collection<TestBaseModel>();
             Model.NewQuestionList   = new Collection<TestBaseModel>();
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
@@ -129,56 +129,38 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             var questionList = new Collection<TestBaseModel>();
 
-            // TODO: refactor this
-
             foreach(var question in Model.AllTestsList)
             {
-                if(Model.MainTestType == TestType.HiraganaToKatakana)
+                switch(Model.MainTestType)
                 {
-                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
-                }
+                    case TestType.HiraganaToRoomaji:
+                    case TestType.HiraganaToKatakana:
+                    case TestType.RoomajiToHiragana:
+                        for(var repeatCount = 0; repeatCount <= question.WrongHiraganaCount; repeatCount++)
+                        {
+                            questionList.Add(question);
+                        }
+                        break;
 
-                if(Model.MainTestType == TestType.KatakanaToHiragana)
-                {
-                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
-                }
+                    case TestType.KatakanaToHiragana:
+                    case TestType.KatakanaToRoomaji:
+                    case TestType.RoomajiToKatakana:
+                        for(var repeatCount = 0; repeatCount <= question.WrongKatakanaCount; repeatCount++)
+                        {
+                            questionList.Add(question);
+                        }
+                        break;
 
-                if(Model.MainTestType == TestType.HiraganaToRoomaji || Model.MainTestType == TestType.HiraganaOrKatakanaToRoomaji)
-                {
-                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
-                }
+                    case TestType.HiraganaOrKatakanaToRoomaji:
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        for(var repeatCount = 0; repeatCount <= question.WrongHiraganaCount + question.WrongKatakanaCount; repeatCount++)
+                        {
+                            questionList.Add(question);
+                        }
+                        break;
 
-                if(Model.MainTestType == TestType.KatakanaToRoomaji || Model.MainTestType == TestType.HiraganaOrKatakanaToRoomaji)
-                {
-                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
-                }
-
-                if(Model.MainTestType == TestType.RoomajiToHiragana || Model.MainTestType == TestType.RoomajiToHiraganaOrKatakana)
-                {
-                    for(var repeatCount = 0; repeatCount < question.WrongHiraganaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
-                }
-
-                if(Model.MainTestType == TestType.RoomajiToKatakana || Model.MainTestType == TestType.RoomajiToHiraganaOrKatakana)
-                {
-                    for(var repeatCount = 0; repeatCount < question.WrongKatakanaCount + 1; repeatCount++)
-                    {
-                        questionList.Add(question);
-                    }
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
                 }
             }
 
@@ -225,6 +207,9 @@ namespace DailyKanji.Mvvm.ViewModel
                 case TestType.RoomajiToKatakana:
                     Model.CurrentAskSign = Model.CurrentTest.Roomaji;
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
             }
         }
 
@@ -330,6 +315,9 @@ namespace DailyKanji.Mvvm.ViewModel
                         Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
                         Model.CurrentTest.CorrectKatakanaCount++;
                         break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
                 }
 
                 CreateNewTest();
@@ -355,6 +343,9 @@ namespace DailyKanji.Mvvm.ViewModel
                     Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
                     Model.CurrentTest.WrongKatakanaCount++;
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
             }
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
@@ -452,6 +443,9 @@ namespace DailyKanji.Mvvm.ViewModel
                         case TestType.HiraganaToKatakana:
                             text = Model.PossibleAnswers[answerNumber].Katakana;
                             break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
                     }
 
                     var stackPanel = new StackPanel();
