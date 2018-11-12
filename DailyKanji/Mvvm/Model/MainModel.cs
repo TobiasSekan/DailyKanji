@@ -24,6 +24,7 @@ namespace DailyKanji.Mvvm.Model
             {
                 _currentTest = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(AllTestsList));
                 OnPropertyChanged(nameof(WrongCount));
                 OnPropertyChanged(nameof(CorrectCount));
                 OnPropertyChanged(nameof(AverageAnswerTime));
