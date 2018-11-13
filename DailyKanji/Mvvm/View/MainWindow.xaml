@@ -64,6 +64,12 @@
 
             </MenuItem>
 
+            <MenuItem Header="View">
+
+                <MenuItem Command="{Binding Path=ChangeHintVisibility}" Header="Show hints on wrong answers" IsChecked="{Binding Path=Model.ShowHints}" />
+
+            </MenuItem>
+
             <MenuItem Header="Settings">
 
                 <MenuItem Header="Test type">

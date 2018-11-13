@@ -160,6 +160,19 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that hints on wrong answers will be shown
+        /// </summary>
+        public bool ShowHints
+        {
+            get => _showHints;
+            set
+            {
+                _showHints = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         public string WrongAnswerCountString
             => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount)}"
@@ -399,6 +412,11 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         private ICollection<TestBaseModel> _allTestsList;
 
+        /// <summary>
+        /// Backing-field for <see cref="ShowHints"/>
+        /// </summary>
+        private bool _showHints;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -406,8 +424,11 @@ namespace DailyKanji.Mvvm.Model
         public MainModel()
         {
             MainTestType   = TestType.HiraganaOrKatakanaToRoomaji;
-            ErrorTimeout   = 1_500;
+
             MaximumAnswer  = 5;
+            ErrorTimeout   = 3_000;
+
+            ShowHints      = true;
             SimilarAnswers = true;
         }
 

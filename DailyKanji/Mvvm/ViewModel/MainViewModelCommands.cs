@@ -15,43 +15,50 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CloseProgram
             => new CommandHelper(() => _mainWindow.Close());
 
+        public ICommand ChangeHintVisibility
+            => new CommandHelper(() => Model.ShowHints = !Model.ShowHints);
+
         public ICommand ChangeTestType
-            => new CommandHelper((testType) =>
-            {
-                Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRoomaji;
-                CreateNewTest();
-            });
+            => new CommandHelper((testType)
+                =>
+                {
+                    Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRoomaji;
+                    CreateNewTest();
+                });
 
         public ICommand ChangeErrorTimeout
             => new CommandHelper((timeout) => Model.ErrorTimeout = Convert.ToInt32(timeout));
 
         public ICommand ChangeAnswerCount
-            => new CommandHelper((value) =>
-            {
-                Model.MaximumAnswer = Convert.ToByte(value);
-                ChooseNewPossibleAnswers();
-                BuildAnswerButtons();
-            });
+            => new CommandHelper((value)
+                =>
+                {
+                    Model.MaximumAnswer = Convert.ToByte(value);
+                    ChooseNewPossibleAnswers();
+                    BuildAnswerButtons();
+                });
 
         public ICommand ChangeAnswerMode
-            => new CommandHelper(() =>
-            {
-                ChooseNewPossibleAnswers();
-                BuildAnswerButtons();
-            });
+            => new CommandHelper(()
+                =>
+                {
+                    ChooseNewPossibleAnswers();
+                    BuildAnswerButtons();
+                });
 
         public ICommand AnswerTest
             => new CommandHelper((parameter) => CheckAnswer(parameter as TestBaseModel));
 
         public ICommand AnswerNumber
-            => new CommandHelper((parameter) =>
-            {
-                if(!int.TryParse(parameter.ToString(), out var answerNumber))
+            => new CommandHelper((parameter)
+                =>
                 {
-                    return;
-                }
+                    if(!int.TryParse(parameter.ToString(), out var answerNumber))
+                    {
+                        return;
+                    }
 
-                CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
-            });
+                    CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                });
     }
 }

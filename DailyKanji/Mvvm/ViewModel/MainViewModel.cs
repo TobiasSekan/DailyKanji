@@ -18,7 +18,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add menu entry to reset the statistics
-    // TODO: Add menu entry to deactivate hints
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Visible timer in 0.1 second (can be deactivated via menu)
@@ -385,7 +384,10 @@ namespace DailyKanji.Mvvm.ViewModel
                                             ? Colors.LightGreen
                                             : Colors.LightCoral);
 
-                Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Black);
+                if(Model.ShowHints)
+                {
+                    Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Black);
+                }
             }
         }
 
@@ -399,7 +401,7 @@ namespace DailyKanji.Mvvm.ViewModel
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
-                Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
+                Model.HintTextColor[answerNumber]     = new SolidColorBrush(Colors.Transparent);
             }
         }
 

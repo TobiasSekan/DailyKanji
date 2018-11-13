@@ -11,7 +11,7 @@ in development
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Only Hiragana to Katakana, Only Katakana to Hiragana
 * Highlight wrong and correct answers, when answer was wrong
-* Show hint (based on selected test type) of all possible answers, when answer was wrong
+* Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
 * Count answer time (separates counter for Hiragana and Katakana)
 * Can show only similar answers
 * Changeable answer count (from two answers up to ten answers)
@@ -36,7 +36,6 @@ Open a issue ticket or make a pull request
 * Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add menu entry to reset the statistics
-* Add menu entry to deactivate hints
 * Add new answers sub-menu (show current answer inside menu entry with shortcut)
 * Recalculate buttons (button width), when window is resized
 * Visible timer in 0.1 second (can be deactivated via menu)
