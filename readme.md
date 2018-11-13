@@ -10,6 +10,7 @@ in development
   * Hiragana or Katakana to Roomaji, Only Hiragana to Roomaji, Only Katakana to Roomaji
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Only Hiragana to Katakana, Only Katakana to Hiragana
+* Test can be answered via left mouse click, number key and menu
 * Highlight wrong and correct answers, when answer was wrong
 * Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
 * Count answer time (separates counter for Hiragana and Katakana)
@@ -37,7 +38,6 @@ Open a issue ticket or make a pull request
 * Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add more menu entry to reset individual things of the statistics
-* Add new answers sub-menu (show current answer inside menu entry with shortcut)
 * Recalculate buttons (button width), when window is resized
 * Visible timer in 0.1 second (can be deactivated via menu)
 * Add running progress bar with selectable maximum answer time

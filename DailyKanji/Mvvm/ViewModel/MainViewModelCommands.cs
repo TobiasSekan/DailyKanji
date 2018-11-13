@@ -35,7 +35,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     Model.MaximumAnswer = Convert.ToByte(value);
                     ChooseNewPossibleAnswers();
-                    BuildAnswerButtons();
+                    BuildAnswerMenuAndButtons();
                 });
 
         public ICommand ChangeAnswerMode
@@ -43,7 +43,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 =>
                 {
                     ChooseNewPossibleAnswers();
-                    BuildAnswerButtons();
+                    BuildAnswerMenuAndButtons();
                 });
 
         public ICommand AnswerTest

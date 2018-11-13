@@ -357,6 +357,8 @@
 
             </MenuItem>
 
+            <MenuItem x:Name="AnswerMenu" Header="Answers" />
+
         </Menu>
 
         <Grid Grid.Row="2" Height="200">

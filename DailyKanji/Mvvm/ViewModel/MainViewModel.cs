@@ -17,7 +17,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Show hint based on selected current ask sign on test type "Hiragana or Katakana to Roomaji"
     // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-    // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
     // TODO: Add more menu entry to reset individual things of the statistics
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Visible timer in 0.1 second (can be deactivated via menu)
@@ -122,7 +121,7 @@ namespace DailyKanji.Mvvm.ViewModel
             BuildNewQuestionList();
             ChooseNewSign();
             ChooseNewPossibleAnswers();
-            BuildAnswerButtons();
+            BuildAnswerMenuAndButtons();
 
             Model.IgnoreInput   = false;
             Model.TestStartTime = DateTime.UtcNow;
@@ -354,7 +353,7 @@ namespace DailyKanji.Mvvm.ViewModel
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
                 SetAnswerColors();
-                BuildAnswerButtons();
+                BuildAnswerMenuAndButtons();
             }));
 
             var timer = new System.Timers.Timer(Model.ErrorTimeout)
@@ -418,12 +417,13 @@ namespace DailyKanji.Mvvm.ViewModel
                 : Model.NewQuestionList.ElementAtOrDefault(Model.Randomizer.Next(0, Model.NewQuestionList.Count));
 
         /// <summary>
-        /// Build all answer buttons (with text and colours)
+        /// Build all answer menu entries and buttons
         /// </summary>
-        internal void BuildAnswerButtons()
+        internal void BuildAnswerMenuAndButtons()
             => _mainWindow?.Dispatcher?.Invoke(new Action(() =>
             {
                 _mainWindow.AnswerButtonArea.Children.Clear();
+                _mainWindow.AnswerMenu.Items.Clear();
 
                 for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
                 {
@@ -486,15 +486,6 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     var stackPanel = new StackPanel();
-
-                    var hintText = new TextBlock
-                    {
-                        FontSize            = 32,
-                        Foreground          = Model.HintTextColor[answerNumber],
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        Text                = hint,
-                    };
-
                     var buttonText = new TextBlock
                     {
                         FontSize          = 100 - (5 * Model.MaximumAnswer),
@@ -503,7 +494,15 @@ namespace DailyKanji.Mvvm.ViewModel
                         VerticalAlignment = VerticalAlignment.Center
                     };
 
-                    var button = new Button
+                    stackPanel.Children.Add(new TextBlock
+                    {
+                        FontSize            = 32,
+                        Foreground          = Model.HintTextColor[answerNumber],
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Text                = hint
+                    });
+
+                    stackPanel.Children.Add(new Button
                     {
                         Background       = Model.AnswerButtonColor[answerNumber],
                         Command          = AnswerTest,
@@ -512,20 +511,24 @@ namespace DailyKanji.Mvvm.ViewModel
                         Height           = 100,
                         Margin           = new Thickness(5, 0, 5, 0),
                         Width            = (_mainWindow.Width - 20 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer
-                    };
+                    });
 
-                    var noteText = new TextBlock
+                    stackPanel.Children.Add(new TextBlock
                     {
                         FontSize            = 12,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Text                = $"{answerNumber + 1}",
-                    };
-
-                    stackPanel.Children.Add(hintText);
-                    stackPanel.Children.Add(button);
-                    stackPanel.Children.Add(noteText);
+                    });
 
                     _mainWindow.AnswerButtonArea.Children.Add(stackPanel);
+
+                    _mainWindow.AnswerMenu.Items.Add(new MenuItem
+                    {
+                        Command          = AnswerTest,
+                        CommandParameter = Model.PossibleAnswers[answerNumber],
+                        Header           = text,
+                        InputGestureText = $"{answerNumber + 1}"
+                    });
                 }
             }));
 
