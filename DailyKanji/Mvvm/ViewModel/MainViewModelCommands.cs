@@ -60,5 +60,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
+
+        public ICommand RestCompleteStatistic
+            => new CommandHelper(() =>
+            {
+                ResetCompleteStatistic();
+                CreateNewTest();
+            });
     }
 }

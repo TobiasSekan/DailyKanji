@@ -17,8 +17,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Show hint based on selected current ask sign on test type "Hiragana or Katakana to Roomaji"
     // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-    // TODO: Add menu entry to reset the statistics
     // TODO: Add new answers sub-menu (show current answer inside menu entry with shortcut)
+    // TODO: Add more menu entry to reset individual things of the statistics
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Visible timer in 0.1 second (can be deactivated via menu)
     // TODO: Add running progress bar with selectable maximum answer time
@@ -567,6 +567,22 @@ namespace DailyKanji.Mvvm.ViewModel
                                 $"Error on load {_settingFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Rest the complete statistic
+        /// </summary>
+        internal void ResetCompleteStatistic()
+        {
+            foreach(var test in Model.AllTestsList)
+            {
+                test.CorrectHiraganaCount          = 0;
+                test.CorrectKatakanaCount          = 0;
+                test.WrongHiraganaCount            = 0;
+                test.WrongKatakanaCount            = 0;
+                test.CompleteAnswerTimeForHiragana = new TimeSpan();
+                test.CompleteAnswerTimeForKatakana = new TimeSpan();
             }
         }
 

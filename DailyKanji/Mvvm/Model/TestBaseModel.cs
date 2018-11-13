@@ -75,6 +75,9 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// The complete answer time of all test with the Hiragana sign
+        /// </summary>
         public TimeSpan CompleteAnswerTimeForHiragana
         {
             get => _completeAnswerTimeForHiragana;
@@ -85,6 +88,9 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// The complete answer time of all test with the Katakana sign
+        /// </summary>
         public TimeSpan CompleteAnswerTimeForKatakana
         {
             get => _completeAnswerTimeForKatakana;
@@ -95,12 +101,18 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// The average answer time of all test with a Hiragana sign
+        /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForHiragana
             => CorrectHiraganaCount + WrongHiraganaCount > 0
                 ? new TimeSpan(CompleteAnswerTimeForHiragana.Ticks / (CorrectHiraganaCount + WrongHiraganaCount))
                 : new TimeSpan();
 
+        /// <summary>
+        /// The average answer time of all test with a Katakana sign
+        /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForKatakana
             => CorrectKatakanaCount + WrongKatakanaCount > 0

@@ -17,6 +17,7 @@ in development
 * Changeable answer count (from two answers up to ten answers)
 * Changeable error time (highlight when answer was wrong)
 * Automatically load and save test statistics and settings
+* Statistics can reset via menu
 
 # Missing a feature or found a bug?
 Open a issue ticket or make a pull request
@@ -35,7 +36,7 @@ Open a issue ticket or make a pull request
 * Show hint (based on selected current ask sign) on test type "Hiragana or Katakana to Roomaji"
 * Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-* Add menu entry to reset the statistics
+* Add more menu entry to reset individual things of the statistics
 * Add new answers sub-menu (show current answer inside menu entry with shortcut)
 * Recalculate buttons (button width), when window is resized
 * Visible timer in 0.1 second (can be deactivated via menu)

@@ -56,8 +56,6 @@
 
                 <MenuItem Command="{Binding Path=NewQuestion}" Header="New question" InputGestureText="Ctrl+N" />
 
-                <MenuItem Header="Export" IsEnabled="False" />
-
                 <Separator />
 
                 <MenuItem Command="{Binding Path=CloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
@@ -350,6 +348,12 @@
                           Header="Similar answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=Model.SimilarAnswers}" />
+
+            </MenuItem>
+
+            <MenuItem Header="Statistic">
+
+                <MenuItem Command="{Binding Path=RestCompleteStatistic}" Header="Reset the complete statistic" />
 
             </MenuItem>
 
