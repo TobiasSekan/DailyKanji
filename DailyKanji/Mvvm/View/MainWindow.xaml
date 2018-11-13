@@ -120,17 +120,24 @@
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="6"
-                              Header="Only Hiragana to Katakana"
+                              Header="Hiragana to Katakana or Katakana to Hiragana"
                               IsChecked="{Binding Path=Model.MainTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="7"
-                              Header="Only Katakana to Hiragana"
+                              Header="Only Hiragana to Katakana"
                               IsChecked="{Binding Path=Model.MainTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7}" />
+
+                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                              CommandParameter="8"
+                              Header="Only Katakana to Hiragana"
+                              IsChecked="{Binding Path=Model.MainTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=8}" />
                 </MenuItem>
 
                 <MenuItem Header="Possible answers">

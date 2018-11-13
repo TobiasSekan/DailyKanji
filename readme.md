@@ -6,10 +6,10 @@ in development
 * .Net Framework 4.7 or newer (4.7.1, 4.7.2)
 
 # Current features
-* 8 Test types
+* 9 Test types
   * Hiragana or Katakana to Roomaji, Only Hiragana to Roomaji, Only Katakana to Roomaji
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
-  * Only Hiragana to Katakana, Only Katakana to Hiragana
+  * Hiragana to Katakana or Katakana to Hiragana, Only Hiragana to Katakana, Only Katakana to Hiragana
 * Test can be answered via left mouse click, number key and menu
 * Highlight wrong and correct answers, when answer was wrong
 * Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
@@ -34,8 +34,6 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next (before 1.0 release)
-* Show hint (based on selected current ask sign) on test type "Hiragana or Katakana to Roomaji"
-* Add test type for "Hiragana or Katakana to Katakana or Hiragana"
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add more menu entry to reset individual things of the statistics
 * Recalculate buttons (button width), when window is resized

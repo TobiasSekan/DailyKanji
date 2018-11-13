@@ -208,6 +208,9 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.RoomajiToKatakana:
                         return "R => K";
 
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
+                        return "H => K / K => H";
+
                     case TestType.HiraganaToKatakana:
                         return "H => K";
 
@@ -251,16 +254,18 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.WrongHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.WrongKatakanaCount}";
-
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        return $"H: {CurrentTest.WrongHiraganaCount} - K: {CurrentTest.WrongKatakanaCount}";
                 }
 
                 return string.Empty;
@@ -282,16 +287,18 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.CorrectHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.CorrectKatakanaCount}";
-
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
                 }
 
                 return string.Empty;
@@ -313,16 +320,18 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
-
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        return $"H: {CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff} - K: {CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
                 }
 
                 return string.Empty;

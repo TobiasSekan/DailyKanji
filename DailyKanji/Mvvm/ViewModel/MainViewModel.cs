@@ -12,10 +12,14 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // BUG
+    // ---
+    // TODO: Empty current stats on correct answer
+
+    // TODO: Test counting (correct and wrong) on new test type "HiraganaToKatakanaOrKatakanaOrHiragana"
+
     // Next
     // ----
-    // TODO: Show hint based on selected current ask sign on test type "Hiragana or Katakana to Roomaji"
-    // TODO: Add test type for "Hiragana or Katakana to Katakana or Hiragana"
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add more menu entry to reset individual things of the statistics
     // TODO: Recalculate buttons (button width), when window is resized
@@ -90,10 +94,11 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.HintTextColor.Add(new SolidColorBrush(Colors.Transparent));
             }
 
-            _mainWindow = new MainWindow(this);
-
             BuildNewQuestionList();
             ChooseNewSign();
+
+            _mainWindow = new MainWindow(this);
+
             CreateNewTest();
             RemoveAnswerColors();
 
@@ -155,6 +160,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     case TestType.HiraganaOrKatakanaToRoomaji:
                     case TestType.RoomajiToHiraganaOrKatakana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
                         for(var repeatCount = 0; repeatCount <= question.WrongHiraganaCount + question.WrongKatakanaCount; repeatCount++)
                         {
                             questionList.Add(question);
@@ -189,6 +195,7 @@ namespace DailyKanji.Mvvm.ViewModel
             switch(Model.MainTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji:
+                case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
                     Model.CurrentAskSign = Model.Randomizer.Next(0, 2) == 0
                         ? Model.CurrentTest.Hiragana
                         : Model.CurrentTest.Katakana;
@@ -301,6 +308,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 switch(Model.MainTestType)
                 {
                     case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
                     case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
                     case TestType.HiraganaToRoomaji:
                     case TestType.RoomajiToHiragana:
@@ -310,6 +318,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         break;
 
                     case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
+                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
                     case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
@@ -329,6 +338,7 @@ namespace DailyKanji.Mvvm.ViewModel
             switch(Model.MainTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
+                case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
                 case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
                 case TestType.HiraganaToRoomaji:
                 case TestType.RoomajiToHiragana:
@@ -338,6 +348,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     break;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
+                case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
                 case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
@@ -454,6 +465,12 @@ namespace DailyKanji.Mvvm.ViewModel
                             text = Model.PossibleAnswers[answerNumber].Katakana;
                             break;
 
+                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
+                            text = Model.CurrentAskSign == Model.CurrentTest.Katakana
+                                    ? Model.PossibleAnswers[answerNumber].Hiragana
+                                    : Model.PossibleAnswers[answerNumber].Katakana;
+                            break;
+
                     default:
                         throw new ArgumentOutOfRangeException(nameof(Model.MainTestType), "Test type not supported");
                     }
@@ -477,8 +494,10 @@ namespace DailyKanji.Mvvm.ViewModel
                             break;
 
                         case TestType.HiraganaOrKatakanaToRoomaji:
-                            // TODO: show hint based on selected current ask sign
-                            hint = Model.PossibleAnswers[answerNumber].Hiragana;
+                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
+                            hint = Model.CurrentAskSign == Model.CurrentTest.Hiragana
+                                    ? Model.PossibleAnswers[answerNumber].Hiragana
+                                    : Model.PossibleAnswers[answerNumber].Katakana;
                             break;
 
                         default:
