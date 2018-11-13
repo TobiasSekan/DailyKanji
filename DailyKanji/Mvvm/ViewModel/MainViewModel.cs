@@ -38,13 +38,14 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
     //
-    // TODO: Move logic to separate library project in .Net Standard 2.0
-    // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Export (XLSX, CSV, JSON, XML)
+    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
+    // TODO: Change test order so that all tests will be ask (based on ask counter)
 
     // Later
     // -----
-    // TODO: Change test order so that all tests will be ask (based on ask counter)
+    // TODO: Move logic to separate library project in .Net Standard 2.0
+    // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
+    // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Make colours choose-able
     // TODO: Import ???
 
