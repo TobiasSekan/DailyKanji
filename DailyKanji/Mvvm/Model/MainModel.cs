@@ -338,6 +338,10 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        [JsonIgnore]
+        public bool CanGoToLastTest
+            => LastTest != null;
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -360,7 +364,21 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The time stamp when the test was start
         /// </summary>
-        internal DateTime TestStartTime { get; set; }
+        internal DateTime TestStartTime
+        {
+            get => _testStartTime;
+            set
+            {
+                _testStartTime = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(CanGoToLastTest));
+            }
+        }
+
+        /// <summary>
+        /// The last tests
+        /// </summary>
+        internal TestBaseModel LastTest { get; set; }
 
         #endregion Internal Properties
 
@@ -425,6 +443,7 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ShowHints"/>
         /// </summary>
         private bool _showHints;
+        private DateTime _testStartTime;
 
         #endregion Private Backing-Fields
 

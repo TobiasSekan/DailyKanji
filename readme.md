@@ -11,6 +11,7 @@ in development
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Hiragana to Katakana or Katakana to Hiragana, Only Hiragana to Katakana, Only Katakana to Hiragana
 * Test can be answered via left mouse click, number key and menu
+* Switch to previous test or next test
 * Highlight wrong and correct answers, when answer was wrong
 * Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
 * Count answer time (separates counter for Hiragana and Katakana)

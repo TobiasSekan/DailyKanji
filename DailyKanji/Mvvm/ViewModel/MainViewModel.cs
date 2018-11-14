@@ -14,8 +14,8 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // BUG
     // ---
+    // TODO: Bug inside command helper, so predicate is not usable on commands
     // TODO: Empty current stats on correct answer
-
     // TODO: Test counting (correct and wrong) on new test type "HiraganaToKatakanaOrKatakanaOrHiragana"
 
     // Next
@@ -95,7 +95,7 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             BuildNewQuestionList();
-            ChooseNewSign();
+            ChooseNewSign(GetRandomTest());
 
             _mainWindow = new MainWindow(this);
 
@@ -124,7 +124,7 @@ namespace DailyKanji.Mvvm.ViewModel
                                       .ThenByDescending(found => found.CorrectKatakanaCount).ToList();
 
             BuildNewQuestionList();
-            ChooseNewSign();
+            ChooseNewSign(GetRandomTest());
             ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
 
@@ -178,19 +178,17 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Choose a new sign for a new ask
         /// </summary>
-        internal void ChooseNewSign()
+        internal void ChooseNewSign(TestBaseModel newTest)
         {
-            var newQuest = GetRandomTest();
-
             if(Model.CurrentTest != null)
             {
-                while(newQuest?.Roomaji == Model.CurrentTest.Roomaji)
+                while(newTest?.Roomaji == Model.CurrentTest.Roomaji)
                 {
-                    newQuest = GetRandomTest();
+                    newTest = GetRandomTest();
                 }
             }
 
-            Model.CurrentTest = newQuest;
+            Model.CurrentTest = newTest;
 
             switch(Model.MainTestType)
             {
@@ -291,6 +289,8 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 throw new ArgumentNullException(nameof(answer), "Test not found");
             }
+
+            Model.LastTest = Model.CurrentTest;
 
             // TODO: find a better way to check answer button text without use "_mainWindow" reference
             var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();

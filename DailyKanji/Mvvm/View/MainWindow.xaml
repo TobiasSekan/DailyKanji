@@ -25,6 +25,8 @@
         <KeyBinding Key="D8" Command="{Binding AnswerNumber}" CommandParameter="8" />
         <KeyBinding Key="D9" Command="{Binding AnswerNumber}" CommandParameter="9" />
         <KeyBinding Key="D0" Command="{Binding AnswerNumber}" CommandParameter="0" />
+        <KeyBinding Key="Backspace" Command="{Binding PreviousTest}" />
+        <KeyBinding Key="Space" Command="{Binding NextTest}" />
     </Window.InputBindings>
 
     <Grid>
@@ -34,7 +36,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
-            <!--  Grid - Question  -->
+            <!--  Grid - Question and previous button and next button  -->
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
 
@@ -54,7 +56,12 @@
 
             <MenuItem Header="File">
 
-                <MenuItem Command="{Binding Path=NewQuestion}" Header="New question" InputGestureText="Ctrl+N" />
+                <MenuItem Command="{Binding Path=NextTest}" Header="Next test" InputGestureText="Space" />
+
+                <MenuItem Command="{Binding Path=PreviousTest}"
+                          Header="Previous test"
+                          InputGestureText="Backspace"
+                          IsEnabled="{Binding Path=Model.CanGoToLastTest}" />
 
                 <Separator />
 
@@ -370,12 +377,22 @@
 
         <Grid Grid.Row="2" Height="200">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="1"
+            <Button Grid.Column="0"
+                    Width="100"
+                    Height="50"
+                    Margin="5"
+                    Command="{Binding Path=PreviousTest}"
+                    Content="Previous test"
+                    IsEnabled="{Binding Path=Model.CanGoToLastTest}" />
+
+            <TextBlock Grid.Column="2"
                        Width="200"
                        HorizontalAlignment="Center"
                        Background="{Binding Path=Model.CurrentAskSignColor}"
@@ -383,7 +400,7 @@
                        Text="{Binding Path=Model.CurrentAskSign}"
                        TextAlignment="Center" />
 
-            <StackPanel Grid.Column="2" Margin="10">
+            <StackPanel Grid.Column="3" Margin="10">
                 <TextBlock Text="Wrong answers" />
                 <TextBlock Text="{Binding Path=Model.WrongCount}" />
                 <TextBlock Text="Correct answers" />
@@ -391,6 +408,13 @@
                 <TextBlock Text="Average answer time" />
                 <TextBlock Text="{Binding Path=Model.AverageAnswerTime}" />
             </StackPanel>
+
+            <Button Grid.Column="5"
+                    Width="100"
+                    Height="50"
+                    Margin="5"
+                    Command="{Binding Path=NextTest}"
+                    Content="Next test" />
         </Grid>
 
         <StackPanel x:Name="AnswerButtonArea"
