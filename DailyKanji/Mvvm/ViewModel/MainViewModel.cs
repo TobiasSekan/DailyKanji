@@ -21,7 +21,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
-    // TODO: Change color of visible timer on wrong answered to red
+    // TODO: Change colour of visible timer on wrong answered to red
     // TODO: Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
     // TODO: make maximum answer time and refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -31,6 +31,11 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
+    // TODO: Add four options for hints
+    //       "hints based on the current ask type"
+    //       "hints always in Roomaji"
+    //       "hints always in Hiragana"
+    //       "hints always in Katakana"
 
     // Near future
     // -----------

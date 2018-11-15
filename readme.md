@@ -36,7 +36,7 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next (before 1.0 release)
-* Change color of visible timer on wrong answered to red
+* Change colour of visible timer on wrong answered to red
 * Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
 * Make maximum answer time and refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -46,6 +46,11 @@ Open a issue ticket or make a pull request
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
+* Add four options for hints
+  * "hints based on current ask type"
+  * "hints always in Roomaji"
+  * "hints always in Hiragana"
+  * "hints always in Katakana"
 
 #### Near future (before 1.0 release)
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
