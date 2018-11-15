@@ -90,6 +90,9 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.TestPool          = new Collection<TestBaseModel>();
             Model.TestTimer         = new Timer { Interval = 15 };
 
+            // remove after testing
+            Model.MaximumAnswerTime = 10_000;
+
             Model.TestTimer.Elapsed += (_, __) =>
             {
                 Model.CurrentAnswerTime = (DateTime.UtcNow - Model.TestStartTime).TotalMilliseconds;

@@ -26,9 +26,6 @@ namespace DailyKanji.Mvvm.Model
                 _currentTest = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllTestsList));
-                OnPropertyChanged(nameof(WrongCount));
-                OnPropertyChanged(nameof(CorrectCount));
-                OnPropertyChanged(nameof(AverageAnswerTime));
             }
         }
 
@@ -85,6 +82,9 @@ namespace DailyKanji.Mvvm.Model
             {
                 _currentAskSign = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(WrongCount));
+                OnPropertyChanged(nameof(CorrectCount));
+                OnPropertyChanged(nameof(AverageAnswerTime));
                 OnPropertyChanged(nameof(WrongAnswerCountString));
                 OnPropertyChanged(nameof(RightAnswerCountString));
             }
@@ -508,10 +508,10 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
-            MaximumAnswerTime  = 15_000;                                // 15 seconds
+            MaximumAnswerTime  = 10_000;                                // 15 seconds
             ErrorTimeout       = 3_000;                                 //  3 seconds
 
-            MaximumAnswer      = 5;
+            MaximumAnswer      = 7;
 
             SelectedTestType   = TestType.HiraganaOrKatakanaToRoomaji;
 
