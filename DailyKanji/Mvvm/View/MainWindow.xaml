@@ -82,21 +82,21 @@
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="0"
                               Header="Hiragana or Katakana to Roomaji"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=0}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="1"
                               Header="Only Hiragana to Roomaji"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="2"
                               Header="Only Katakana to Roomaji"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2}" />
 
@@ -105,21 +105,21 @@
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="3"
                               Header="Roomaji to Hiragana or Katakana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="4"
                               Header="Only Roomaji to Hiragana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="5"
                               Header="Only Roomaji to Katakana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5}" />
 
@@ -128,21 +128,21 @@
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="6"
                               Header="Hiragana to Katakana or Katakana to Hiragana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="7"
                               Header="Only Hiragana to Katakana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7}" />
 
                     <MenuItem Command="{Binding Path=ChangeTestType}"
                               CommandParameter="8"
                               Header="Only Katakana to Hiragana"
-                              IsChecked="{Binding Path=Model.MainTestType,
+                              IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8}" />
                 </MenuItem>
@@ -511,8 +511,8 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock Text="Question pool: " />
-                    <TextBlock Text="{Binding Path=Model.NewQuestionList.Count}" />
+                    <TextBlock Text="Test pool: " />
+                    <TextBlock Text="{Binding Path=Model.TestPool.Count}" />
 
                 </StackPanel>
 

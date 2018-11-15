@@ -102,6 +102,9 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that only similar answers will be shown as possible answers
+        /// </summary>
         public bool SimilarAnswers
         {
             get => _similarAnswers;
@@ -112,13 +115,17 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// List that contains the complete test pool
+        /// (one of this test will be ask each test round)
+        /// </summary>
         [JsonIgnore]
-        public IReadOnlyCollection<TestBaseModel> NewQuestionList
+        public IReadOnlyCollection<TestBaseModel> TestPool
         {
-            get => _newQuestionList;
+            get => _testPool;
             set
             {
-                _newQuestionList = value;
+                _testPool = value;
                 OnPropertyChanged();
             }
         }
@@ -136,12 +143,15 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        public TestType MainTestType
+        /// <summary>
+        /// The current selected test type
+        /// </summary>
+        public TestType SelectedTestType
         {
-            get => _mainTestType;
+            get => _selectedTestType;
             set
             {
-                _mainTestType = value;
+                _selectedTestType = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(TestTypeString));
             }
@@ -188,7 +198,7 @@ namespace DailyKanji.Mvvm.Model
         {
             get
             {
-                switch(MainTestType)
+                switch(SelectedTestType)
                 {
                     case TestType.HiraganaOrKatakanaToRoomaji:
                         return "H / K => R";
@@ -249,7 +259,7 @@ namespace DailyKanji.Mvvm.Model
                     return string.Empty;
                 }
 
-                switch(MainTestType)
+                switch(SelectedTestType)
                 {
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
@@ -282,7 +292,7 @@ namespace DailyKanji.Mvvm.Model
                     return string.Empty;
                 }
 
-                switch(MainTestType)
+                switch(SelectedTestType)
                 {
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
@@ -315,7 +325,7 @@ namespace DailyKanji.Mvvm.Model
                     return string.Empty;
                 }
 
-                switch(MainTestType)
+                switch(SelectedTestType)
                 {
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
@@ -338,9 +348,12 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the user can go to the previous test
+        /// </summary>
         [JsonIgnore]
         public bool CanGoToLastTest
-            => LastTest != null;
+            => PreviousTest != null;
 
         #endregion Public Properties
 
@@ -376,9 +389,9 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The last tests
+        /// The previous tests
         /// </summary>
-        internal TestBaseModel LastTest { get; set; }
+        internal TestBaseModel PreviousTest { get; set; }
 
         #endregion Internal Properties
 
@@ -420,9 +433,9 @@ namespace DailyKanji.Mvvm.Model
         private bool _similarAnswers;
 
         /// <summary>
-        /// Backing-field for <see cref="NewQuestionList"/>
+        /// Backing-field for <see cref="TestPool"/>
         /// </summary>
-        private IReadOnlyCollection<TestBaseModel> _newQuestionList;
+        private IReadOnlyCollection<TestBaseModel> _testPool;
 
         /// <summary>
         /// Backing-field for <see cref="ErrorTimeout"/>
@@ -430,9 +443,9 @@ namespace DailyKanji.Mvvm.Model
         private int _errorTimeout;
 
         /// <summary>
-        /// Backing-field for <see cref="MainTestType"/>
+        /// Backing-field for <see cref="SelectedTestType"/>
         /// </summary>
-        private TestType _mainTestType;
+        private TestType _selectedTestType;
 
         /// <summary>
         /// Backing-field for <see cref="AllTestsList"/>
@@ -443,6 +456,10 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ShowHints"/>
         /// </summary>
         private bool _showHints;
+
+        /// <summary>
+        /// Backing-filed for <see cref="TestStartTime"/>
+        /// </summary>
         private DateTime _testStartTime;
 
         #endregion Private Backing-Fields
@@ -451,13 +468,11 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
-            MainTestType   = TestType.HiraganaOrKatakanaToRoomaji;
-
-            MaximumAnswer  = 5;
-            ErrorTimeout   = 3_000;
-
-            ShowHints      = true;
-            SimilarAnswers = true;
+            SelectedTestType   = TestType.HiraganaOrKatakanaToRoomaji;
+            MaximumAnswer      = 5;
+            ErrorTimeout       = 3_000;
+            ShowHints          = true;
+            SimilarAnswers     = true;
         }
 
         #endregion Public Constructors

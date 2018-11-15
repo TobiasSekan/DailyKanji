@@ -19,7 +19,10 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(testType
                 =>
                 {
-                    Model.MainTestType = testType != null ? (TestType)Convert.ToInt32(testType) : TestType.HiraganaOrKatakanaToRoomaji;
+                    Model.SelectedTestType = testType != null
+                         ? (TestType)Convert.ToInt32(testType)
+                         : TestType.HiraganaOrKatakanaToRoomaji;
+
                     CreateNewTest();
                 });
 
@@ -68,19 +71,19 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand PreviousTest
             => new CommandHelper(() =>
             {
-                if(Model.LastTest == null)
+                if(Model.PreviousTest == null)
                 {
                     return;
                 }
 
-                BuildNewQuestionList();
-                ChooseNewSign(Model.LastTest);
+                BuildTestPool();
+                ChooseNewSign(Model.PreviousTest);
 
                 ChooseNewPossibleAnswers();
                 BuildAnswerMenuAndButtons();
 
                 Model.IgnoreInput   = false;
-                Model.LastTest      = null;
+                Model.PreviousTest  = null;
                 Model.TestStartTime = DateTime.UtcNow;
             });
 
