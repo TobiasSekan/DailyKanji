@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,12 +21,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
+    // TODO: Change color of visible timer on wrong answered to red
+    // TODO: Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
+    // TODO: make maximum answer time and refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add more menu entry to reset individual things of the statistics
     // TODO: Recalculate buttons (button width), when window is resized
-    // TODO: Visible timer in 0.1 second (can be deactivated via menu)
-    // TODO: Add running progress bar with selectable maximum answer time
-    //       when time is zero, the answer is automatic answer wrong
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
@@ -87,6 +88,20 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.HintTextColor     = new ObservableCollection<Brush>();
             Model.PossibleAnswers   = new Collection<TestBaseModel>();
             Model.TestPool          = new Collection<TestBaseModel>();
+            Model.TestTimer         = new Timer { Interval = 15 };
+
+            Model.TestTimer.Elapsed += (_, __) =>
+            {
+                Model.CurrentAnswerTime = (DateTime.UtcNow - Model.TestStartTime).TotalMilliseconds;
+
+                if(Model.CurrentAnswerTime < Model.MaximumAnswerTime)
+                {
+                    return;
+                }
+
+                Model.TestTimer.Stop();
+                CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
+            };
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
@@ -130,6 +145,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.IgnoreInput   = false;
             Model.TestStartTime = DateTime.UtcNow;
+
+            Model.TestTimer.Start();
         }
 
         /// <summary>
@@ -295,19 +312,52 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.PreviousTest = Model.CurrentTest;
 
-            // TODO: find a better way to check answer button text without use "_mainWindow" reference
-            var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();
-            var childrens   = stackPanels.Select(found => found.Children);
-            var buttons     = childrens.Select(found => found[1]).OfType<Button>();
-            var contexts    = buttons.Select(found => found.Content);
-            var textBlocks  = contexts.OfType<TextBlock>();
-            var texts       = textBlocks.Select(found => found.Text);
 
-            var isHiragana = texts.Any(found => found == Model.CurrentTest.Hiragana);
-            var isKatakana = texts.Any(found => found == Model.CurrentTest.Katakana);
-
-            if(answer.Roomaji == Model.CurrentTest.Roomaji)
+            _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
+                // TODO: find a better way to check answer button text without use "_mainWindow" reference
+                var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();
+                var childrens = stackPanels.Select(found => found.Children);
+                var buttons = childrens.Select(found => found[1]).OfType<Button>();
+                var contexts = buttons.Select(found => found.Content);
+                var textBlocks = contexts.OfType<TextBlock>();
+                var texts = textBlocks.Select(found => found.Text);
+
+                var isHiragana = texts.Any(found => found == Model.CurrentTest.Hiragana);
+                var isKatakana = texts.Any(found => found == Model.CurrentTest.Katakana);
+
+                if(answer.Roomaji == Model.CurrentTest.Roomaji)
+                {
+                    switch(Model.SelectedTestType)
+                    {
+                        case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
+                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
+                        case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
+                        case TestType.HiraganaToRoomaji:
+                        case TestType.RoomajiToHiragana:
+                        case TestType.HiraganaToKatakana:
+                            Model.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                            Model.CurrentTest.CorrectHiraganaCount++;
+                            break;
+
+                        case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
+                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
+                        case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
+                        case TestType.KatakanaToRoomaji:
+                        case TestType.RoomajiToKatakana:
+                        case TestType.KatakanaToHiragana:
+                            Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
+                            Model.CurrentTest.CorrectKatakanaCount++;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
+                    }
+
+                    CreateNewTest();
+                    return;
+                }
+
                 switch(Model.SelectedTestType)
                 {
                     case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
@@ -317,7 +367,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakana:
                         Model.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
-                        Model.CurrentTest.CorrectHiraganaCount++;
+                        Model.CurrentTest.WrongHiraganaCount++;
                         break;
 
                     case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
@@ -327,50 +377,21 @@ namespace DailyKanji.Mvvm.ViewModel
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
                         Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
-                        Model.CurrentTest.CorrectKatakanaCount++;
+                        Model.CurrentTest.WrongKatakanaCount++;
                         break;
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
                 }
 
-                CreateNewTest();
-                return;
-            }
-
-            switch(Model.SelectedTestType)
-            {
-                case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Hiragana:
-                case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
-                case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
-                case TestType.HiraganaToRoomaji:
-                case TestType.RoomajiToHiragana:
-                case TestType.HiraganaToKatakana:
-                    Model.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
-                    Model.CurrentTest.WrongHiraganaCount++;
-                    break;
-
-                case TestType.HiraganaOrKatakanaToRoomaji when Model.CurrentAskSign == Model.CurrentTest.Katakana:
-                case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
-                case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
-                case TestType.KatakanaToRoomaji:
-                case TestType.RoomajiToKatakana:
-                case TestType.KatakanaToHiragana:
-                    Model.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
-                    Model.CurrentTest.WrongKatakanaCount++;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
-            }
-
-            _mainWindow.Dispatcher.Invoke(new Action(() =>
-            {
-                SetAnswerColors();
-                BuildAnswerMenuAndButtons();
+                _mainWindow.Dispatcher.Invoke(new Action(() =>
+                {
+                    SetAnswerColors();
+                    BuildAnswerMenuAndButtons();
+                }));
             }));
 
-            var timer = new System.Timers.Timer(Model.ErrorTimeout)
+            var timer = new Timer(Model.ErrorTimeout)
             {
                 AutoReset = false
             };

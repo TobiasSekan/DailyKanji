@@ -36,6 +36,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
+            <!--  Progress bar - running answer timer  -->
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+
             <!--  Grid - Question and previous button and next button  -->
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
@@ -45,7 +49,7 @@
             <RowDefinition Height="*" />
 
             <!--  DataGrid - Hiragana and Katakana list  -->
-            <RowDefinition Height="200" />
+            <RowDefinition Height="180" />
 
             <!--  StatusBar  -->
             <RowDefinition Height="Auto" />
@@ -375,7 +379,13 @@
 
         </Menu>
 
-        <Grid Grid.Row="2" Height="200">
+        <ProgressBar Grid.Row="2"
+                     Margin="5"
+                     Maximum="{Binding Path=Model.MaximumAnswerTime}"
+                     Minimum="0"
+                     Value="{Binding Path=Model.CurrentAnswerTime}" />
+
+        <Grid Grid.Row="4" Height="200">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -418,11 +428,11 @@
         </Grid>
 
         <StackPanel x:Name="AnswerButtonArea"
-                    Grid.Row="4"
+                    Grid.Row="6"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal" />
 
-        <DataGrid Grid.Row="6"
+        <DataGrid Grid.Row="8"
                   Margin="5"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
@@ -447,7 +457,7 @@
 
         </DataGrid>
 
-        <StatusBar Grid.Row="7">
+        <StatusBar Grid.Row="9">
 
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>

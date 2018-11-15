@@ -85,6 +85,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.IgnoreInput   = false;
                 Model.PreviousTest  = null;
                 Model.TestStartTime = DateTime.UtcNow;
+
+                Model.TestTimer.Start();
             });
 
         public ICommand NextTest

@@ -14,6 +14,7 @@ in development
 * Switch to previous test or next test
 * Highlight wrong and correct answers, when answer was wrong
 * Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
+* Running answer timer, when time is over the test is automatically answered wrong
 * Count answer time (separates counter for Hiragana and Katakana)
 * Can show only similar answers
 * Changeable answer count (from two answers up to ten answers)
@@ -35,12 +36,12 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next (before 1.0 release)
+* Change color of visible timer on wrong answered to red
+* Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
+* Make maximum answer time and refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add more menu entry to reset individual things of the statistics
 * Recalculate buttons (button width), when window is resized
-* Visible timer in 0.1 second (can be deactivated via menu)
-* Add running progress bar with selectable maximum answer time
-  * when time is zero, the answer is automatic answer wrong
 * Add main counter for each test (negative/positive)
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Timers;
 using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.Model
@@ -179,6 +180,33 @@ namespace DailyKanji.Mvvm.Model
             set
             {
                 _showHints = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The maximum answer time in milliseconds
+        /// </summary>
+        public double MaximumAnswerTime
+        {
+            get => _maximumAnswerTime;
+            set
+            {
+                _maximumAnswerTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
+        /// <summary>
+        /// The current answer time in milliseconds
+        /// </summary>
+        public double CurrentAnswerTime
+        {
+            get => _currentAnswerTime;
+            set
+            {
+                _currentAnswerTime = value;
                 OnPropertyChanged();
             }
         }
@@ -393,6 +421,8 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal TestBaseModel PreviousTest { get; set; }
 
+        internal Timer TestTimer { get; set; }
+
         #endregion Internal Properties
 
         #region Private Backing-Fields
@@ -462,15 +492,29 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         private DateTime _testStartTime;
 
+        /// <summary>
+        /// Backing-field for <see cref="MaximumAnswer"/>
+        /// </summary>
+        private double _maximumAnswerTime;
+
+        /// <summary>
+        /// Backing-field for <see cref="CurrentAnswerTime"/>
+        /// </summary>
+        private double _currentAnswerTime;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
 
         public MainModel()
         {
-            SelectedTestType   = TestType.HiraganaOrKatakanaToRoomaji;
+            MaximumAnswerTime  = 15_000;                                // 15 seconds
+            ErrorTimeout       = 3_000;                                 //  3 seconds
+
             MaximumAnswer      = 5;
-            ErrorTimeout       = 3_000;
+
+            SelectedTestType   = TestType.HiraganaOrKatakanaToRoomaji;
+
             ShowHints          = true;
             SimilarAnswers     = true;
         }
