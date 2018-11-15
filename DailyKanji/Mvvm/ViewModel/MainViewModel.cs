@@ -303,8 +303,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.IgnoreInput = true;
 
-            var answerTime = DateTime.UtcNow - Model.TestStartTime;
+            Model.TestTimer.Stop();
 
+            var answerTime = DateTime.UtcNow - Model.TestStartTime;
             if(answer == null)
             {
                 throw new ArgumentNullException(nameof(answer), "Test not found");
@@ -312,16 +313,15 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.PreviousTest = Model.CurrentTest;
 
-
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
                 // TODO: find a better way to check answer button text without use "_mainWindow" reference
                 var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();
-                var childrens = stackPanels.Select(found => found.Children);
-                var buttons = childrens.Select(found => found[1]).OfType<Button>();
-                var contexts = buttons.Select(found => found.Content);
-                var textBlocks = contexts.OfType<TextBlock>();
-                var texts = textBlocks.Select(found => found.Text);
+                var childrens   = stackPanels.Select(found => found.Children);
+                var buttons     = childrens.Select(found => found[1]).OfType<Button>();
+                var contexts    = buttons.Select(found => found.Content);
+                var textBlocks  = contexts.OfType<TextBlock>();
+                var texts       = textBlocks.Select(found => found.Text);
 
                 var isHiragana = texts.Any(found => found == Model.CurrentTest.Hiragana);
                 var isKatakana = texts.Any(found => found == Model.CurrentTest.Katakana);
@@ -384,25 +384,22 @@ namespace DailyKanji.Mvvm.ViewModel
                         throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
                 }
 
-                _mainWindow.Dispatcher.Invoke(new Action(() =>
+                SetAnswerColors();
+                BuildAnswerMenuAndButtons();
+
+                var timer = new Timer(Model.ErrorTimeout)
                 {
-                    SetAnswerColors();
-                    BuildAnswerMenuAndButtons();
-                }));
+                    AutoReset = false
+                };
+
+                timer.Elapsed += (_, __) =>
+                {
+                    _mainWindow.Dispatcher.Invoke(new Action(() => RemoveAnswerColors()));
+                    CreateNewTest();
+                };
+
+                timer.Start();
             }));
-
-            var timer = new Timer(Model.ErrorTimeout)
-            {
-                AutoReset = false
-            };
-
-            timer.Elapsed += (_, __) =>
-            {
-                _mainWindow.Dispatcher.Invoke(new Action(() => RemoveAnswerColors()));
-                CreateNewTest();
-            };
-
-            timer.Start();
         }
 
         /// <summary>
