@@ -261,6 +261,20 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
+        /// The color for the progress bar (running answer time)
+        /// </summary>
+        [JsonIgnore]
+        public Brush ProgressBarColor
+        {
+            get => _progressBarColor;
+            set
+            {
+                _progressBarColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Return the current rate in percent
         /// </summary>
         [JsonIgnore]
@@ -501,6 +515,11 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="CurrentAnswerTime"/>
         /// </summary>
         private double _currentAnswerTime;
+
+        /// <summary>
+        /// Backing-field for <see cref="ProgressBarColor"/>
+        /// </summary>
+        private Brush _progressBarColor;
 
         #endregion Private Backing-Fields
 

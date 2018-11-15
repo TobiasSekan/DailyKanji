@@ -89,6 +89,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.PossibleAnswers   = new Collection<TestBaseModel>();
             Model.TestPool          = new Collection<TestBaseModel>();
             Model.TestTimer         = new Timer { Interval = 15 };
+            Model.ProgressBarColor  = new SolidColorBrush(Colors.LightBlue);
 
             // remove after testing
             Model.MaximumAnswerTime = 10_000;
@@ -387,7 +388,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
                 }
 
-                SetAnswerColors();
+                SetErrorColors(Colors.LightCoral);
                 BuildAnswerMenuAndButtons();
 
                 var timer = new Timer(Model.ErrorTimeout)
@@ -406,18 +407,19 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set colours to all answer buttons (based on the test)
+        /// Set colours to all elements
         /// </summary>
-        internal void SetAnswerColors()
+        internal void SetErrorColors(Color color)
         {
-            Model.CurrentAskSignColor = new SolidColorBrush(Colors.LightCoral);
+            Model.CurrentAskSignColor = new SolidColorBrush(color);
+            Model.ProgressBarColor    = new SolidColorBrush(color);
 
             for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber]
                     = new SolidColorBrush(Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
                                             ? Colors.LightGreen
-                                            : Colors.LightCoral);
+                                            : color);
 
                 if(Model.ShowHints)
                 {
@@ -432,6 +434,7 @@ namespace DailyKanji.Mvvm.ViewModel
         internal void RemoveAnswerColors()
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.Transparent);
+            Model.ProgressBarColor    = new SolidColorBrush(Colors.LightBlue);
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {

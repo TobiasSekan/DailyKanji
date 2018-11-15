@@ -381,6 +381,7 @@
 
         <ProgressBar Grid.Row="2"
                      Margin="5"
+                     Foreground="{Binding Path=Model.ProgressBarColor}"
                      Maximum="{Binding Path=Model.MaximumAnswerTime}"
                      Minimum="0"
                      Value="{Binding Path=Model.CurrentAnswerTime}" />
