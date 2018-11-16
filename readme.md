@@ -2,8 +2,8 @@
 in development
 
 # Requirements for usage
-* Windows 7 or newer (8, 8.1, 10)
-* .Net Framework 4.7 or newer (4.7.1, 4.7.2)
+* Windows Vista or newer (7, 8, 8.1, 10)
+* .Net Framework 4.5.2
 
 # Current features
 * 9 Test types
