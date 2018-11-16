@@ -38,6 +38,19 @@ namespace DailyKanji.Mvvm.ViewModel
                     BuildAnswerMenuAndButtons();
                 });
 
+        public ICommand ChangeAswerTime
+            => new CommandHelper(value
+                =>
+                {
+                    Model.MaximumAnswerTime = Convert.ToDouble(value);
+
+                    Model.TestTimer.Stop();
+                    Model.ProgressBarColor = _progressBarColor;
+
+                    Model.TestStartTime = DateTime.UtcNow;
+                    Model.TestTimer.Start();
+                });
+
         public ICommand ChangeAnswerMode
             => new CommandHelper(()
                 =>

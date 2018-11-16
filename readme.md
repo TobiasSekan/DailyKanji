@@ -12,15 +12,16 @@ in development
   * Hiragana to Katakana or Katakana to Hiragana, Only Hiragana to Katakana, Only Katakana to Hiragana
 * Test can be answered via left mouse click, number key and menu
 * Switch to previous test or next test
+* Running answer timer, when time is over the test is automatically answered wrong
 * Highlight wrong and correct answers, when answer was wrong
 * Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
-* Running answer timer, when time is over the test is automatically answered wrong
-* Count answer time (separates counter for Hiragana and Katakana)
+* Count answer times (separates counter for Hiragana and Katakana)
 * Can show only similar answers
 * Changeable answer count (from two answers up to ten answers)
-* Changeable error time (highlight when answer was wrong)
-* Automatically load and save test statistics and settings
+* Changeable answer time (from one seconds up to fifteen seconds)
+* Changeable error time (from one point five seconds to ten seconds)
 * Statistics can reset via menu
+* Automatically load and save test statistics and settings
 
 # Missing a feature or found a bug?
 Open a issue ticket or make a pull request
@@ -64,8 +65,10 @@ Open a issue ticket or make a pull request
 * Move logic to separate library project in .Net Standard 2.0
 * Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
 * Export (XLSX, CSV, JSON, XML)
-* Integrate Kanji tests
+* Start with integration of Kanji tests
 
 #### Ideas
 * Make colours choose-able
 * Import (XLSX, CSV, JSON, XML)
+* Gamepad Support
+

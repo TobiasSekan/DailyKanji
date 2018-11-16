@@ -16,12 +16,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // TODO: Bug inside command helper, so predicate is not usable on commands
-    // TODO: Empty current stats on correct answer
     // TODO: Test counting (correct and wrong) on new test type "HiraganaToKatakanaOrKatakanaOrHiragana"
 
     // Next
     // ----
-    // TODO: Change colour of visible timer on wrong answered to red
     // TODO: Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
     // TODO: make maximum answer time and refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -55,14 +53,29 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Move logic to separate library project in .Net Standard 2.0
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Export (XLSX, CSV, JSON, XML)
+    // TODO: Start with integration of Kanji tests
+
+    // Ideas
+    // -----
     // TODO: Make colours choose-able
-    // TODO: Import ???
+    // TODO: Import (XLSX, CSV, JSON, XML)
+    // TODO: Gamepad support
 
     public sealed partial class MainViewModel
     {
         #region Private Properties
 
-        private string _settingFileName => "settings.json";
+        private string _settingFileName
+            => "settings.json";
+
+        private Brush _progressBarColor
+            => new SolidColorBrush(Colors.LightBlue);
+
+        private Brush _errorColor
+            => new SolidColorBrush(Colors.LightCoral);
+
+        private Brush _correctColor
+            => new SolidColorBrush(Colors.LightGreen);
 
         private MainWindow _mainWindow { get; }
 
@@ -393,7 +406,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         throw new ArgumentOutOfRangeException(nameof(Model.SelectedTestType), "Test type not supported");
                 }
 
-                SetErrorColors(Colors.LightCoral);
+                SetErrorColors();
                 BuildAnswerMenuAndButtons();
 
                 var timer = new Timer(Model.ErrorTimeout)
@@ -414,17 +427,16 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Set colours to all elements
         /// </summary>
-        internal void SetErrorColors(Color color)
+        internal void SetErrorColors()
         {
-            Model.CurrentAskSignColor = new SolidColorBrush(color);
-            Model.ProgressBarColor    = new SolidColorBrush(color);
+            Model.CurrentAskSignColor = _errorColor;
+            Model.ProgressBarColor    = _errorColor;
 
             for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
             {
-                Model.AnswerButtonColor[answerNumber]
-                    = new SolidColorBrush(Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
-                                            ? Colors.LightGreen
-                                            : color);
+                Model.AnswerButtonColor[answerNumber] = Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
+                    ? _correctColor
+                    : _errorColor;
 
                 if(Model.ShowHints)
                 {
@@ -439,7 +451,7 @@ namespace DailyKanji.Mvvm.ViewModel
         internal void RemoveAnswerColors()
         {
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.Transparent);
-            Model.ProgressBarColor    = new SolidColorBrush(Colors.LightBlue);
+            Model.ProgressBarColor    = _progressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
