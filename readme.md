@@ -1,9 +1,9 @@
 # Current state
-in development
+* in development
 
 # Requirements for usage
-* Windows Vista or newer (7, 8, 8.1, 10)
-* .Net Framework 4.5.2
+* Windows Vista SP2, Windows 7, Windows 8, Windows 8.1, Windows 10
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
 
 # Current features
 * 9 Test types
@@ -62,13 +62,14 @@ Open a issue ticket or make a pull request
 * Change test order so that all tests will be ask (based on ask counter)
 
 #### Next versions (after 1.0 release)
-* Move logic to separate library project in .Net Standard 2.0
-* Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-* Export (XLSX, CSV, JSON, XML)
+* Move logic to separate library project in .Net Standard
+  * Starting with .Net Standard 1.0 - 1.2 (to save support for Windowsa Vista and 8)
+* Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Start with integration of Kanji tests
 
 #### Ideas
-* Make colours choose-able
 * Import (XLSX, CSV, JSON, XML)
-* Gamepad Support
+* Export (XLSX, CSV, JSON, XML)
+* Make colours choose-able
+* Gamepad support
 
