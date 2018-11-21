@@ -1,4 +1,4 @@
-﻿using DailyKanjiLogic.Mvvm.Model;
+﻿using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Timers;
@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.Model
 {
-    public sealed class MainModel : MainBaseModel
+    public sealed class MainModel : PropertyChangedHelper
     {
         #region Public Properties
 

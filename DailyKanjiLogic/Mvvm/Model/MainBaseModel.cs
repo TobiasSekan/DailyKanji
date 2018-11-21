@@ -3,6 +3,7 @@ using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DailyKanjiLogic.Mvvm.Model

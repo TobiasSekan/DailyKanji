@@ -28,7 +28,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(testType
                 =>
                 {
-                    Model.SelectedTestType = testType != null
+                    BaseModel.SelectedTestType = testType != null
                          ? (TestType)Convert.ToInt32(testType)
                          : TestType.HiraganaOrKatakanaToRoomaji;
 
@@ -39,7 +39,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for change the error timeout
         /// </summary>
         public ICommand CommandChangeErrorTimeout
-            => new CommandHelper(timeout => Model.ErrorTimeout = Convert.ToInt32(timeout));
+            => new CommandHelper(timeout => BaseModel.ErrorTimeout = Convert.ToInt32(timeout));
 
         /// <summary>
         /// <see cref="ICommand"/> for change the answer count
@@ -49,7 +49,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    Model.MaximumAnswers = Convert.ToByte(value);
+                    BaseModel.MaximumAnswers = Convert.ToByte(value);
                     ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
                 });
@@ -61,12 +61,12 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    Model.MaximumAnswerTimeout = Convert.ToDouble(value);
+                    BaseModel.MaximumAnswerTimeout = Convert.ToDouble(value);
 
                     Model.TestTimer.Stop();
                     Model.ProgressBarColor = _progressBarColor;
 
-                    Model.TestStartTime = DateTime.UtcNow;
+                    BaseModel.TestStartTime = DateTime.UtcNow;
                     Model.TestTimer.Start();
                 });
 
@@ -103,7 +103,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                    CheckAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
         #endregion Commands - Answer Menu
@@ -130,20 +130,20 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandPreviousTest
             => new CommandHelper(() =>
             {
-                if(Model.PreviousTest == null)
+                if(BaseModel.PreviousTest == null)
                 {
                     return;
                 }
 
                 BuildTestPool();
-                ChooseNewSign(Model.PreviousTest);
+                ChooseNewSign(BaseModel.PreviousTest);
 
                 ChooseNewPossibleAnswers();
                 BuildAnswerMenuAndButtons();
 
-                Model.IgnoreInput   = false;
-                Model.PreviousTest  = null;
-                Model.TestStartTime = DateTime.UtcNow;
+                BaseModel.IgnoreInput   = false;
+                BaseModel.PreviousTest  = null;
+                BaseModel.TestStartTime = DateTime.UtcNow;
 
                 Model.TestTimer.Start();
             });
