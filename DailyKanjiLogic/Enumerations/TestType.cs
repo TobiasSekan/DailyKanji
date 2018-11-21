@@ -1,4 +1,4 @@
-﻿namespace DailyKanji.Enumerations
+﻿namespace DailyKanjiLogic.Enumerations
 {
     public enum TestType
     {

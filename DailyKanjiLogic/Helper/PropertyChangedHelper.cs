@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DailyKanji.Helper
+namespace DailyKanjiLogic.Helper
 {
     /// <summary>
     /// Helper class to easier work with <see cref="INotifyPropertyChanged"/>

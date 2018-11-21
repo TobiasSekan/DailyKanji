@@ -1,12 +1,12 @@
-﻿using DailyKanji.Mvvm.Model;
+﻿using DailyKanjiLogic.Mvvm.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DailyKanji.Helper
+namespace DailyKanjiLogic.Helper
 {
-    internal static class KanaHelper
+    public static class KanaHelper
     {
-        internal static IEnumerable<TestBaseModel> GetKanaList()
+        public static IEnumerable<TestBaseModel> GetKanaList()
             => new Collection<TestBaseModel>
             {
                 // Kana Signs, Think Now How Much You Really Want (to learn them).

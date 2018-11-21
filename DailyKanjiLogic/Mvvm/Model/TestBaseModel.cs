@@ -1,10 +1,10 @@
-﻿using DailyKanji.Helper;
+﻿using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
 
-namespace DailyKanji.Mvvm.Model
+namespace DailyKanjiLogic.Mvvm.Model
 {
-    public class TestBaseModel : PropertyChangedHelper
+    public sealed class TestBaseModel : PropertyChangedHelper
     {
         #region Public Properties
 

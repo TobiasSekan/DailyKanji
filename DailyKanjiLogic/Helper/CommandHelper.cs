@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DailyKanji.Helper
+namespace DailyKanjiLogic.Helper
 {
     public sealed class CommandHelper : ICommand
     {

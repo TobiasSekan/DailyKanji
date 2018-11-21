@@ -3,7 +3,7 @@
 
 # Requirements for usage
 * Windows Vista SP2, Windows 7, Windows 8, Windows 8.1, Windows 10
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (.Net Standard 1.0)
 
 # Current features
 * 9 Test types
@@ -62,10 +62,9 @@ Open a issue ticket or make a pull request
   * Maybe: Only the first character or last character must are the same on less then five answers
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Change test order so that all tests will be ask (based on ask counter)
+* Move more program parts to separate library project in .Net Standard 1.0
 
 #### Next versions (after 1.0 release)
-* Move logic to separate library project in .Net Standard
-  * Starting with .Net Standard 1.0 - 1.2 (to save support for Windows Vista and 8)
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Start with integration of Kanji tests
 

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DailyKanji.Helper
+namespace DailyKanjiLogic.Helper
 {
-    internal static class Expressions
+    public static class Expressions
     {
         // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
 
-        internal static void Shuffle<T>(this IList<T> deck)
+        public static void Shuffle<T>(this IList<T> deck)
         {
             var r = new Random();
 

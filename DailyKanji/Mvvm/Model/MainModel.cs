@@ -1,5 +1,6 @@
-﻿using DailyKanji.Enumerations;
-using DailyKanji.Helper;
+﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Helper;
+using DailyKanjiLogic.Mvvm.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

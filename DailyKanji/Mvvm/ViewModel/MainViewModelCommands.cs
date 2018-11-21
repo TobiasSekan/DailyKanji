@@ -1,6 +1,6 @@
-﻿using DailyKanji.Enumerations;
-using DailyKanji.Helper;
-using DailyKanji.Mvvm.Model;
+﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Helper;
+using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Linq;
 using System.Windows.Input;

@@ -1,7 +1,9 @@
-﻿using DailyKanji.Enumerations;
-using DailyKanji.Helper;
+﻿using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
+using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Helper;
+using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -49,12 +51,10 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     // TODO: Change test order so that all tests will be ask (based on ask counter)
+    // TODO: Move more program parts to separate library project in .Net Standard 1.0
 
     // Later
     // -----
-    // TODO: Move logic to separate library project in .Net Standard 2.0
-    //       Starting with.Net Standard 1.0 - 1.2 (to save support for Windows Vista and 8)
-    //
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Start with integration of Kanji tests
 
