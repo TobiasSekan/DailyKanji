@@ -25,7 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add more menu entries to reset individual things of the statistics
-    // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
@@ -38,6 +37,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Near future
     // -----------
+    // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Avoid rebuild of answer buttons and answer menu entries
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -65,6 +65,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make colours choose-able
     // TODO: Gamepad support
     // TODO: Ribbon menu
+    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
+
 
 
     public sealed partial class MainViewModel

@@ -75,3 +75,4 @@ Open a issue ticket or make a pull request
 * Make colours choose-able
 * Gamepad support
 * Ribbon menu
+* Investigate in WPF - FlowDocument (for integrated zooming features)
