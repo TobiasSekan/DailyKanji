@@ -19,8 +19,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
-    // TODO: Add menu entry to deactivate visible timer(timeout is still running)
-    // TODO: Add menu entry to deactivate timeout(deactivate visible timer too)
+    // TODO: Add menu entry to hide answer shortcut hint
+    // TODO: Add menu entry to hide visible timer(timeout is still running)
+    // TODO: Add menu entry to deactivate timeout(hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add more menu entries to reset individual things of the statistics
@@ -63,6 +64,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Import (XLSX, CSV, JSON, XML)
     // TODO: Make colours choose-able
     // TODO: Gamepad support
+    // TODO: Ribbon menu
+
 
     public sealed partial class MainViewModel
     {

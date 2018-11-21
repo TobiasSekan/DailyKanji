@@ -37,8 +37,9 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next (before 1.0 alpha release)
-* Add menu entry to deactivate visible timer (timeout is still running)
-* Add menu entry to deactivate timeout (deactivate visible timer too)
+* Add menu entry to hide answer shortcut hint
+* Add menu entry to hide visible timer (timeout is still running)
+* Add menu entry to deactivate timeout (hide visible timer too)
 * Make refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add more menu entries to reset individual things of the statistics
@@ -73,3 +74,4 @@ Open a issue ticket or make a pull request
 * Export (XLSX, CSV, JSON, XML)
 * Make colours choose-able
 * Gamepad support
+* Ribbon menu
