@@ -20,10 +20,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
-    // TODO: Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
-    // TODO: make maximum answer time and refresh interval for timer changeable via menu
+    // TODO: Add menu entry to deactivate visible timer(timeout is still running)
+    // TODO: Add menu entry to deactivate timeout(deactivate visible timer too)
+    // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-    // TODO: Add more menu entry to reset individual things of the statistics
+    // TODO: Add more menu entries to reset individual things of the statistics
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
@@ -37,6 +38,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Near future
     // -----------
+    // TODO: Avoid rebuild of answer buttons and answer menu entries
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
@@ -51,14 +53,16 @@ namespace DailyKanji.Mvvm.ViewModel
     // Later
     // -----
     // TODO: Move logic to separate library project in .Net Standard 2.0
+    //       Starting with.Net Standard 1.0 - 1.2 (to save support for Windows Vista and 8)
+    //
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Start with integration of Kanji tests
 
     // Ideas
     // -----
-    // TODO: Make colours choose-able
+    // TODO: Export (XLSX, CSV, JSON, XML)
     // TODO: Import (XLSX, CSV, JSON, XML)
+    // TODO: Make colours choose-able
     // TODO: Gamepad support
 
     public sealed partial class MainViewModel

@@ -36,13 +36,12 @@ Open a issue ticket or make a pull request
 
 # Goals
 
-#### Next (before 1.0 release)
-* Change colour of visible timer on wrong answered to red
-* Visible timer (progress-bar) can be deactivated via menu (timeout is deactivated too)
-* Make maximum answer time and refresh interval for timer changeable via menu
+#### Next (before 1.0 alpha release)
+* Add menu entry to deactivate visible timer (timeout is still running)
+* Add menu entry to deactivate timeout (deactivate visible timer too)
+* Make refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-* Add more menu entry to reset individual things of the statistics
-* Recalculate buttons (button width), when window is resized
+* Add more menu entries to reset individual things of the statistics
 * Add main counter for each test (negative/positive)
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
@@ -53,7 +52,9 @@ Open a issue ticket or make a pull request
   * "hints always in Hiragana"
   * "hints always in Katakana"
 
-#### Near future (before 1.0 release)
+#### Near future (between 1.0 alpha and 1.0 release)
+* Recalculate buttons (button width), when window is resized
+* Avoid rebuild of answer buttons and answer menu entries
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 
@@ -63,7 +64,7 @@ Open a issue ticket or make a pull request
 
 #### Next versions (after 1.0 release)
 * Move logic to separate library project in .Net Standard
-  * Starting with .Net Standard 1.0 - 1.2 (to save support for Windowsa Vista and 8)
+  * Starting with .Net Standard 1.0 - 1.2 (to save support for Windows Vista and 8)
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Start with integration of Kanji tests
 
@@ -72,4 +73,3 @@ Open a issue ticket or make a pull request
 * Export (XLSX, CSV, JSON, XML)
 * Make colours choose-able
 * Gamepad support
-
