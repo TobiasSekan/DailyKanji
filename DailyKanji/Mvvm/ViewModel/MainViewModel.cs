@@ -67,8 +67,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
 
-
-
     public sealed partial class MainViewModel
     {
         #region Private Properties
@@ -116,9 +114,6 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.TestPool          = new Collection<TestBaseModel>();
             Model.TestTimer         = new Timer { Interval = 15 };
             Model.ProgressBarColor  = new SolidColorBrush(Colors.LightBlue);
-
-            // remove after testing
-            Model.MaximumAnswerTimeout = 10_000;
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
