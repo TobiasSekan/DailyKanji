@@ -15,18 +15,18 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="D1" Command="{Binding AnswerNumber}" CommandParameter="1" />
-        <KeyBinding Key="D2" Command="{Binding AnswerNumber}" CommandParameter="2" />
-        <KeyBinding Key="D3" Command="{Binding AnswerNumber}" CommandParameter="3" />
-        <KeyBinding Key="D4" Command="{Binding AnswerNumber}" CommandParameter="4" />
-        <KeyBinding Key="D5" Command="{Binding AnswerNumber}" CommandParameter="5" />
-        <KeyBinding Key="D6" Command="{Binding AnswerNumber}" CommandParameter="6" />
-        <KeyBinding Key="D7" Command="{Binding AnswerNumber}" CommandParameter="7" />
-        <KeyBinding Key="D8" Command="{Binding AnswerNumber}" CommandParameter="8" />
-        <KeyBinding Key="D9" Command="{Binding AnswerNumber}" CommandParameter="9" />
-        <KeyBinding Key="D0" Command="{Binding AnswerNumber}" CommandParameter="0" />
-        <KeyBinding Key="Backspace" Command="{Binding PreviousTest}" />
-        <KeyBinding Key="Space" Command="{Binding NextTest}" />
+        <KeyBinding Key="D1" Command="{Binding CommandAnswerTestNumber}" CommandParameter="1" />
+        <KeyBinding Key="D2" Command="{Binding CommandAnswerTestNumber}" CommandParameter="2" />
+        <KeyBinding Key="D3" Command="{Binding CommandAnswerTestNumber}" CommandParameter="3" />
+        <KeyBinding Key="D4" Command="{Binding CommandAnswerTestNumber}" CommandParameter="4" />
+        <KeyBinding Key="D5" Command="{Binding CommandAnswerTestNumber}" CommandParameter="5" />
+        <KeyBinding Key="D6" Command="{Binding CommandAnswerTestNumber}" CommandParameter="6" />
+        <KeyBinding Key="D7" Command="{Binding CommandAnswerTestNumber}" CommandParameter="7" />
+        <KeyBinding Key="D8" Command="{Binding CommandAnswerTestNumber}" CommandParameter="8" />
+        <KeyBinding Key="D9" Command="{Binding CommandAnswerTestNumber}" CommandParameter="9" />
+        <KeyBinding Key="D0" Command="{Binding CommandAnswerTestNumber}" CommandParameter="0" />
+        <KeyBinding Key="Backspace" Command="{Binding CommandPreviousTest}" />
+        <KeyBinding Key="Space" Command="{Binding CommandNextTest}" />
     </Window.InputBindings>
 
     <Grid>
@@ -60,22 +60,24 @@
 
             <MenuItem Header="File">
 
-                <MenuItem Command="{Binding Path=NextTest}" Header="Next test" InputGestureText="Space" />
+                <MenuItem Command="{Binding Path=CommandNextTest}" Header="Next test" InputGestureText="Space" />
 
-                <MenuItem Command="{Binding Path=PreviousTest}"
+                <MenuItem Command="{Binding Path=CommandPreviousTest}"
                           Header="Previous test"
                           InputGestureText="Backspace"
                           IsEnabled="{Binding Path=Model.CanGoToLastTest}" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
+                <MenuItem Command="{Binding Path=CommandCloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
 
             </MenuItem>
 
             <MenuItem Header="View">
 
-                <MenuItem Command="{Binding Path=ChangeHintVisibility}" Header="Show hints on wrong answers" IsChecked="{Binding Path=Model.ShowHints}" />
+                <MenuItem Header="Show hints on wrong answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=Model.ShowHints}" />
 
             </MenuItem>
 
@@ -83,21 +85,21 @@
 
                 <MenuItem Header="Test type">
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="0"
                               Header="Hiragana or Katakana to Roomaji"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=0}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="1"
                               Header="Only Hiragana to Roomaji"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="2"
                               Header="Only Katakana to Roomaji"
                               IsChecked="{Binding Path=Model.SelectedTestType,
@@ -106,21 +108,21 @@
 
                     <Separator />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="3"
                               Header="Roomaji to Hiragana or Katakana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="4"
                               Header="Only Roomaji to Hiragana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="5"
                               Header="Only Roomaji to Katakana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
@@ -129,21 +131,21 @@
 
                     <Separator />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="6"
                               Header="Hiragana to Katakana or Katakana to Hiragana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="7"
                               Header="Only Hiragana to Katakana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7}" />
 
-                    <MenuItem Command="{Binding Path=ChangeTestType}"
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="8"
                               Header="Only Katakana to Hiragana"
                               IsChecked="{Binding Path=Model.SelectedTestType,
@@ -153,66 +155,66 @@
 
                 <MenuItem Header="Possible answers">
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="2"
                               Header="Two answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="3"
                               Header="Three answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="4"
                               Header="Four answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="5"
                               Header="Five answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="6"
                               Header="Six answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="7"
                               Header="Seven answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="8"
                               Header="Eight answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="9"
                               Header="Nine answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=9}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAnswerCount}"
+                    <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="10"
                               Header="Ten answers"
-                              IsChecked="{Binding Path=Model.MaximumAnswer,
+                              IsChecked="{Binding Path=Model.MaximumAnswers,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=10}" />
 
@@ -220,248 +222,248 @@
 
                 <MenuItem Header="Answer time">
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="1000"
                               Header="One second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="2000"
                               Header="Two second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="3000"
                               Header="Three second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="4000"
                               Header="Four second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="5000"
                               Header="Five second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="6000"
                               Header="Six second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="7000"
                               Header="Seven second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="8000"
                               Header="Eight second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="9000"
                               Header="Nine second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=9000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="10000"
                               Header="Ten second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=10000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="11000"
                               Header="Eleven second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=11000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="12000"
                               Header="Twelve second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=12000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="13000"
                               Header="Thirteen second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=13000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="14000"
                               Header="Fourteen second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=14000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeAswerTime}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="15000"
                               Header="Fifteen second"
-                              IsChecked="{Binding Path=Model.MaximumAnswerTime,
+                              IsChecked="{Binding Path=Model.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=15000}" />
                 </MenuItem>
 
                 <MenuItem Header="Error timeout">
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="500"
                               Header="Zero point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="1000"
                               Header="One second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="1500"
                               Header="One point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="2000"
                               Header="Two seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="2500"
                               Header="Two point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="3000"
                               Header="Three seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="3500"
                               Header="Three point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="4000"
                               Header="Four seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="4500"
                               Header="Four point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="5000"
                               Header="Five seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="5500"
                               Header="Five point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="6000"
                               Header="Six seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="6500"
                               Header="Six point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="7000"
                               Header="Seven seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="7500"
                               Header="Six point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="8000"
                               Header="Eight seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="8500"
                               Header="Eight point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="9000"
                               Header="Nine seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=9000}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="9500"
                               Header="Nine point five second"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=9500}" />
 
-                    <MenuItem Command="{Binding Path=ChangeErrorTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="10000"
                               Header="Ten seconds"
                               IsChecked="{Binding Path=Model.ErrorTimeout,
@@ -470,7 +472,7 @@
 
                 </MenuItem>
 
-                <MenuItem Command="{Binding Path=ChangeAnswerMode}"
+                <MenuItem Command="{Binding Path=CommandChangeSimilarAnswerMode}"
                           Header="Similar answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=Model.SimilarAnswers}" />
@@ -479,7 +481,7 @@
 
             <MenuItem Header="Statistic">
 
-                <MenuItem Command="{Binding Path=RestCompleteStatistic}" Header="Reset the complete statistic" />
+                <MenuItem Command="{Binding Path=CommandRestCompleteStatistic}" Header="Reset the complete statistic" />
 
             </MenuItem>
 
@@ -490,7 +492,7 @@
         <ProgressBar Grid.Row="2"
                      Margin="5"
                      Foreground="{Binding Path=Model.ProgressBarColor}"
-                     Maximum="{Binding Path=Model.MaximumAnswerTime}"
+                     Maximum="{Binding Path=Model.MaximumAnswerTimeout}"
                      Minimum="0"
                      Value="{Binding Path=Model.CurrentAnswerTime}" />
 
@@ -507,7 +509,7 @@
                     Width="100"
                     Height="50"
                     Margin="5"
-                    Command="{Binding Path=PreviousTest}"
+                    Command="{Binding Path=CommandPreviousTest}"
                     Content="Previous test"
                     IsEnabled="{Binding Path=Model.CanGoToLastTest}" />
 
@@ -532,7 +534,7 @@
                     Width="100"
                     Height="50"
                     Margin="5"
-                    Command="{Binding Path=NextTest}"
+                    Command="{Binding Path=CommandNextTest}"
                     Content="Next test" />
         </Grid>
 

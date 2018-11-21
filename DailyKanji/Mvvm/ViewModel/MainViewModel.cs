@@ -110,13 +110,13 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.ProgressBarColor  = new SolidColorBrush(Colors.LightBlue);
 
             // remove after testing
-            Model.MaximumAnswerTime = 10_000;
+            Model.MaximumAnswerTimeout = 10_000;
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
                 Model.CurrentAnswerTime = (DateTime.UtcNow - Model.TestStartTime).TotalMilliseconds;
 
-                if(Model.CurrentAnswerTime < Model.MaximumAnswerTime)
+                if(Model.CurrentAnswerTime < Model.MaximumAnswerTimeout)
                 {
                     return;
                 }
@@ -274,7 +274,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             var tryAddCount = 0;
 
-            while(list.Count < Model.MaximumAnswer)
+            while(list.Count < Model.MaximumAnswers)
             {
                 var possibleAnswer = GetRandomTest(onlyOneRoomajiCharacter: tryAddCount > 20);
                 if(possibleAnswer == null)
@@ -432,7 +432,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.CurrentAskSignColor = _errorColor;
             Model.ProgressBarColor    = _errorColor;
 
-            for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+            for(var answerNumber = 0; answerNumber < Model.MaximumAnswers; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber] = Model.PossibleAnswers[answerNumber].Roomaji == Model.CurrentTest.Roomaji
                     ? _correctColor
@@ -480,7 +480,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 _mainWindow.AnswerButtonArea.Children.Clear();
                 _mainWindow.AnswerMenu.Items.Clear();
 
-                for(var answerNumber = 0; answerNumber < Model.MaximumAnswer; answerNumber++)
+                for(var answerNumber = 0; answerNumber < Model.MaximumAnswers; answerNumber++)
                 {
                     var text = string.Empty;
                     var hint = string.Empty;
@@ -551,7 +551,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     var stackPanel = new StackPanel();
                     var buttonText = new TextBlock
                     {
-                        FontSize          = 100 - (5 * Model.MaximumAnswer),
+                        FontSize          = 100 - (5 * Model.MaximumAnswers),
                         Text              = text,
                         Padding           = new Thickness(0, 0, 0, 20),
                         VerticalAlignment = VerticalAlignment.Center
@@ -568,12 +568,12 @@ namespace DailyKanji.Mvvm.ViewModel
                     stackPanel.Children.Add(new Button
                     {
                         Background       = Model.AnswerButtonColor[answerNumber],
-                        Command          = AnswerTest,
+                        Command          = CommandAnswerTest,
                         CommandParameter = Model.PossibleAnswers[answerNumber],
                         Content          = buttonText,
                         Height           = 100,
                         Margin           = new Thickness(5, 0, 5, 0),
-                        Width            = (_mainWindow.Width - 20 - (10 * Model.MaximumAnswer)) / Model.MaximumAnswer
+                        Width            = (_mainWindow.Width - 20 - (10 * Model.MaximumAnswers)) / Model.MaximumAnswers
                     });
 
                     stackPanel.Children.Add(new TextBlock
@@ -587,7 +587,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     _mainWindow.AnswerMenu.Items.Add(new MenuItem
                     {
-                        Command          = AnswerTest,
+                        Command          = CommandAnswerTest,
                         CommandParameter = Model.PossibleAnswers[answerNumber],
                         Header           = text,
                         InputGestureText = $"{answerNumber + 1}"

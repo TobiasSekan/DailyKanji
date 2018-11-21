@@ -93,7 +93,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The count of maximum answers
         /// </summary>
-        public byte MaximumAnswer
+        public byte MaximumAnswers
         {
             get => _maximumAnswer;
             set
@@ -185,9 +185,9 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The maximum answer time in milliseconds
+        /// The maximum answer timeout in milliseconds
         /// </summary>
-        public double MaximumAnswerTime
+        public double MaximumAnswerTimeout
         {
             get => _maximumAnswerTime;
             set
@@ -467,7 +467,7 @@ namespace DailyKanji.Mvvm.Model
         private string _currentAskSign;
 
         /// <summary>
-        /// Backing-field for <see cref="MaximumAnswer"/>
+        /// Backing-field for <see cref="MaximumAnswers"/>
         /// </summary>
         private byte _maximumAnswer;
 
@@ -507,7 +507,7 @@ namespace DailyKanji.Mvvm.Model
         private DateTime _testStartTime;
 
         /// <summary>
-        /// Backing-field for <see cref="MaximumAnswer"/>
+        /// Backing-field for <see cref="MaximumAnswers"/>
         /// </summary>
         private double _maximumAnswerTime;
 
@@ -527,15 +527,15 @@ namespace DailyKanji.Mvvm.Model
 
         public MainModel()
         {
-            MaximumAnswerTime  = 10_000;                                // 15 seconds
-            ErrorTimeout       = 3_000;                                 //  3 seconds
+            MaximumAnswerTimeout  = 10_000;                               // 10 seconds
+            ErrorTimeout          = 3_000;                                //  3 seconds
 
-            MaximumAnswer      = 7;
+            MaximumAnswers        = 7;
 
-            SelectedTestType   = TestType.HiraganaOrKatakanaToRoomaji;
+            SelectedTestType      = TestType.HiraganaOrKatakanaToRoomaji;
 
-            ShowHints          = true;
-            SimilarAnswers     = true;
+            ShowHints             = true;
+            SimilarAnswers        = true;
         }
 
         #endregion Public Constructors

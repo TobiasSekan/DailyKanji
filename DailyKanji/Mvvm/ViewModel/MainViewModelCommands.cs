@@ -9,13 +9,22 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     public sealed partial class MainViewModel
     {
-        public ICommand CloseProgram
+        #region Commands - File Menu
+
+        /// <summary>
+        /// <see cref="ICommand"/> for close the program (same as ALT+F4)
+        /// </summary>
+        public ICommand CommandCloseProgram
             => new CommandHelper(() => _mainWindow.Close());
 
-        public ICommand ChangeHintVisibility
-            => new CommandHelper(() => Model.ShowHints = !Model.ShowHints);
+        #endregion Commands - File Menu
 
-        public ICommand ChangeTestType
+        #region Commands - Settings Menu
+
+        /// <summary>
+        /// <see cref="ICommand"/> for change test type (test direction)
+        /// </summary>
+        public ICommand CommandChangeTestType
             => new CommandHelper(testType
                 =>
                 {
@@ -26,23 +35,33 @@ namespace DailyKanji.Mvvm.ViewModel
                     CreateNewTest();
                 });
 
-        public ICommand ChangeErrorTimeout
+        /// <summary>
+        /// <see cref="ICommand"/> for change the error timeout
+        /// </summary>
+        public ICommand CommandChangeErrorTimeout
             => new CommandHelper(timeout => Model.ErrorTimeout = Convert.ToInt32(timeout));
 
-        public ICommand ChangeAnswerCount
+        /// <summary>
+        /// <see cref="ICommand"/> for change the answer count
+        /// (answer button and answer menu entries)
+        /// </summary>
+        public ICommand CommandChangeAnswerCount
             => new CommandHelper(value
                 =>
                 {
-                    Model.MaximumAnswer = Convert.ToByte(value);
+                    Model.MaximumAnswers = Convert.ToByte(value);
                     ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
                 });
 
-        public ICommand ChangeAswerTime
+        /// <summary>
+        /// <see cref="ICommand"/> for change the maximum (running) answer timeout
+        /// </summary>
+        public ICommand CommandChangeMaximumAswerTimeout
             => new CommandHelper(value
                 =>
                 {
-                    Model.MaximumAnswerTime = Convert.ToDouble(value);
+                    Model.MaximumAnswerTimeout = Convert.ToDouble(value);
 
                     Model.TestTimer.Stop();
                     Model.ProgressBarColor = _progressBarColor;
@@ -51,7 +70,10 @@ namespace DailyKanji.Mvvm.ViewModel
                     Model.TestTimer.Start();
                 });
 
-        public ICommand ChangeAnswerMode
+        /// <summary>
+        /// <see cref="ICommand"/> for change the answer mode
+        /// </summary>
+        public ICommand CommandChangeSimilarAnswerMode
             => new CommandHelper(()
                 =>
                 {
@@ -59,10 +81,20 @@ namespace DailyKanji.Mvvm.ViewModel
                     BuildAnswerMenuAndButtons();
                 });
 
-        public ICommand AnswerTest
+        #endregion Commands - Settings Menu
+
+        #region Commands - Answer Menu
+
+        /// <summary>
+        /// <see cref="ICommand"/> for select a answer by a <see cref="TestBaseModel"/> object
+        /// </summary>
+        public ICommand CommandAnswerTest
             => new CommandHelper(parameter => CheckAnswer(parameter as TestBaseModel));
 
-        public ICommand AnswerNumber
+        /// <summary>
+        /// <see cref="ICommand"/> for select a answer by a number value
+        /// </summary>
+        public ICommand CommandAnswerTestNumber
             => new CommandHelper(parameter
                 =>
                 {
@@ -74,14 +106,28 @@ namespace DailyKanji.Mvvm.ViewModel
                     CheckAnswer(Model.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
-        public ICommand RestCompleteStatistic
+        #endregion Commands - Answer Menu
+
+        #region Commands - Statistics Menu
+
+        /// <summary>
+        /// <see cref="ICommand"/> for reset the complete (all data) statistics
+        /// </summary>
+        public ICommand CommandRestCompleteStatistic
             => new CommandHelper(() =>
             {
                 ResetCompleteStatistic();
                 CreateNewTest();
             });
 
-        public ICommand PreviousTest
+        #endregion Commands - Statistics Menu
+
+        #region Commands - Navigation
+
+        /// <summary>
+        /// <see cref="ICommand"/> for go to previous test
+        /// </summary>
+        public ICommand CommandPreviousTest
             => new CommandHelper(() =>
             {
                 if(Model.PreviousTest == null)
@@ -102,7 +148,12 @@ namespace DailyKanji.Mvvm.ViewModel
                 Model.TestTimer.Start();
             });
 
-        public ICommand NextTest
+        /// <summary>
+        /// <see cref="ICommand"/> for go to next test
+        /// </summary>
+        public ICommand CommandNextTest
             => new CommandHelper(() => CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty)));
+
+        #endregion Commands - Navigation
     }
 }
