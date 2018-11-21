@@ -36,6 +36,7 @@ namespace DailyKanji.Mvvm.ViewModel
     //       "hints always in Roomaji"
     //       "hints always in Hiragana"
     //       "hints always in Katakana"
+    // TODO: Add menu underscores (for menu keyboard navigation)
 
     // Near future
     // -----------

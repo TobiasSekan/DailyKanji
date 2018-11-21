@@ -52,6 +52,7 @@ Open a issue ticket or make a pull request
   * "hints always in Roomaji"
   * "hints always in Hiragana"
   * "hints always in Katakana"
+* Add menu underscores (for menu keyboard navigation)
 
 #### Near future (between 1.0 alpha and 1.0 release)
 * Recalculate buttons (button width), when window is resized
