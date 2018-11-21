@@ -87,6 +87,7 @@ namespace DailyKanji.Mvvm.Model
                 OnPropertyChanged(nameof(AverageAnswerTime));
                 OnPropertyChanged(nameof(WrongAnswerCountString));
                 OnPropertyChanged(nameof(RightAnswerCountString));
+                OnPropertyChanged(nameof(CurrentRateText));
             }
         }
 
@@ -308,7 +309,6 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.WrongHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
@@ -316,11 +316,14 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.WrongKatakanaCount}";
-                }
 
-                return string.Empty;
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(SelectedTestType), SelectedTestType, "test type is not supported");
+                }
             }
         }
 
@@ -341,7 +344,6 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.CorrectHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
@@ -349,11 +351,14 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.CorrectKatakanaCount}";
-                }
 
-                return string.Empty;
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(SelectedTestType), SelectedTestType, "test type is not supported");
+                }
             }
         }
 
@@ -374,7 +379,6 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff}";
 
                     case TestType.KatakanaToRoomaji:
@@ -382,11 +386,14 @@ namespace DailyKanji.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
-                    case TestType.RoomajiToHiraganaOrKatakana when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
-                }
 
-                return string.Empty;
+                    case TestType.RoomajiToHiraganaOrKatakana:
+                        return $"H: {CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff} - K: {CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(SelectedTestType), SelectedTestType, "test type is not supported");
+                }
             }
         }
 

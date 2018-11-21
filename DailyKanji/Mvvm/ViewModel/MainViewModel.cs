@@ -16,7 +16,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // TODO: Bug inside command helper, so predicate is not usable on commands
-    // TODO: Test counting (correct and wrong) on new test type "HiraganaToKatakanaOrKatakanaOrHiragana"
 
     // Next
     // ----
