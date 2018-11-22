@@ -22,7 +22,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
-    // TODO: Add menu entry to hide answer shortcut hint
     // TODO: Add menu entry to hide visible timer(timeout is still running)
     // TODO: Add menu entry to deactivate timeout(hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
@@ -432,12 +431,15 @@ namespace DailyKanji.Mvvm.ViewModel
                         Width            = (_mainWindow.Width - 20 - (10 * BaseModel.MaximumAnswers)) / BaseModel.MaximumAnswers
                     });
 
-                    stackPanel.Children.Add(new TextBlock
+                    if(BaseModel.ShowAnswerShortcuts)
                     {
-                        FontSize            = 12,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        Text                = $"{answerNumber + 1}",
-                    });
+                        stackPanel.Children.Add(new TextBlock
+                        {
+                            FontSize            = 12,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            Text                = $"{answerNumber + 1}",
+                        });
+                    }
 
                     _mainWindow.AnswerButtonArea.Children.Add(stackPanel);
 

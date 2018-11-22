@@ -75,6 +75,11 @@
 
             <MenuItem Header="View">
 
+                <MenuItem Header="Show shortcuts for answers"
+                          Command="{Binding Path=CommandBuildNewAnswers}"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
+
                 <MenuItem Header="Show hints on wrong answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowHints}" />
@@ -472,7 +477,7 @@
 
                 </MenuItem>
 
-                <MenuItem Command="{Binding Path=CommandChangeSimilarAnswerMode}"
+                <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
                           Header="Similar answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.SimilarAnswers}" />

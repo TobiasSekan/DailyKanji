@@ -154,6 +154,19 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the shortcuts for the answers will be shown
+        /// </summary>
+        public bool ShowAnswerShortcuts
+        {
+            get => _showAnswerShortcuts;
+            set
+            {
+                _showAnswerShortcuts = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -450,6 +463,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private double _currentAnswerTime;
 
+        /// <summary>
+        /// Backing-filed for <see cref="ShowAnswerShortcuts"/>
+        /// </summary>
+        private bool _showAnswerShortcuts;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -461,6 +479,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             MaximumAnswers       = 7;
             SelectedTestType     = TestType.HiraganaOrKatakanaToRoomaji;
             ShowHints            = true;
+            ShowAnswerShortcuts  = true;
             SimilarAnswers       = true;
         }
 

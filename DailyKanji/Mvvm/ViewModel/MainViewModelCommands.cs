@@ -73,7 +73,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// <see cref="ICommand"/> for change the answer mode
         /// </summary>
-        public ICommand CommandChangeSimilarAnswerMode
+        public ICommand CommandBuildNewAnswers
             => new CommandHelper(()
                 =>
                 {
