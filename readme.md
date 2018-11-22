@@ -1,8 +1,9 @@
 # Current state
 * in development
+* First version will released in December 2018 
 
 # Requirements for usage
-* Windows Vista SP2, Windows 7, Windows 8, Windows 8.1, Windows 10
+* Windows Vista SP2, Windows 7 SP1, Windows 8, Windows 8.1, Windows 10
 * [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (.Net Standard 1.0)
 
 # Current features
@@ -30,10 +31,6 @@ Open a issue ticket or make a pull request
 ![Daily Kanji](DailyKanji.png)
 ![Daily Kanji - Error](DailyKanji-Error.png)
 
-# Requirements for debug, test and contributing
-* Visual Studio 2017 Version 15.7 or newer to build
-* C# 7.3
-
 # Goals
 
 #### Next (before 1.0 alpha release)
@@ -51,6 +48,9 @@ Open a issue ticket or make a pull request
   * "hints always in Hiragana"
   * "hints always in Katakana"
 * Add menu underscores (for menu keyboard navigation)
+* Add German language and language selector in menu
+* Add info message box with version number, project link, etc.
+
 
 #### Near future (between 1.0 alpha and 1.0 release)
 * Recalculate buttons (button width), when window is resized
@@ -74,3 +74,14 @@ Open a issue ticket or make a pull request
 * Gamepad support
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)
+
+# Requirements for debug, test and contributing
+* [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (.Net Standard 1.0)
+* C# 7.3
+
+# Project overview
+| Project         | Used framework       | Operating system   |
+| --------------- | -------------------- | ------------------ |
+| DailyKanji      | .Net Framework 4.5.2 | Windows            |
+| DailyKanjiLogic | .Net Standard 1.0    | *function library* |

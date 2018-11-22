@@ -36,6 +36,8 @@ namespace DailyKanji.Mvvm.ViewModel
     //       "hints always in Hiragana"
     //       "hints always in Katakana"
     // TODO: Add menu underscores (for menu keyboard navigation)
+    // TODO: Add German language and language selector in menu
+    // TODO: Add info message box with version number, project link, etc.
 
     // Near future
     // -----------
