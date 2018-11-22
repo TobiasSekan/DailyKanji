@@ -4,7 +4,7 @@ using System;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
-    public sealed class TestBaseModel : PropertyChangedHelper
+    public sealed class TestBaseModel : PropertyChangedHelper, IEquatable<TestBaseModel>, IFormattable
     {
         #region Public Properties
 
@@ -171,5 +171,84 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         #endregion Constructors
+
+        #region Class Overrides
+
+        /// <summary>
+        /// Compare this <see cref="TestBaseModel"/> with the given <see cref="object"/>
+        /// </summary>
+        /// <param name="other">The <see cref="object"/> to compare</param>
+        /// <returns><c>true</c> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
+        /// and Roomaji, Hiragana and Katakana are the same, otherwise <c>false</c></returns>
+        public override bool Equals(object obj)
+            => Equals(obj as TestBaseModel);
+
+        /// <summary>
+        /// Return the hash code for this <see cref="TestBaseModel"/>
+        /// </summary>
+        /// <returns>The hash code for this <see cref="TestBaseModel"/></returns>
+        public override int GetHashCode()
+            => (Roomaji.GetHashCode() << 5) ^ (Hiragana.GetHashCode() << 5) ^ (Katakana.GetHashCode() << 5);
+
+        /// <summary>
+        /// Return a readable <see cref="string"/> of this <see cref="TestBaseModel"/>
+        /// </summary>
+        /// <returns>A readable <see cref="string"/></returns>
+        public override string ToString()
+            => $"Roomaji: {Roomaji}, Hiragana: {Hiragana}, Katakana: {Katakana}";
+
+        #endregion Class Overrides
+
+        #region IEquatable<TestBaseModel> Implementation
+
+        /// <summary>
+        /// Compare this <see cref="TestBaseModel"/> with the given <see cref="TestBaseModel"/>
+        /// </summary>
+        /// <param name="other">The <see cref="TestBaseModel"/> to compare</param>
+        /// <returns><c>true</c> when Roomaji, Hiragana and Katakana are the same, otherwise <c>false</c></returns>
+        public bool Equals(TestBaseModel other)
+            => other != null
+            && other.Roomaji == Roomaji
+            && other.Hiragana == Hiragana
+            && other.Katakana == Katakana;
+
+        #endregion IEquatable<TestBaseModel> Implementation
+
+        #region IFormattable
+
+        /// <summary>
+        /// Return a readable <see cref="string"/> for the given <paramref name="format"/>
+        /// </summary>
+        /// <param name="format">The format of the readable string
+        /// (R, H, K, RO, HI, KA, Roomaji, Hiragana or Katakana)</param>
+        /// <param name="formatProvider">not used and ignored</param>
+        /// <returns>A readable <see cref="string"/></returns>
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            switch(format?.ToUpper())
+            {
+                case "R":
+                case "RO":
+                case "ROOMAJI":
+                    return Roomaji;
+
+                case "H":
+                case "HI":
+                case "HIRAGANA":
+                    return Hiragana;
+
+                case "K":
+                case "KA":
+                case "KATAKANA":
+                    return Katakana;
+
+                default:
+                    throw new FormatException(
+                        $"Format: '{format}' not supported, only " +
+                        "'R', 'H', 'K', 'RO', 'HI', 'KA', 'Roomaji', 'Hiragana' and 'Katakana' are supported");
+            }
+        }
+
+        #endregion IFormattable
     }
 }
