@@ -167,6 +167,19 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the running timer for a answer will be shown
+        /// </summary>
+        public bool ShowRunningAnswerTimer
+        {
+            get => _showRunningAnswerTimer;
+            set
+            {
+                _showRunningAnswerTimer = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -468,19 +481,25 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _showAnswerShortcuts;
 
+        /// <summary>
+        /// Backing-field for <see cref="ShowRunningAnswerTimer"/>
+        /// </summary>
+        private bool _showRunningAnswerTimer;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
 
         public MainBaseModel()
         {
-            MaximumAnswerTimeout = 10_000;
-            ErrorTimeout         = 3_000;
-            MaximumAnswers       = 7;
-            SelectedTestType     = TestType.HiraganaOrKatakanaToRoomaji;
-            ShowHints            = true;
-            ShowAnswerShortcuts  = true;
-            SimilarAnswers       = true;
+            MaximumAnswerTimeout   = 10_000;
+            ErrorTimeout           = 3_000;
+            MaximumAnswers         = 7;
+            SelectedTestType       = TestType.HiraganaOrKatakanaToRoomaji;
+            ShowHints              = true;
+            ShowAnswerShortcuts    = true;
+            ShowRunningAnswerTimer = true;
+            SimilarAnswers         = true;
         }
 
         #endregion Public Constructors

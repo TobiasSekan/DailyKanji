@@ -53,7 +53,7 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The color for the progress bar (running answer time)
+        /// The colour for the progress bar (running answer time)
         /// </summary>
         [JsonIgnore]
         public Brush ProgressBarColor

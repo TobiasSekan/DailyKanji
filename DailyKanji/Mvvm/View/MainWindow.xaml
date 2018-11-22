@@ -12,6 +12,7 @@
 
     <Window.Resources>
         <local:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
 
     <Window.InputBindings>
@@ -83,6 +84,10 @@
                 <MenuItem Header="Show hints on wrong answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowHints}" />
+
+                <MenuItem Header="Show running timer (timer is still running)"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
 
             </MenuItem>
 
@@ -499,6 +504,7 @@
                      Foreground="{Binding Path=Model.ProgressBarColor}"
                      Maximum="{Binding Path=BaseModel.MaximumAnswerTimeout}"
                      Minimum="0"
+                     Visibility="{Binding Path=BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
                      Value="{Binding Path=BaseModel.CurrentAnswerTime}" />
 
         <Grid Grid.Row="4" Height="200">

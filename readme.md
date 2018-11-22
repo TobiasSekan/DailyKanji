@@ -37,7 +37,6 @@ Open a issue ticket or make a pull request
 # Goals
 
 #### Next (before 1.0 alpha release)
-* Add menu entry to hide visible timer (timeout is still running)
 * Add menu entry to deactivate timeout (hide visible timer too)
 * Make refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"

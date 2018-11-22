@@ -22,7 +22,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Next
     // ----
-    // TODO: Add menu entry to hide visible timer(timeout is still running)
     // TODO: Add menu entry to deactivate timeout(hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
