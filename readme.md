@@ -4,7 +4,7 @@
 
 # Requirements for usage
 * Windows Vista SP2, Windows 7 SP1, Windows 8, Windows 8.1, Windows 10
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (.Net Standard 1.0)
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
 
 # Current features
 * 9 Test types
