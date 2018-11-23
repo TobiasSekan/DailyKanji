@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:DailyKanji.Helper"
-        Title="DailyKanji"
+        Title="Daily Kanji"
         Width="850"
         Height="600"
         x:ClassModifier="internal"
@@ -76,18 +76,14 @@
 
             <MenuItem Header="View">
 
-                <MenuItem Header="Show shortcuts for answers"
-                          Command="{Binding Path=CommandBuildNewAnswers}"
+                <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
+                          Header="Show shortcuts for answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
-                <MenuItem Header="Show hints on wrong answers"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowHints}" />
+                <MenuItem Header="Show hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
 
-                <MenuItem Header="Show running timer (timer is still running)"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+                <MenuItem Header="Show running timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
 
             </MenuItem>
 
@@ -497,6 +493,12 @@
 
             <MenuItem x:Name="AnswerMenu" Header="Answers" />
 
+            <MenuItem Header="Help">
+
+                <MenuItem Command="{Binding Path=OpenInfoWindow}" Header="Info" />
+
+            </MenuItem>
+
         </Menu>
 
         <ProgressBar Grid.Row="2"
@@ -504,7 +506,8 @@
                      Foreground="{Binding Path=Model.ProgressBarColor}"
                      Maximum="{Binding Path=BaseModel.MaximumAnswerTimeout}"
                      Minimum="0"
-                     Visibility="{Binding Path=BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Visibility="{Binding Path=BaseModel.ShowRunningAnswerTimer,
+                                          Converter={StaticResource BooleanToVisibilityConverter}}"
                      Value="{Binding Path=BaseModel.CurrentAnswerTime}" />
 
         <Grid Grid.Row="4" Height="200">

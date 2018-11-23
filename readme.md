@@ -49,8 +49,6 @@ Open a issue ticket or make a pull request
   * "hints always in Katakana"
 * Add menu underscores (for menu keyboard navigation)
 * Add German language and language selector in menu
-* Add info message box with version number, project link, etc.
-
 
 #### Near future (between 1.0 alpha and 1.0 release)
 * Recalculate buttons (button width), when window is resized

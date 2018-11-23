@@ -3,7 +3,6 @@ using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DailyKanjiLogic.Mvvm.Model
@@ -411,6 +410,13 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public TestBaseModel PreviousTest { get; set; }
+
+        /// <summary>
+        /// Return the library version
+        /// </summary>
+        [JsonIgnore]
+        public Version GetVersion
+            => AssemblyHelper.GetAssemblyVersion(this);
 
         #endregion Public Properties
 

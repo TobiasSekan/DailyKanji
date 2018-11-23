@@ -1,4 +1,5 @@
-﻿using DailyKanjiLogic.Enumerations;
+﻿using DailyKanji.Mvvm.View;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
@@ -155,5 +156,8 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(() => CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty)));
 
         #endregion Commands - Navigation
+
+        public ICommand OpenInfoWindow
+            => new CommandHelper(() => new InfoWindow(this).Show());
     }
 }

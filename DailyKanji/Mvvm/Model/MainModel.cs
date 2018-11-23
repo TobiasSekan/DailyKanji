@@ -1,5 +1,6 @@
 ﻿using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Timers;
 using System.Windows.Media;
@@ -65,6 +66,13 @@ namespace DailyKanji.Mvvm.Model
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Return the program version of this surface for windows
+        /// </summary>
+        [JsonIgnore]
+        public Version GetVersion
+            => AssemblyHelper.GetAssemblyVersion(this);
 
         #endregion Public Properties
 
