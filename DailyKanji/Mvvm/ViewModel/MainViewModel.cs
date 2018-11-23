@@ -37,6 +37,7 @@ namespace DailyKanji.Mvvm.ViewModel
     //       "hints always in Katakana"
     // TODO: Add menu underscores (for menu keyboard navigation)
     // TODO: Add German language and language selector in menu
+    // TODO: Add message box with yes/no before delete statistics
 
     // Near future
     // -----------
@@ -67,6 +68,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Gamepad support
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
+    // TODO: Check for new version on startup
+    // TODO: Auto update program
 
     public sealed partial class MainViewModel : MainBaseViewModel
     {

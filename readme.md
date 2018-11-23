@@ -49,6 +49,7 @@ Open a issue ticket or make a pull request
   * "hints always in Katakana"
 * Add menu underscores (for menu keyboard navigation)
 * Add German language and language selector in menu
+* Add message box with yes/no before delete statistics
 
 #### Near future (between 1.0 alpha and 1.0 release)
 * Recalculate buttons (button width), when window is resized
@@ -72,6 +73,8 @@ Open a issue ticket or make a pull request
 * Gamepad support
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)
+* Check for new version on startup
+* Auto update program
 
 # Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
