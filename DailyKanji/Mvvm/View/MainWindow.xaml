@@ -159,6 +159,40 @@
                                                   ConverterParameter=8}" />
                 </MenuItem>
 
+                <MenuItem Header="Hint type">
+
+                    <MenuItem Command="{Binding Path=CommandChangeHintType}"
+                              CommandParameter="0"
+                              Header="Based on ask sign"
+                              IsChecked="{Binding Path=BaseModel.SelectedHintType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=0}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding Path=CommandChangeHintType}"
+                              CommandParameter="1"
+                              Header="Only in Roomaji"
+                              IsChecked="{Binding Path=BaseModel.SelectedHintType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=1}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeHintType}"
+                              CommandParameter="2"
+                              Header="Only in Hiragana"
+                              IsChecked="{Binding Path=BaseModel.SelectedHintType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=2}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeHintType}"
+                              CommandParameter="3"
+                              Header="Only in Katakana"
+                              IsChecked="{Binding Path=BaseModel.SelectedHintType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter=3}" />
+
+                </MenuItem>
+
                 <MenuItem Header="Possible answers">
 
                     <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"

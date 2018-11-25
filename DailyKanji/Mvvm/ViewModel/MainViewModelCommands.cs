@@ -37,6 +37,20 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
+        /// <see cref="ICommand"/> for change hint type
+        /// </summary>
+        public ICommand CommandChangeHintType
+            => new CommandHelper(hintType
+                =>
+                {
+                    BaseModel.SelectedHintType = hintType != null
+                        ? (HintType)Convert.ToInt32(hintType)
+                        : HintType.BasedOnAskSign;
+
+                    CreateNewTest();
+                });
+
+        /// <summary>
         /// <see cref="ICommand"/> for change the error timeout
         /// </summary>
         public ICommand CommandChangeErrorTimeout

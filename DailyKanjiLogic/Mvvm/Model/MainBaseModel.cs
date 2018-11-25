@@ -115,6 +115,19 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
+        /// The current selected hint type
+        /// </summary>
+        public HintType SelectedHintType
+        {
+            get => _selectedHintType;
+            set
+            {
+                _selectedHintType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// List with all possible tests
         /// </summary>
         public ICollection<TestBaseModel> AllTestsList
@@ -492,6 +505,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _showRunningAnswerTimer;
 
+        /// <summary>
+        /// Backing-field for <see cref="SelectedHintType"/>
+        /// </summary>
+        private HintType _selectedHintType;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -502,6 +520,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             ErrorTimeout           = 3_000;
             MaximumAnswers         = 7;
             SelectedTestType       = TestType.HiraganaOrKatakanaToRoomaji;
+            SelectedHintType       = HintType.BasedOnAskSign;
             ShowHints              = true;
             ShowAnswerShortcuts    = true;
             ShowRunningAnswerTimer = true;

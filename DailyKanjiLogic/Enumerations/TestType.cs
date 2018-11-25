@@ -1,5 +1,8 @@
 ﻿namespace DailyKanjiLogic.Enumerations
 {
+    /// <summary>
+    /// The type of a test (test direction)
+    /// </summary>
     public enum TestType
     {
         /// <summary>

@@ -31,11 +31,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
-    // TODO: Add four options for hints
-    //       "hints based on the current ask type"
-    //       "hints always in Roomaji"
-    //       "hints always in Hiragana"
-    //       "hints always in Katakana"
     // TODO: Add menu underscores (for menu keyboard navigation)
     // TODO: Add German language and language selector in menu
     // TODO: Add message box with yes/no before delete statistics
@@ -196,7 +191,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             BaseModel.PreviousTest = BaseModel.CurrentTest;
 
-            CountAnswerReult(answer);
+            CountAnswerResult(answer);
 
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
             {

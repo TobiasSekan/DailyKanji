@@ -229,12 +229,31 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Return a hint for a answer, based on the selected <see cref="TestType"/>
+        /// Return a hint for a answer,
+        /// based on the selected <see cref="HintType"/> and selected <see cref="TestType"/>
         /// </summary>
         /// <param name="answerNumber">The number of the answer</param>
         /// <returns>A hint for a answer</returns>
         public string GetAnswerHint(byte answerNumber)
         {
+            switch(BaseModel.SelectedHintType)
+            {
+                case HintType.OnlyRoomaji:
+                    return BaseModel.PossibleAnswers[answerNumber].Roomaji;
+
+                case HintType.OnlyHiragana:
+                    return BaseModel.PossibleAnswers[answerNumber].Hiragana;
+
+                case HintType.OnlyKatakana:
+                    return BaseModel.PossibleAnswers[answerNumber].Katakana;
+
+                case HintType.BasedOnAskSign:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedHintType), "Hint type not supported");
+            }
+
             switch(BaseModel.SelectedTestType)
             {
                 case TestType.RoomajiToHiraganaOrKatakana:
@@ -264,7 +283,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer of a test</param>
         /// <param name="answerList">A list with all answers</param>
-        public void CountAnswerReult(TestBaseModel answer)
+        public void CountAnswerResult(TestBaseModel answer)
         {
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
