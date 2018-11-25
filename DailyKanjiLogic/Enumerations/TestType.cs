@@ -35,7 +35,7 @@
         /// <summary>
         /// Question in Hiragana and answer in Katakana or Question in Katakana and answer in Hiragana
         /// </summary>
-        HiraganaToKatakanaOrKatakanaOrHiragana = 6,
+        HiraganaToKatakanaOrKatakanaToHiragana = 6,
 
         /// <summary>
         /// Question in Hiragana and answer in Katakana

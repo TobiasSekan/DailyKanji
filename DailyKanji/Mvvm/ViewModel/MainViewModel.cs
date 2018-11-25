@@ -19,6 +19,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // TODO: Bug inside command helper, so predicate is not usable on commands
+    // TODO: fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
     // Next
     // ----
@@ -68,7 +69,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Gamepad support
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
-    // TODO: Check for new version on startup
+    // TODO: Check for new version on start-up
     // TODO: Auto update program
 
     public sealed partial class MainViewModel : MainBaseViewModel
@@ -134,7 +135,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
             };
 
-            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
                 Model.HintTextColor.Add(new SolidColorBrush(Colors.Transparent));
@@ -161,14 +162,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void CreateNewTest()
         {
-            BaseModel.AllTestsList = BaseModel.AllTestsList
-                                              .OrderByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
-                                              .ThenByDescending(found => found.WrongHiraganaCount)
-                                              .ThenByDescending(found => found.WrongKatakanaCount)
-                                              .ThenByDescending(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount)
-                                              .ThenByDescending(found => found.CorrectHiraganaCount)
-                                              .ThenByDescending(found => found.CorrectKatakanaCount).ToList();
-
+            OrderAllTests();
             BuildTestPool();
             ChooseNewSign(GetRandomTest());
             ChooseNewPossibleAnswers();
@@ -195,7 +189,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.TestTimer.Stop();
 
-            var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
             if(answer == null)
             {
                 throw new ArgumentNullException(nameof(answer), "Test not found");
@@ -203,77 +196,16 @@ namespace DailyKanji.Mvvm.ViewModel
 
             BaseModel.PreviousTest = BaseModel.CurrentTest;
 
+            CountAnswerReult(answer);
+
+            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                CreateNewTest();
+                return;
+            }
+
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
-                // TODO: find a better way to check answer button text without use "_mainWindow" reference
-                var stackPanels = _mainWindow.AnswerButtonArea.Children.OfType<StackPanel>();
-                var childrens   = stackPanels.Select(found => found.Children);
-                var buttons     = childrens.Select(found => found[1]).OfType<Button>();
-                var contexts    = buttons.Select(found => found.Content);
-                var textBlocks  = contexts.OfType<TextBlock>();
-                var texts       = textBlocks.Select(found => found.Text);
-
-                var isHiragana = texts.Any(found => found == BaseModel.CurrentTest.Hiragana);
-                var isKatakana = texts.Any(found => found == BaseModel.CurrentTest.Katakana);
-
-                if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-                {
-                    switch(BaseModel.SelectedTestType)
-                    {
-                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
-                        case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
-                        case TestType.HiraganaToRoomaji:
-                        case TestType.RoomajiToHiragana:
-                        case TestType.HiraganaToKatakana:
-                            BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
-                            BaseModel.CurrentTest.CorrectHiraganaCount++;
-                            break;
-
-                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
-                        case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
-                        case TestType.KatakanaToRoomaji:
-                        case TestType.RoomajiToKatakana:
-                        case TestType.KatakanaToHiragana:
-                            BaseModel.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
-                            BaseModel.CurrentTest.CorrectKatakanaCount++;
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
-                    }
-
-                    CreateNewTest();
-                    return;
-                }
-
-                switch(BaseModel.SelectedTestType)
-                {
-                    case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isKatakana:
-                    case TestType.RoomajiToHiraganaOrKatakana when isHiragana:
-                    case TestType.HiraganaToRoomaji:
-                    case TestType.RoomajiToHiragana:
-                    case TestType.HiraganaToKatakana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
-                        BaseModel.CurrentTest.WrongHiraganaCount++;
-                        break;
-
-                    case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when isHiragana:
-                    case TestType.RoomajiToHiraganaOrKatakana when isKatakana:
-                    case TestType.KatakanaToRoomaji:
-                    case TestType.RoomajiToKatakana:
-                    case TestType.KatakanaToHiragana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
-                        BaseModel.CurrentTest.WrongKatakanaCount++;
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
-                }
-
                 SetErrorColors();
                 BuildAnswerMenuAndButtons();
 
@@ -300,7 +232,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.CurrentAskSignColor = _errorColor;
             Model.ProgressBarColor    = _errorColor;
 
-            for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
+            for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber]
                     = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
@@ -322,7 +254,7 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.CurrentAskSignColor = new SolidColorBrush(Colors.Transparent);
             Model.ProgressBarColor    = _progressBarColor;
 
-            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
                 Model.HintTextColor[answerNumber]     = new SolidColorBrush(Colors.Transparent);
@@ -338,79 +270,13 @@ namespace DailyKanji.Mvvm.ViewModel
                 _mainWindow.AnswerButtonArea.Children.Clear();
                 _mainWindow.AnswerMenu.Items.Clear();
 
-                for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
+                for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
                 {
-                    var text = string.Empty;
-                    var hint = string.Empty;
-
-                    switch(BaseModel.SelectedTestType)
-                    {
-                        case TestType.HiraganaOrKatakanaToRoomaji:
-                        case TestType.HiraganaToRoomaji:
-                        case TestType.KatakanaToRoomaji:
-                            text = BaseModel.PossibleAnswers[answerNumber].Roomaji;
-                            break;
-
-                        case TestType.RoomajiToHiraganaOrKatakana:
-                            text = BaseModel.Randomizer.Next(0, 2) == 0
-                                    ? BaseModel.PossibleAnswers[answerNumber].Hiragana
-                                    : BaseModel.PossibleAnswers[answerNumber].Katakana;
-                            break;
-
-                        case TestType.RoomajiToHiragana:
-                        case TestType.KatakanaToHiragana:
-                            text = BaseModel.PossibleAnswers[answerNumber].Hiragana;
-                            break;
-
-                        case TestType.RoomajiToKatakana:
-                        case TestType.HiraganaToKatakana:
-                            text = BaseModel.PossibleAnswers[answerNumber].Katakana;
-                            break;
-
-                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
-                            text = BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana
-                                    ? BaseModel.PossibleAnswers[answerNumber].Hiragana
-                                    : BaseModel.PossibleAnswers[answerNumber].Katakana;
-                            break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
-                    }
-
-                    switch(BaseModel.SelectedTestType)
-                    {
-                        case TestType.RoomajiToHiraganaOrKatakana:
-                        case TestType.RoomajiToHiragana:
-                        case TestType.RoomajiToKatakana:
-                            hint = BaseModel.PossibleAnswers[answerNumber].Roomaji;
-                            break;
-
-                        case TestType.HiraganaToRoomaji:
-                        case TestType.HiraganaToKatakana:
-                            hint = BaseModel.PossibleAnswers[answerNumber].Hiragana;
-                            break;
-
-                        case TestType.KatakanaToRoomaji:
-                        case TestType.KatakanaToHiragana:
-                            hint = BaseModel.PossibleAnswers[answerNumber].Katakana;
-                            break;
-
-                        case TestType.HiraganaOrKatakanaToRoomaji:
-                        case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
-                            hint = BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana
-                                    ? BaseModel.PossibleAnswers[answerNumber].Hiragana
-                                    : BaseModel.PossibleAnswers[answerNumber].Katakana;
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
-                    }
-
                     var stackPanel = new StackPanel();
                     var buttonText = new TextBlock
                     {
                         FontSize          = 100 - (5 * BaseModel.MaximumAnswers),
-                        Text              = text,
+                        Text              = GetAnswerText(answerNumber),
                         Padding           = new Thickness(0, 0, 0, 20),
                         VerticalAlignment = VerticalAlignment.Center
                     };
@@ -420,7 +286,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         FontSize            = 32,
                         Foreground          = Model.HintTextColor[answerNumber],
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        Text                = hint
+                        Text                = GetAnswerHint(answerNumber)
                     });
 
                     stackPanel.Children.Add(new Button
@@ -450,7 +316,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     {
                         Command          = CommandAnswerTest,
                         CommandParameter = BaseModel.PossibleAnswers[answerNumber],
-                        Header           = text,
+                        Header           = GetAnswerText(answerNumber),
                         InputGestureText = $"{answerNumber + 1}"
                     });
                 }

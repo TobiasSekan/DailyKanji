@@ -228,7 +228,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.RoomajiToKatakana:
                         return "R => K";
 
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana:
                         return "H => K / K => H";
 
                     case TestType.HiraganaToKatakana:
@@ -274,14 +274,14 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.WrongHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.WrongKatakanaCount}";
 
@@ -309,14 +309,14 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.CorrectHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.CorrectKatakanaCount}";
 
@@ -344,14 +344,14 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToRoomaji:
                     case TestType.HiraganaToKatakana:
                     case TestType.RoomajiToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaOrHiragana when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
 
