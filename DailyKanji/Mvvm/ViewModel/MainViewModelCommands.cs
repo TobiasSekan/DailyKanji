@@ -29,12 +29,12 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    if(!byte.TryParse(value?.ToString(), out var testType))
+                    if(!Enum.IsDefined(typeof(TestType), value))
                     {
                         return;
                     }
 
-                    BaseModel.SelectedTestType = (TestType)testType;
+                    BaseModel.SelectedTestType = (TestType)value;
 
                     CreateNewTest();
                 });
@@ -46,12 +46,12 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    if(!byte.TryParse(value?.ToString(), out var hintType))
+                    if(!Enum.IsDefined(typeof(HintType), value))
                     {
                         return;
                     }
 
-                    BaseModel.SelectedHintType = (HintType)hintType;
+                    BaseModel.SelectedHintType = (HintType)value;
                     CreateNewTest();
                 });
 
@@ -157,12 +157,12 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    if(!byte.TryParse(value?.ToString(), out var resetType))
+                    if(!Enum.IsDefined(typeof(ResetType), value))
                     {
                         return;
                     }
 
-                    ResetCompleteStatistic((ResetType)resetType);
+                    ResetCompleteStatistic((ResetType)value);
                     CreateNewTest();
                 });
 
