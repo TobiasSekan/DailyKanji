@@ -27,9 +27,9 @@
 # Missing a feature or found a bug?
 Open a issue ticket or make a pull request
 
-# Pictures
-![Daily Kanji](DailyKanji.png)
-![Daily Kanji - Error](DailyKanji-Error.png)
+# Pictures (under Windows 10)
+![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
+![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
 # Goals
 
