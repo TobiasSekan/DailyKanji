@@ -21,7 +21,7 @@
 * Changeable answer count (from two answers up to ten answers)
 * Changeable answer time (from one seconds up to fifteen seconds)
 * Changeable error time (from one point five seconds to ten seconds)
-* Statistics can reset via menu
+* Statistics can individual reset via menu
 * Automatically load and save test statistics and settings
 
 # Missing a feature or found a bug?
@@ -37,7 +37,6 @@ Open a issue ticket or make a pull request
 * Add menu entry to deactivate timeout (hide visible timer too)
 * Make refresh interval for timer changeable via menu
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-* Add more menu entries to reset individual things of the statistics
 * Add main counter for each test (negative/positive)
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests

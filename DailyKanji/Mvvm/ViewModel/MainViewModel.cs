@@ -1,7 +1,6 @@
 ﻿using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
-using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
@@ -19,14 +18,13 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // TODO: Bug inside command helper, so predicate is not usable on commands
-    // TODO: fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+    // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
     // Next
     // ----
     // TODO: Add menu entry to deactivate timeout(hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-    // TODO: Add more menu entries to reset individual things of the statistics
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests

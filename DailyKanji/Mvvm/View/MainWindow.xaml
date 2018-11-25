@@ -521,7 +521,19 @@
 
             <MenuItem Header="Statistic">
 
-                <MenuItem Command="{Binding Path=CommandRestCompleteStatistic}" Header="Reset the complete statistic" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="0" Header="Reset the complete statistic" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="1" Header="Reset all correct answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="2" Header="Reset only correct answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="3" Header="Reset only correct answered Katakana" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="4" Header="Reset all wrong answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="5" Header="Reset only wrong answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="6" Header="Reset only wrong answered Katakana" />
 
             </MenuItem>
 

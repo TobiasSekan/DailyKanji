@@ -26,12 +26,15 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for change test type (test direction)
         /// </summary>
         public ICommand CommandChangeTestType
-            => new CommandHelper(testType
+            => new CommandHelper(value
                 =>
                 {
-                    BaseModel.SelectedTestType = testType != null
-                         ? (TestType)Convert.ToInt32(testType)
-                         : TestType.HiraganaOrKatakanaToRoomaji;
+                    if(!byte.TryParse(value?.ToString(), out var testType))
+                    {
+                        return;
+                    }
+
+                    BaseModel.SelectedTestType = (TestType)testType;
 
                     CreateNewTest();
                 });
@@ -40,13 +43,15 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for change hint type
         /// </summary>
         public ICommand CommandChangeHintType
-            => new CommandHelper(hintType
+            => new CommandHelper(value
                 =>
                 {
-                    BaseModel.SelectedHintType = hintType != null
-                        ? (HintType)Convert.ToInt32(hintType)
-                        : HintType.BasedOnAskSign;
+                    if(!byte.TryParse(value?.ToString(), out var hintType))
+                    {
+                        return;
+                    }
 
+                    BaseModel.SelectedHintType = (HintType)hintType;
                     CreateNewTest();
                 });
 
@@ -54,7 +59,16 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for change the error timeout
         /// </summary>
         public ICommand CommandChangeErrorTimeout
-            => new CommandHelper(timeout => BaseModel.ErrorTimeout = Convert.ToInt32(timeout));
+            => new CommandHelper(value
+                =>
+                {
+                    if(!int.TryParse(value?.ToString(), out var timeout))
+                    {
+                        return;
+                    }
+
+                    BaseModel.ErrorTimeout = timeout;
+                });
 
         /// <summary>
         /// <see cref="ICommand"/> for change the answer count
@@ -64,7 +78,13 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    BaseModel.MaximumAnswers = Convert.ToByte(value);
+                    if(!byte.TryParse(value?.ToString(), out var maximumAnswers))
+                    {
+                        return;
+                    }
+
+                    BaseModel.MaximumAnswers = maximumAnswers;
+
                     ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
                 });
@@ -76,7 +96,12 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
-                    BaseModel.MaximumAnswerTimeout = Convert.ToDouble(value);
+                    if(!double.TryParse(value?.ToString(), out var maximumAnswerTimeout))
+                    {
+                        return;
+                    }
+
+                    BaseModel.MaximumAnswerTimeout = maximumAnswerTimeout;
 
                     Model.TestTimer.Stop();
                     Model.ProgressBarColor = _progressBarColor;
@@ -104,16 +129,16 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for select a answer by a <see cref="TestBaseModel"/> object
         /// </summary>
         public ICommand CommandAnswerTest
-            => new CommandHelper(parameter => CheckAnswer(parameter as TestBaseModel));
+            => new CommandHelper(value => CheckAnswer(value as TestBaseModel));
 
         /// <summary>
         /// <see cref="ICommand"/> for select a answer by a number value
         /// </summary>
         public ICommand CommandAnswerTestNumber
-            => new CommandHelper(parameter
+            => new CommandHelper(value
                 =>
                 {
-                    if(!int.TryParse(parameter.ToString(), out var answerNumber))
+                    if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
                         return;
                     }
@@ -126,14 +151,20 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Statistics Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for reset the complete (all data) statistics
+        /// <see cref="ICommand"/> for reset the statistic
         /// </summary>
-        public ICommand CommandRestCompleteStatistic
-            => new CommandHelper(() =>
-            {
-                ResetCompleteStatistic();
-                CreateNewTest();
-            });
+        public ICommand CommandRestStatistic
+            => new CommandHelper(value
+                =>
+                {
+                    if(!byte.TryParse(value?.ToString(), out var resetType))
+                    {
+                        return;
+                    }
+
+                    ResetCompleteStatistic((ResetType)resetType);
+                    CreateNewTest();
+                });
 
         #endregion Commands - Statistics Menu
 

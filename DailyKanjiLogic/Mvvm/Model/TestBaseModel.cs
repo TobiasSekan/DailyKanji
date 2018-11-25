@@ -76,27 +76,53 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The complete answer time of all test with the Hiragana sign
+        /// The complete answer time of all correct answered test with a Hiragana signs
         /// </summary>
-        public TimeSpan CompleteAnswerTimeForHiragana
+        public TimeSpan CompleteAnswerTimeForCorrectHiragana
         {
-            get => _completeAnswerTimeForHiragana;
+            get => _completeAnswerTimeForCorrectHiragana;
             set
             {
-                _completeAnswerTimeForHiragana = value;
+                _completeAnswerTimeForCorrectHiragana = value;
                 OnPropertyChanged(nameof(AverageAnswerTimeForHiragana));
             }
         }
 
         /// <summary>
-        /// The complete answer time of all test with the Katakana sign
+        /// The complete answer time of all wrong answered test with a Hiragana signs
         /// </summary>
-        public TimeSpan CompleteAnswerTimeForKatakana
+        public TimeSpan CompleteAnswerTimeForWrongHiragana
         {
-            get => _completeAnswerTimeForKatakana;
+            get => _completeAnswerTimeForWrongHiragana;
             set
             {
-                _completeAnswerTimeForKatakana = value;
+                _completeAnswerTimeForWrongHiragana = value;
+                OnPropertyChanged(nameof(AverageAnswerTimeForHiragana));
+            }
+        }
+
+        /// <summary>
+        /// The complete answer time of all correct answered test with a Katakana sign
+        /// </summary>
+        public TimeSpan CompleteAnswerTimeForCorrectKatakana
+        {
+            get => _completeAnswerTimeForCorrectKatakana;
+            set
+            {
+                _completeAnswerTimeForCorrectKatakana = value;
+                OnPropertyChanged(nameof(AverageAnswerTimeForKatakana));
+            }
+        }
+
+        /// <summary>
+        /// The complete answer time of all wrong answered test with the a Katakana sign
+        /// </summary>
+        public TimeSpan CompleteAnswerTimeForWrongKatakana
+        {
+            get => _completeAnswerTimeForWrongKatakana;
+            set
+            {
+                _completeAnswerTimeForWrongKatakana = value;
                 OnPropertyChanged(nameof(AverageAnswerTimeForKatakana));
             }
         }
@@ -107,7 +133,8 @@ namespace DailyKanjiLogic.Mvvm.Model
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForHiragana
             => CorrectHiraganaCount + WrongHiraganaCount > 0
-                ? new TimeSpan(CompleteAnswerTimeForHiragana.Ticks / (CorrectHiraganaCount + WrongHiraganaCount))
+                ? new TimeSpan((CompleteAnswerTimeForCorrectHiragana.Ticks + CompleteAnswerTimeForWrongHiragana.Ticks)
+                               / (CorrectHiraganaCount + WrongHiraganaCount))
                 : new TimeSpan();
 
         /// <summary>
@@ -116,7 +143,8 @@ namespace DailyKanjiLogic.Mvvm.Model
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForKatakana
             => CorrectKatakanaCount + WrongKatakanaCount > 0
-                ? new TimeSpan(CompleteAnswerTimeForKatakana.Ticks / (CorrectKatakanaCount + WrongKatakanaCount))
+                ? new TimeSpan((CompleteAnswerTimeForCorrectKatakana.Ticks + CompleteAnswerTimeForWrongKatakana.Ticks)
+                               / (CorrectKatakanaCount + WrongKatakanaCount))
                 : new TimeSpan();
 
         #endregion Public Properties
@@ -144,14 +172,24 @@ namespace DailyKanjiLogic.Mvvm.Model
         private int _correctKatakanaCount;
 
         /// <summary>
-        /// Backing-field for <see cref="CompleteAnswerTimeForHiragana"/>
+        /// Backing-field for <see cref="CompleteAnswerTimeForCorrectHiragana"/>
         /// </summary>
-        private TimeSpan _completeAnswerTimeForHiragana;
+        private TimeSpan _completeAnswerTimeForCorrectHiragana;
 
         /// <summary>
-        /// Backing-field for <see cref="CompleteAnswerTimeForKatakana"/>
+        /// Backing-field for <see cref="CompleteAnswerTimeForWrongHiragana"/>
         /// </summary>
-        private TimeSpan _completeAnswerTimeForKatakana;
+        private TimeSpan _completeAnswerTimeForWrongHiragana;
+
+        /// <summary>
+        /// Backing-field for <see cref="CompleteAnswerTimeForCorrectKatakana"/>
+        /// </summary>
+        private TimeSpan _completeAnswerTimeForCorrectKatakana;
+
+        /// <summary>
+        /// Backing-field for <see cref="CompleteAnswerTimeForWrongKatakana"/>
+        /// </summary>
+        private TimeSpan _completeAnswerTimeForWrongKatakana;
 
         #endregion Private Backing-fields
 

@@ -384,7 +384,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         public bool CanGoToLastTest
             => PreviousTest != null;
 
-
         /// <summary>
         /// A list with possible answers
         /// </summary>

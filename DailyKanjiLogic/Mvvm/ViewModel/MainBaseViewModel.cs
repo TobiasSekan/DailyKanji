@@ -2,7 +2,6 @@
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -296,7 +295,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     case TestType.HiraganaToRoomaji:
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
                         BaseModel.CurrentTest.CorrectHiraganaCount++;
                         break;
 
@@ -305,7 +304,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
                     case TestType.KatakanaToHiragana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
+                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += answerTime;
                         BaseModel.CurrentTest.CorrectKatakanaCount++;
                         break;
 
@@ -313,7 +312,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     //case TestType.RoomajiToHiraganaOrKatakana when IsKatakana(answer):
                     //case TestType.RoomajiToHiraganaOrKatakana when IsHiragana(answer):
                     case TestType.RoomajiToHiraganaOrKatakana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
                         BaseModel.CurrentTest.CorrectHiraganaCount++;
                         break;
 
@@ -331,7 +330,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.HiraganaToRoomaji:
                 case TestType.RoomajiToHiragana:
                 case TestType.HiraganaToKatakana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
                     BaseModel.CurrentTest.WrongHiraganaCount++;
                     break;
 
@@ -340,7 +339,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
                 case TestType.KatakanaToHiragana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForKatakana += answerTime;
+                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
                     BaseModel.CurrentTest.WrongKatakanaCount++;
                     break;
 
@@ -348,7 +347,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     //case TestType.RoomajiToHiraganaOrKatakana when IsKatakana(answer):
                     //case TestType.RoomajiToHiraganaOrKatakana when IsHiragana(answer):
                     case TestType.RoomajiToHiraganaOrKatakana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForHiragana += answerTime;
+                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
                     BaseModel.CurrentTest.WrongHiraganaCount++;
                     break;
 
@@ -360,16 +359,57 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Rest the complete statistic
         /// </summary>
-        public void ResetCompleteStatistic()
+        public void ResetCompleteStatistic(ResetType resetType)
         {
             foreach(var test in BaseModel.AllTestsList)
             {
-                test.CorrectHiraganaCount = 0;
-                test.CorrectKatakanaCount = 0;
-                test.WrongHiraganaCount = 0;
-                test.WrongKatakanaCount = 0;
-                test.CompleteAnswerTimeForHiragana = new TimeSpan();
-                test.CompleteAnswerTimeForKatakana = new TimeSpan();
+                switch(resetType)
+                {
+                    case ResetType.All:
+                        test.CorrectHiraganaCount                 = 0;
+                        test.CorrectKatakanaCount                 = 0;
+                        test.WrongHiraganaCount                   = 0;
+                        test.WrongKatakanaCount                   = 0;
+                        test.CompleteAnswerTimeForCorrectHiragana = new TimeSpan();
+                        test.CompleteAnswerTimeForWrongHiragana   = new TimeSpan();
+                        test.CompleteAnswerTimeForCorrectKatakana = new TimeSpan();
+                        test.CompleteAnswerTimeForWrongKatakana   = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyCorrectAll:
+                        test.CorrectHiraganaCount                 = 0;
+                        test.CorrectKatakanaCount                 = 0;
+                        test.CompleteAnswerTimeForCorrectHiragana = new TimeSpan();
+                        test.CompleteAnswerTimeForCorrectKatakana = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyCorrectHiragana:
+                        test.CorrectHiraganaCount                 = 0;
+                        test.CompleteAnswerTimeForCorrectHiragana = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyCorrectKatakana:
+                        test.CorrectKatakanaCount                 = 0;
+                        test.CompleteAnswerTimeForCorrectKatakana = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyWrongAll:
+                        test.WrongHiraganaCount                 = 0;
+                        test.WrongKatakanaCount                 = 0;
+                        test.CompleteAnswerTimeForWrongHiragana = new TimeSpan();
+                        test.CompleteAnswerTimeForWrongKatakana = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyWrongHiragana:
+                        test.WrongHiraganaCount                 = 0;
+                        test.CompleteAnswerTimeForWrongHiragana = new TimeSpan();
+                        break;
+
+                    case ResetType.OnlyWrongKatakana:
+                        test.WrongKatakanaCount                 = 0;
+                        test.CompleteAnswerTimeForWrongKatakana = new TimeSpan();
+                        break;
+                }
             }
         }
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// The type of the hint
     /// </summary>
-    public enum HintType
+    public enum HintType : byte
     {
         /// <summary>
         /// The type of the hint is based on the ask sign
