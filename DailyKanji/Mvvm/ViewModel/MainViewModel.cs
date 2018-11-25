@@ -34,6 +34,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add menu underscores (for menu keyboard navigation)
     // TODO: Add German language and language selector in menu
     // TODO: Add message box with yes/no before delete statistics
+    // TODO: Add option to deactivate error highlight
 
     // Near future
     // -----------
@@ -66,6 +67,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
     // TODO: Check for new version on start-up
     // TODO: Auto update program
+    // TODO: .Net Xamarin version for Andorid and iOS
 
     public sealed partial class MainViewModel : MainBaseViewModel
     {

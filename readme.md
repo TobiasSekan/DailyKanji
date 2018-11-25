@@ -14,8 +14,8 @@
 * Test can be answered via left mouse click, number key and menu
 * Switch to previous test or next test
 * Running answer timer, when time is over the test is automatically answered wrong
-* Highlight wrong and correct answers, when answer was wrong
-* Show hint of all possible answers, when answer was wrong (can be deactivated via menu)
+* Highlight wrong and correct answers, when answer was wrong 
+* Show hint of all possible answers, when answer was wrong (can be hide and change via menu)
 * Count answer times (separates counter for Hiragana and Katakana)
 * Can show only similar answers
 * Changeable answer count (from two answers up to ten answers)
@@ -42,14 +42,10 @@ Open a issue ticket or make a pull request
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
-* Add four options for hints
-  * "hints based on current ask type"
-  * "hints always in Roomaji"
-  * "hints always in Hiragana"
-  * "hints always in Katakana"
 * Add menu underscores (for menu keyboard navigation)
 * Add German language and language selector in menu
 * Add message box with yes/no before delete statistics
+* Add option to deactivate error highlight
 
 #### Near future (between 1.0 alpha and 1.0 release)
 * Recalculate buttons (button width), when window is resized
@@ -75,6 +71,7 @@ Open a issue ticket or make a pull request
 * Investigate in WPF - FlowDocument (for integrated zooming features)
 * Check for new version on startup
 * Auto update program
+* .Net Xamarin version for Andorid and iOS
 
 # Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
