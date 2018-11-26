@@ -173,7 +173,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Check if the given answer is correct
         /// </summary>
         /// <param name="answer">The answer to check</param>
-        internal void CheckAnswer(TestBaseModel answer)
+        internal void CheckAnswer(in TestBaseModel answer)
         {
             if(BaseModel.IgnoreInput)
             {

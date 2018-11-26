@@ -4,7 +4,7 @@ using System.Reflection;
 namespace DailyKanjiLogic.Helper
 {
     /// <summary>
-    /// Helper class to eaiser work with <see cref="Assembly"/>s
+    /// Helper class to easier work with <see cref="Assembly"/>s
     /// </summary>
     public static class AssemblyHelper
     {
@@ -14,7 +14,7 @@ namespace DailyKanjiLogic.Helper
         /// <typeparam name="T">The <see cref="Type"/> of the given class</typeparam>
         /// <param name="assemblyClass">A class of the assembly (typical <c>this</c></param>
         /// <returns>The assembly version</returns>
-        public static Version GetAssemblyVersion<T>(T assemblyClass) where T : class
+        public static Version GetAssemblyVersion<T>(in T assemblyClass) where T : class
             => assemblyClass?.GetType().GetTypeInfo().Assembly?.GetName().Version;
     }
 }

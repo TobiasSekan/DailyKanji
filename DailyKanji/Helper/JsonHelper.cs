@@ -16,7 +16,7 @@ namespace DailyKanji.Helper
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="filename">The name of the JSON file</param>
         /// <returns>The de-serialized object</returns>
-        public static T ReadJson<T>(string filename) where T : new()
+        public static T ReadJson<T>(in string filename) where T : new()
         {
             if(filename.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
@@ -47,7 +47,7 @@ namespace DailyKanji.Helper
         /// <typeparam name="T">The <see cref="Type"/> of the <see cref="object"/></typeparam>
         /// <param name="filename">The name of the file</param>
         /// <param name="objectToTransform">The object to write</param>
-        public static void WriteJson<T>(string filename, T objectToTransform) where T : new()
+        public static void WriteJson<T>(in string filename, in T objectToTransform) where T : new()
         {
             if(filename.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
@@ -78,7 +78,7 @@ namespace DailyKanji.Helper
         /// <param name="jsonString">The <see cref="string"/> that contains a JSON object</param>
         /// <param name="newObject">The new <see cref="object"/> from the string</param>
         /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
-        public static bool TryConvertFromString<T>(string jsonString, out T newObject, out Exception exception)
+        public static bool TryConvertFromString<T>(in string jsonString, out T newObject, out Exception exception)
                 where T : new()
         {
             try
@@ -104,7 +104,7 @@ namespace DailyKanji.Helper
         /// <param name="objectToConvert">The <see cref="object"/> for the JSON inside the string</param>
         /// <param name="jsonString">A <see cref="string"/> that contains a JSON object</param>
         /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
-        public static bool TryConvertToString(object objectToConvert, out string jsonString, out Exception exception)
+        public static bool TryConvertToString(in object objectToConvert, out string jsonString, out Exception exception)
         {
             try
             {

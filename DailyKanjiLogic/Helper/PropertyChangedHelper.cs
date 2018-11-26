@@ -10,7 +10,7 @@ namespace DailyKanjiLogic.Helper
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = "")
+        protected void OnPropertyChanged([CallerMemberName] in string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

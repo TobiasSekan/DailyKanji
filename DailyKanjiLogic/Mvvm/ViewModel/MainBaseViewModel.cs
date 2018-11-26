@@ -133,7 +133,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="onlyOneRoomajiCharacter">(Optional) Indicate that only a test that have a roomaji character with length one will return</param>
         /// <returns>A test</returns>
-        public TestBaseModel GetRandomTest(bool onlyOneRoomajiCharacter = false)
+        public TestBaseModel GetRandomTest(in bool onlyOneRoomajiCharacter = false)
             => onlyOneRoomajiCharacter
                 ? BaseModel.TestPool.Where(found => found.Roomaji.Length == 1)
                                     .ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count))
@@ -198,7 +198,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answerNumber">The number of the answer</param>
         /// <returns>A text for a answer</returns>
-        public string GetAnswerText(byte answerNumber)
+        public string GetAnswerText(in byte answerNumber)
         {
             switch(BaseModel.SelectedTestType)
             {
@@ -233,7 +233,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answerNumber">The number of the answer</param>
         /// <returns>A hint for a answer</returns>
-        public string GetAnswerHint(byte answerNumber)
+        public string GetAnswerHint(in byte answerNumber)
         {
             switch(BaseModel.SelectedHintType)
             {
@@ -282,7 +282,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer of a test</param>
         /// <param name="answerList">A list with all answers</param>
-        public void CountAnswerResult(TestBaseModel answer)
+        public void CountAnswerResult(in TestBaseModel answer)
         {
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
@@ -359,7 +359,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Rest the complete statistic
         /// </summary>
-        public void ResetCompleteStatistic(ResetType resetType)
+        public void ResetCompleteStatistic(in ResetType resetType)
         {
             foreach(var test in BaseModel.AllTestsList)
             {

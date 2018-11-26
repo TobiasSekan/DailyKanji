@@ -36,7 +36,7 @@ namespace DailyKanjiLogic.Helper
         /// </summary>
         /// <param name="action">The <see cref="Action"/> for the command</param>
         /// <param name="canExcecute">(Optional) The <see cref="Predicate{}"/> that indicate that the action can preform</param>
-        public CommandHelper(Action action, Predicate<bool> canExcecute = null)
+        public CommandHelper(in Action action, in Predicate<bool> canExcecute = null)
         {
             _action      = action;
             _canExcecute = canExcecute;
@@ -47,7 +47,7 @@ namespace DailyKanjiLogic.Helper
         /// </summary>
         /// <param name="action">The <see cref="Action{T}"/> for the command</param>
         /// <param name="canExcecute">(Optional) The <see cref="Predicate{T}"/> that indicate that the action can preform</param>
-        public CommandHelper(Action<object> action, Predicate<object> canExcecute = null)
+        public CommandHelper(in Action<object> action, in Predicate<object> canExcecute = null)
         {
             _actionWithParameter      = action;
             _canExcecuteWithParameter = canExcecute;

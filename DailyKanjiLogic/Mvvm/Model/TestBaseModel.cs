@@ -203,6 +203,8 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="katakana">The sign in Katakana</param>
         public TestBaseModel(string roomaji, string hiragana, string katakana)
         {
+            // use of 'in' modifier will crash JSON serialisation
+
             Roomaji  = roomaji;
             Hiragana = hiragana;
             Katakana = katakana;
