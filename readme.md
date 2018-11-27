@@ -3,7 +3,7 @@
 * First version will released in December 2018 
 
 # Requirements for usage
-* Windows Vista SP2, Windows 7 SP1, Windows 8, Windows 8.1, Windows 10
+* Windows Vista SP2, Windows 7 SP1, Windows 8.0, Windows 8.1, Windows 10
 * [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
 
 # Current features
