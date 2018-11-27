@@ -3,8 +3,8 @@
 * First version will released in December 2018 
 
 # Requirements for usage
-* Windows (Vista SP2, 7 SP1, 8.0, 8.1, 10, Server 2008 SP2, Server 2008 R2 SP1, Server 2012)
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
+* Windows (Vista SP2, 7 SP1, 8, 8.1, 10) or Windows Server (2008 SP2, 2008 R2 SP1, 2012, 2012 SP2)
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130)
 
 # Current features
 * 9 Test types
@@ -31,8 +31,8 @@
 # Missing a feature or found a bug?
 Open a issue ticket or make a pull request
 
-# Notes about support for Windows Vista and Window 8.0
-The support for Windows Vista SP2 and Windows 8.0 will be maintained as long as possible.
+# Notes about support for Windows Vista and Window 8
+The support for Windows Vista SP2 and Windows 8 will be maintained as long as possible.
 But when I start with next major version of this project it is most likely, that I must drop this support.
 Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or higher).
 
@@ -60,7 +60,7 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
   * Maybe: Only the first character or last character must are the same on less then five answers
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Change test order so that all tests will be ask (based on ask counter)
-* Move more program parts to separate library project in .Net Standard 1.0
+* Move more program parts to separate library project in .Net Standard
 
 #### Next versions (after 1.0 release)
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
@@ -78,13 +78,13 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
 * .Net Xamarin version for Andorid and iOS
 
 # Requirements for debug, test and contributing
-* [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (include .Net Standard 1.2)
+* [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130) (include .Net Standard 1.2)
 * [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
 * C# 7.3
 
 # Project overview
-| Project         | Used framework       | Operating system   |
-| --------------- | -------------------- | ------------------ |
-| DailyKanji      | .Net Framework 4.5.2 | Windows            |
-| DailyKanjiLogic | .Net Standard 1.2    | *function library* |
+| Project         | Used framework     | Operating system   |
+| --------------- | ------------------ | ------------------ |
+| DailyKanji      | .Net Framework 4.6 | Windows            |
+| DailyKanjiLogic | .Net Standard 1.2  | *function library* |
