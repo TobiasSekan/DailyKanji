@@ -173,6 +173,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Check if the given answer is correct
         /// </summary>
         /// <param name="answer">The answer to check</param>
+        /// <exception cref="ArgumentNullException"></exception>
         internal void CheckAnswer(in TestBaseModel answer)
         {
             if(BaseModel.IgnoreInput)
@@ -301,7 +302,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         {
                             FontSize            = 12,
                             HorizontalAlignment = HorizontalAlignment.Center,
-                            Text                = $"{answerNumber + 1}",
+                            Text                = $"{answerNumber + 1}"
                         });
                     }
 

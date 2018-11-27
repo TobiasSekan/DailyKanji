@@ -217,7 +217,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Compare this <see cref="TestBaseModel"/> with the given <see cref="object"/>
         /// </summary>
-        /// <param name="other">The <see cref="object"/> to compare</param>
+        /// <param name="obj">The <see cref="object"/> to compare</param>
         /// <returns><c>true</c> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
         /// and Roomaji, Hiragana and Katakana are the same, otherwise <c>false</c></returns>
         public override bool Equals(object obj)
@@ -263,6 +263,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// (R, H, K, RO, HI, KA, Roomaji, Hiragana or Katakana)</param>
         /// <param name="formatProvider">not used and ignored</param>
         /// <returns>A readable <see cref="string"/></returns>
+        /// <exception cref="FormatException"></exception>
         public string ToString(string format, IFormatProvider formatProvider)
         {
             switch(format?.ToUpper())

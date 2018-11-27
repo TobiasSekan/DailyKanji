@@ -72,7 +72,7 @@ namespace DailyKanjiLogic.Helper
         /// Return if the action can perform, based on the <see cref="Predicate{T}"/> of this <see cref="Action{T}"/> and the given parameter
         /// </summary>
         /// <param name="parameter"></param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if command is usable, otherwise <c>false</c></returns>
         public bool CanExecute(object parameter)
             => _canExcecute != null
                 ? bool.TryParse(parameter.ToString(), out var parameterBool) && _canExcecute(Convert.ToBoolean(parameterBool))

@@ -24,12 +24,17 @@
 * Statistics can individual reset via menu
 * Automatically load and save test statistics and settings
 
-# Missing a feature or found a bug?
-Open a issue ticket or make a pull request
-
 # Pictures (under Windows 10)
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
+
+# Missing a feature or found a bug?
+Open a issue ticket or make a pull request
+
+# Notes about support for Windows Vista and Window 8.0
+The support for Windows Vista SP2 and Windows 8.0 will be maintained as long as possible.
+But when I start with next major version of this project it is most likely, that I must drop this support.
+Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or higher).
 
 # Goals
 
@@ -74,7 +79,8 @@ Open a issue ticket or make a pull request
 
 # Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (.Net Standard 1.0)
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (include .Net Standard 1.0)
+* [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
 * C# 7.3
 
 # Project overview

@@ -40,6 +40,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Build the test pool (wrong answered tests will add multiple)
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void BuildTestPool()
         {
             var testPool = new Collection<TestBaseModel>();
@@ -86,6 +87,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Choose a new sign for a new ask
         /// </summary>
+        /// <param name="newTest">The test for the new sign</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ChooseNewSign(TestBaseModel newTest)
         {
             if(BaseModel.CurrentTest != null)
@@ -198,6 +201,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answerNumber">The number of the answer</param>
         /// <returns>A text for a answer</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerText(in byte answerNumber)
         {
             switch(BaseModel.SelectedTestType)
@@ -233,6 +237,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answerNumber">The number of the answer</param>
         /// <returns>A hint for a answer</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in byte answerNumber)
         {
             switch(BaseModel.SelectedHintType)
@@ -282,6 +287,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer of a test</param>
         /// <param name="answerList">A list with all answers</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
@@ -357,8 +363,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Rest the complete statistic
+        /// Rest the statistic
         /// </summary>
+        /// <param name="resetType">The type of the reset (All, OnlyAllCorrect, OnlyAllWrong, etc.)</param>
         public void ResetCompleteStatistic(in ResetType resetType)
         {
             foreach(var test in BaseModel.AllTestsList)

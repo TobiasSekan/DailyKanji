@@ -56,7 +56,7 @@ namespace DailyKanji.Helper
 
             var serializer = new JsonSerializer
             {
-                Formatting = Formatting.Indented,
+                Formatting = Formatting.Indented
             };
 
             using(var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -77,6 +77,7 @@ namespace DailyKanji.Helper
         /// <typeparam name="T">The <see cref="Type"/> of the new <see cref="object"/></typeparam>
         /// <param name="jsonString">The <see cref="string"/> that contains a JSON object</param>
         /// <param name="newObject">The new <see cref="object"/> from the string</param>
+        /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
         /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
         public static bool TryConvertFromString<T>(in string jsonString, out T newObject, out Exception exception)
                 where T : new()
@@ -103,6 +104,7 @@ namespace DailyKanji.Helper
         /// </summary>
         /// <param name="objectToConvert">The <see cref="object"/> for the JSON inside the string</param>
         /// <param name="jsonString">A <see cref="string"/> that contains a JSON object</param>
+        /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
         /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
         public static bool TryConvertToString(in object objectToConvert, out string jsonString, out Exception exception)
         {
