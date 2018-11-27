@@ -4,8 +4,15 @@ using System.Collections.ObjectModel;
 
 namespace DailyKanjiLogic.Helper
 {
+    /// <summary>
+    /// Helper class to easier work with kana (Hiragana, Katakana)
+    /// </summary>
     public static class KanaHelper
     {
+        /// <summary>
+        /// Return a list with all possible kana tests (Hiragana, Katakana)
+        /// </summary>
+        /// <returns>A list with all possible tests</returns>
         public static IEnumerable<TestBaseModel> GetKanaList()
             => new Collection<TestBaseModel>
             {

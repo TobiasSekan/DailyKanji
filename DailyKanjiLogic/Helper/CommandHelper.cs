@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace DailyKanjiLogic.Helper
 {
+    /// <summary>
+    /// Helper to easier work with <see cref="ICommand"/>
+    /// </summary>
     public sealed class CommandHelper : ICommand
     {
         #region Private Fields

@@ -3,21 +3,29 @@ using System.Collections.Generic;
 
 namespace DailyKanjiLogic.Helper
 {
-    public static class Expressions
+    /// <summary>
+    /// Expression methods for lists
+    /// </summary>
+    public static class ListExpressions
     {
-        // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
-
-        public static void Shuffle<T>(this IList<T> deck)
+        /// <summary>
+        /// Shuffle the <see cref="IList{T}"/>
+        /// <para>see <a href="https://en.wikipedia.org/wiki/Fisher–Yates_shuffle">"Fisher Yates - Shuffle"</a>
+        /// for more information</para>
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Type"/> of the list</typeparam>
+        /// <param name="list">The <see cref="IList{T}"/> to shuffle</param>
+        public static void Shuffle<T>(this IList<T> list)
         {
-            var r = new Random();
+            var random = new Random();
 
-            for(var n = deck.Count - 1; n > 0; --n)
+            for(var oldIndex = list.Count - 1; oldIndex > 0; --oldIndex)
             {
-                var k    = r.Next(n + 1);
-                var temp = deck[n];
+                var newIndex = random.Next(oldIndex + 1);
+                var tempCopy = list[oldIndex];
 
-                deck[n] = deck[k];
-                deck[k] = temp;
+                list[oldIndex] = list[newIndex];
+                list[newIndex] = tempCopy;
             }
         }
     }
