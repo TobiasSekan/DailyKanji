@@ -3,7 +3,7 @@
 * First version will released in December 2018 
 
 # Requirements for usage
-* Windows Vista SP2, Windows 7 SP1, Windows 8.0, Windows 8.1, Windows 10
+* Windows (Vista SP2, 7 SP1, 8.0, 8.1, 10, Server 2008 SP2, Server 2008 R2 SP1, Server 2012)
 * [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
 
 # Current features
@@ -73,13 +73,13 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
 * Gamepad support
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)
-* Check for new version on startup
+* Check for new version on start-up
 * Auto update program
 * .Net Xamarin version for Andorid and iOS
 
 # Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/de/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/de/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (include .Net Standard 1.0)
+* [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642) (include .Net Standard 1.2)
 * [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
 * C# 7.3
 
@@ -87,4 +87,4 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
 | Project         | Used framework       | Operating system   |
 | --------------- | -------------------- | ------------------ |
 | DailyKanji      | .Net Framework 4.5.2 | Windows            |
-| DailyKanjiLogic | .Net Standard 1.0    | *function library* |
+| DailyKanjiLogic | .Net Standard 1.2    | *function library* |

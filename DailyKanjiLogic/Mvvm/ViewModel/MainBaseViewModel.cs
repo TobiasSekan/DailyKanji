@@ -147,10 +147,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         public void ChooseNewPossibleAnswers()
         {
-            // .Net Standard 1.0 doesn't support LINQ chain methods on strings
-            var firstTestChrachter  = BaseModel.CurrentTest.Roomaji.ToCharArray().FirstOrDefault().ToString();
-            var secondTestChrachter = BaseModel.CurrentTest.Roomaji.ToCharArray().ElementAtOrDefault(1).ToString();
-            var ThirdTestChrachter  = BaseModel.CurrentTest.Roomaji.ToCharArray().ElementAtOrDefault(2).ToString();
+            var firstTestChrachter  = BaseModel.CurrentTest.Roomaji.FirstOrDefault();
+            var secondTestChrachter = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(1);
+            var ThirdTestChrachter  = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(2);
 
             var tryAddCount = 0;
             var list        = new ObservableCollection<TestBaseModel>
