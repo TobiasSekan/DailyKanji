@@ -424,11 +424,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         public TestBaseModel PreviousTest { get; set; }
 
         /// <summary>
-        /// Return the library version
+        /// Return the version and the target framework of this library
         /// </summary>
         [JsonIgnore]
-        public Version GetVersion
-            => AssemblyHelper.GetAssemblyVersion(this);
+        public string GetVersion
+            => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
         #endregion Public Properties
 

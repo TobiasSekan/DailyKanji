@@ -68,11 +68,11 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// Return the program version of this surface for windows
+        /// Return the version and target framework of this program
         /// </summary>
         [JsonIgnore]
-        public Version GetVersion
-            => AssemblyHelper.GetAssemblyVersion(this);
+        public string GetVersion
+            => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
         #endregion Public Properties
 
