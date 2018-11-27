@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helper\JsonHelper.cs" />
     <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ValueToBooleanConverter.cs" />
     <Page Include="Mvvm\View\InfoWindow.xaml">
@@ -90,11 +89,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DailyKanjiLogic\DailyKanjiLogic.csproj">

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace DailyKanji.Helper
@@ -92,8 +91,11 @@ namespace DailyKanji.Helper
             catch(Exception jsonException)
             {
                 exception = new JsonException("Exception: " + Environment.NewLine + jsonException + Environment.NewLine
-                                              + "JSON string:" + Environment.NewLine + jsonString + Environment.NewLine
-                                              + "Stack trace:" + Environment.NewLine + new StackTrace());
+                                              + "JSON string: " + Environment.NewLine + jsonString + Environment.NewLine);
+
+                // StackTrace class is not supported in .Net Standard 1.3
+                //+ "Stack trace:" + Environment.NewLine + new StackTrace());
+
                 newObject = default;
                 return false;
             }
@@ -117,8 +119,11 @@ namespace DailyKanji.Helper
             catch(Exception jsonException)
             {
                 exception = new JsonException("Exception: " + Environment.NewLine + jsonException + Environment.NewLine
-                                              + "Object:" + Environment.NewLine + objectToConvert + Environment.NewLine
-                                              + "Stack trace:" + Environment.NewLine + new StackTrace());
+                                              + "Object: " + Environment.NewLine + objectToConvert + Environment.NewLine);
+
+                // StackTrace class is not supported in .Net Standard 1.3
+                //+ "Stack trace:" + Environment.NewLine + new StackTrace());
+
                 jsonString = null;
                 return false;
             }

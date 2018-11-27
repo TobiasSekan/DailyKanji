@@ -79,7 +79,7 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
 
 # Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130) (include .Net Standard 1.2)
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130) (include .Net Standard 1.3)
 * [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
 * C# 7.3
 
@@ -87,4 +87,4 @@ Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or highe
 | Project         | Used framework     | Operating system   |
 | --------------- | ------------------ | ------------------ |
 | DailyKanji      | .Net Framework 4.6 | Windows            |
-| DailyKanjiLogic | .Net Standard 1.2  | *function library* |
+| DailyKanjiLogic | .Net Standard 1.3  | *function library* |

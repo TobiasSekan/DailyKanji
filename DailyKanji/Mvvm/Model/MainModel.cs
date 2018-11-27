@@ -1,6 +1,4 @@
 ﻿using DailyKanjiLogic.Helper;
-using Newtonsoft.Json;
-using System;
 using System.Collections.ObjectModel;
 using System.Timers;
 using System.Windows.Media;
@@ -14,7 +12,6 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of all answer buttons
         /// </summary>
-        [JsonIgnore]
         public ObservableCollection<Brush> AnswerButtonColor
         {
             get => _buttonColor;
@@ -28,7 +25,6 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of all answer buttons
         /// </summary>
-        [JsonIgnore]
         public ObservableCollection<Brush> HintTextColor
         {
             get => _hintTextColor;
@@ -42,7 +38,6 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of the ask sign
         /// </summary>
-        [JsonIgnore]
         public Brush CurrentAskSignColor
         {
             get => _currentAskSignColor;
@@ -56,7 +51,6 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The colour for the progress bar (running answer time)
         /// </summary>
-        [JsonIgnore]
         public Brush ProgressBarColor
         {
             get => _progressBarColor;
@@ -70,7 +64,6 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Return the version and target framework of this program
         /// </summary>
-        [JsonIgnore]
         public string GetVersion
             => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
