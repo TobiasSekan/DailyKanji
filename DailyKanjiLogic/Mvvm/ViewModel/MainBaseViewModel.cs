@@ -1,5 +1,4 @@
-﻿using DailyKanji.Helper;
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;

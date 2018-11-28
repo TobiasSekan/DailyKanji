@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace DailyKanji.Helper
+namespace DailyKanjiLogic.Helper
 {
     /// <summary>
     /// Helper class to easier handle with JSON files
