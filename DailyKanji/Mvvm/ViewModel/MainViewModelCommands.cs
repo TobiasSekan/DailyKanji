@@ -129,7 +129,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for select a answer by a <see cref="TestBaseModel"/> object
         /// </summary>
         public ICommand CommandAnswerTest
-            => new CommandHelper(value => CheckAnswer(value as TestBaseModel));
+            => new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel));
 
         /// <summary>
         /// <see cref="ICommand"/> for select a answer by a number value
@@ -143,7 +143,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    CheckAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                    CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
         #endregion Commands - Answer Menu
@@ -198,7 +198,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for go to next test
         /// </summary>
         public ICommand CommandNextTest
-            => new CommandHelper(() => CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty)));
+            => new CommandHelper(() => CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty)));
 
         #endregion Commands - Navigation
 

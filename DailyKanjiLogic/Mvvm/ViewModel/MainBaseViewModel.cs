@@ -1,8 +1,10 @@
-﻿using DailyKanjiLogic.Enumerations;
+﻿using DailyKanji.Helper;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace DailyKanjiLogic.Mvvm.ViewModel
@@ -23,6 +25,36 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         #endregion Public Constructor
 
         #region Public Methods
+
+        public void InitalizieBaseModel(in string baseColor, in string progressBarColor)
+        {
+            if(BaseModel == null)
+            {
+                BaseModel = new MainBaseModel();
+            }
+
+            var list = KanaHelper.GetKanaList();
+            if(list?.Count() != BaseModel.AllTestsList?.Count())
+            {
+                BaseModel.AllTestsList = list.ToList();
+            }
+
+            BaseModel.Randomizer        = new Random();
+            BaseModel.PossibleAnswers   = new Collection<TestBaseModel>();
+            BaseModel.TestPool          = new Collection<TestBaseModel>();
+            BaseModel.AnswerButtonColor = new ObservableCollection<string>();
+            BaseModel.HintTextColor     = new ObservableCollection<string>();
+            BaseModel.ProgressBarColor  = progressBarColor;
+
+            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+            {
+                BaseModel.AnswerButtonColor.Add(baseColor);
+                BaseModel.HintTextColor.Add(baseColor);
+            }
+
+            BuildTestPool();
+            ChooseNewSign(GetRandomTest());
+        }
 
         /// <summary>
         /// Reorder all tests by it own correct and wrong counters
@@ -442,6 +474,123 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns><c>true</c> if the given sign is a Katakana, otherwise <c>false</c></returns>
         public bool IsKatakana(string signToTest)
             => BaseModel.AllTestsList.Any(found => found.Katakana == signToTest);
+
+        /// <summary>
+        /// Try to load all settings
+        /// </summary>
+        /// <param name="path">The path to the setting file</param>
+        /// <param name="exception">The possible thrown exception until the setting file is load</param>
+        /// <returns><c>true</c> if the setting file could be load, otherwise <c>false</c></returns>
+        public bool TryLoadSettings(in string path, out Exception exception)
+        {
+            if(string.IsNullOrWhiteSpace(path))
+            {
+                exception = new ArgumentException("Settings path is empty.", nameof(path));
+                return false;
+            }
+
+            if(!File.Exists(path))
+            {
+                exception = new FileNotFoundException("Settings file not found.", path);
+                return false;
+            }
+
+            try
+            {
+                BaseModel = JsonHelper.ReadJson<MainBaseModel>(path);
+                exception = null;
+                return true;
+            }
+            catch(Exception thrownException)
+            {
+                exception = thrownException;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Try to save all settings
+        /// </summary>
+        /// <param name="path">The path to the setting file</param>
+        /// <param name="exception">The possible thrown exception until the setting file is load</param>
+        /// <returns><c>true</c> if the setting file could be save, otherwise <c>false</c></returns>
+        public bool TrySaveSettings(in string path, out Exception exception)
+        {
+            try
+            {
+                JsonHelper.WriteJson(path, BaseModel);
+                exception = null;
+                return true;
+            }
+            catch(Exception JsonException)
+            {
+                exception = JsonException;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Set the normal colours for all elements
+        /// </summary>
+        /// <param name="baseColor">The base colour for all elements</param>
+        /// <param name="progressBarColor">The base colour for the progress bar</param>
+        public void SetNormalColors(in string baseColor, in string progressBarColor)
+        {
+            BaseModel.CurrentAskSignColor = baseColor;
+            BaseModel.ProgressBarColor    = progressBarColor;
+
+            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+            {
+                BaseModel.AnswerButtonColor[answerNumber] = baseColor;
+                BaseModel.HintTextColor[answerNumber]     = baseColor;
+            }
+        }
+
+        /// <summary>
+        /// Set the highlight colours for all elements
+        /// </summary>
+        /// <param name="correctColor">The colour string for the correct element</param>
+        /// <param name="errorColor">The colour string for the elements</param>
+        /// <param name="hintColor">The colour string for the hint elements</param>
+        public void SetHighlightColors(in string correctColor, in string errorColor, in string hintColor)
+        {
+            BaseModel.CurrentAskSignColor = errorColor;
+            BaseModel.ProgressBarColor    = errorColor;
+
+            for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
+            {
+                BaseModel.AnswerButtonColor[answerNumber]
+                    = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
+                        ? correctColor
+                        : errorColor;
+
+                if(BaseModel.ShowHints)
+                {
+                    BaseModel.HintTextColor[answerNumber] = hintColor;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check the given answer and count the result
+        /// </summary>
+        /// <param name="answer">The answer to check</param>
+        /// <returns><c>true</c> if the answer was correct, otherwise <c>false</c></returns>
+        public bool CheckAnswer(in TestBaseModel answer)
+        {
+            BaseModel.IgnoreInput = true;
+
+            if(answer == null)
+            {
+                return false;
+            }
+
+            BaseModel.PreviousTest = BaseModel.CurrentTest;
+
+            CountAnswerResult(answer);
+
+            return answer.Roomaji == BaseModel.CurrentTest.Roomaji;
+        }
     }
 
     #endregion Public Methods

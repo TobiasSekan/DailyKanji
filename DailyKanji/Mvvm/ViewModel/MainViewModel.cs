@@ -1,11 +1,8 @@
-﻿using DailyKanji.Helper;
-using DailyKanji.Mvvm.Model;
+﻿using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
-using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Timers;
@@ -83,6 +80,12 @@ namespace DailyKanji.Mvvm.ViewModel
         private string _correctColor
             => Colors.LightGreen.ToString();
 
+        private string _transparentColor
+            => Colors.Transparent.ToString();
+
+        private string _hintColor
+            => Colors.Black.ToString();
+
         private MainWindow _mainWindow { get; }
 
         #endregion Private Properties
@@ -97,25 +100,20 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-            Model     = new MainModel();
-            BaseModel = new MainBaseModel();
-
-            LoadSettings();
-
-            var list = KanaHelper.GetKanaList();
-            if(list?.Count() != BaseModel.AllTestsList?.Count())
+            Model = new MainModel
             {
-                BaseModel.AllTestsList = list.ToList();
+                TestTimer = new Timer { Interval = 15 }
+            };
+
+            if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
+            {
+                MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
+                                $"Error on save {_settingFileName}",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
 
-            BaseModel.Randomizer        = new Random();
-            BaseModel.PossibleAnswers   = new Collection<TestBaseModel>();
-            BaseModel.TestPool          = new Collection<TestBaseModel>();
-            BaseModel.AnswerButtonColor = new ObservableCollection<string>();
-            BaseModel.HintTextColor     = new ObservableCollection<string>();
-            BaseModel.ProgressBarColor  = _progressBarColor;
-
-            Model.TestTimer         = new Timer { Interval = 15 };
+            InitalizieBaseModel(_transparentColor, _progressBarColor);
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -127,26 +125,27 @@ namespace DailyKanji.Mvvm.ViewModel
                 }
 
                 Model.TestTimer.Stop();
-                CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
+                CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
             };
-
-            var transparentColorString = Colors.Transparent.ToString();
-
-            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
-            {
-                BaseModel.AnswerButtonColor.Add(transparentColorString);
-                BaseModel.HintTextColor.Add(transparentColorString);
-            }
-
-            BuildTestPool();
-            ChooseNewSign(GetRandomTest());
 
             _mainWindow = new MainWindow(this);
 
             CreateNewTest();
-            RemoveAnswerColors();
+            SetNormalColors(_transparentColor, _progressBarColor);
 
-            _mainWindow.Closed += (_, __) => SaveSettings();
+            _mainWindow.Closed += (_, __) =>
+            {
+                if(TrySaveSettings(_settingFileName, out var saveException))
+                {
+                    return;
+                }
+
+                MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
+                                $"Error on save {_settingFileName}",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            };
+
             _mainWindow.Show();
         }
 
@@ -176,27 +175,16 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer to check</param>
         /// <exception cref="ArgumentNullException"></exception>
-        internal void CheckAnswer(in TestBaseModel answer)
+        internal void CheckSelectedAnswer(in TestBaseModel answer)
         {
             if(BaseModel.IgnoreInput)
             {
                 return;
             }
 
-            BaseModel.IgnoreInput = true;
-
             Model.TestTimer.Stop();
 
-            if(answer == null)
-            {
-                throw new ArgumentNullException(nameof(answer), "Test not found");
-            }
-
-            BaseModel.PreviousTest = BaseModel.CurrentTest;
-
-            CountAnswerResult(answer);
-
-            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            if(CheckAnswer(answer))
             {
                 CreateNewTest();
                 return;
@@ -204,7 +192,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
-                SetErrorColors();
+                SetHighlightColors(_correctColor, _errorColor, _hintColor);
                 BuildAnswerMenuAndButtons();
 
                 var timer = new Timer(BaseModel.ErrorTimeout)
@@ -214,53 +202,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 timer.Elapsed += (_, __) =>
                 {
-                    _mainWindow.Dispatcher.Invoke(new Action(() => RemoveAnswerColors()));
+                    _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
                     CreateNewTest();
                 };
 
                 timer.Start();
             }));
-        }
-
-        /// <summary>
-        /// Set colours to all elements
-        /// </summary>
-        internal void SetErrorColors()
-        {
-            BaseModel.CurrentAskSignColor = _errorColor;
-            BaseModel.ProgressBarColor    = _errorColor;
-
-            var blackColorString = Colors.Black.ToString();
-
-            for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
-            {
-                BaseModel.AnswerButtonColor[answerNumber]
-                    = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
-                        ? _correctColor
-                        : _errorColor;
-
-                if(BaseModel.ShowHints)
-                {
-                    BaseModel.HintTextColor[answerNumber] = blackColorString;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Remove all colours form the answer buttons
-        /// </summary>
-        internal void RemoveAnswerColors()
-        {
-            var transparentColorString = Colors.Transparent.ToString();
-
-            BaseModel.CurrentAskSignColor = transparentColorString;
-            BaseModel.ProgressBarColor    = _progressBarColor;
-
-            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
-            {
-                BaseModel.AnswerButtonColor[answerNumber] = transparentColorString;
-                BaseModel.HintTextColor[answerNumber]     = transparentColorString;
-            }
         }
 
         /// <summary>
@@ -329,47 +276,6 @@ namespace DailyKanji.Mvvm.ViewModel
                     });
                 }
             }));
-
-        /// <summary>
-        /// Save all settings (data model) of this application
-        /// </summary>
-        internal void SaveSettings()
-        {
-            try
-            {
-                JsonHelper.WriteJson(_settingFileName, BaseModel);
-            }
-            catch(Exception exception)
-            {
-                MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{exception}",
-                                $"Error on save {_settingFileName}",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Load all settings (data model) of this application
-        /// </summary>
-        internal void LoadSettings()
-        {
-            if(!File.Exists(_settingFileName))
-            {
-                return;
-            }
-
-            try
-            {
-                BaseModel = JsonHelper.ReadJson<MainBaseModel>(_settingFileName);
-            }
-            catch(Exception exception)
-            {
-                MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{exception}",
-                                $"Error on load {_settingFileName}",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-            }
-        }
 
         #endregion Internal Methods
     }
