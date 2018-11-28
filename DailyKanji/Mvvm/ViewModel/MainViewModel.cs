@@ -74,14 +74,14 @@ namespace DailyKanji.Mvvm.ViewModel
         private string _settingFileName
             => "settings.json";
 
-        private Brush _progressBarColor
-            => new SolidColorBrush(Colors.LightBlue);
+        private Color _progressBarColor
+            => Colors.LightBlue;
 
-        private Brush _errorColor
-            => new SolidColorBrush(Colors.LightCoral);
+        private Color _errorColor
+            => Colors.LightCoral;
 
-        private Brush _correctColor
-            => new SolidColorBrush(Colors.LightGreen);
+        private Color _correctColor
+            => Colors.LightGreen;
 
         private MainWindow _mainWindow { get; }
 
@@ -112,10 +112,10 @@ namespace DailyKanji.Mvvm.ViewModel
             BaseModel.PossibleAnswers = new Collection<TestBaseModel>();
             BaseModel.TestPool        = new Collection<TestBaseModel>();
 
-            Model.AnswerButtonColor = new ObservableCollection<Brush>();
-            Model.HintTextColor     = new ObservableCollection<Brush>();
+            Model.AnswerButtonColor = new ObservableCollection<Color>();
+            Model.HintTextColor     = new ObservableCollection<Color>();
             Model.TestTimer         = new Timer { Interval = 15 };
-            Model.ProgressBarColor  = new SolidColorBrush(Colors.LightBlue);
+            Model.ProgressBarColor  = _progressBarColor;
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -132,8 +132,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor.Add(new SolidColorBrush(Colors.Transparent));
-                Model.HintTextColor.Add(new SolidColorBrush(Colors.Transparent));
+                Model.AnswerButtonColor.Add(Colors.Transparent);
+                Model.HintTextColor.Add(Colors.Transparent);
             }
 
             BuildTestPool();
@@ -237,7 +237,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 if(BaseModel.ShowHints)
                 {
-                    Model.HintTextColor[answerNumber] = new SolidColorBrush(Colors.Black);
+                    Model.HintTextColor[answerNumber] = Colors.Black;
                 }
             }
         }
@@ -247,13 +247,13 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void RemoveAnswerColors()
         {
-            Model.CurrentAskSignColor = new SolidColorBrush(Colors.Transparent);
+            Model.CurrentAskSignColor = Colors.Transparent;
             Model.ProgressBarColor    = _progressBarColor;
 
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor[answerNumber] = new SolidColorBrush(Colors.Transparent);
-                Model.HintTextColor[answerNumber]     = new SolidColorBrush(Colors.Transparent);
+                Model.AnswerButtonColor[answerNumber] = Colors.Transparent;
+                Model.HintTextColor[answerNumber]     = Colors.Transparent;
             }
         }
 
@@ -280,16 +280,16 @@ namespace DailyKanji.Mvvm.ViewModel
                     stackPanel.Children.Add(new TextBlock
                     {
                         FontSize            = 32,
-                        Foreground          = Model.HintTextColor[answerNumber],
+                        Foreground          = new SolidColorBrush(Model.HintTextColor.ElementAtOrDefault(answerNumber)),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Text                = GetAnswerHint(answerNumber)
                     });
 
                     stackPanel.Children.Add(new Button
                     {
-                        Background       = Model.AnswerButtonColor[answerNumber],
+                        Background       = new SolidColorBrush(Model.AnswerButtonColor.ElementAtOrDefault(answerNumber)),
                         Command          = CommandAnswerTest,
-                        CommandParameter = BaseModel.PossibleAnswers[answerNumber],
+                        CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
                         Content          = buttonText,
                         Height           = 100,
                         Margin           = new Thickness(5, 0, 5, 0),
@@ -311,7 +311,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     _mainWindow.AnswerMenu.Items.Add(new MenuItem
                     {
                         Command          = CommandAnswerTest,
-                        CommandParameter = BaseModel.PossibleAnswers[answerNumber],
+                        CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
                         Header           = GetAnswerText(answerNumber),
                         InputGestureText = $"{answerNumber + 1}"
                     });

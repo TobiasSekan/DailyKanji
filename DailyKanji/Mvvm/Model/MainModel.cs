@@ -10,9 +10,9 @@ namespace DailyKanji.Mvvm.Model
         #region Public Properties
 
         /// <summary>
-        /// The current colour of all answer buttons
+        /// The current colours of all answer buttons
         /// </summary>
-        public ObservableCollection<Brush> AnswerButtonColor
+        public ObservableCollection<Color> AnswerButtonColor
         {
             get => _buttonColor;
             set
@@ -23,9 +23,9 @@ namespace DailyKanji.Mvvm.Model
         }
 
         /// <summary>
-        /// The current colour of all answer buttons
+        /// The current colours of all answer hints
         /// </summary>
-        public ObservableCollection<Brush> HintTextColor
+        public ObservableCollection<Color> HintTextColor
         {
             get => _hintTextColor;
             set
@@ -38,7 +38,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of the ask sign
         /// </summary>
-        public Brush CurrentAskSignColor
+        public Color CurrentAskSignColor
         {
             get => _currentAskSignColor;
             set
@@ -51,7 +51,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The colour for the progress bar (running answer time)
         /// </summary>
-        public Brush ProgressBarColor
+        public Color ProgressBarColor
         {
             get => _progressBarColor;
             set
@@ -80,22 +80,22 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="AnswerButtonColor"/>
         /// </summary>
-        private ObservableCollection<Brush> _buttonColor;
+        private ObservableCollection<Color> _buttonColor;
 
         /// <summary>
         /// Backing-field for <see cref="HintTextColor"/>
         /// </summary>
-        private ObservableCollection<Brush> _hintTextColor;
+        private ObservableCollection<Color> _hintTextColor;
 
         /// <summary>
         /// Backing-field for <see cref="CurrentAskSignColor"/>
         /// </summary>
-        private Brush _currentAskSignColor;
+        private Color _currentAskSignColor;
 
         /// <summary>
         /// Backing-field for <see cref="ProgressBarColor"/>
         /// </summary>
-        private Brush _progressBarColor;
+        private Color _progressBarColor;
 
         #endregion Private Backing-Fields
     }
