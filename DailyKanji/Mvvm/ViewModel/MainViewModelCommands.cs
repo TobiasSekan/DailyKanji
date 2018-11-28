@@ -104,7 +104,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     BaseModel.MaximumAnswerTimeout = maximumAnswerTimeout;
 
                     Model.TestTimer.Stop();
-                    Model.ProgressBarColor = _progressBarColor;
+                    BaseModel.ProgressBarColor = _progressBarColor;
 
                     BaseModel.TestStartTime = DateTime.UtcNow;
                     Model.TestTimer.Start();

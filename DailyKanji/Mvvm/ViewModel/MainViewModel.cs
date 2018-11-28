@@ -108,14 +108,14 @@ namespace DailyKanji.Mvvm.ViewModel
                 BaseModel.AllTestsList = list.ToList();
             }
 
-            BaseModel.Randomizer      = new Random();
-            BaseModel.PossibleAnswers = new Collection<TestBaseModel>();
-            BaseModel.TestPool        = new Collection<TestBaseModel>();
+            BaseModel.Randomizer        = new Random();
+            BaseModel.PossibleAnswers   = new Collection<TestBaseModel>();
+            BaseModel.TestPool          = new Collection<TestBaseModel>();
+            BaseModel.AnswerButtonColor = new ObservableCollection<string>();
+            BaseModel.HintTextColor     = new ObservableCollection<string>();
+            BaseModel.ProgressBarColor  = _progressBarColor;
 
-            Model.AnswerButtonColor = new ObservableCollection<string>();
-            Model.HintTextColor     = new ObservableCollection<string>();
             Model.TestTimer         = new Timer { Interval = 15 };
-            Model.ProgressBarColor  = _progressBarColor;
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -134,8 +134,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor.Add(transparentColorString);
-                Model.HintTextColor.Add(transparentColorString);
+                BaseModel.AnswerButtonColor.Add(transparentColorString);
+                BaseModel.HintTextColor.Add(transparentColorString);
             }
 
             BuildTestPool();
@@ -227,21 +227,21 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void SetErrorColors()
         {
-            Model.CurrentAskSignColor = _errorColor;
-            Model.ProgressBarColor    = _errorColor;
+            BaseModel.CurrentAskSignColor = _errorColor;
+            BaseModel.ProgressBarColor    = _errorColor;
 
             var blackColorString = Colors.Black.ToString();
 
             for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
-                Model.AnswerButtonColor[answerNumber]
+                BaseModel.AnswerButtonColor[answerNumber]
                     = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
                         ? _correctColor
                         : _errorColor;
 
                 if(BaseModel.ShowHints)
                 {
-                    Model.HintTextColor[answerNumber] = blackColorString;
+                    BaseModel.HintTextColor[answerNumber] = blackColorString;
                 }
             }
         }
@@ -253,13 +253,13 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             var transparentColorString = Colors.Transparent.ToString();
 
-            Model.CurrentAskSignColor = transparentColorString;
-            Model.ProgressBarColor    = _progressBarColor;
+            BaseModel.CurrentAskSignColor = transparentColorString;
+            BaseModel.ProgressBarColor    = _progressBarColor;
 
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor[answerNumber] = transparentColorString;
-                Model.HintTextColor[answerNumber]     = transparentColorString;
+                BaseModel.AnswerButtonColor[answerNumber] = transparentColorString;
+                BaseModel.HintTextColor[answerNumber]     = transparentColorString;
             }
         }
 
@@ -274,8 +274,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
                 {
-                    var hintColor   = ColorConverter.ConvertFromString(Model.HintTextColor.ElementAtOrDefault(answerNumber));
-                    var answerColor = ColorConverter.ConvertFromString(Model.AnswerButtonColor.ElementAtOrDefault(answerNumber));
+                    var hintColor   = ColorConverter.ConvertFromString(BaseModel.HintTextColor
+                                                                                .ElementAtOrDefault(answerNumber));
+
+                    var answerColor = ColorConverter.ConvertFromString(BaseModel.AnswerButtonColor
+                                                                                .ElementAtOrDefault(answerNumber));
 
                     var stackPanel = new StackPanel();
                     var buttonText = new TextBlock
