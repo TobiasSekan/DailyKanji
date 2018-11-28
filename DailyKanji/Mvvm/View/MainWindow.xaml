@@ -13,7 +13,7 @@
 
     <Window.Resources>
         <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
-        <helper:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
 
@@ -598,7 +598,7 @@
         <ProgressBar Grid.Row="2"
                      Margin="5"
                      Foreground="{Binding Path=Model.ProgressBarColor,
-                                          Converter={StaticResource ColorToBrushConverter}}"
+                                          Converter={StaticResource ColorStringToBrushConverter}}"
                      Maximum="{Binding Path=BaseModel.MaximumAnswerTimeout}"
                      Minimum="0"
                      Visibility="{Binding Path=BaseModel.ShowRunningAnswerTimer,
@@ -626,7 +626,7 @@
                        Width="200"
                        HorizontalAlignment="Center"
                        Background="{Binding Path=Model.CurrentAskSignColor,
-                                            Converter={StaticResource ColorToBrushConverter}}"
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        FontSize="100"
                        Text="{Binding Path=BaseModel.CurrentAskSign}"
                        TextAlignment="Center" />

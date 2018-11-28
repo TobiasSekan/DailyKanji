@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Helper\ColorToBrushConverter.cs" />
+    <Compile Include="Helper\ColorStringToBrushConverter.cs" />
     <Compile Include="Helper\ValueToBooleanConverter.cs" />
     <Page Include="Mvvm\View\InfoWindow.xaml">
       <SubType>Designer</SubType>

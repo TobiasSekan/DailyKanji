@@ -74,14 +74,14 @@ namespace DailyKanji.Mvvm.ViewModel
         private string _settingFileName
             => "settings.json";
 
-        private Color _progressBarColor
-            => Colors.LightBlue;
+        private string _progressBarColor
+            => Colors.LightBlue.ToString();
 
-        private Color _errorColor
-            => Colors.LightCoral;
+        private string _errorColor
+            => Colors.LightCoral.ToString();
 
-        private Color _correctColor
-            => Colors.LightGreen;
+        private string _correctColor
+            => Colors.LightGreen.ToString();
 
         private MainWindow _mainWindow { get; }
 
@@ -112,8 +112,8 @@ namespace DailyKanji.Mvvm.ViewModel
             BaseModel.PossibleAnswers = new Collection<TestBaseModel>();
             BaseModel.TestPool        = new Collection<TestBaseModel>();
 
-            Model.AnswerButtonColor = new ObservableCollection<Color>();
-            Model.HintTextColor     = new ObservableCollection<Color>();
+            Model.AnswerButtonColor = new ObservableCollection<string>();
+            Model.HintTextColor     = new ObservableCollection<string>();
             Model.TestTimer         = new Timer { Interval = 15 };
             Model.ProgressBarColor  = _progressBarColor;
 
@@ -130,10 +130,12 @@ namespace DailyKanji.Mvvm.ViewModel
                 CheckAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
             };
 
+            var transparentColorString = Colors.Transparent.ToString();
+
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor.Add(Colors.Transparent);
-                Model.HintTextColor.Add(Colors.Transparent);
+                Model.AnswerButtonColor.Add(transparentColorString);
+                Model.HintTextColor.Add(transparentColorString);
             }
 
             BuildTestPool();
@@ -228,6 +230,8 @@ namespace DailyKanji.Mvvm.ViewModel
             Model.CurrentAskSignColor = _errorColor;
             Model.ProgressBarColor    = _errorColor;
 
+            var blackColorString = Colors.Black.ToString();
+
             for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
                 Model.AnswerButtonColor[answerNumber]
@@ -237,7 +241,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 if(BaseModel.ShowHints)
                 {
-                    Model.HintTextColor[answerNumber] = Colors.Black;
+                    Model.HintTextColor[answerNumber] = blackColorString;
                 }
             }
         }
@@ -247,13 +251,15 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void RemoveAnswerColors()
         {
-            Model.CurrentAskSignColor = Colors.Transparent;
+            var transparentColorString = Colors.Transparent.ToString();
+
+            Model.CurrentAskSignColor = transparentColorString;
             Model.ProgressBarColor    = _progressBarColor;
 
             for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                Model.AnswerButtonColor[answerNumber] = Colors.Transparent;
-                Model.HintTextColor[answerNumber]     = Colors.Transparent;
+                Model.AnswerButtonColor[answerNumber] = transparentColorString;
+                Model.HintTextColor[answerNumber]     = transparentColorString;
             }
         }
 
@@ -268,6 +274,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
                 {
+                    var hintColor   = ColorConverter.ConvertFromString(Model.HintTextColor.ElementAtOrDefault(answerNumber));
+                    var answerColor = ColorConverter.ConvertFromString(Model.AnswerButtonColor.ElementAtOrDefault(answerNumber));
+
                     var stackPanel = new StackPanel();
                     var buttonText = new TextBlock
                     {
@@ -280,14 +289,14 @@ namespace DailyKanji.Mvvm.ViewModel
                     stackPanel.Children.Add(new TextBlock
                     {
                         FontSize            = 32,
-                        Foreground          = new SolidColorBrush(Model.HintTextColor.ElementAtOrDefault(answerNumber)),
+                        Foreground          = new SolidColorBrush((Color)hintColor),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Text                = GetAnswerHint(answerNumber)
                     });
 
                     stackPanel.Children.Add(new Button
                     {
-                        Background       = new SolidColorBrush(Model.AnswerButtonColor.ElementAtOrDefault(answerNumber)),
+                        Background       = new SolidColorBrush((Color)answerColor),
                         Command          = CommandAnswerTest,
                         CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
                         Content          = buttonText,

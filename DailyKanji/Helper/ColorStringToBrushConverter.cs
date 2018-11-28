@@ -5,10 +5,16 @@ using System.Windows.Media;
 
 namespace DailyKanji.Helper
 {
-    public class ColorToBrushConverter : IValueConverter
+    public class ColorStringToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => new SolidColorBrush(value is Color color ? color : Colors.Transparent);
+        {
+            var colorValue = value as string;
+
+            return string.IsNullOrWhiteSpace(colorValue)
+                ? new SolidColorBrush(Colors.Transparent)
+                : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorValue));
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => null;

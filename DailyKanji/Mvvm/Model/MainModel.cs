@@ -12,7 +12,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colours of all answer buttons
         /// </summary>
-        public ObservableCollection<Color> AnswerButtonColor
+        public ObservableCollection<string> AnswerButtonColor
         {
             get => _buttonColor;
             set
@@ -25,7 +25,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colours of all answer hints
         /// </summary>
-        public ObservableCollection<Color> HintTextColor
+        public ObservableCollection<string> HintTextColor
         {
             get => _hintTextColor;
             set
@@ -38,7 +38,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The current colour of the ask sign
         /// </summary>
-        public Color CurrentAskSignColor
+        public string CurrentAskSignColor
         {
             get => _currentAskSignColor;
             set
@@ -51,7 +51,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// The colour for the progress bar (running answer time)
         /// </summary>
-        public Color ProgressBarColor
+        public string ProgressBarColor
         {
             get => _progressBarColor;
             set
@@ -80,22 +80,22 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="AnswerButtonColor"/>
         /// </summary>
-        private ObservableCollection<Color> _buttonColor;
+        private ObservableCollection<string> _buttonColor;
 
         /// <summary>
         /// Backing-field for <see cref="HintTextColor"/>
         /// </summary>
-        private ObservableCollection<Color> _hintTextColor;
+        private ObservableCollection<string> _hintTextColor;
 
         /// <summary>
         /// Backing-field for <see cref="CurrentAskSignColor"/>
         /// </summary>
-        private Color _currentAskSignColor;
+        private string _currentAskSignColor;
 
         /// <summary>
         /// Backing-field for <see cref="ProgressBarColor"/>
         /// </summary>
-        private Color _progressBarColor;
+        private string _progressBarColor;
 
         #endregion Private Backing-Fields
     }
