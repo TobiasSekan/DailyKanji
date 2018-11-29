@@ -31,7 +31,7 @@
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
 ## Missing a feature or found a bug?
-Open a issue ticket or make a pull request
+Open a [issue ticket](https://github.com/TobiasSekan/DailyKanji/issues/new) or make a (pull request)[https://github.com/TobiasSekan/DailyKanji/compare].
 
 ## Notes about support for Windows Vista and Window 8
 The support for Windows Vista SP2 and Windows 8 will be maintained as long as possible.
