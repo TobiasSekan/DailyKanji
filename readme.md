@@ -31,7 +31,7 @@
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
 ## Found a bug or missing a feature?
-* Create a new [Bug report][https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md]
+* Create a new [Bug report](https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md)
 * Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
 ## Notes about support for Windows Vista and Window 8
