@@ -30,8 +30,9 @@
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
-## Missing a feature or found a bug?
-Open a [issue ticket](https://github.com/TobiasSekan/DailyKanji/issues/new) or make a [pull request](https://github.com/TobiasSekan/DailyKanji/compare).
+## Found a bug or missing a feature?
+* Create a new [Bug report][https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md]
+* Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
 ## Notes about support for Windows Vista and Window 8
 The support for Windows Vista SP2 and Windows 8 will be maintained as long as possible.
