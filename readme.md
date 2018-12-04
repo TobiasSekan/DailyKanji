@@ -6,7 +6,7 @@
 
 ## Requirements for usage
 * Windows (Vista SP2, 7 SP1, 8, 8.1, 10) or Windows Server (2008 SP2, 2008 R2 SP1, 2012, 2012 SP2)
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130)
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
 
 ## Current features
 * 9 Test types
@@ -44,7 +44,7 @@ see [Roadmap](Documentation/Roadmap.md)
 
 ## Requirements for debug, test and contributing
 * [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48130) (include .Net Standard 1.3)
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137) (include .Net Standard 1.3)
 * [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
 * C# 7.3
 
