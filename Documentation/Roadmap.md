@@ -2,8 +2,6 @@
 
 ## Version 0.1
 * Add menu entry to deactivate timeout (hide visible timer too)
-* Make refresh interval for timer changeable via menu
-* Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Add main counter for each test (negative/positive)
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
@@ -11,8 +9,11 @@
 * Add menu underscores (for menu keyboard navigation)
 * Add message box with yes/no before delete statistics
 * Add option to deactivate error highlight
+* Add option to show/hide full statistics
 
 ## Version 1.0
+* Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
+* Make refresh interval for timer changeable via menu
 * Recalculate buttons (button width), when window is resized
 * Avoid rebuild of answer buttons and answer menu entries
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -22,8 +23,8 @@
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Change test order so that all tests will be ask (based on ask counter)
 * Move more program parts to separate library project in .Net Standard
-* Export (CSV, JSON)
 * Check for new version on start-up
+* Export (CSV, JSON)
 
 ## Versions 2.0
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
