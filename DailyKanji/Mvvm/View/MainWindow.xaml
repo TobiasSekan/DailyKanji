@@ -5,7 +5,6 @@
         xmlns:helper="clr-namespace:DailyKanji.Helper"
         Title="Daily Kanji"
         Width="850"
-        Height="600"
         x:ClassModifier="internal"
         DataContext="{Binding Path=ViewModel,
                               RelativeSource={RelativeSource Mode=Self}}"
@@ -18,36 +17,16 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="D1"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="1" />
-        <KeyBinding Key="D2"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="2" />
-        <KeyBinding Key="D3"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="3" />
-        <KeyBinding Key="D4"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="4" />
-        <KeyBinding Key="D5"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="5" />
-        <KeyBinding Key="D6"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="6" />
-        <KeyBinding Key="D7"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="7" />
-        <KeyBinding Key="D8"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="8" />
-        <KeyBinding Key="D9"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="9" />
-        <KeyBinding Key="D0"
-                    Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="0" />
+        <KeyBinding Key="D1" Command="{Binding CommandAnswerTestNumber}" CommandParameter="1" />
+        <KeyBinding Key="D2" Command="{Binding CommandAnswerTestNumber}" CommandParameter="2" />
+        <KeyBinding Key="D3" Command="{Binding CommandAnswerTestNumber}" CommandParameter="3" />
+        <KeyBinding Key="D4" Command="{Binding CommandAnswerTestNumber}" CommandParameter="4" />
+        <KeyBinding Key="D5" Command="{Binding CommandAnswerTestNumber}" CommandParameter="5" />
+        <KeyBinding Key="D6" Command="{Binding CommandAnswerTestNumber}" CommandParameter="6" />
+        <KeyBinding Key="D7" Command="{Binding CommandAnswerTestNumber}" CommandParameter="7" />
+        <KeyBinding Key="D8" Command="{Binding CommandAnswerTestNumber}" CommandParameter="8" />
+        <KeyBinding Key="D9" Command="{Binding CommandAnswerTestNumber}" CommandParameter="9" />
+        <KeyBinding Key="D0" Command="{Binding CommandAnswerTestNumber}" CommandParameter="0" />
         <KeyBinding Key="Backspace" Command="{Binding CommandPreviousTest}" />
         <KeyBinding Key="Space" Command="{Binding CommandNextTest}" />
     </Window.InputBindings>
@@ -60,11 +39,11 @@
             <RowDefinition Height="*" />
 
             <!--  Progress bar - running answer timer  -->
-            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
             <!--  Grid - Question and previous button and next button  -->
-            <RowDefinition Height="150" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
             <!--  StackPanel - Answer buttons  -->
@@ -72,7 +51,7 @@
             <RowDefinition Height="*" />
 
             <!--  DataGrid - Hiragana and Katakana list  -->
-            <RowDefinition Height="180" />
+            <RowDefinition Height="Auto" />
 
             <!--  StatusBar  -->
             <RowDefinition Height="Auto" />
@@ -83,9 +62,7 @@
 
             <MenuItem Header="File">
 
-                <MenuItem Command="{Binding Path=CommandNextTest}"
-                          Header="Next test"
-                          InputGestureText="Space" />
+                <MenuItem Command="{Binding Path=CommandNextTest}" Header="Next test" InputGestureText="Space" />
 
                 <MenuItem Command="{Binding Path=CommandPreviousTest}"
                           Header="Previous test"
@@ -94,9 +71,7 @@
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandCloseProgram}"
-                          Header="Close Program"
-                          InputGestureText="Alt+F4" />
+                <MenuItem Command="{Binding Path=CommandCloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
 
             </MenuItem>
 
@@ -107,13 +82,11 @@
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
-                <MenuItem Header="Show hints on wrong answers"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowHints}" />
+                <MenuItem Header="Show hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
 
-                <MenuItem Header="Show running timer (timer is still running)"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+                <MenuItem Header="Show running timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+
+                <MenuItem Header="Show sign statistics " IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
 
             </MenuItem>
 
@@ -551,37 +524,23 @@
 
             <MenuItem Header="Statistic">
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.All}"
-                          Header="Reset the complete statistic" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.All}" Header="Reset the complete statistic" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}"
-                          Header="Reset all correct answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}" Header="Reset all correct answered signs" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}"
-                          Header="Reset only correct answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}" Header="Reset only correct answered Hiragana" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}"
-                          Header="Reset only correct answered Katakana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}" Header="Reset only correct answered Katakana" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}"
-                          Header="Reset all wrong answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}" Header="Reset all wrong answered signs" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}"
-                          Header="Reset only wrong answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}" Header="Reset only wrong answered Hiragana" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}"
-                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}"
-                          Header="Reset only wrong answered Katakana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}" Header="Reset only wrong answered Katakana" />
 
             </MenuItem>
 
@@ -596,6 +555,7 @@
         </Menu>
 
         <ProgressBar Grid.Row="2"
+                     Height="20"
                      Margin="5"
                      Foreground="{Binding Path=BaseModel.ProgressBarColor,
                                           Converter={StaticResource ColorStringToBrushConverter}}"
@@ -605,7 +565,7 @@
                                           Converter={StaticResource BooleanToVisibilityConverter}}"
                      Value="{Binding Path=BaseModel.CurrentAnswerTime}" />
 
-        <Grid Grid.Row="4" Height="200">
+        <Grid Grid.Row="4" Height="140">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -654,6 +614,7 @@
                     Orientation="Horizontal" />
 
         <DataGrid Grid.Row="8"
+                  Height="180"
                   Margin="5"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
@@ -662,38 +623,20 @@
                   CanUserResizeColumns="False"
                   CanUserResizeRows="False"
                   HeadersVisibility="Column"
-                  ItemsSource="{Binding Path=BaseModel.AllTestsList}">
+                  ItemsSource="{Binding Path=BaseModel.AllTestsList}"
+                  Visibility="{Binding Path=BaseModel.ShowStatistics,
+                                       Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Roomaji}"
-                                    Header="Roomaji"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=Hiragana}"
-                                    Header="Hiragana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=Katakana}"
-                                    Header="Katakana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}"
-                                    Header="Wrong Hiragana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}"
-                                    Header="Wrong Katakana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}"
-                                    Header="Correct Hiragana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}"
-                                    Header="Correct Katakana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana,
-                                                      StringFormat=mm\\:ss\\.ff}"
-                                    Header="Time Hiragana"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana,
-                                                      StringFormat=mm\\:ss\\.ff}"
-                                    Header="Time Katakana"
-                                    IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Roomaji}" Header="Roomaji" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Hiragana}" Header="Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Katakana}" Header="Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}" Header="Wrong Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}" Header="Wrong Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}" Header="Correct Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}" Header="Correct Katakana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana, StringFormat=mm\\:ss\\.ff}" Header="Time Hiragana" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana, StringFormat=mm\\:ss\\.ff}" Header="Time Katakana" IsReadOnly="True" />
             </DataGrid.Columns>
 
         </DataGrid>

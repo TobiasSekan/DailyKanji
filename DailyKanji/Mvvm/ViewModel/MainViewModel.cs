@@ -17,22 +17,21 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Bug inside command helper, so predicate is not usable on commands
     // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
-    // Next
-    // ----
+    // Version 0.1
+    // -----------
     // TODO: Add menu entry to deactivate timeout(hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
-    // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Add main counter for each test (negative/positive)
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
     // TODO: Add menu underscores (for menu keyboard navigation)
-    // TODO: Add German language and language selector in menu
     // TODO: Add message box with yes/no before delete statistics
     // TODO: Add option to deactivate error highlight
 
-    // Near future
+    // Version 1.0
     // -----------
+    // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Recalculate buttons (button width), when window is resized
     // TODO: Avoid rebuild of answer buttons and answer menu entries
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -46,21 +45,26 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Move more program parts to separate library project in .Net Standard 1.0
+    // TODO: Export (CSV, JSON)
 
-    // Later
-    // -----
+    // Version 2.0
+    // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
+    // TODO: Add German language and language selector in menu
+    // TODO: Check for new version on start-up
+    // TODO: Make colours choose-able
+
+    // Version 3.0
+    // -----------
     // TODO: Start with integration of Kanji tests
 
     // Ideas
     // -----
-    // TODO: Export (XLSX, CSV, JSON, XML)
+    // TODO: Export (XLSX, XML)
     // TODO: Import (XLSX, CSV, JSON, XML)
-    // TODO: Make colours choose-able
     // TODO: Gamepad support
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
-    // TODO: Check for new version on start-up
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 

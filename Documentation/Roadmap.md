@@ -9,7 +9,6 @@
 * Add menu underscores (for menu keyboard navigation)
 * Add message box with yes/no before delete statistics
 * Add option to deactivate error highlight
-* Add option to show/hide full statistics
 
 ## Version 1.0
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -40,5 +39,6 @@
 * Export (XLSX, XML)
 * Gamepad support
 * Ribbon menu
+* Investigate in WPF - FlowDocument (for integrated zooming features)
 * Auto update program
 * .Net Xamarin version for Andorid and iOS

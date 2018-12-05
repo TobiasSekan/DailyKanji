@@ -193,6 +193,19 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the signs statistics will be shown
+        /// </summary>
+        public bool ShowStatistics
+        {
+            get => _showStatistics;
+            set
+            {
+                _showStatistics = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -586,6 +599,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private string _progressBarColor;
 
+        /// <summary>
+        /// Backing-field for <see cref="ShowStatistics"/>
+        /// </summary>
+        private bool _showStatistics;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -600,6 +618,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             ShowHints              = true;
             ShowAnswerShortcuts    = true;
             ShowRunningAnswerTimer = true;
+            ShowStatistics         = false;
             SimilarAnswers         = true;
         }
 
