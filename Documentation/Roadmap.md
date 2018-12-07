@@ -7,7 +7,6 @@
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
 * Add menu underscores (for menu keyboard navigation)
-* Add message box with yes/no before delete statistics
 * Add option to deactivate error highlight
 
 ## Version 1.0

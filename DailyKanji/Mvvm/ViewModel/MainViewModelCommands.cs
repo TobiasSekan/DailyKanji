@@ -4,6 +4,7 @@ using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace DailyKanji.Mvvm.ViewModel
@@ -35,7 +36,6 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     BaseModel.SelectedTestType = (TestType)value;
-
                     CreateNewTest();
                 });
 
@@ -106,8 +106,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     Model.TestTimer.Stop();
                     BaseModel.ProgressBarColor = _progressBarColor;
 
-                    BaseModel.TestStartTime = DateTime.UtcNow;
-                    Model.TestTimer.Start();
+                    StartTestTimer();
                 });
 
         /// <summary>
@@ -162,6 +161,18 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
+                    Model.TestTimer.Stop();
+
+                    if(MessageBox.Show(
+                        $"Do you really want to delete the statistics?{Environment.NewLine}{Environment.NewLine}Reset type: {value}",
+                        "Delete statistics",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    {
+                        StartTestTimer();
+                        return;
+                    }
+
                     ResetCompleteStatistic((ResetType)value);
                     CreateNewTest();
                 });
@@ -186,12 +197,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 ChooseNewPossibleAnswers();
                 BuildAnswerMenuAndButtons();
+                StartTestTimer();
 
-                BaseModel.IgnoreInput   = false;
-                BaseModel.PreviousTest  = null;
-                BaseModel.TestStartTime = DateTime.UtcNow;
-
-                Model.TestTimer.Start();
+                BaseModel.IgnoreInput  = false;
+                BaseModel.PreviousTest = null;
             });
 
         /// <summary>
@@ -202,7 +211,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #endregion Commands - Navigation
 
+        #region Commands - Help
+
         public ICommand OpenInfoWindow
             => new CommandHelper(() => new InfoWindow(this).Show());
+
+        #endregion Command - Help
     }
 }

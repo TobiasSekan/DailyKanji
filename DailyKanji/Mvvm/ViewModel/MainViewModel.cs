@@ -26,7 +26,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
     // TODO: Add menu underscores (for menu keyboard navigation)
-    // TODO: Add message box with yes/no before delete statistics
     // TODO: Add option to deactivate error highlight
 
     // Version 1.0
@@ -167,11 +166,9 @@ namespace DailyKanji.Mvvm.ViewModel
             ChooseNewSign(GetRandomTest());
             ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
+            StartTestTimer();
 
             BaseModel.IgnoreInput   = false;
-            BaseModel.TestStartTime = DateTime.UtcNow;
-
-            Model.TestTimer.Start();
         }
 
         /// <summary>
@@ -280,6 +277,15 @@ namespace DailyKanji.Mvvm.ViewModel
                     });
                 }
             }));
+
+        /// <summary>
+        /// Start the test timer (Start time is <see cref="DateTime.UtcNow"/>)
+        /// </summary>
+        internal void StartTestTimer()
+        {
+            BaseModel.TestStartTime = DateTime.UtcNow;
+            Model.TestTimer.Start();
+        }
 
         #endregion Internal Methods
     }
