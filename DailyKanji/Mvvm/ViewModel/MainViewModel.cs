@@ -1,8 +1,11 @@
-﻿using DailyKanji.Mvvm.Model;
+﻿using DailyKanji.Helper;
+using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
+using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Timers;
@@ -26,6 +29,7 @@ namespace DailyKanji.Mvvm.ViewModel
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
     // TODO: Add option to deactivate error highlight
+    // TODO: Add option to deactivate check for new version on start-up
 
     // Version 1.0
     // -----------
@@ -50,7 +54,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Add German language and language selector in menu
-    // TODO: Check for new version on start-up
     // TODO: Make colours choose-able
 
     // Version 3.0
@@ -132,6 +135,8 @@ namespace DailyKanji.Mvvm.ViewModel
             };
 
             _mainWindow = new MainWindow(this);
+
+            CheckForNewVersion();
 
             CreateNewTest();
             SetNormalColors(_transparentColor, _progressBarColor);
@@ -285,6 +290,42 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             BaseModel.TestStartTime = DateTime.UtcNow;
             Model.TestTimer.Start();
+        }
+
+        internal void CheckForNewVersion()
+        {
+            try
+            {
+                var yourVersion = AssemblyHelper.GetAssemblyVersion(this);
+
+                var onlineVersion = OnlineResourceHelper.GetVersion(
+                                        "https://raw.githubusercontent.com/TobiasSekan/DailyKanji/master/DailyKanji/Properties/AssemblyInfo.cs");
+
+                if(yourVersion.Equals(onlineVersion))
+                {
+                    return;
+                }
+
+                if(MessageBox.Show($"A new version of Daily Kanji is available.{Environment.NewLine}{Environment.NewLine}"
+                                   + $"Your version:\t{yourVersion}{Environment.NewLine}"
+                                   + $"Online version:\t{onlineVersion}{Environment.NewLine}{Environment.NewLine}"
+                                   + "Do you want to go to website to download it?",
+                                   "Version check",
+                                   MessageBoxButton.YesNo,
+                                   MessageBoxImage.Information) != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                Process.Start("https://github.com/TobiasSekan/DailyKanji/releases");
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show($"Can't check for updates{Environment.NewLine}{Environment.NewLine}{exception}",
+                                "Error on check for updates",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
 
         #endregion Internal Methods

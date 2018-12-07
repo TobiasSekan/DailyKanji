@@ -7,6 +7,7 @@
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
 * Add option to deactivate error highlight
+* Add option to deactivate check for new version on start-up
 
 ## Version 1.0
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -20,7 +21,6 @@
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Change test order so that all tests will be ask (based on ask counter)
 * Move more program parts to separate library project in .Net Standard
-* Check for new version on start-up
 * Export (CSV, JSON)
 * Add more menu underscores (for menu keyboard navigation)
 
@@ -28,7 +28,6 @@
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Add German language and language selector in menu
 * Make colours choose-able
-* Check for new version on start-up
 
 ## Version 3.0
 * Start with integration of Kanji tests
