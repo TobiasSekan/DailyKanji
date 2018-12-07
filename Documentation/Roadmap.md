@@ -6,7 +6,6 @@
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
-* Add menu underscores (for menu keyboard navigation)
 * Add option to deactivate error highlight
 
 ## Version 1.0
@@ -23,6 +22,7 @@
 * Move more program parts to separate library project in .Net Standard
 * Check for new version on start-up
 * Export (CSV, JSON)
+* Add more menu underscores (for menu keyboard navigation)
 
 ## Versions 2.0
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)

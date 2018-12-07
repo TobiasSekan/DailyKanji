@@ -25,7 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
-    // TODO: Add menu underscores (for menu keyboard navigation)
     // TODO: Add option to deactivate error highlight
 
     // Version 1.0
@@ -45,6 +44,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Move more program parts to separate library project in .Net Standard 1.0
     // TODO: Export (CSV, JSON)
+    // TODO: Add more menu underscores (for menu keyboard navigation)
 
     // Version 2.0
     // -----------

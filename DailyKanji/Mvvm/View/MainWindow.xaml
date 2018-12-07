@@ -60,39 +60,39 @@
 
         <Menu Grid.Row="0">
 
-            <MenuItem Header="File">
+            <MenuItem Header="_File">
 
-                <MenuItem Command="{Binding Path=CommandNextTest}" Header="Next test" InputGestureText="Space" />
+                <MenuItem Command="{Binding Path=CommandNextTest}" Header="_Next test" InputGestureText="Space" />
 
                 <MenuItem Command="{Binding Path=CommandPreviousTest}"
-                          Header="Previous test"
+                          Header="_Previous test"
                           InputGestureText="Backspace"
                           IsEnabled="{Binding Path=BaseModel.CanGoToLastTest}" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandCloseProgram}" Header="Close Program" InputGestureText="Alt+F4" />
+                <MenuItem Command="{Binding Path=CommandCloseProgram}" Header="_Close Program" InputGestureText="Alt+F4" />
 
             </MenuItem>
 
-            <MenuItem Header="View">
+            <MenuItem Header="_View">
 
                 <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
-                          Header="Show shortcuts for answers"
+                          Header="Show short_cuts for answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
-                <MenuItem Header="Show hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
+                <MenuItem Header="Show _hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
 
-                <MenuItem Header="Show running timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+                <MenuItem Header="Show running _timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
 
-                <MenuItem Header="Show sign statistics " IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
+                <MenuItem Header="Show sign _statistics " IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
 
             </MenuItem>
 
-            <MenuItem Header="Settings">
+            <MenuItem Header="_Options">
 
-                <MenuItem Header="Test type">
+                <MenuItem Header="_Test type">
 
                     <MenuItem Command="{Binding Path=CommandChangeTestType}"
                               CommandParameter="{x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}"
@@ -162,7 +162,7 @@
                                                   ConverterParameter={x:Static enumerations:TestType.KatakanaToHiragana}}" />
                 </MenuItem>
 
-                <MenuItem Header="Hint type">
+                <MenuItem Header="_Hint type">
 
                     <MenuItem Command="{Binding Path=CommandChangeHintType}"
                               CommandParameter="{x:Static enumerations:HintType.BasedOnAskSign}"
@@ -196,7 +196,7 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Possible answers">
+                <MenuItem Header="Possible _answers">
 
                     <MenuItem Command="{Binding Path=CommandChangeAnswerCount}"
                               CommandParameter="2"
@@ -263,7 +263,7 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Answer time">
+                <MenuItem Header="Answer _time">
 
                     <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
                               CommandParameter="1000"
@@ -371,7 +371,7 @@
                                                   ConverterParameter=15000}" />
                 </MenuItem>
 
-                <MenuItem Header="Error timeout">
+                <MenuItem Header="_Error timeout">
 
                     <MenuItem Command="{Binding Path=CommandChangeErrorTimeout}"
                               CommandParameter="500"
@@ -516,19 +516,19 @@
                 </MenuItem>
 
                 <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
-                          Header="Similar answers"
+                          Header="_Similar answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.SimilarAnswers}" />
 
             </MenuItem>
 
-            <MenuItem Header="Statistic">
+            <MenuItem Header="_Statistic">
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.All}" Header="Reset the complete statistic" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.All}" Header="Reset _all answered signs" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}" Header="Reset all correct answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}" Header="Reset all _correct answered signs" />
 
                 <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}" Header="Reset only correct answered Hiragana" />
 
@@ -536,7 +536,7 @@
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}" Header="Reset all wrong answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}" Header="Reset all _wrong answered signs" />
 
                 <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}" Header="Reset only wrong answered Hiragana" />
 
@@ -544,11 +544,11 @@
 
             </MenuItem>
 
-            <MenuItem x:Name="AnswerMenu" Header="Answers" />
+            <MenuItem x:Name="AnswerMenu" Header="_Answers" />
 
-            <MenuItem Header="Help">
+            <MenuItem Header="_Help">
 
-                <MenuItem Command="{Binding Path=OpenInfoWindow}" Header="Info" />
+                <MenuItem Command="{Binding Path=OpenInfoWindow}" Header="_Info" />
 
             </MenuItem>
 
