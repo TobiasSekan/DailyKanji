@@ -7,7 +7,6 @@
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
 * Add option to deactivate error highlight
-* Add option to deactivate check for new version on start-up
 
 ## Version 1.0
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"

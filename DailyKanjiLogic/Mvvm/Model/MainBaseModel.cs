@@ -206,6 +206,16 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        public bool CheckForNewVersionOnStartUp
+        {
+            get => _checkForNewVersionOnStartUp;
+            set
+            {
+                _checkForNewVersionOnStartUp = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -604,22 +614,28 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _showStatistics;
 
+        /// <summary>
+        /// Backing-field for <see cref="CheckForNewVersionOnStartUp"/>
+        /// </summary>
+        private bool _checkForNewVersionOnStartUp;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
 
         public MainBaseModel()
         {
-            MaximumAnswerTimeout   = 10_000;
-            ErrorTimeout           = 3_000;
-            MaximumAnswers         = 7;
-            SelectedTestType       = TestType.HiraganaOrKatakanaToRoomaji;
-            SelectedHintType       = HintType.BasedOnAskSign;
-            ShowHints              = true;
-            ShowAnswerShortcuts    = true;
-            ShowRunningAnswerTimer = true;
-            ShowStatistics         = false;
-            SimilarAnswers         = true;
+            MaximumAnswerTimeout        = 10_000;
+            ErrorTimeout                = 3_000;
+            MaximumAnswers              = 7;
+            SelectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
+            SelectedHintType            = HintType.BasedOnAskSign;
+            ShowHints                   = true;
+            ShowAnswerShortcuts         = true;
+            ShowRunningAnswerTimer      = true;
+            ShowStatistics              = false;
+            SimilarAnswers              = true;
+            CheckForNewVersionOnStartUp = true;
         }
 
         #endregion Public Constructors

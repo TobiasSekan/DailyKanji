@@ -29,7 +29,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
     // TODO: Add option to deactivate error highlight
-    // TODO: Add option to deactivate check for new version on start-up
 
     // Version 1.0
     // -----------
@@ -294,6 +293,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal void CheckForNewVersion()
         {
+            if(!BaseModel.CheckForNewVersionOnStartUp)
+            {
+                return;
+            }
+
             try
             {
                 var yourVersion = AssemblyHelper.GetAssemblyVersion(this);

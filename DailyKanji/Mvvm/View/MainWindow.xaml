@@ -520,6 +520,8 @@
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.SimilarAnswers}" />
 
+                <MenuItem Header="Check for new _version on start-up" IsCheckable="True" IsChecked="{Binding Path=BaseModel.CheckForNewVersionOnStartUp}" />
+
             </MenuItem>
 
             <MenuItem Header="_Statistic">
