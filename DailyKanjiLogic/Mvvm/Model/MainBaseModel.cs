@@ -206,12 +206,28 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the program check on every start-up for a new version
+        /// </summary>
         public bool CheckForNewVersionOnStartUp
         {
             get => _checkForNewVersionOnStartUp;
             set
             {
                 _checkForNewVersionOnStartUp = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate that a wrong answered test will highlight with error colours
+        /// </summary>
+        public bool HighlightOnErrors
+        {
+            get => _highlightOnErrors;
+            set
+            {
+                _highlightOnErrors = value;
                 OnPropertyChanged();
             }
         }
@@ -619,6 +635,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _checkForNewVersionOnStartUp;
 
+        /// <summary>
+        /// Backing-field for <see cref="HighlightOnErrors"/>
+        /// </summary>
+        private bool _highlightOnErrors;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -636,6 +657,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             ShowStatistics              = false;
             SimilarAnswers              = true;
             CheckForNewVersionOnStartUp = true;
+            HighlightOnErrors           = true;
         }
 
         #endregion Public Constructors

@@ -28,7 +28,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
-    // TODO: Add option to deactivate error highlight
 
     // Version 1.0
     // -----------
@@ -48,6 +47,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Move more program parts to separate library project in .Net Standard 1.0
     // TODO: Export (CSV, JSON)
     // TODO: Add more menu underscores (for menu keyboard navigation)
+    // TODO: Add tooltips for each menu entries
 
     // Version 2.0
     // -----------
@@ -105,11 +105,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-            Model = new MainModel
-            {
-                TestTimer = new Timer { Interval = 15 }
-            };
-
             if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
@@ -117,6 +112,15 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
+
+            Model = new MainModel
+            {
+                TestTimer           = new Timer(15),
+                ErrorHighlightTimer = new Timer(BaseModel.ErrorTimeout)
+                {
+                    AutoReset = false
+                }
+            };
 
             InitalizieBaseModel(_transparentColor, _progressBarColor);
 
@@ -131,6 +135,14 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 Model.TestTimer.Stop();
                 CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
+            };
+
+            Model.ErrorHighlightTimer.Elapsed += (_, __) =>
+            {
+                Model.ErrorHighlightTimer.Stop();
+                _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
+                CreateNewTest();
+                return;
             };
 
             _mainWindow = new MainWindow(this);
@@ -195,23 +207,17 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
+            if(!BaseModel.HighlightOnErrors)
+            {
+                CreateNewTest();
+                return;
+            }
+
             _mainWindow.Dispatcher.Invoke(new Action(() =>
             {
                 SetHighlightColors(_correctColor, _errorColor, _hintColor);
                 BuildAnswerMenuAndButtons();
-
-                var timer = new Timer(BaseModel.ErrorTimeout)
-                {
-                    AutoReset = false
-                };
-
-                timer.Elapsed += (_, __) =>
-                {
-                    _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
-                    CreateNewTest();
-                };
-
-                timer.Start();
+                Model.ErrorHighlightTimer.Start();
             }));
         }
 

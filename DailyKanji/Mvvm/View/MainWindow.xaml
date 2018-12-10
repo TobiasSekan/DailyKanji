@@ -77,14 +77,16 @@
 
             <MenuItem Header="_View">
 
-                <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
-                          Header="Show short_cuts for answers"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
+                <MenuItem Header="Highlight on _wrong answered tests" IsCheckable="True" IsChecked="{Binding Path=BaseModel.HighlightOnErrors}" />
 
                 <MenuItem Header="Show _hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
 
                 <MenuItem Header="Show running _timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+
+                <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
+                          Header="Show short_cuts for answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
                 <MenuItem Header="Show sign _statistics " IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
 
