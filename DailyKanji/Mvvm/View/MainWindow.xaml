@@ -14,6 +14,7 @@
         <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
         <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <helper:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
     </Window.Resources>
 
     <Window.InputBindings>
@@ -612,10 +613,61 @@
                     Content="Next test" />
         </Grid>
 
-        <StackPanel x:Name="AnswerButtonArea"
-                    Grid.Row="6"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal" />
+        <Grid x:Name="AnswerButtonArea" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="AnswerButtonColumn01" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn02" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn03" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn04" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn05" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn06" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn07" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn08" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn09" Width="*" />
+                <ColumnDefinition x:Name="AnswerButtonColumn10" Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="Button01" Grid.Column="0" Margin="5">
+                <TextBlock x:Name="AnswerText01" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button02" Grid.Column="1" Margin="5">
+                <TextBlock x:Name="AnswerText02" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button03" Grid.Column="2" Margin="5">
+                <TextBlock x:Name="AnswerText03" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button04" Grid.Column="3" Margin="5">
+                <TextBlock x:Name="AnswerText04" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button05" Grid.Column="4" Margin="5">
+                <TextBlock x:Name="AnswerText05" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button06" Grid.Column="5" Margin="5">
+                <TextBlock x:Name="AnswerText06" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button07" Grid.Column="6" Margin="5">
+                <TextBlock x:Name="AnswerText07" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button08" Grid.Column="7" Margin="5">
+                <TextBlock x:Name="AnswerText08" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button09" Grid.Column="8" Margin="5">
+                <TextBlock x:Name="AnswerText09" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+            <Button x:Name="Button10" Grid.Column="9" Margin="5">
+                <TextBlock x:Name="AnswerText10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            </Button>
+
+        </Grid>
 
         <DataGrid Grid.Row="8"
                   Height="180"

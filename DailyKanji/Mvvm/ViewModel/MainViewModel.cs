@@ -225,14 +225,79 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Build all answer menu entries and buttons
         /// </summary>
         internal void BuildAnswerMenuAndButtons()
-            => _mainWindow?.Dispatcher?.Invoke(new Action(() =>
+        {
+            var answerTextList = new TextBlock[]
+            {
+                _mainWindow.AnswerText01,
+                _mainWindow.AnswerText02,
+                _mainWindow.AnswerText03,
+                _mainWindow.AnswerText04,
+                _mainWindow.AnswerText05,
+                _mainWindow.AnswerText06,
+                _mainWindow.AnswerText07,
+                _mainWindow.AnswerText08,
+                _mainWindow.AnswerText09,
+                _mainWindow.AnswerText10
+            };
+
+            var buttonList = new Button[]
+            {
+                _mainWindow.Button01,
+                _mainWindow.Button02,
+                _mainWindow.Button03,
+                _mainWindow.Button04,
+                _mainWindow.Button05,
+                _mainWindow.Button06,
+                _mainWindow.Button07,
+                _mainWindow.Button08,
+                _mainWindow.Button09,
+                _mainWindow.Button10
+            };
+
+            var answerButtonColumn = new ColumnDefinition[]
+            {
+                _mainWindow.AnswerButtonColumn01,
+                _mainWindow.AnswerButtonColumn02,
+                _mainWindow.AnswerButtonColumn03,
+                _mainWindow.AnswerButtonColumn04,
+                _mainWindow.AnswerButtonColumn05,
+                _mainWindow.AnswerButtonColumn06,
+                _mainWindow.AnswerButtonColumn07,
+                _mainWindow.AnswerButtonColumn08,
+                _mainWindow.AnswerButtonColumn09,
+                _mainWindow.AnswerButtonColumn10
+            };
+
+            _mainWindow?.Dispatcher?.Invoke(new Action(() =>
+            {
+                for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+                {
+                    if(answerNumber < BaseModel.MaximumAnswers)
+                    {
+                        answerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
+                        answerTextList[answerNumber].Text      = GetAnswerText(answerNumber);
+                        buttonList[answerNumber].Visibility    = Visibility.Visible;
+                    }
+                    else
+                    {
+                        answerButtonColumn[answerNumber].Width = GridLength.Auto;
+                        buttonList[answerNumber].Visibility    = Visibility.Collapsed;
+                    }
+                }
+            }));
+
+            return;
+
+            // TODO
+
+            _mainWindow?.Dispatcher?.Invoke(new Action(() =>
             {
                 _mainWindow.AnswerButtonArea.Children.Clear();
                 _mainWindow.AnswerMenu.Items.Clear();
 
                 for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
                 {
-                    var hintColor   = ColorConverter.ConvertFromString(BaseModel.HintTextColor
+                    var hintColor = ColorConverter.ConvertFromString(BaseModel.HintTextColor
                                                                                 .ElementAtOrDefault(answerNumber));
 
                     var answerColor = ColorConverter.ConvertFromString(BaseModel.AnswerButtonColor
@@ -241,38 +306,38 @@ namespace DailyKanji.Mvvm.ViewModel
                     var stackPanel = new StackPanel();
                     var buttonText = new TextBlock
                     {
-                        FontSize          = 100 - (5 * BaseModel.MaximumAnswers),
-                        Text              = GetAnswerText(answerNumber),
-                        Padding           = new Thickness(0, 0, 0, 20),
+                        FontSize = 100 - (5 * BaseModel.MaximumAnswers),
+                        Text = GetAnswerText(answerNumber),
+                        Padding = new Thickness(0, 0, 0, 20),
                         VerticalAlignment = VerticalAlignment.Center
                     };
 
                     stackPanel.Children.Add(new TextBlock
                     {
-                        FontSize            = 32,
-                        Foreground          = new SolidColorBrush((Color)hintColor),
+                        FontSize = 32,
+                        Foreground = new SolidColorBrush((Color)hintColor),
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        Text                = GetAnswerHint(answerNumber)
+                        Text = GetAnswerHint(answerNumber)
                     });
 
                     stackPanel.Children.Add(new Button
                     {
-                        Background       = new SolidColorBrush((Color)answerColor),
-                        Command          = CommandAnswerTest,
+                        Background = new SolidColorBrush((Color)answerColor),
+                        Command = CommandAnswerTest,
                         CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
-                        Content          = buttonText,
-                        Height           = 100,
-                        Margin           = new Thickness(5, 0, 5, 0),
-                        Width            = (_mainWindow.Width - 20 - (10 * BaseModel.MaximumAnswers)) / BaseModel.MaximumAnswers
+                        Content = buttonText,
+                        Height = 100,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Width = (_mainWindow.Width - 20 - (10 * BaseModel.MaximumAnswers)) / BaseModel.MaximumAnswers
                     });
 
                     if(BaseModel.ShowAnswerShortcuts)
                     {
                         stackPanel.Children.Add(new TextBlock
                         {
-                            FontSize            = 12,
+                            FontSize = 12,
                             HorizontalAlignment = HorizontalAlignment.Center,
-                            Text                = $"{answerNumber + 1}"
+                            Text = $"{answerNumber + 1}"
                         });
                     }
 
@@ -280,13 +345,14 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     _mainWindow.AnswerMenu.Items.Add(new MenuItem
                     {
-                        Command          = CommandAnswerTest,
+                        Command = CommandAnswerTest,
                         CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
-                        Header           = GetAnswerText(answerNumber),
+                        Header = GetAnswerText(answerNumber),
                         InputGestureText = $"{answerNumber + 1}"
                     });
                 }
             }));
+        }
 
         /// <summary>
         /// Start the test timer (Start time is <see cref="DateTime.UtcNow"/>)
