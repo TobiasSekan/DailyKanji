@@ -44,40 +44,30 @@
                    Text="Daily Kanji"
                    TextAlignment="Center" />
 
-        <Separator Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" />
+        <Separator Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" />
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
                    Text="Library version: "
                    TextAlignment="Right" />
 
-        <TextBlock Grid.Row="2"
-                   Grid.Column="1"
-                   Text="{Binding Path=BaseModel.GetVersion}" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=BaseModel.GetVersion}" />
 
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
                    Text="Program version: "
                    TextAlignment="Right" />
 
-        <TextBlock Grid.Row="4"
-                   Grid.Column="1"
-                   Text="{Binding Path=Model.GetVersion}" />
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Model.GetVersion}" />
 
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Text="Author: "
                    TextAlignment="Right" />
 
-        <TextBlock Grid.Row="6"
-                   Grid.Column="1"
-                   Text="Tobias Sekan" />
+        <TextBlock Grid.Row="6" Grid.Column="1" Text="Tobias Sekan" />
 
-        <Separator Grid.Row="7"
-                   Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" />
+        <Separator Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" />
 
         <TextBlock Grid.Row="8"
                    Grid.Column="0"
@@ -101,9 +91,7 @@
             </Hyperlink>
         </TextBlock>
 
-        <Separator Grid.Row="11"
-                   Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" />
+        <Separator Grid.Row="11" Grid.ColumnSpan="2" VerticalAlignment="Center" />
 
         <TextBlock Grid.Row="12"
                    Grid.Column="0"

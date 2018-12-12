@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ColorStringToBrushConverter.cs" />
+    <Compile Include="Helper\HeightToSmallFontSizeConverter.cs" />
     <Compile Include="Helper\HeightToFontSizeConverter.cs" />
     <Compile Include="Helper\OnlineResourceHelper.cs" />
     <Compile Include="Helper\ValueToBooleanConverter.cs" />
@@ -100,6 +101,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.1</Version>
     </PackageReference>

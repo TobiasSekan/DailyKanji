@@ -15,6 +15,7 @@
         <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <helper:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
+        <helper:HeightToSmallFontSizeConverter x:Key="HeightToSmallFontSizeConverter" />
     </Window.Resources>
 
     <Window.InputBindings>
@@ -614,6 +615,12 @@
         </Grid>
 
         <Grid x:Name="AnswerButtonArea" Grid.Row="6">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="AnswerRow1" Height="Auto" />
+                <RowDefinition x:Name="AnswerRow2" Height="Auto" />
+                <RowDefinition x:Name="AnswerRow3" Height="Auto" />
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="AnswerButtonColumn01" Width="*" />
                 <ColumnDefinition x:Name="AnswerButtonColumn02" Width="*" />
@@ -627,45 +634,256 @@
                 <ColumnDefinition x:Name="AnswerButtonColumn10" Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="Button01" Grid.Column="0" Margin="5">
+            <TextBlock x:Name="AnswerHint01"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint02"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint03"
+                       Grid.Row="0"
+                       Grid.Column="2"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint04"
+                       Grid.Row="0"
+                       Grid.Column="3"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint05"
+                       Grid.Row="0"
+                       Grid.Column="4"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint06"
+                       Grid.Row="0"
+                       Grid.Column="5"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint07"
+                       Grid.Row="0"
+                       Grid.Column="6"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint08"
+                       Grid.Row="0"
+                       Grid.Column="7"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint09"
+                       Grid.Row="0"
+                       Grid.Column="8"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerHint10"
+                       Grid.Row="0"
+                       Grid.Column="9"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <Button x:Name="Button01"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="1">
+
                 <TextBlock x:Name="AnswerText01" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button02" Grid.Column="1" Margin="5">
+            <Button x:Name="Button02"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="2">
                 <TextBlock x:Name="AnswerText02" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button03" Grid.Column="2" Margin="5">
+            <Button x:Name="Button03"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="3">
                 <TextBlock x:Name="AnswerText03" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button04" Grid.Column="3" Margin="5">
+            <Button x:Name="Button04"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="4">
                 <TextBlock x:Name="AnswerText04" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button05" Grid.Column="4" Margin="5">
+            <Button x:Name="Button05"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="5">
                 <TextBlock x:Name="AnswerText05" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button06" Grid.Column="5" Margin="5">
+            <Button x:Name="Button06"
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="6">
                 <TextBlock x:Name="AnswerText06" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button07" Grid.Column="6" Margin="5">
+            <Button x:Name="Button07"
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="7">
                 <TextBlock x:Name="AnswerText07" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button08" Grid.Column="7" Margin="5">
+            <Button x:Name="Button08"
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="8">
                 <TextBlock x:Name="AnswerText08" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
 
-            <Button x:Name="Button09" Grid.Column="8" Margin="5">
-                <TextBlock x:Name="AnswerText09" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+            <Button x:Name="Button09"
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="9">
+                <TextBlock x:Name="AnswerText09" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}, ConverterParameter=0.65}" />
             </Button>
 
-            <Button x:Name="Button10" Grid.Column="9" Margin="5">
+            <Button x:Name="Button10"
+                    Grid.Row="1"
+                    Grid.Column="9"
+                    Margin="5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="10">
                 <TextBlock x:Name="AnswerText10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
             </Button>
+
+            <TextBlock x:Name="AnswerKey01"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey02"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey03"
+                       Grid.Row="3"
+                       Grid.Column="2"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey04"
+                       Grid.Row="3"
+                       Grid.Column="3"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey05"
+                       Grid.Row="3"
+                       Grid.Column="4"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey06"
+                       Grid.Row="3"
+                       Grid.Column="5"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey07"
+                       Grid.Row="3"
+                       Grid.Column="6"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey08"
+                       Grid.Row="3"
+                       Grid.Column="7"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey09"
+                       Grid.Row="3"
+                       Grid.Column="8"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
+
+            <TextBlock x:Name="AnswerKey10"
+                       Grid.Row="3"
+                       Grid.Column="9"
+                       FontSize="{Binding RelativeSource={RelativeSource Self},
+                                          Path=ActualWidth,
+                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       TextAlignment="Center" />
 
         </Grid>
 
