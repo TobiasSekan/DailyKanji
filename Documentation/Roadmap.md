@@ -6,12 +6,11 @@
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
+* Show statistics in a separate window (for multi-view and multi-monitor use)
 
 ## Version 1.0
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Make refresh interval for timer changeable via menu
-* Recalculate buttons (button width), when window is resized
-* Avoid rebuild of answer buttons and answer menu entries
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 

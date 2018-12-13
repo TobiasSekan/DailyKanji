@@ -19,6 +19,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // TODO: Bug inside command helper, so predicate is not usable on commands
     // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+    // TODO: Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
 
     // Version 0.1
     // -----------
@@ -28,12 +29,11 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
+    // TODO: Show statistics in a separate window (for multi-view and multi-monitor use)
 
     // Version 1.0
     // -----------
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-    // TODO: Recalculate buttons (button width), when window is resized
-    // TODO: Avoid rebuild of answer buttons and answer menu entries
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //

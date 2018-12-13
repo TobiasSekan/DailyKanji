@@ -19,21 +19,54 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="D1" Command="{Binding CommandAnswerTestNumber}" CommandParameter="1" />
-        <KeyBinding Key="D2" Command="{Binding CommandAnswerTestNumber}" CommandParameter="2" />
-        <KeyBinding Key="D3" Command="{Binding CommandAnswerTestNumber}" CommandParameter="3" />
-        <KeyBinding Key="D4" Command="{Binding CommandAnswerTestNumber}" CommandParameter="4" />
-        <KeyBinding Key="D5" Command="{Binding CommandAnswerTestNumber}" CommandParameter="5" />
-        <KeyBinding Key="D6" Command="{Binding CommandAnswerTestNumber}" CommandParameter="6" />
-        <KeyBinding Key="D7" Command="{Binding CommandAnswerTestNumber}" CommandParameter="7" />
-        <KeyBinding Key="D8" Command="{Binding CommandAnswerTestNumber}" CommandParameter="8" />
-        <KeyBinding Key="D9" Command="{Binding CommandAnswerTestNumber}" CommandParameter="9" />
-        <KeyBinding Key="D0" Command="{Binding CommandAnswerTestNumber}" CommandParameter="0" />
+
         <KeyBinding Key="Backspace" Command="{Binding CommandPreviousTest}" />
         <KeyBinding Key="Space" Command="{Binding CommandNextTest}" />
+
+        <KeyBinding Key="D1"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="1" />
+
+        <KeyBinding Key="D2"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="2" />
+
+        <KeyBinding Key="D3"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="3" />
+
+        <KeyBinding Key="D4"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="4" />
+
+        <KeyBinding Key="D5"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="5" />
+
+        <KeyBinding Key="D6"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="6" />
+
+        <KeyBinding Key="D7"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="7" />
+
+        <KeyBinding Key="D8"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="8" />
+
+        <KeyBinding Key="D9"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="9" />
+
+        <KeyBinding Key="D0"
+                    Command="{Binding CommandAnswerTestNumber}"
+                    CommandParameter="0" />
+
     </Window.InputBindings>
 
     <Grid>
+
         <Grid.RowDefinitions>
 
             <!--  Menu  -->
@@ -64,7 +97,9 @@
 
             <MenuItem Header="_File">
 
-                <MenuItem Command="{Binding Path=CommandNextTest}" Header="_Next test" InputGestureText="Space" />
+                <MenuItem Command="{Binding Path=CommandNextTest}"
+                          Header="_Next test"
+                          InputGestureText="Space" />
 
                 <MenuItem Command="{Binding Path=CommandPreviousTest}"
                           Header="_Previous test"
@@ -73,24 +108,34 @@
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandCloseProgram}" Header="_Close Program" InputGestureText="Alt+F4" />
+                <MenuItem Command="{Binding Path=CommandCloseProgram}"
+                          Header="_Close Program"
+                          InputGestureText="Alt+F4" />
 
             </MenuItem>
 
             <MenuItem Header="_View">
 
-                <MenuItem Header="Highlight on _wrong answered tests" IsCheckable="True" IsChecked="{Binding Path=BaseModel.HighlightOnErrors}" />
+                <MenuItem Header="Highlight on _wrong answered tests"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.HighlightOnErrors}" />
 
-                <MenuItem Header="Show _hints on wrong answers" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowHints}" />
+                <MenuItem Header="Show _hints on wrong answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowHints}" />
 
-                <MenuItem Header="Show running _timer (timer is still running)" IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+                <MenuItem Header="Show running _timer (timer is still running)"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
 
                 <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
                           Header="Show short_cuts for answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
-                <MenuItem Header="Show sign _statistics " IsCheckable="True" IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
+                <MenuItem Header="Show sign _statistics "
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
 
             </MenuItem>
 
@@ -524,29 +569,45 @@
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.SimilarAnswers}" />
 
-                <MenuItem Header="Check for new _version on start-up" IsCheckable="True" IsChecked="{Binding Path=BaseModel.CheckForNewVersionOnStartUp}" />
+                <MenuItem Header="Check for new _version on start-up"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.CheckForNewVersionOnStartUp}" />
 
             </MenuItem>
 
             <MenuItem Header="_Statistic">
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.All}" Header="Reset _all answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.All}"
+                          Header="Reset _all answered signs" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}" Header="Reset all _correct answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}"
+                          Header="Reset all _correct answered signs" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}" Header="Reset only correct answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}"
+                          Header="Reset only correct answered Hiragana" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}" Header="Reset only correct answered Katakana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}"
+                          Header="Reset only correct answered Katakana" />
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}" Header="Reset all _wrong answered signs" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}"
+                          Header="Reset all _wrong answered signs" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}" Header="Reset only wrong answered Hiragana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}"
+                          Header="Reset only wrong answered Hiragana" />
 
-                <MenuItem Command="{Binding Path=CommandRestStatistic}" CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}" Header="Reset only wrong answered Katakana" />
+                <MenuItem Command="{Binding Path=CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}"
+                          Header="Reset only wrong answered Katakana" />
 
             </MenuItem>
 
@@ -571,11 +632,12 @@
                                           Converter={StaticResource BooleanToVisibilityConverter}}"
                      Value="{Binding Path=BaseModel.CurrentAnswerTime}" />
 
-        <Grid Grid.Row="4" Height="140">
+        <Grid Grid.Row="4">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -588,14 +650,15 @@
                     Content="Previous test"
                     IsEnabled="{Binding Path=BaseModel.CanGoToLastTest}" />
 
-            <TextBlock Grid.Column="2"
-                       Width="200"
-                       HorizontalAlignment="Center"
-                       Background="{Binding Path=BaseModel.CurrentAskSignColor,
-                                            Converter={StaticResource ColorStringToBrushConverter}}"
-                       FontSize="100"
-                       Text="{Binding Path=BaseModel.CurrentAskSign}"
-                       TextAlignment="Center" />
+            <StackPanel Grid.Column="2" Background="{Binding Path=BaseModel.CurrentAskSignColor, Converter={StaticResource ColorStringToBrushConverter}}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Path=BaseModel.CurrentAskSign}"
+                           TextAlignment="Center" />
+            </StackPanel>
 
             <StackPanel Grid.Column="3" Margin="10">
                 <TextBlock Text="Wrong answers" />
@@ -606,15 +669,17 @@
                 <TextBlock Text="{Binding Path=BaseModel.AverageAnswerTime}" />
             </StackPanel>
 
-            <Button Grid.Column="5"
+            <Button Grid.Column="4"
                     Width="100"
                     Height="50"
                     Margin="5"
                     Command="{Binding Path=CommandNextTest}"
                     Content="Next test" />
+
         </Grid>
 
         <Grid x:Name="AnswerButtonArea" Grid.Row="6">
+
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="AnswerRow1" Height="Auto" />
                 <RowDefinition x:Name="AnswerRow2" Height="Auto" />
@@ -721,7 +786,12 @@
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="1">
 
-                <TextBlock x:Name="AnswerText01" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+                <TextBlock x:Name="AnswerText01"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button02"
@@ -730,7 +800,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="2">
-                <TextBlock x:Name="AnswerText02" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText02"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button03"
@@ -739,7 +815,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="3">
-                <TextBlock x:Name="AnswerText03" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText03"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button04"
@@ -748,7 +830,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="4">
-                <TextBlock x:Name="AnswerText04" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText04"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button05"
@@ -757,7 +845,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="5">
-                <TextBlock x:Name="AnswerText05" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText05"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button06"
@@ -766,7 +860,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="6">
-                <TextBlock x:Name="AnswerText06" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText06"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button07"
@@ -775,7 +875,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="7">
-                <TextBlock x:Name="AnswerText07" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText07"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button08"
@@ -784,7 +890,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="8">
-                <TextBlock x:Name="AnswerText08" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText08"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button09"
@@ -793,7 +905,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="9">
-                <TextBlock x:Name="AnswerText09" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}, ConverterParameter=0.65}" />
+
+                <TextBlock x:Name="AnswerText09"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <Button x:Name="Button10"
@@ -802,7 +920,13 @@
                     Margin="5"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="10">
-                <TextBlock x:Name="AnswerText10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, Converter={StaticResource HeightToFontSizeConverter}}" />
+
+                <TextBlock x:Name="AnswerText10"
+                           Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HeightToFontSizeConverter}}" />
+
             </Button>
 
             <TextBlock x:Name="AnswerKey01"
@@ -902,15 +1026,45 @@
                                        Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Roomaji}" Header="Roomaji" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=Hiragana}" Header="Hiragana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=Katakana}" Header="Katakana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}" Header="Wrong Hiragana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}" Header="Wrong Katakana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}" Header="Correct Hiragana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}" Header="Correct Katakana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana, StringFormat=mm\\:ss\\.ff}" Header="Time Hiragana" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana, StringFormat=mm\\:ss\\.ff}" Header="Time Katakana" IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=Roomaji}"
+                                    Header="Roomaji"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=Hiragana}"
+                                    Header="Hiragana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=Katakana}"
+                                    Header="Katakana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}"
+                                    Header="Wrong Hiragana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}"
+                                    Header="Wrong Katakana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}"
+                                    Header="Correct Hiragana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}"
+                                    Header="Correct Katakana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana,
+                                                      StringFormat=mm\\:ss\\.ff}"
+                                    Header="Time Hiragana"
+                                    IsReadOnly="True" />
+
+                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana,
+                                                      StringFormat=mm\\:ss\\.ff}"
+                                    Header="Time Katakana"
+                                    IsReadOnly="True" />
+
             </DataGrid.Columns>
 
         </DataGrid>
