@@ -28,8 +28,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
         public void InitalizieBaseModel(in string baseColor, in string progressBarColor)
         {
-            Debug.Assert(string.IsNullOrWhiteSpace(baseColor), "base color can't be null");
-            Debug.Assert(string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "base color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
 
             if(BaseModel == null)
             {
@@ -547,8 +547,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="progressBarColor">The base colour for the progress bar</param>
         public void SetNormalColors(in string baseColor, in string progressBarColor)
         {
-            Debug.Assert(string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
-            Debug.Assert(string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
 
             BaseModel.CurrentAskSignColor = baseColor;
             BaseModel.ProgressBarColor    = progressBarColor;
@@ -568,9 +568,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="hintColor">The colour string for the hint elements</param>
         public void SetHighlightColors(in string correctColor, in string errorColor, in string hintColor)
         {
-            Debug.Assert(string.IsNullOrWhiteSpace(correctColor), "Correction color can't be null");
-            Debug.Assert(string.IsNullOrWhiteSpace(errorColor), "Error color can't be null");
-            Debug.Assert(string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), "Correction color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), "Error color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be null");
 
             BaseModel.CurrentAskSignColor = errorColor;
             BaseModel.ProgressBarColor    = errorColor;
