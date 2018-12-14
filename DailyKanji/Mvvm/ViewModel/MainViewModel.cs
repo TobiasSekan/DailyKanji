@@ -234,14 +234,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
-                    var answerColor = ColorConverter.ConvertFromString(BaseModel.AnswerButtonColor
-                                                                                .ElementAtOrDefault(answerNumber));
-
-                    var hintColor = ColorConverter.ConvertFromString(BaseModel.HintTextColor.ElementAtOrDefault(answerNumber));
-
-                    _mainWindow._buttonList[answerNumber].Background          = new SolidColorBrush((Color)answerColor);
-                    _mainWindow._answerHintTextBlock[answerNumber].Foreground = new SolidColorBrush((Color)hintColor);
-
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
                         _mainWindow._answerButtonColumn[answerNumber].Width           = new GridLength(1, GridUnitType.Star);
@@ -252,7 +244,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
                         _mainWindow._answerTextList[answerNumber].Text                = GetAnswerText(answerNumber);
                         _mainWindow._answerHintTextBlock[answerNumber].Text           = GetAnswerHint(answerNumber);
-                        _mainWindow._answerShortCutTextBlock[answerNumber].Text       = $"{answerNumber + 1}";
+                        _mainWindow._answerShortCutTextBlock[answerNumber].Text       = BaseModel.ShowAnswerShortcuts
+                                                                                            ? $"{answerNumber + 1}"
+                                                                                            : string.Empty;
 
                         _mainWindow.AnswerMenu.Items.Add(new MenuItem
                         {

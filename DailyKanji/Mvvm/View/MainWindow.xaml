@@ -705,6 +705,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[0],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint02"
@@ -713,6 +715,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[1],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint03"
@@ -721,6 +725,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[2],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint04"
@@ -729,6 +735,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[3],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint05"
@@ -737,6 +745,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[4],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint06"
@@ -745,6 +755,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[5],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint07"
@@ -753,6 +765,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[6],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint08"
@@ -761,6 +775,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[7],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint09"
@@ -769,6 +785,8 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[8],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerHint10"
@@ -777,12 +795,16 @@
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
                                           Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                       Foreground="{Binding Path=BaseModel.HintTextColor[9],
+                                            Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
 
             <Button x:Name="Button01"
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[0],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="1">
 
@@ -798,6 +820,8 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[1],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="2">
 
@@ -813,6 +837,8 @@
                     Grid.Row="1"
                     Grid.Column="2"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[2],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="3">
 
@@ -828,6 +854,8 @@
                     Grid.Row="1"
                     Grid.Column="3"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[3],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="4">
 
@@ -843,6 +871,8 @@
                     Grid.Row="1"
                     Grid.Column="4"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[4],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="5">
 
@@ -858,6 +888,8 @@
                     Grid.Row="1"
                     Grid.Column="5"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[5],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="6">
 
@@ -873,6 +905,8 @@
                     Grid.Row="1"
                     Grid.Column="6"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[6],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="7">
 
@@ -888,6 +922,8 @@
                     Grid.Row="1"
                     Grid.Column="7"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[7],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="8">
 
@@ -903,6 +939,8 @@
                     Grid.Row="1"
                     Grid.Column="8"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[8],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="9">
 
@@ -918,6 +956,8 @@
                     Grid.Row="1"
                     Grid.Column="9"
                     Margin="5"
+                    Background="{Binding Path=BaseModel.AnswerButtonColor[9],
+                                         Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="10">
 
