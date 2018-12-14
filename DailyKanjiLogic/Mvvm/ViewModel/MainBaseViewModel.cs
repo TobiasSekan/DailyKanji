@@ -3,6 +3,7 @@ using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -27,6 +28,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
         public void InitalizieBaseModel(in string baseColor, in string progressBarColor)
         {
+            Debug.Assert(string.IsNullOrWhiteSpace(baseColor), "base color can't be null");
+            Debug.Assert(string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+
             if(BaseModel == null)
             {
                 BaseModel = new MainBaseModel();
@@ -45,7 +49,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             BaseModel.HintTextColor     = new ObservableCollection<string>();
             BaseModel.ProgressBarColor  = progressBarColor;
 
-            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 BaseModel.AnswerButtonColor.Add(baseColor);
                 BaseModel.HintTextColor.Add(baseColor);
@@ -122,6 +126,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ChooseNewSign(TestBaseModel newTest)
         {
+            Debug.Assert(newTest != null, "Test model for choose sign can't be null");
+
             if(BaseModel.CurrentTest != null)
             {
                 while(newTest?.Roomaji == BaseModel.CurrentTest.Roomaji)
@@ -234,6 +240,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerText(in byte answerNumber)
         {
+            Debug.Assert(answerNumber < 10, $"Answer number must between 0 and 9, but it was [{answerNumber}]");
+
             switch(BaseModel.SelectedTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji:
@@ -270,6 +278,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in byte answerNumber)
         {
+            Debug.Assert(answerNumber < 10, $"Answer number must between 0 and 9, but it was [{answerNumber}]");
+
             switch(BaseModel.SelectedHintType)
             {
                 case HintType.OnlyRoomaji:
@@ -320,6 +330,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {
+            Debug.Assert(answer != null, "Answer can't be null for counting answer result");
+
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
@@ -535,10 +547,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="progressBarColor">The base colour for the progress bar</param>
         public void SetNormalColors(in string baseColor, in string progressBarColor)
         {
+            Debug.Assert(string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
+            Debug.Assert(string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+
             BaseModel.CurrentAskSignColor = baseColor;
             BaseModel.ProgressBarColor    = progressBarColor;
 
-            for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 BaseModel.AnswerButtonColor[answerNumber] = baseColor;
                 BaseModel.HintTextColor[answerNumber]     = baseColor;
@@ -553,10 +568,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="hintColor">The colour string for the hint elements</param>
         public void SetHighlightColors(in string correctColor, in string errorColor, in string hintColor)
         {
+            Debug.Assert(string.IsNullOrWhiteSpace(correctColor), "Correction color can't be null");
+            Debug.Assert(string.IsNullOrWhiteSpace(errorColor), "Error color can't be null");
+            Debug.Assert(string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be null");
+
             BaseModel.CurrentAskSignColor = errorColor;
             BaseModel.ProgressBarColor    = errorColor;
 
-            for(byte answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
+            for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
                 BaseModel.AnswerButtonColor[answerNumber]
                     = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
@@ -577,6 +596,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns><c>true</c> if the answer was correct, otherwise <c>false</c></returns>
         public bool CheckAnswer(in TestBaseModel answer)
         {
+            Debug.Assert(answer != null, "Answer can't be null for answer check");
+
             BaseModel.IgnoreInput = true;
 
             if(answer == null)
