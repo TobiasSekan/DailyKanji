@@ -6,7 +6,6 @@
   * on right answers +1 on wrong answers - 1
   * use this counter to calculate count of same tests
   * use this count to order bottom test table
-* Show statistics in a separate window (for multi-view and multi-monitor use)
 
 ## Version 1.0
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"

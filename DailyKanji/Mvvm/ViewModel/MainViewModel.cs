@@ -29,7 +29,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //       on right answers +1 on wrong answers - 1
     //       use this counter to calculate count of same tests
     //       use this count to order bottom test table
-    // TODO: Show statistics in a separate window (for multi-view and multi-monitor use)
 
     // Version 1.0
     // -----------

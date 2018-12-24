@@ -85,9 +85,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
-            <!--  DataGrid - Hiragana and Katakana list  -->
-            <RowDefinition Height="Auto" />
-
             <!--  StatusBar  -->
             <RowDefinition Height="Auto" />
 
@@ -133,9 +130,9 @@
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.ShowAnswerShortcuts}" />
 
-                <MenuItem Header="Show sign _statistics "
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowStatistics}" />
+                <Separator />
+
+                <MenuItem Command="{Binding Path=CommandOpenSignStatistics}" Header="Show sign _statistics " />
 
             </MenuItem>
 
@@ -1051,65 +1048,7 @@
 
         </Grid>
 
-        <DataGrid Grid.Row="8"
-                  Height="180"
-                  Margin="5"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  CanUserReorderColumns="False"
-                  CanUserResizeColumns="False"
-                  CanUserResizeRows="False"
-                  HeadersVisibility="Column"
-                  ItemsSource="{Binding Path=BaseModel.AllTestsList}"
-                  Visibility="{Binding Path=BaseModel.ShowStatistics,
-                                       Converter={StaticResource BooleanToVisibilityConverter}}">
-
-            <DataGrid.Columns>
-
-                <DataGridTextColumn Binding="{Binding Path=Roomaji}"
-                                    Header="Roomaji"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=Hiragana}"
-                                    Header="Hiragana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=Katakana}"
-                                    Header="Katakana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}"
-                                    Header="Wrong Hiragana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}"
-                                    Header="Wrong Katakana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}"
-                                    Header="Correct Hiragana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}"
-                                    Header="Correct Katakana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana,
-                                                      StringFormat=mm\\:ss\\.ff}"
-                                    Header="Time Hiragana"
-                                    IsReadOnly="True" />
-
-                <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana,
-                                                      StringFormat=mm\\:ss\\.ff}"
-                                    Header="Time Katakana"
-                                    IsReadOnly="True" />
-
-            </DataGrid.Columns>
-
-        </DataGrid>
-
-        <StatusBar Grid.Row="9">
+        <StatusBar Grid.Row="8">
 
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>

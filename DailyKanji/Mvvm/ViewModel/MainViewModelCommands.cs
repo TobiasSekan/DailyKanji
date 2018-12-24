@@ -21,6 +21,13 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #endregion Commands - File Menu
 
+        #region Commands - View Menu
+
+        public ICommand CommandOpenSignStatistics
+            => new CommandHelper(() => new StatisticsWindow(this).Show());
+
+        #endregion Commands - View Menu
+
         #region Commands - Settings Menu
 
         /// <summary>
