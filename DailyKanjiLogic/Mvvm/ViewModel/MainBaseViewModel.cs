@@ -65,12 +65,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         public void OrderAllTests()
             => BaseModel.AllTestsList
                 = BaseModel.AllTestsList
-                           .OrderByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
+                           .OrderByDescending(found => found.WrongnessCounter)
+                           .ThenByDescending(found => found.WrongHiraganaCount + found.WrongKatakanaCount)
                            .ThenByDescending(found => found.WrongHiraganaCount)
                            .ThenByDescending(found => found.WrongKatakanaCount)
                            .ThenByDescending(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount)
                            .ThenByDescending(found => found.CorrectHiraganaCount)
-                           .ThenByDescending(found => found.CorrectKatakanaCount).ToList();
+                           .ThenByDescending(found => found.CorrectKatakanaCount)
+                           .ToList();
 
         /// <summary>
         /// Build the test pool (wrong answered tests will add multiple)
@@ -82,37 +84,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             foreach(var test in BaseModel.AllTestsList)
             {
-                switch(BaseModel.SelectedTestType)
+                for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
                 {
-                    case TestType.HiraganaToRoomaji:
-                    case TestType.HiraganaToKatakana:
-                    case TestType.RoomajiToHiragana:
-                        for(var repeatCount = 0; repeatCount <= test.WrongHiraganaCount; repeatCount++)
-                        {
-                            testPool.Add(test);
-                        }
-                        break;
-
-                    case TestType.KatakanaToHiragana:
-                    case TestType.KatakanaToRoomaji:
-                    case TestType.RoomajiToKatakana:
-                        for(var repeatCount = 0; repeatCount <= test.WrongKatakanaCount; repeatCount++)
-                        {
-                            testPool.Add(test);
-                        }
-                        break;
-
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana:
-                        for(var repeatCount = 0; repeatCount <= test.WrongHiraganaCount + test.WrongKatakanaCount; repeatCount++)
-                        {
-                            testPool.Add(test);
-                        }
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+                    testPool.Add(test);
                 }
             }
 
@@ -336,6 +310,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
             {
+                if(answer.WrongnessCounter > 0)
+                {
+                    answer.WrongnessCounter--;
+                }
+
                 switch(BaseModel.SelectedTestType)
                 {
                     case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
@@ -370,6 +349,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
                 return;
             }
+
+            answer.WrongnessCounter++;
 
             switch(BaseModel.SelectedTestType)
             {
@@ -412,6 +393,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             foreach(var test in BaseModel.AllTestsList)
             {
+                test.WrongnessCounter = 0;
+
                 switch(resetType)
                 {
                     case ResetType.All:
@@ -602,6 +585,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(answer == null)
             {
+                answer.WrongnessCounter++;
                 return false;
             }
 

@@ -1,12 +1,11 @@
 # Daily Kanji
 
-## Current state
-* in development
-* First version will released in December 2018
-
 ## Requirements for usage
 * Windows (Vista SP2, 7 SP1, 8, 8.1, 10) or Windows Server (2008 SP2, 2008 R2 SP1, 2012, 2012 SP2)
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
+
+## Current state
+* in development
 
 ## Current features
 * 9 Test types

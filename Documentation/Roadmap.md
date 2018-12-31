@@ -1,15 +1,13 @@
-# Roadmap
+﻿# Roadmap
 
 ## Version 0.1
 * Add menu entry to deactivate timeout (hide visible timer too)
-* Add main counter for each test (negative/positive)
-  * on right answers +1 on wrong answers - 1
-  * use this counter to calculate count of same tests
-  * use this count to order bottom test table
+* Make refresh interval for timer changeable via menu
 
 ## Version 1.0
+* Add test for signs with Dakuten and signs with Handakuten
+* Add test for sign with Yōon, Yōon with Dakuten and Yōon with Handakuten
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
-* Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 
@@ -17,21 +15,21 @@
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Change test order so that all tests will be ask (based on ask counter)
 * Move more program parts to separate library project in .Net Standard
-* Export (CSV, JSON)
 * Add more menu underscores (for menu keyboard navigation)
-* Add tooltips for each menu entries
 
 ## Versions 2.0
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Add German language and language selector in menu
+* Add tooltips for each menu entries
 * Make colours choose-able
+* Export statistics (CSV, JSON, XML)
 
 ## Version 3.0
 * Start with integration of Kanji tests
 
 ## Ideas
-* Import (XLSX, CSV, JSON, XML)
-* Export (XLSX, XML)
+* Export statistics (XLSX)
+* Import statistics (XLSX, CSV, JSON, XML)
 * Gamepad support
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)

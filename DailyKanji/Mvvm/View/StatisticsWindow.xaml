@@ -23,6 +23,10 @@
 
         <DataGrid.Columns>
 
+            <DataGridTextColumn Binding="{Binding Path=WrongnessCounter}"
+                                Header="Wrongness"
+                                IsReadOnly="True" />
+
             <DataGridTextColumn Binding="{Binding Path=Roomaji}"
                                 Header="Roomaji"
                                 IsReadOnly="True" />

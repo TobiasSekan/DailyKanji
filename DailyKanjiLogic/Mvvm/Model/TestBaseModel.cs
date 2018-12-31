@@ -26,7 +26,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The count of wrong answers when the Hiragana sign was ask
         /// </summary>
-        public int WrongHiraganaCount
+        public uint WrongHiraganaCount
         {
             get => _wrongHiraganaCount;
             set
@@ -39,7 +39,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The count of wrong answers when the Katakana sign was ask
         /// </summary>
-        public int WrongKatakanaCount
+        public uint WrongKatakanaCount
         {
             get => _wrongKatakanaCount;
             set
@@ -52,7 +52,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The count of correct answers when the Hiragana sign was ask
         /// </summary>
-        public int CorrectHiraganaCount
+        public uint CorrectHiraganaCount
         {
             get => _correctHiraganaCount;
             set
@@ -65,12 +65,25 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The count of correct answers when the Katakana sign was ask
         /// </summary>
-        public int CorrectKatakanaCount
+        public uint CorrectKatakanaCount
         {
             get => _correctKatakanaCount;
             set
             {
                 _correctKatakanaCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The long-term fail counter (+1 for each wrong ask question, -1 for each correct question)
+        /// </summary>
+        public uint WrongnessCounter
+        {
+            get => _wrongnessCounter;
+            set
+            {
+                _wrongnessCounter = value;
                 OnPropertyChanged();
             }
         }
@@ -154,22 +167,27 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="WrongHiraganaCount"/>
         /// </summary>
-        private int _wrongHiraganaCount;
+        private uint _wrongHiraganaCount;
 
         /// <summary>
         /// Backing-field for <see cref="WrongKatakanaCount"/>
         /// </summary>
-        private int _wrongKatakanaCount;
+        private uint _wrongKatakanaCount;
 
         /// <summary>
         /// Backing-field for <see cref="CorrectHiraganaCount"/>
         /// </summary>
-        private int _correctHiraganaCount;
+        private uint _correctHiraganaCount;
 
         /// <summary>
         /// Backing-field for <see cref="CorrectKatakanaCount"/>
         /// </summary>
-        private int _correctKatakanaCount;
+        private uint _correctKatakanaCount;
+
+        /// <summary>
+        /// Backing-field for <see cref="WrongnessCounter"/>
+        /// </summary>
+        private uint _wrongnessCounter;
 
         /// <summary>
         /// Backing-field for <see cref="CompleteAnswerTimeForCorrectHiragana"/>
@@ -254,7 +272,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #endregion IEquatable<TestBaseModel> Implementation
 
-        #region IFormattable
+        #region IFormattable Implementation
 
         /// <summary>
         /// Return a readable <see cref="string"/> for the given <paramref name="format"/>
@@ -290,6 +308,6 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
-        #endregion IFormattable
+        #endregion IFormattable Implementation
     }
 }

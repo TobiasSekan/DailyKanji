@@ -23,15 +23,13 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 0.1
     // -----------
-    // TODO: Add menu entry to deactivate timeout(hide visible timer too)
+    // TODO: Add menu entry to deactivate timeout (hide visible timer too)
     // TODO: Make refresh interval for timer changeable via menu
-    // TODO: Add main counter for each test (negative/positive)
-    //       on right answers +1 on wrong answers - 1
-    //       use this counter to calculate count of same tests
-    //       use this count to order bottom test table
 
     // Version 1.0
     // -----------
+    // TODO: Add test for signs with Dakuten and signs with Handakuten (with option)
+    // TODO: Add test for sign with Yōon, Yōon with Dakuten and Yōon with Handakuten (with option)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -43,16 +41,15 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     // TODO: Change test order so that all tests will be ask (based on ask counter)
-    // TODO: Move more program parts to separate library project in .Net Standard 1.0
-    // TODO: Export (CSV, JSON)
     // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Add tooltips for each menu entries
 
     // Version 2.0
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Add German language and language selector in menu
+    // TODO: Add tooltips for each menu entries
     // TODO: Make colours choose-able
+    // TODO: Export statistics (CSV, JSON, XML)
 
     // Version 3.0
     // -----------
@@ -60,8 +57,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Ideas
     // -----
-    // TODO: Export (XLSX, XML)
-    // TODO: Import (XLSX, CSV, JSON, XML)
+    // TODO: Export statistics (XLSX)
+    // TODO: Import statistics (XLSX, CSV, JSON, XML)
     // TODO: Gamepad support
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
