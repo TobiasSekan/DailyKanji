@@ -127,6 +127,22 @@ namespace DailyKanji.Mvvm.ViewModel
                     BuildAnswerMenuAndButtons();
                 });
 
+        public ICommand CommandUseAnswerTimer
+            => new CommandHelper(()
+                =>
+                {
+                    BaseModel.ShowRunningAnswerTimer = BaseModel.UseAnswerTimer;
+
+                    if(BaseModel.UseAnswerTimer)
+                    {
+                        StartTestTimer();
+                    }
+                    else
+                    {
+                        Model.TestTimer.Stop();
+                    }
+                });
+
         #endregion Commands - Settings Menu
 
         #region Commands - Answer Menu

@@ -232,6 +232,19 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the answer timer is used
+        /// </summary>
+        public bool UseAnswerTimer
+        {
+            get => _useAnswerTimer;
+            set
+            {
+                _useAnswerTimer = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -640,6 +653,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _highlightOnErrors;
 
+        /// <summary>
+        /// Backing-field for <see cref="UseAnswerTimer"/>
+        /// </summary>
+        private bool _useAnswerTimer;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -658,6 +676,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             SimilarAnswers              = true;
             CheckForNewVersionOnStartUp = true;
             HighlightOnErrors           = true;
+            UseAnswerTimer              = true;
         }
 
         #endregion Public Constructors

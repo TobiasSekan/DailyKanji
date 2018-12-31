@@ -123,7 +123,8 @@
 
                 <MenuItem Header="Show running _timer (timer is still running)"
                           IsCheckable="True"
-                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}" />
+                          IsChecked="{Binding Path=BaseModel.ShowRunningAnswerTimer}"
+                          IsEnabled="{Binding Path=BaseModel.UseAnswerTimer}" />
 
                 <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
                           Header="Show short_cuts for answers"
@@ -565,6 +566,11 @@
                           Header="_Similar answers"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.SimilarAnswers}" />
+
+                <MenuItem Command="{Binding Path=CommandUseAnswerTimer}"
+                          Header="Use answer timeout"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=BaseModel.UseAnswerTimer}" />
 
                 <MenuItem Header="Check for new _version on start-up"
                           IsCheckable="True"

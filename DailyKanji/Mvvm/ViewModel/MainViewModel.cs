@@ -21,11 +21,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
     // TODO: Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
 
-    // Version 0.1
-    // -----------
-    // TODO: Add menu entry to deactivate timeout (hide visible timer too)
-    // TODO: Make refresh interval for timer changeable via menu
-
     // Version 1.0
     // -----------
     // TODO: Add test for signs with Dakuten and signs with Handakuten (with option)
@@ -42,6 +37,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Add more menu underscores (for menu keyboard navigation)
+    // TODO: Make refresh interval for timer changeable via menu
 
     // Version 2.0
     // -----------
@@ -122,6 +118,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
+                if(!BaseModel.UseAnswerTimer)
+                {
+                    return;
+                }
+
                 BaseModel.CurrentAnswerTime = (DateTime.UtcNow - BaseModel.TestStartTime).TotalMilliseconds;
 
                 if(BaseModel.CurrentAnswerTime < BaseModel.MaximumAnswerTimeout)
@@ -273,6 +274,11 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void StartTestTimer()
         {
+            if(!BaseModel.UseAnswerTimer)
+            {
+                return;
+            }
+
             BaseModel.TestStartTime = DateTime.UtcNow;
             Model.TestTimer.Start();
         }

@@ -1,9 +1,5 @@
 ﻿# Roadmap
 
-## Version 0.1
-* Add menu entry to deactivate timeout (hide visible timer too)
-* Make refresh interval for timer changeable via menu
-
 ## Version 1.0
 * Add test for signs with Dakuten and signs with Handakuten
 * Add test for sign with Yōon, Yōon with Dakuten and Yōon with Handakuten
@@ -16,6 +12,7 @@
 * Change test order so that all tests will be ask (based on ask counter)
 * Move more program parts to separate library project in .Net Standard
 * Add more menu underscores (for menu keyboard navigation)
+* Make refresh interval for timer changeable via menu
 
 ## Versions 2.0
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
