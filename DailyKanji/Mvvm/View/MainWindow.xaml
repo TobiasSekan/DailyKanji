@@ -61,7 +61,7 @@
 
         <KeyBinding Key="D0"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="0" />
+                    CommandParameter="10" />
 
     </Window.InputBindings>
 
