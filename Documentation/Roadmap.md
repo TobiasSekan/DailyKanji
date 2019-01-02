@@ -1,8 +1,9 @@
 ﻿# Roadmap
 
 ## Version 1.0
-* Add test for signs with Dakuten and signs with Handakuten
-* Add test for sign with Yōon, Yōon with Dakuten and Yōon with Handakuten
+* Increase tooltip size (on wrong answers)
+* Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
+* Add option for kana type (Gojuuon, Yooon, with Dakuten, with Handakuten)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
