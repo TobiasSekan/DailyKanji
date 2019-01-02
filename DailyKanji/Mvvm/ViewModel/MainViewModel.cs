@@ -1,6 +1,7 @@
 ﻿using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
@@ -131,7 +132,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 }
 
                 Model.TestTimer.Stop();
-                CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty));
+                CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.Gojuuon));
             };
 
             Model.ErrorHighlightTimer.Elapsed += (_, __) =>

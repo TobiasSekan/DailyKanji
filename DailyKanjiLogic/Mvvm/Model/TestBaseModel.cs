@@ -1,4 +1,5 @@
-﻿using DailyKanjiLogic.Helper;
+﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
 
@@ -7,6 +8,11 @@ namespace DailyKanjiLogic.Mvvm.Model
     public sealed class TestBaseModel : PropertyChangedHelper, IEquatable<TestBaseModel>, IFormattable
     {
         #region Public Properties
+
+        /// <summary>
+        /// The type of this sign (e.g. Gojuuon, Yooon)
+        /// </summary>
+        public KanaType Type { get; set; }
 
         /// <summary>
         /// The sign in Roomaji
@@ -219,13 +225,14 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="roomaji">The sign in Roomaji</param>
         /// <param name="hiragana">The sign in Hiragana</param>
         /// <param name="katakana">The sign in Katakana</param>
-        public TestBaseModel(string roomaji, string hiragana, string katakana)
+        public TestBaseModel(string roomaji, string hiragana, string katakana, KanaType type)
         {
             // use of 'in' modifier will crash JSON serialisation
 
             Roomaji  = roomaji;
             Hiragana = hiragana;
             Katakana = katakana;
+            Type     = type;
         }
 
         #endregion Constructors

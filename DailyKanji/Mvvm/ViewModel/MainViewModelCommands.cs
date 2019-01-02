@@ -230,7 +230,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for go to next test
         /// </summary>
         public ICommand CommandNextTest
-            => new CommandHelper(() => CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty)));
+            => new CommandHelper(() => CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.Gojuuon)));
 
         #endregion Commands - Navigation
 
