@@ -73,7 +73,37 @@ namespace DailyKanjiLogic.Helper
                 new TestBaseModel("wa", "わ", "ワ", KanaType.Gojuuon),
                 new TestBaseModel("wo", "を", "ヲ", KanaType.Gojuuon),
 
-                new TestBaseModel("n",  "ん", "ン", KanaType.Gojuuon)
+                new TestBaseModel("n",  "ん", "ン", KanaType.Gojuuon),
+
+                new TestBaseModel("ga",  "が", "ガ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("gi",  "ぎ", "ギ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("gu",  "ぐ", "グ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("ge",  "げ", "ゲ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("go",  "ご", "ゴ", KanaType.GojuuonWithDakuten),
+
+                new TestBaseModel("za",  "ざ", "ザ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("ji",  "じ", "ジ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("zu",  "ず", "ズ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("ze",  "ぜ", "ゼ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("zo",  "ぞ", "ゾ", KanaType.GojuuonWithDakuten),
+
+                new TestBaseModel("da",  "だ", "ダ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("ji",  "ぢ", "ヂ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("zu",  "づ", "ヅ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("de",  "で", "デ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("do",  "ど", "ド", KanaType.GojuuonWithDakuten),
+
+                new TestBaseModel("ba",  "ば", "バ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("bi",  "び", "ビ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("bu",  "ぶ", "ブ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("be",  "べ", "ベ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("bo",  "ぼ", "ボ", KanaType.GojuuonWithDakuten),
+
+                new TestBaseModel("pa",  "ぱ", "パ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("pi",  "ぴ", "ピ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("pu",  "ぷ", "プ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("pe",  "ぺ", "ペ", KanaType.GojuuonWithDakuten),
+                new TestBaseModel("po",  "ぽ", "ポ", KanaType.GojuuonWithDakuten)
             };
     }
 }
