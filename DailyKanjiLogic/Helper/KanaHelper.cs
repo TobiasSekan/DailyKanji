@@ -99,11 +99,11 @@ namespace DailyKanjiLogic.Helper
                 new TestBaseModel("be",  "べ", "ベ", KanaType.GojuuonWithDakuten),
                 new TestBaseModel("bo",  "ぼ", "ボ", KanaType.GojuuonWithDakuten),
 
-                new TestBaseModel("pa",  "ぱ", "パ", KanaType.GojuuonWithDakuten),
-                new TestBaseModel("pi",  "ぴ", "ピ", KanaType.GojuuonWithDakuten),
-                new TestBaseModel("pu",  "ぷ", "プ", KanaType.GojuuonWithDakuten),
-                new TestBaseModel("pe",  "ぺ", "ペ", KanaType.GojuuonWithDakuten),
-                new TestBaseModel("po",  "ぽ", "ポ", KanaType.GojuuonWithDakuten)
+                new TestBaseModel("pa",  "ぱ", "パ", KanaType.GojuuonWithHandakuten),
+                new TestBaseModel("pi",  "ぴ", "ピ", KanaType.GojuuonWithHandakuten),
+                new TestBaseModel("pu",  "ぷ", "プ", KanaType.GojuuonWithHandakuten),
+                new TestBaseModel("pe",  "ぺ", "ペ", KanaType.GojuuonWithHandakuten),
+                new TestBaseModel("po",  "ぽ", "ポ", KanaType.GojuuonWithHandakuten)
             };
     }
 }
