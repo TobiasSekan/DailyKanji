@@ -60,6 +60,7 @@
     <Compile Include="Helper\HeightToSmallFontSizeConverter.cs" />
     <Compile Include="Helper\HeightToFontSizeConverter.cs" />
     <Compile Include="Helper\OnlineResourceHelper.cs" />
+    <Compile Include="Helper\FlagValueToBooleanConverter.cs" />
     <Compile Include="Helper\ValueToBooleanConverter.cs" />
     <Page Include="Mvvm\View\InfoWindow.xaml">
       <SubType>Designer</SubType>

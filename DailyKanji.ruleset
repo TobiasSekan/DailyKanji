@@ -959,6 +959,7 @@
     <Rule Id="RCS1091" Action="Info" />
     <Rule Id="RCS1092" Action="Info" />
     <Rule Id="RCS1094" Action="Info" />
+    <Rule Id="RCS1096" Action="None" />
     <Rule Id="RCS1101" Action="Info" />
     <Rule Id="RCS1102" Action="Info" />
     <Rule Id="RCS1124" Action="Info" />

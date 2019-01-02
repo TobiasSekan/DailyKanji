@@ -246,40 +246,14 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// Indicate that test with Gojuuon will show
+        /// The kana types to test (flag enum value)
         /// </summary>
-        public bool ShowGojuuon
+        public KanaType SelectedKanaType
         {
-            get => _showGojuuon;
+            get => _selectedKanaType;
             set
             {
-                _showGojuuon = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Indicate that test with Gojuuon with dakuten will show
-        /// </summary>
-        public bool ShowGojuuonWithDakuten
-        {
-            get => _showGojuuonWithDakuten;
-            set
-            {
-                _showGojuuonWithDakuten = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Indicate that test with Gojuuon with handakuten will show
-        /// </summary>
-        public bool ShowGojuuonWithHandakuten
-        {
-            get => _showGojuuonWithHandakuten;
-            set
-            {
-                _showGojuuonWithHandakuten = value;
+                _selectedKanaType = value;
                 OnPropertyChanged();
             }
         }
@@ -698,19 +672,9 @@ namespace DailyKanjiLogic.Mvvm.Model
         private bool _useAnswerTimer;
 
         /// <summary>
-        /// Backing-field for <see cref="ShowGojuuon"/>
+        /// Backing-field for <see cref="SelectedKanaType"/>
         /// </summary>
-        private bool _showGojuuon;
-
-        /// <summary>
-        /// Backing-field for <see cref="ShowGojuuonWithDakuten"/>
-        /// </summary>
-        private bool _showGojuuonWithDakuten;
-
-        /// <summary>
-        /// Backing-field for <see cref="ShowGojuuonWithHandakuten"/>
-        /// </summary>
-        private bool _showGojuuonWithHandakuten;
+        private KanaType _selectedKanaType;
 
         #endregion Private Backing-Fields
 
@@ -731,9 +695,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             CheckForNewVersionOnStartUp = true;
             HighlightOnErrors           = true;
             UseAnswerTimer              = true;
-            ShowGojuuon                 = true;
-            ShowGojuuonWithDakuten      = true;
-            ShowGojuuonWithHandakuten   = true;
+            SelectedKanaType                = KanaType.Gojuuon | KanaType.GojuuonWithDakuten | KanaType.GojuuonWithHandakuten;
         }
 
         #endregion Public Constructors

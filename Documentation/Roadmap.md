@@ -1,8 +1,6 @@
 ﻿# Roadmap
 
 ## Version 1.0
-* Use flag enum member for selected kana type instead of separate boolean
-* Make it possible to activate only one kana type
 * Increase tooltip size (on wrong answers)
 * Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"

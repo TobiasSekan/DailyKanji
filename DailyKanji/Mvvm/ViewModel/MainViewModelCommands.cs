@@ -137,21 +137,32 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandChangeTestType
             => new CommandHelper(value
                 =>
-            {
-                if(!Enum.IsDefined(typeof(TestType), value))
                 {
-                    return;
-                }
+                    if(!Enum.IsDefined(typeof(TestType), value))
+                    {
+                        return;
+                    }
 
-                BaseModel.SelectedTestType = (TestType)value;
-                CreateNewTest();
-            });
+                    BaseModel.SelectedTestType = (TestType)value;
+                    CreateNewTest();
+                });
 
         /// <summary>
         /// <see cref="ICommand"/> for change kana type
         /// </summary>
         public ICommand CommandChangeKanaType
-            => new CommandHelper(CreateNewTest);
+            => new CommandHelper(value
+                =>
+                {
+                    if(!Enum.IsDefined(typeof(KanaType), value))
+                    {
+                        return;
+                    }
+
+                    BaseModel.SelectedKanaType ^= (KanaType)value;
+
+                    CreateNewTest();
+                });
 
         #endregion Commands - Tests Menu
 

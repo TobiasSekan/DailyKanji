@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
+        <helper:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
         <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
         <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -588,22 +589,30 @@
                 <MenuItem Header="_Kana type">
 
                     <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.Gojuuon}"
                               Header="Gojuuon"
                               IsCheckable="True"
-                              IsChecked="{Binding Path=BaseModel.ShowGojuuon}"
-                              IsEnabled="False"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.Gojuuon}}"
                               ToolTip="Monographs" />
 
                     <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.GojuuonWithDakuten}"
                               Header="Gojuuon with Dakuten"
                               IsCheckable="True"
-                              IsChecked="{Binding Path=BaseModel.ShowGojuuonWithDakuten}"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.GojuuonWithDakuten}}"
                               ToolTip="Monographs with two little strokes" />
 
                     <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.GojuuonWithHandakuten}"
                               Header="Gojuuon with Handakuten"
                               IsCheckable="True"
-                              IsChecked="{Binding Path=BaseModel.ShowGojuuonWithHandakuten}"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.GojuuonWithHandakuten}}"
                               ToolTip="Monographs with a little circle" />
 
                 </MenuItem>

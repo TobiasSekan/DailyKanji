@@ -21,10 +21,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Bug inside command helper, so predicate is not usable on commands
     // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
     // TODO: Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
+    // TODO: Fix crash on low and empty test pool (lower 10 entries)
 
     // Version 1.0
     // -----------
-    // TODO: Use flag enum member for selected kana type instead of separate boolean
     // TODO: Make it possible to activate only one kana type
     // TODO: Increase tooltip size (on wrong answers)
     // TODO: Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
