@@ -1,5 +1,8 @@
-﻿namespace DailyKanjiLogic.Enumerations
+﻿using System;
+
+namespace DailyKanjiLogic.Enumerations
 {
+    [Flags]
     public enum KanaType : byte
     {
         /// <summary>
@@ -20,16 +23,16 @@
         /// <summary>
         /// Digraphs
         /// </summary>
-        Yooon = 0x_03,
+        Yooon = 0x_04,
 
         /// <summary>
         /// Digraphs with two little strokes
         /// </summary>
-        YooonWithDakuten = 0x_04,
+        YooonWithDakuten = 0x_08,
 
         /// <summary>
         /// Digraphs with a little circle
         /// </summary>
-        YooonWithHandakuten = 0x_05,
+        YooonWithHandakuten = 0x_10,
     }
 }

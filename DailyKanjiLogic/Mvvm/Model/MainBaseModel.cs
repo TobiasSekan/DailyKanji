@@ -245,6 +245,45 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that test with Gojuuon will show
+        /// </summary>
+        public bool ShowGojuuon
+        {
+            get => _showGojuuon;
+            set
+            {
+                _showGojuuon = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate that test with Gojuuon with dakuten will show
+        /// </summary>
+        public bool ShowGojuuonWithDakuten
+        {
+            get => _showGojuuonWithDakuten;
+            set
+            {
+                _showGojuuonWithDakuten = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate that test with Gojuuon with handakuten will show
+        /// </summary>
+        public bool ShowGojuuonWithHandakuten
+        {
+            get => _showGojuuonWithHandakuten;
+            set
+            {
+                _showGojuuonWithHandakuten = value;
+                OnPropertyChanged();
+            }
+        }
+
         [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
@@ -658,6 +697,21 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _useAnswerTimer;
 
+        /// <summary>
+        /// Backing-field for <see cref="ShowGojuuon"/>
+        /// </summary>
+        private bool _showGojuuon;
+
+        /// <summary>
+        /// Backing-field for <see cref="ShowGojuuonWithDakuten"/>
+        /// </summary>
+        private bool _showGojuuonWithDakuten;
+
+        /// <summary>
+        /// Backing-field for <see cref="ShowGojuuonWithHandakuten"/>
+        /// </summary>
+        private bool _showGojuuonWithHandakuten;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -677,6 +731,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             CheckForNewVersionOnStartUp = true;
             HighlightOnErrors           = true;
             UseAnswerTimer              = true;
+            ShowGojuuon                 = true;
+            ShowGojuuonWithDakuten      = true;
+            ShowGojuuonWithHandakuten   = true;
         }
 
         #endregion Public Constructors

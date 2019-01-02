@@ -84,9 +84,28 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             foreach(var test in BaseModel.AllTestsList)
             {
-                for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
+                if(BaseModel.ShowGojuuon && test.Type == KanaType.Gojuuon)
                 {
-                    testPool.Add(test);
+                    for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
+                    {
+                        testPool.Add(test);
+                    }
+                }
+
+                if(BaseModel.ShowGojuuonWithDakuten && test.Type == KanaType.GojuuonWithDakuten)
+                {
+                    for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
+                    {
+                        testPool.Add(test);
+                    }
+                }
+
+                if(BaseModel.ShowGojuuonWithHandakuten && test.Type == KanaType.GojuuonWithHandakuten)
+                {
+                    for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
+                    {
+                        testPool.Add(test);
+                    }
                 }
             }
 

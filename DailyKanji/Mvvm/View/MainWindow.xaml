@@ -139,76 +139,6 @@
 
             <MenuItem Header="_Options">
 
-                <MenuItem Header="_Test type">
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}"
-                              Header="Hiragana or Katakana to Roomaji"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.HiraganaToRoomaji}"
-                              Header="Only Hiragana to Roomaji"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToRoomaji}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.KatakanaToRoomaji}"
-                              Header="Only Katakana to Roomaji"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.KatakanaToRoomaji}}" />
-
-                    <Separator />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}"
-                              Header="Roomaji to Hiragana or Katakana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiragana}"
-                              Header="Only Roomaji to Hiragana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToHiragana}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.RoomajiToKatakana}"
-                              Header="Only Roomaji to Katakana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToKatakana}}" />
-
-                    <Separator />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}"
-                              Header="Hiragana to Katakana or Katakana to Hiragana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakana}"
-                              Header="Only Hiragana to Katakana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakana}}" />
-
-                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
-                              CommandParameter="{x:Static enumerations:TestType.KatakanaToHiragana}"
-                              Header="Only Katakana to Hiragana"
-                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
-                                                  Converter={StaticResource ValueToBooleanConverter},
-                                                  ConverterParameter={x:Static enumerations:TestType.KatakanaToHiragana}}" />
-                </MenuItem>
-
                 <MenuItem Header="_Hint type">
 
                     <MenuItem Command="{Binding Path=CommandChangeHintType}"
@@ -575,6 +505,108 @@
                 <MenuItem Header="Check for new _version on start-up"
                           IsCheckable="True"
                           IsChecked="{Binding Path=BaseModel.CheckForNewVersionOnStartUp}" />
+
+            </MenuItem>
+
+            <MenuItem Header="_Tests">
+
+                <MenuItem Header="_Test type">
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}"
+                              Header="Hiragana or Katakana to Roomaji"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToRoomaji}"
+                              Header="Only Hiragana to Roomaji"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToRoomaji}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.KatakanaToRoomaji}"
+                              Header="Only Katakana to Roomaji"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.KatakanaToRoomaji}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}"
+                              Header="Roomaji to Hiragana or Katakana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiragana}"
+                              Header="Only Roomaji to Hiragana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToHiragana}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToKatakana}"
+                              Header="Only Roomaji to Katakana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.RoomajiToKatakana}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}"
+                              Header="Hiragana to Katakana or Katakana to Hiragana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakana}"
+                              Header="Only Hiragana to Katakana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakana}}" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.KatakanaToHiragana}"
+                              Header="Only Katakana to Hiragana"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType,
+                                                  Converter={StaticResource ValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:TestType.KatakanaToHiragana}}" />
+
+                    <Separator />
+
+                </MenuItem>
+
+                <Separator />
+
+                <MenuItem Header="_Kana type">
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              Header="Gojuuon"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.ShowGojuuon}"
+                              IsEnabled="False"
+                              ToolTip="Monographs" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              Header="Gojuuon with Dakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.ShowGojuuonWithDakuten}"
+                              ToolTip="Monographs with two little strokes" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              Header="Gojuuon with Handakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.ShowGojuuonWithHandakuten}"
+                              ToolTip="Monographs with a little circle" />
+
+                </MenuItem>
 
             </MenuItem>
 

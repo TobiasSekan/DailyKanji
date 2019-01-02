@@ -31,22 +31,6 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Settings Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for change test type (test direction)
-        /// </summary>
-        public ICommand CommandChangeTestType
-            => new CommandHelper(value
-                =>
-                {
-                    if(!Enum.IsDefined(typeof(TestType), value))
-                    {
-                        return;
-                    }
-
-                    BaseModel.SelectedTestType = (TestType)value;
-                    CreateNewTest();
-                });
-
-        /// <summary>
         /// <see cref="ICommand"/> for change hint type
         /// </summary>
         public ICommand CommandChangeHintType
@@ -145,6 +129,32 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #endregion Commands - Settings Menu
 
+        #region Commands - Tests Menu
+
+        /// <summary>
+        /// <see cref="ICommand"/> for change test type (test direction)
+        /// </summary>
+        public ICommand CommandChangeTestType
+            => new CommandHelper(value
+                =>
+            {
+                if(!Enum.IsDefined(typeof(TestType), value))
+                {
+                    return;
+                }
+
+                BaseModel.SelectedTestType = (TestType)value;
+                CreateNewTest();
+            });
+
+        /// <summary>
+        /// <see cref="ICommand"/> for change kana type
+        /// </summary>
+        public ICommand CommandChangeKanaType
+            => new CommandHelper(CreateNewTest);
+
+        #endregion Commands - Tests Menu
+
         #region Commands - Answer Menu
 
         /// <summary>
@@ -239,6 +249,6 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand OpenInfoWindow
             => new CommandHelper(() => new InfoWindow(this).Show());
 
-        #endregion Command - Help
+        #endregion Commands - Help
     }
 }
