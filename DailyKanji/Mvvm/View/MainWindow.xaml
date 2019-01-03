@@ -594,7 +594,7 @@
                               IsChecked="{Binding Path=BaseModel.SelectedKanaType,
                                                   Converter={StaticResource FlagValueToBooleanConverter},
                                                   ConverterParameter={x:Static enumerations:KanaType.Gojuuon}}"
-                              ToolTip="Monographs" />
+                              ToolTip="Monographs (46 Kana)" />
 
                     <MenuItem Command="{Binding Path=CommandChangeKanaType}"
                               CommandParameter="{x:Static enumerations:KanaType.GojuuonWithDakuten}"
@@ -603,7 +603,7 @@
                               IsChecked="{Binding Path=BaseModel.SelectedKanaType,
                                                   Converter={StaticResource FlagValueToBooleanConverter},
                                                   ConverterParameter={x:Static enumerations:KanaType.GojuuonWithDakuten}}"
-                              ToolTip="Monographs with two little strokes" />
+                              ToolTip="Monographs with two little strokes (20 Kana)" />
 
                     <MenuItem Command="{Binding Path=CommandChangeKanaType}"
                               CommandParameter="{x:Static enumerations:KanaType.GojuuonWithHandakuten}"
@@ -612,7 +612,34 @@
                               IsChecked="{Binding Path=BaseModel.SelectedKanaType,
                                                   Converter={StaticResource FlagValueToBooleanConverter},
                                                   ConverterParameter={x:Static enumerations:KanaType.GojuuonWithHandakuten}}"
-                              ToolTip="Monographs with a little circle" />
+                              ToolTip="Monographs with a little circle (5 Kana)" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.Yooon}"
+                              Header="Yooon"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.Yooon}}"
+                              ToolTip="Digraphs (21 Kana)" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.YooonWithDakuten}"
+                              Header="Yooon with Dakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.YooonWithDakuten}}"
+                              ToolTip="Digraphs with two little strokes (9 Kana)" />
+
+                    <MenuItem Command="{Binding Path=CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.YooonWithHandakuten}"
+                              Header="Yooon with Handakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding Path=BaseModel.SelectedKanaType,
+                                                  Converter={StaticResource FlagValueToBooleanConverter},
+                                                  ConverterParameter={x:Static enumerations:KanaType.YooonWithHandakuten}}"
+                              ToolTip="Digraphs with a little circle (3 Kana)" />
 
                 </MenuItem>
 
@@ -866,7 +893,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -884,7 +911,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -902,7 +929,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -920,7 +947,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -938,7 +965,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -956,7 +983,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -974,7 +1001,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -992,7 +1019,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -1010,7 +1037,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -1028,7 +1055,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
-                                              ConverterParameter=65,
+                                              ConverterParameter=50,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>

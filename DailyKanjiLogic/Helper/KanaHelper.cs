@@ -103,7 +103,51 @@ namespace DailyKanjiLogic.Helper
                 new TestBaseModel("pi",  "ぴ", "ピ", KanaType.GojuuonWithHandakuten),
                 new TestBaseModel("pu",  "ぷ", "プ", KanaType.GojuuonWithHandakuten),
                 new TestBaseModel("pe",  "ぺ", "ペ", KanaType.GojuuonWithHandakuten),
-                new TestBaseModel("po",  "ぽ", "ポ", KanaType.GojuuonWithHandakuten)
+                new TestBaseModel("po",  "ぽ", "ポ", KanaType.GojuuonWithHandakuten),
+
+                new TestBaseModel("kya", "きゃ", "キャ", KanaType.Yooon),
+                new TestBaseModel("kyu", "きゅ", "キュ", KanaType.Yooon),
+                new TestBaseModel("kyo", "きょ", "キョ", KanaType.Yooon),
+
+                new TestBaseModel("sha", "しゃ", "シャ", KanaType.Yooon),
+                new TestBaseModel("shu", "しゅ", "シュ", KanaType.Yooon),
+                new TestBaseModel("sho", "しょ", "ショ", KanaType.Yooon),
+
+                new TestBaseModel("cha", "ちゃ", "チャ", KanaType.Yooon),
+                new TestBaseModel("chu", "ちゅ", "チュ", KanaType.Yooon),
+                new TestBaseModel("cho", "ちょ", "チョ", KanaType.Yooon),
+
+                new TestBaseModel("nya", "にゃ", "ニャ", KanaType.Yooon),
+                new TestBaseModel("nyu", "にゅ", "ニュ", KanaType.Yooon),
+                new TestBaseModel("nyo", "にょ", "ニョ", KanaType.Yooon),
+
+                new TestBaseModel("hya", "ひゃ", "ヒャ", KanaType.Yooon),
+                new TestBaseModel("hyu", "ひゅ", "ヒュ", KanaType.Yooon),
+                new TestBaseModel("hyo", "ひょ", "ヒョ", KanaType.Yooon),
+
+                new TestBaseModel("mya", "みゃ", "ミャ", KanaType.Yooon),
+                new TestBaseModel("myu", "みゅ", "ミュ", KanaType.Yooon),
+                new TestBaseModel("myo", "みょ", "ミョ", KanaType.Yooon),
+
+                new TestBaseModel("rya", "りゃ", "リャ", KanaType.Yooon),
+                new TestBaseModel("ryu", "りゅ", "リュ", KanaType.Yooon),
+                new TestBaseModel("ryo", "りょ", "リョ", KanaType.Yooon),
+
+                new TestBaseModel("gya", "ぎゃ", "ギャ", KanaType.YooonWithDakuten),
+                new TestBaseModel("gyu", "ぎゅ", "ギュ", KanaType.YooonWithDakuten),
+                new TestBaseModel("gyo", "ぎょ", "ギョ", KanaType.YooonWithDakuten),
+
+                new TestBaseModel("ja",  "じゃ", "ジャ", KanaType.YooonWithDakuten),
+                new TestBaseModel("ju",  "じゅ", "ジュ", KanaType.YooonWithDakuten),
+                new TestBaseModel("jo",  "じょ", "ジョ", KanaType.YooonWithDakuten),
+
+                new TestBaseModel("bya", "びゃ", "ビャ", KanaType.YooonWithDakuten),
+                new TestBaseModel("byu", "びゅ", "ビュ", KanaType.YooonWithDakuten),
+                new TestBaseModel("byo", "びょ", "ビョ", KanaType.YooonWithDakuten),
+
+                new TestBaseModel("pya", "ぴゃ", "ピャ", KanaType.YooonWithHandakuten),
+                new TestBaseModel("pyu", "ぴゅ", "ピュ", KanaType.YooonWithHandakuten),
+                new TestBaseModel("pyo", "ぴょ", "ピョ", KanaType.YooonWithHandakuten)
             };
     }
 }

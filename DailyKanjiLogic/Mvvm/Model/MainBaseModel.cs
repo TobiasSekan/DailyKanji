@@ -685,17 +685,24 @@ namespace DailyKanjiLogic.Mvvm.Model
             MaximumAnswerTimeout        = 10_000;
             ErrorTimeout                = 3_000;
             MaximumAnswers              = 7;
+
             SelectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
             SelectedHintType            = HintType.BasedOnAskSign;
+            SelectedKanaType            = KanaType.Gojuuon
+                                        | KanaType.GojuuonWithDakuten
+                                        | KanaType.GojuuonWithHandakuten
+                                        | KanaType.Yooon
+                                        | KanaType.YooonWithDakuten
+                                        | KanaType.YooonWithHandakuten;
+
+            ShowStatistics              = false;
             ShowHints                   = true;
             ShowAnswerShortcuts         = true;
             ShowRunningAnswerTimer      = true;
-            ShowStatistics              = false;
             SimilarAnswers              = true;
             CheckForNewVersionOnStartUp = true;
             HighlightOnErrors           = true;
             UseAnswerTimer              = true;
-            SelectedKanaType                = KanaType.Gojuuon | KanaType.GojuuonWithDakuten | KanaType.GojuuonWithHandakuten;
         }
 
         #endregion Public Constructors
