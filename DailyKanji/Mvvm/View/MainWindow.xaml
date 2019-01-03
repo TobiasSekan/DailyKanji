@@ -16,7 +16,6 @@
         <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <helper:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
-        <helper:HeightToSmallFontSizeConverter x:Key="HeightToSmallFontSizeConverter" />
     </Window.Resources>
 
     <Window.InputBindings>
@@ -699,6 +698,7 @@
                 <TextBlock Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}"
                            Text="{Binding Path=BaseModel.CurrentAskSign}"
                            TextAlignment="Center" />
@@ -748,7 +748,8 @@
                        Grid.Column="0"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[0],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -758,7 +759,8 @@
                        Grid.Column="1"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[1],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -768,7 +770,8 @@
                        Grid.Column="2"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[2],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -778,7 +781,8 @@
                        Grid.Column="3"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[3],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -788,7 +792,8 @@
                        Grid.Column="4"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[4],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -798,7 +803,8 @@
                        Grid.Column="5"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[5],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -808,7 +814,8 @@
                        Grid.Column="6"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[6],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -818,7 +825,8 @@
                        Grid.Column="7"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[7],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -828,7 +836,8 @@
                        Grid.Column="8"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[8],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -838,7 +847,8 @@
                        Grid.Column="9"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=40,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        Foreground="{Binding Path=BaseModel.HintTextColor[9],
                                             Converter={StaticResource ColorStringToBrushConverter}}"
                        TextAlignment="Center" />
@@ -856,6 +866,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -873,6 +884,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -890,6 +902,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -907,6 +920,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -924,6 +938,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -941,6 +956,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -958,6 +974,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -975,6 +992,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -992,6 +1010,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -1009,6 +1028,7 @@
                            Padding="0,0,0,10"
                            FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button},
                                               Path=ActualWidth,
+                                              ConverterParameter=65,
                                               Converter={StaticResource HeightToFontSizeConverter}}" />
 
             </Button>
@@ -1018,7 +1038,8 @@
                        Grid.Column="0"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey02"
@@ -1026,7 +1047,8 @@
                        Grid.Column="1"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey03"
@@ -1034,7 +1056,8 @@
                        Grid.Column="2"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey04"
@@ -1042,7 +1065,8 @@
                        Grid.Column="3"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey05"
@@ -1050,7 +1074,8 @@
                        Grid.Column="4"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey06"
@@ -1058,7 +1083,8 @@
                        Grid.Column="5"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey07"
@@ -1066,7 +1092,8 @@
                        Grid.Column="6"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey08"
@@ -1074,7 +1101,8 @@
                        Grid.Column="7"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey09"
@@ -1082,7 +1110,8 @@
                        Grid.Column="8"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey10"
@@ -1090,7 +1119,8 @@
                        Grid.Column="9"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
-                                          Converter={StaticResource HeightToSmallFontSizeConverter}}"
+                                          ConverterParameter=15,
+                                          Converter={StaticResource HeightToFontSizeConverter}}"
                        TextAlignment="Center" />
 
         </Grid>

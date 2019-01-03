@@ -26,7 +26,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // Version 1.0
     // -----------
     // TODO: Make it possible to activate only one kana type
-    // TODO: Increase tooltip size (on wrong answers)
     // TODO: Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -68,24 +67,45 @@ namespace DailyKanji.Mvvm.ViewModel
     {
         #region Private Properties
 
+        /// <summary>
+        /// The name of the settings file (this file contains all settings and statistics)
+        /// </summary>
         private string _settingFileName
             => "settings.json";
 
+        /// <summary>
+        /// The colour string for the progress bar
+        /// </summary>
         private string _progressBarColor
             => Colors.LightBlue.ToString();
 
+        /// <summary>
+        /// The colour string for the error highlight
+        /// </summary>
         private string _errorColor
             => Colors.LightCoral.ToString();
 
+        /// <summary>
+        /// The colour string for the correct answer (on error highlight)
+        /// </summary>
         private string _correctColor
             => Colors.LightGreen.ToString();
 
+        /// <summary>
+        /// The colour string for invisible text and elements
+        /// </summary>
         private string _transparentColor
             => Colors.Transparent.ToString();
 
+        /// <summary>
+        /// The colour string for the answer hints (on error highlight)
+        /// </summary>
         private string _hintColor
             => Colors.Black.ToString();
 
+        /// <summary>
+        /// The main viewable window of this application
+        /// </summary>
         private MainWindow _mainWindow { get; }
 
         #endregion Private Properties

@@ -20,7 +20,9 @@ namespace DailyKanji.Helper
             var assemblyVersionLine   = webDataSplit?.FirstOrDefault(found => found?.StartsWith("[assembly: AssemblyVersion") == true);
             var assemblyVersionString = assemblyVersionLine?.Split('"').ElementAtOrDefault(1);
 
-            return new Version(assemblyVersionString);
+            return string.IsNullOrWhiteSpace(assemblyVersionString)
+                    ? new Version()
+                    : new Version(assemblyVersionString);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿# Roadmap
 
 ## Version 1.0
-* Increase tooltip size (on wrong answers)
 * Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

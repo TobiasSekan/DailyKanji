@@ -8,13 +8,9 @@ namespace DailyKanji.Helper
     public class ColorStringToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var colorValue = value as string;
-
-            return string.IsNullOrWhiteSpace(colorValue)
-                ? new SolidColorBrush(Colors.Transparent)
-                : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorValue));
-        }
+            => value is string colorValue && !string.IsNullOrWhiteSpace(colorValue)
+                ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorValue))
+                : new SolidColorBrush(Colors.Transparent);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => null;

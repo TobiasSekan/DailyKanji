@@ -57,7 +57,6 @@
     </ApplicationDefinition>
     <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ColorStringToBrushConverter.cs" />
-    <Compile Include="Helper\HeightToSmallFontSizeConverter.cs" />
     <Compile Include="Helper\HeightToFontSizeConverter.cs" />
     <Compile Include="Helper\OnlineResourceHelper.cs" />
     <Compile Include="Helper\FlagValueToBooleanConverter.cs" />
