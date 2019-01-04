@@ -56,7 +56,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             }
 
             BuildTestPool();
-            ChooseNewSign(GetRandomTest());
+            ChooseNewSign(GetRandomKanaTest());
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             {
                 while(newTest?.Roomaji == BaseModel.CurrentTest.Roomaji)
                 {
-                    newTest = GetRandomTest();
+                    newTest = GetRandomKanaTest();
                 }
             }
 
@@ -148,15 +148,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Return a new random test
+        /// Return a random kana test
         /// </summary>
-        /// <param name="onlyOneRoomajiCharacter">(Optional) Indicate that only a test that have a roomaji character with length one will return</param>
-        /// <returns>A test</returns>
-        public TestBaseModel GetRandomTest(in bool onlyOneRoomajiCharacter = false)
-            => onlyOneRoomajiCharacter
-                ? BaseModel.TestPool.Where(found => found.Roomaji.Length == 1)
-                                    .ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count))
-                : BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+        /// <returns>A kana test</returns>
+        public TestBaseModel GetRandomKanaTest()
+            => BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
 
         /// <summary>
         /// Choose new possible answers for the current ask sign
@@ -175,15 +171,12 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             while(list.Count < BaseModel.MaximumAnswers)
             {
-                var possibleAnswer = GetRandomTest(onlyOneRoomajiCharacter: tryAddCount > 20);
-                if(possibleAnswer == null)
-                {
-                    // TODO: investigate why "possibleAnswer" can be null
-                    continue;
-                }
+                var possibleAnswer = GetRandomKanaTest();
+                Debug.Assert(possibleAnswer != null, "Random kana test is null");
 
-                if(list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
+                if(tryAddCount < 50 && list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
                 {
+                    tryAddCount++;
                     continue;
                 }
 

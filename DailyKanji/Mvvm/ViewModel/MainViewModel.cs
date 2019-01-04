@@ -18,15 +18,13 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // BUG
     // ---
-    // TODO: Bug inside command helper, so predicate is not usable on commands
-    // TODO: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-    // TODO: Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
-    // TODO: Fix crash on low and empty test pool (lower 10 entries)
+    // HIGH: Fix crash on empty test pool (no kana test selected)
+    // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+    // Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
+    // LOW: Bug inside command helper, so predicate is not usable on commands
 
     // Version 1.0
     // -----------
-    // TODO: Make it possible to activate only one kana type
-    // TODO: Add test for sign with Yooon, Yooon with Dakuten and Yooon with Handakuten
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -199,7 +197,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             OrderAllTests();
             BuildTestPool();
-            ChooseNewSign(GetRandomTest());
+            ChooseNewSign(GetRandomKanaTest());
             ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
             StartTestTimer();
