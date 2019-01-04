@@ -161,6 +161,18 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     BaseModel.SelectedKanaType ^= (KanaType)value;
 
+                    if(BaseModel.SelectedKanaType == KanaType.None)
+                    {
+                        Model.TestTimer.Stop();
+
+                        BaseModel.SelectedKanaType = (KanaType)value;
+
+                        MessageBox.Show("At least one Kana type must be selected.",
+                                        "Daily Kanji - Information",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+                    }
+
                     CreateNewTest();
                 });
 
