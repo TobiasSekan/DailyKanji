@@ -4,8 +4,8 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <LangVersion>7.3</LangVersion>
     <CodeAnalysisRuleSet>../DailyKanji.ruleset</CodeAnalysisRuleSet>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

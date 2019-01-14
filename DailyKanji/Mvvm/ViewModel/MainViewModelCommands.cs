@@ -17,14 +17,14 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
-            => new CommandHelper(() => _mainWindow.Close());
+            => new CommandHelper((_) => _mainWindow.Close());
 
         #endregion Commands - File Menu
 
         #region Commands - View Menu
 
         public ICommand CommandOpenSignStatistics
-            => new CommandHelper(() => new StatisticsWindow(this).Show());
+            => new CommandHelper((_) => new StatisticsWindow(this).Show());
 
         #endregion Commands - View Menu
 
@@ -104,7 +104,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for change the answer mode
         /// </summary>
         public ICommand CommandBuildNewAnswers
-            => new CommandHelper(()
+            => new CommandHelper((_)
                 =>
                 {
                     ChooseNewPossibleAnswers();
@@ -112,7 +112,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         public ICommand CommandUseAnswerTimer
-            => new CommandHelper(()
+            => new CommandHelper((_)
                 =>
                 {
                     BaseModel.ShowRunningAnswerTimer = BaseModel.UseAnswerTimer;
@@ -241,7 +241,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for go to previous test
         /// </summary>
         public ICommand CommandPreviousTest
-            => new CommandHelper(() =>
+            => new CommandHelper((_) =>
             {
                 if(BaseModel.PreviousTest == null)
                 {
@@ -263,14 +263,14 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for go to next test
         /// </summary>
         public ICommand CommandNextTest
-            => new CommandHelper(() => CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.Gojuuon)));
+            => new CommandHelper((_) => CheckSelectedAnswer(new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.Gojuuon)));
 
         #endregion Commands - Navigation
 
         #region Commands - Help
 
         public ICommand OpenInfoWindow
-            => new CommandHelper(() => new InfoWindow(this).Show());
+            => new CommandHelper((_) => new InfoWindow(this).Show());
 
         #endregion Commands - Help
     }

@@ -20,7 +20,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
     // Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
-    // LOW: Bug inside command helper, so predicate is not usable on commands
 
     // Version 1.0
     // -----------
