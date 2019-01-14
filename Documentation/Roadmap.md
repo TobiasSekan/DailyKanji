@@ -1,6 +1,6 @@
 ﻿# Roadmap
 
-## Version 1.0
+## Version 1.x
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
@@ -12,14 +12,14 @@
 * Add more menu underscores (for menu keyboard navigation)
 * Make refresh interval for timer changeable via menu
 
-## Versions 2.0
+## Versions 2.x
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Add German language and language selector in menu
 * Add tooltips for each menu entries
 * Make colours choose-able
 * Export statistics (CSV, JSON, XML)
 
-## Version 3.0
+## Version 3.x
 * Start with integration of Kanji tests
 
 ## Ideas

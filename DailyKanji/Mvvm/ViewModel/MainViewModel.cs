@@ -20,8 +20,9 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
     // Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
+    // Add missing unhighlight of go to previous test, when not possible (menu and button)
 
-    // Version 1.0
+    // Version 1.x
     // -----------
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -37,7 +38,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add more menu underscores (for menu keyboard navigation)
     // TODO: Make refresh interval for timer changeable via menu
 
-    // Version 2.0
+    // Version 2.x
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Add German language and language selector in menu
@@ -45,7 +46,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Make colours choose-able
     // TODO: Export statistics (CSV, JSON, XML)
 
-    // Version 3.0
+    // Version 3.x
     // -----------
     // TODO: Start with integration of Kanji tests
 
