@@ -17,14 +17,14 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <see cref="ICommand"/> for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
-            => new CommandHelperSlim(_mainWindow.Close);
+            => new CommandHelperSlim(() => _mainWindow.Close());
 
         #endregion Commands - File Menu
 
         #region Commands - View Menu
 
         public ICommand CommandOpenSignStatistics
-            => new CommandHelperSlim(new StatisticsWindow(this).Show);
+            => new CommandHelperSlim(() => new StatisticsWindow(this).Show());
 
         #endregion Commands - View Menu
 
@@ -270,7 +270,7 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Help
 
         public ICommand OpenInfoWindow
-            => new CommandHelperSlim(new InfoWindow(this).Show);
+            => new CommandHelperSlim(() => new InfoWindow(this).Show());
 
         #endregion Commands - Help
     }
