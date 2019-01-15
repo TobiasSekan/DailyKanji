@@ -303,7 +303,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Count the result of a test, based on the given answer and the selected <see cref="TestType"/>
         /// </summary>
         /// <param name="answer">The answer of a test</param>
-        /// <param name="answerList">A list with all answers</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {

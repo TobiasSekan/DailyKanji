@@ -40,14 +40,14 @@ namespace DailyKanjiLogic.Helper
         #region ICommand Implementation
 
         /// <summary>
-        /// Execute the <see cref="Action{T}"/> with the given parameter
+        /// Execute the <see cref="Action{object}"/> with the given parameter
         /// </summary>
         /// <param name="parameter">The parameter for the action</param>
         public void Execute(object parameter)
             => _action?.Invoke(parameter);
 
         /// <summary>
-        /// Return if the action can perform, based on the <see cref="Predicate{T}"/> of this <see cref="Action{T}"/> and the given parameter
+        /// Return if the action can perform, based on the <see cref="Predicate{object}"/> of this <see cref="Action{object}"/> and the given parameter
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns><c>true</c> if command is usable, otherwise <c>false</c></returns>

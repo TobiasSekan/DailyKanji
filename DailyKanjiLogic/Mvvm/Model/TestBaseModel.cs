@@ -7,6 +7,16 @@ namespace DailyKanjiLogic.Mvvm.Model
 {
     public sealed class TestBaseModel : PropertyChangedHelper, IEquatable<TestBaseModel>, IFormattable
     {
+        #region Public Static Properties
+
+        /// <summary>
+        /// A empty test
+        /// </summary>
+        public static TestBaseModel EmptyTest
+            => new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.None);
+
+        #endregion Public Static Properties
+
         #region Public Properties
 
         /// <summary>
@@ -225,6 +235,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="roomaji">The sign in Roomaji</param>
         /// <param name="hiragana">The sign in Hiragana</param>
         /// <param name="katakana">The sign in Katakana</param>
+        /// <param name="type">The type of the sign</param>
         public TestBaseModel(string roomaji, string hiragana, string katakana, KanaType type)
         {
             // use of 'in' modifier will crash JSON serialisation
