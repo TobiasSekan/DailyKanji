@@ -13,7 +13,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
     {
         #region Public Properties
 
-        public MainBaseModel BaseModel { get; set; }
+        /// <summary>
+        /// Data model that contain all static and changeable runtime data of the program logic
+        /// </summary>
+        public MainBaseModel BaseModel { get; private set; }
 
         #endregion Public Properties
 
@@ -89,7 +92,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     continue;
                 }
 
-                for(var repeatCount = 0; repeatCount <= test.WrongnessCounter; repeatCount++)
+                var repeatCounter = test.WrongnessCounter * 10;
+
+                for(var count = 0; count <= repeatCounter; count++)
                 {
                     testPool.Add(test);
                 }
