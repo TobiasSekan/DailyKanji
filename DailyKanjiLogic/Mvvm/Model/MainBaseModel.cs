@@ -543,7 +543,15 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The previous tests
         /// </summary>
         [JsonIgnore]
-        public TestBaseModel PreviousTest { get; set; }
+        public TestBaseModel PreviousTest
+        {
+            get => _previousTest;
+            set
+            {
+                _previousTest = value;
+                OnPropertyChanged(nameof(CanGoToLastTest));
+            }
+        }
 
         /// <summary>
         /// Return the version and the target framework of this library
@@ -675,6 +683,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="SelectedKanaType"/>
         /// </summary>
         private KanaType _selectedKanaType;
+
+        /// <summary>
+        /// Backing-field for <see cref="PreviousTest"/>
+        /// </summary>
+        private TestBaseModel _previousTest;
 
         #endregion Private Backing-Fields
 
