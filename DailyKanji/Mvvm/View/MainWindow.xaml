@@ -735,6 +735,7 @@
                                               Converter={StaticResource HeightToFontSizeConverter}}"
                            Text="{Binding Path=BaseModel.CurrentAskSign}"
                            TextAlignment="Center" />
+
             </StackPanel>
 
             <StackPanel Grid.Column="3" Margin="10">

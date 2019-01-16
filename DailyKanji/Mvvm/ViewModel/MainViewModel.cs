@@ -18,7 +18,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-    // Fix size problem with less then four answers (option: 3 answers, option: 2 answers)
+
 
     // Version 1.x
     // -----------

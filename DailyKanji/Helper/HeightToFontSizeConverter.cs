@@ -36,7 +36,7 @@ namespace DailyKanji.Helper
                 return 1;
             }
 
-            return newFontSize;
+            return newFontSize > 100 ? 100 : (object)newFontSize;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
