@@ -4,10 +4,12 @@ using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
+using SharpDX.DirectInput;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +20,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-
 
     // Version 1.x
     // -----------
@@ -115,6 +116,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
+            //GamepadTest();
+
             if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
@@ -343,6 +346,94 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
+        }
+
+        private void GamepadTest()
+        {
+            var directInput = new DirectInput();
+
+            var gamepad = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).FirstOrDefault();
+            if(gamepad == null)
+            {
+                Debug.WriteLine("No gamepad found");
+                return;
+            }
+
+            Debug.WriteLine("Found gamepad");
+            Debug.WriteLine($"Instance: {gamepad.InstanceGuid} - {gamepad.InstanceName}");
+            Debug.WriteLine($" Product: {gamepad.ProductGuid} - {gamepad.ProductName}");
+            Debug.WriteLine($" Type: {gamepad.Type} - {gamepad.Subtype}");
+            Debug.WriteLine($" Usage: {gamepad.Usage} - {gamepad.UsagePage}");
+
+            var joystick = new Joystick(directInput, gamepad.InstanceGuid);
+            joystick.Acquire();
+
+            Task.Run(() =>
+            {
+                bool button1;
+                bool button2;
+                bool button3;
+                bool button4;
+                bool button5;
+                bool button6;
+                bool button7;
+                bool button8;
+
+                var button1Last = false;
+                var button2Last = false;
+                var button3Last = false;
+                var button4Last = false;
+                var button5Last = false;
+                var button6Last = false;
+                var button7Last = false;
+                var button8Last = false;
+
+                while(true)
+                {
+                    System.Threading.Thread.Sleep(200);
+
+                    var joystickState = joystick.GetCurrentState();
+
+                    button1 = joystickState.Buttons.ElementAtOrDefault(0);
+                    button2 = joystickState.Buttons.ElementAtOrDefault(1);
+                    button3 = joystickState.Buttons.ElementAtOrDefault(2);
+                    button4 = joystickState.Buttons.ElementAtOrDefault(3);
+                    button5 = joystickState.Buttons.ElementAtOrDefault(4);
+                    button6 = joystickState.Buttons.ElementAtOrDefault(5);
+                    button7 = joystickState.Buttons.ElementAtOrDefault(6);
+                    button8 = joystickState.Buttons.ElementAtOrDefault(7);
+
+                    if(button1 == button1Last
+                    && button2 == button2Last
+                    && button3 == button3Last
+                    && button4 == button4Last
+                    && button5 == button5Last
+                    && button6 == button6Last
+                    && button7 == button7Last
+                    && button8 == button8Last)
+                    {
+                        continue;
+                    }
+
+                    button1Last = button1;
+                    button2Last = button2;
+                    button3Last = button3;
+                    button4Last = button4;
+                    button5Last = button5;
+                    button6Last = button6;
+                    button7Last = button7;
+                    button8Last = button8;
+
+                    Debug.WriteLine($"Button 1: {button1}");
+                    Debug.WriteLine($"Button 2: {button2}");
+                    Debug.WriteLine($"Button 3: {button3}");
+                    Debug.WriteLine($"Button 4: {button4}");
+                    Debug.WriteLine($"Button 5: {button5}");
+                    Debug.WriteLine($"Button 6: {button6}");
+                    Debug.WriteLine($"Button 7: {button7}");
+                    Debug.WriteLine($"Button 8: {button8}");
+                }
+            });
         }
 
         #endregion Internal Methods
