@@ -247,8 +247,11 @@ namespace DailyKanji.Mvvm.ViewModel
                 =>
                 {
                     Model.TestTimer.Stop();
-                    new InfoWindow(this).Show();
-                    StartTestTimer();
+
+                    var infoWindow = new InfoWindow(this);
+
+                    infoWindow.Closed += (_, __) => StartTestTimer();
+                    infoWindow.Show();
                 });
 
         #endregion Commands - Help

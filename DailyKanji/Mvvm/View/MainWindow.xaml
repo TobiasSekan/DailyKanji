@@ -689,7 +689,9 @@
 
             <MenuItem Header="_Help">
 
-                <MenuItem Command="{Binding Path=CommandShowInfoWindow}" Header="_Info" />
+                <MenuItem Command="{Binding Path=CommandShowInfoWindow}"
+                          Header="_Info"
+                          InputGestureText="F1" />
 
             </MenuItem>
 
