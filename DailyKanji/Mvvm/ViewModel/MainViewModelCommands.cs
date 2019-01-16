@@ -14,7 +14,7 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - File Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for close the program (same as ALT+F4)
+        /// Command for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
             => new CommandHelperSlim(() => _mainWindow.Close());
@@ -23,7 +23,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #region Commands - View Menu
 
-        public ICommand CommandOpenSignStatistics
+        /// <summary>
+        /// Command for show the sign statistic
+        /// </summary>
+        public ICommand CommandShowSignStatistics
             => new CommandHelperSlim(() => new StatisticsWindow(this).Show());
 
         #endregion Commands - View Menu
@@ -31,7 +34,7 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Settings Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for change hint type
+        /// Command for change hint type
         /// </summary>
         public ICommand CommandChangeHintType
             => new CommandHelper(value
@@ -47,7 +50,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// <see cref="ICommand"/> for change the error timeout
+        /// Command for change the error timeout
         /// </summary>
         public ICommand CommandChangeErrorTimeout
             => new CommandHelper(value
@@ -62,8 +65,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// <see cref="ICommand"/> for change the answer count
-        /// (answer button and answer menu entries)
+        /// Command for change the answer count (answer button and answer menu entries)
         /// </summary>
         public ICommand CommandChangeAnswerCount
             => new CommandHelper(value
@@ -81,7 +83,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// <see cref="ICommand"/> for change the maximum (running) answer timeout
+        /// Command for change the maximum (running) answer timeout
         /// </summary>
         public ICommand CommandChangeMaximumAswerTimeout
             => new CommandHelper(value
@@ -101,7 +103,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// <see cref="ICommand"/> for change the answer mode
+        /// Command for change the answer mode
         /// </summary>
         public ICommand CommandBuildNewAnswers
             => new CommandHelperSlim(()
@@ -132,7 +134,7 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Tests Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for change test type (test direction)
+        /// Command for change test type (test direction)
         /// </summary>
         public ICommand CommandChangeTestType
             => new CommandHelper(value
@@ -148,7 +150,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// <see cref="ICommand"/> for change kana type
+        /// Command for change kana type
         /// </summary>
         public ICommand CommandChangeKanaType
             => new CommandHelper(value
@@ -181,13 +183,13 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Answer Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for select a answer by a <see cref="TestBaseModel"/> object
+        /// Command for select a answer by a <see cref="TestBaseModel"/> object
         /// </summary>
         public ICommand CommandAnswerTest
             => new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel));
 
         /// <summary>
-        /// <see cref="ICommand"/> for select a answer by a number value
+        /// Command for select a answer by a number value
         /// </summary>
         public ICommand CommandAnswerTestNumber
             => new CommandHelper(value
@@ -206,7 +208,7 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Statistics Menu
 
         /// <summary>
-        /// <see cref="ICommand"/> for reset the statistic
+        /// Command for reset the statistic
         /// </summary>
         public ICommand CommandRestStatistic
             => new CommandHelper(value
@@ -235,10 +237,26 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #endregion Commands - Statistics Menu
 
+        #region Commands - Help
+
+        /// <summary>
+        /// Command for show info window
+        /// </summary>
+        public ICommand CommandShowInfoWindow
+            => new CommandHelperSlim(()
+                =>
+                {
+                    Model.TestTimer.Stop();
+                    new InfoWindow(this).Show();
+                    StartTestTimer();
+                });
+
+        #endregion Commands - Help
+
         #region Commands - Navigation
 
         /// <summary>
-        /// <see cref="ICommand"/> for go to previous test
+        /// Command for go to previous test
         /// </summary>
         public ICommand CommandPreviousTest
             => new CommandHelperSlim(() =>
@@ -260,18 +278,11 @@ namespace DailyKanji.Mvvm.ViewModel
             });
 
         /// <summary>
-        /// <see cref="ICommand"/> for go to next test
+        /// Command for go to next test
         /// </summary>
         public ICommand CommandNextTest
             => new CommandHelperSlim(() => CheckSelectedAnswer(TestBaseModel.EmptyTest));
 
         #endregion Commands - Navigation
-
-        #region Commands - Help
-
-        public ICommand OpenInfoWindow
-            => new CommandHelperSlim(() => new InfoWindow(this).Show());
-
-        #endregion Commands - Help
     }
 }

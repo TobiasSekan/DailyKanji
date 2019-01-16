@@ -63,6 +63,10 @@
                     Command="{Binding CommandAnswerTestNumber}"
                     CommandParameter="10" />
 
+        <KeyBinding Key="F1"
+                    Command="{Binding CommandShowInfoWindow}"
+                    CommandParameter="10" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -133,7 +137,7 @@
 
                 <Separator />
 
-                <MenuItem Command="{Binding Path=CommandOpenSignStatistics}" Header="Show sign _statistics " />
+                <MenuItem Command="{Binding Path=CommandShowSignStatistics}" Header="Show sign _statistics " />
 
             </MenuItem>
 
@@ -685,7 +689,7 @@
 
             <MenuItem Header="_Help">
 
-                <MenuItem Command="{Binding Path=OpenInfoWindow}" Header="_Info" />
+                <MenuItem Command="{Binding Path=CommandShowInfoWindow}" Header="_Info" />
 
             </MenuItem>
 
