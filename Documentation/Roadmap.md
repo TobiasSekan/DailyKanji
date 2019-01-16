@@ -1,6 +1,7 @@
 ﻿# Roadmap
 
 ## Version 1.x
+* Gamepad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
@@ -25,7 +26,6 @@
 ## Ideas
 * Export statistics (XLSX)
 * Import statistics (XLSX, CSV, JSON, XML)
-* Gamepad support
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)
 * Auto update program
