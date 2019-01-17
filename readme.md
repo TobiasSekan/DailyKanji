@@ -12,18 +12,19 @@
   * Hiragana or Katakana to Roomaji, Only Hiragana to Roomaji, Only Katakana to Roomaji
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Hiragana to Katakana or Katakana to Hiragana, Only Hiragana to Katakana, Only Katakana to Hiragana
-* Test can be answered via left mouse click, number key and menu
+* 6 Kana types
+  * Gojuuon, Gojuuon with dakuten, Gojuuon with handakuten
+  * Yooon, Yooon with dakuten, Yooon with handakuten
+* Test can be answered via left mouse click, number key, menu entry or gamepad buttons
 * Switch to previous test or next test
 * Running answer timer, when time is over the test is automatically answered wrong
 * Highlight wrong and correct answers, when answer was wrong 
 * Show hint of all possible answers, when answer was wrong (can be hide and change via menu)
-* Count answer times (separates counter for Hiragana and Katakana)
+* Wrong answered tests will be ask more often
 * Can show only similar answers
-* Changeable answer count (from two answers up to ten answers)
-* Changeable answer time (from one seconds up to fifteen seconds)
-* Changeable error time (from one point five seconds to ten seconds)
-* Statistics can individual reset via menu
-* Automatically load and save test statistics and settings
+* Changeable answer count, answer time, error highlight, error highlight time, ...
+* Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
+* Separate window for statistics, statistics can individual reset via menu
 
 ## Pictures (under Windows 10)
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
@@ -45,10 +46,17 @@ see [Roadmap](Documentation/Roadmap.md)
 * [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137) (include .Net Standard 1.3)
 * [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
+* [XAML Styler (Visual Studio Extension)](https://github.com/Xavalon/XamlStyler/) for styling XAML files
 * C# 7.3
 
-## Project overview
-| Project         | Used framework     | Operating system   |
-| --------------- | ------------------ | ------------------ |
-| DailyKanji      | .Net Framework 4.6 | Windows            |
-| DailyKanjiLogic | .Net Standard 1.3  | *function library* |
+## Project structure
+| Project         | Used framework     | Operating system             |
+| --------------- | ------------------ | ---------------------------- |
+| DailyKanji      | .Net Framework 4.6 | Windows                      |
+| DailyKanjiLogic | .Net Standard 1.3  | Operating system independent |
+
+## Used NuGet packages
+| Package             | Reason                          |
+| ------------------- | ------------------------------- |
+| Newtonsoft.Json     | Load and Write JSON files       |
+| SharpDX.DirectInput | Gamepad support via DirectInput |
