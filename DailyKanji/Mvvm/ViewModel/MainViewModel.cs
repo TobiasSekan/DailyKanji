@@ -4,7 +4,6 @@ using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
-using SharpDX.DirectInput;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -348,29 +347,19 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             // TODO:
             // - Add "joystick.Unacquire();" on program close
-            // - Move gamepad logic and nuget package to DailyKanjiLogic project
-            // - Refresh "maxButtonCount" aon answer change
+            // - Move more gamepad logic to DailyKanjiLogic project
+            // - Refresh "maxButtonCount" on answer change
             // - Check for disconnected joystick/gamepad
             // - Show button names as hints, when gamepad is connected
             // - Show joystick state and button count inside the status bar
-            // - Update Readme.md
 
-            var directInput = new DirectInput();
-
-            var gamepad = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).FirstOrDefault();
+            var gamepad = DirectInputHelper.GetFirstGamepad();
             if(gamepad == null)
             {
-                Debug.WriteLine("No gamepad found");
                 return;
             }
 
-            var joystick = new Joystick(directInput, gamepad.InstanceGuid);
-
-            Debug.WriteLine($"Found gamepad - with {joystick.Capabilities.ButtonCount} buttons");
-
-            joystick.Acquire();
-
-            var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, joystick.Capabilities.ButtonCount);
+            var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
             var manualResetEvent = new ManualResetEvent(false);
 
             Task.Run(() =>
@@ -379,15 +368,15 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     manualResetEvent.WaitOne(100);
 
-                    var joystickState = joystick?.GetCurrentState();
-                    if(joystickState == null)
+                    var gamepadButtonState = gamepad?.GetCurrentState();
+                    if(gamepadButtonState == null)
                     {
                         continue;
                     }
 
                     for(var button = 0; button < maxButtonCount; button++)
                     {
-                        if(!joystickState.Buttons.ElementAtOrDefault(button))
+                        if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
                         {
                             continue;
                         }
