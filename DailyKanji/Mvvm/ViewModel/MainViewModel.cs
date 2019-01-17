@@ -9,8 +9,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -116,7 +116,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-
             if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
@@ -127,11 +126,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model = new MainModel
             {
-                TestTimer           = new Timer(15),
-                ErrorHighlightTimer = new Timer(BaseModel.ErrorTimeout)
-                {
-                    AutoReset = false
-                }
+                TestTimer = new System.Timers.Timer(15)
             };
 
             InitalizieBaseModel(_transparentColor, _progressBarColor);
@@ -152,14 +147,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 Model.TestTimer.Stop();
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
-            };
-
-            Model.ErrorHighlightTimer.Elapsed += (_, __) =>
-            {
-                Model.ErrorHighlightTimer.Stop();
-                _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
-                CreateNewTest();
-                return;
             };
 
             _mainWindow = new MainWindow(this);
@@ -203,7 +190,7 @@ namespace DailyKanji.Mvvm.ViewModel
             BuildAnswerMenuAndButtons();
             StartTestTimer();
 
-            BaseModel.IgnoreInput   = false;
+            BaseModel.IgnoreInput = false;
         }
 
         /// <summary>
@@ -238,7 +225,15 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 SetHighlightColors(_correctColor, _errorColor, _hintColor);
                 BuildAnswerMenuAndButtons();
-                Model.ErrorHighlightTimer.Start();
+
+                Task.Run(() =>
+                {
+                    BaseModel.ErrorHighlightTimer.WaitOne(BaseModel.ErrorTimeout);
+
+                    _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
+                    CreateNewTest();
+                    return;
+                });
             }));
         }
 
@@ -374,20 +369,21 @@ namespace DailyKanji.Mvvm.ViewModel
             Debug.WriteLine($"Found gamepad - with {joystick.Capabilities.ButtonCount} buttons");
 
             joystick.Acquire();
-            var maxButtonCount = Math.Min(BaseModel.MaximumAnswers, joystick.Capabilities.ButtonCount);
+
+            var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, joystick.Capabilities.ButtonCount);
+            var manualResetEvent = new ManualResetEvent(false);
 
             Task.Run(() =>
             {
                 while(true)
                 {
-                    System.Threading.Thread.Sleep(100);
+                    manualResetEvent.WaitOne(100);
 
                     var joystickState = joystick?.GetCurrentState();
                     if(joystickState == null)
                     {
                         continue;
                     }
-
 
                     for(var button = 0; button < maxButtonCount; button++)
                     {

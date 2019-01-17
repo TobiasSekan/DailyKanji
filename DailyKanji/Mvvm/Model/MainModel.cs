@@ -22,11 +22,6 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal Timer TestTimer { get; set; }
 
-        /// <summary>
-        /// Timer for the error highlight, when a test was wrong answered
-        /// </summary>
-        internal Timer ErrorHighlightTimer { get; set; }
-
         #endregion Internal Properties
     }
 }

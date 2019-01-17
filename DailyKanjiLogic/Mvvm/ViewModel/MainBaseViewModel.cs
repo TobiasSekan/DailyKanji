@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.ViewModel
 {
@@ -45,12 +46,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 BaseModel.AllTestsList = list.ToList();
             }
 
-            BaseModel.Randomizer        = new Random();
-            BaseModel.PossibleAnswers   = new Collection<TestBaseModel>();
-            BaseModel.TestPool          = new Collection<TestBaseModel>();
-            BaseModel.AnswerButtonColor = new ObservableCollection<string>();
-            BaseModel.HintTextColor     = new ObservableCollection<string>();
-            BaseModel.ProgressBarColor  = progressBarColor;
+            BaseModel.Randomizer          = new Random();
+            BaseModel.PossibleAnswers     = new Collection<TestBaseModel>();
+            BaseModel.TestPool            = new Collection<TestBaseModel>();
+            BaseModel.AnswerButtonColor   = new ObservableCollection<string>();
+            BaseModel.HintTextColor       = new ObservableCollection<string>();
+            BaseModel.ErrorHighlightTimer = new ManualResetEvent(false);
+            BaseModel.ProgressBarColor    = progressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {

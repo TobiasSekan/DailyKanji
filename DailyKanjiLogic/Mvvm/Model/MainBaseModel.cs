@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
@@ -559,6 +560,12 @@ namespace DailyKanjiLogic.Mvvm.Model
         [JsonIgnore]
         public string GetVersion
             => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
+
+        /// <summary>
+        /// Timer for the error highlight, when a test was wrong answered
+        /// </summary>
+        [JsonIgnore]
+        public ManualResetEvent ErrorHighlightTimer { get; internal set; }
 
         #endregion Public Properties
 
