@@ -30,7 +30,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
         #region Public Methods
 
-        public void InitalizieBaseModel(in string baseColor, in string progressBarColor)
+        public void InitalizeBaseModel(in string baseColor, in string progressBarColor)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "base color can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
@@ -166,9 +166,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         public void ChooseNewPossibleAnswers()
         {
-            var firstTestChrachter  = BaseModel.CurrentTest.Roomaji.FirstOrDefault();
-            var secondTestChrachter = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(1);
-            var ThirdTestChrachter  = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(2);
+            var firstTestCharacter  = BaseModel.CurrentTest.Roomaji.FirstOrDefault();
+            var secondTestCharacter = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(1);
+            var thirdTestCharacter  = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(2);
 
             var tryAddCount = 0;
             var list        = new ObservableCollection<TestBaseModel>
@@ -181,7 +181,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 var possibleAnswer = GetRandomKanaTest();
                 Debug.Assert(possibleAnswer != null, "Random kana test is null");
 
-                if(tryAddCount < 50 && list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
+                if((tryAddCount < 50) && list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
                 {
                     tryAddCount++;
                     continue;
@@ -193,10 +193,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     continue;
                 }
 
-                if(tryAddCount < 50
-                && !possibleAnswer.Roomaji.Contains(firstTestChrachter)
-                && !possibleAnswer.Roomaji.Contains(secondTestChrachter)
-                && !possibleAnswer.Roomaji.Contains(ThirdTestChrachter))
+                if((tryAddCount < 50)
+                && !possibleAnswer.Roomaji.Contains(firstTestCharacter)
+                && !possibleAnswer.Roomaji.Contains(secondTestCharacter)
+                && !possibleAnswer.Roomaji.Contains(thirdTestCharacter))
                 {
                     tryAddCount++;
                     continue;
@@ -453,7 +453,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Test if the given sign is a Roomaji sign
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
-        /// <returns><c>true</c> if the given sign is a Roomaji, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the given sign is a Roomaji, otherwise <see langword="false"/></returns>
         public bool IsRoomaji(string signToTest)
             => BaseModel.AllTestsList.Any(found => found.Roomaji == signToTest);
 
@@ -461,7 +461,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Test if the given sign is a Hiragana sign
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
-        /// <returns><c>true</c> if the given sign is a Hiragana, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the given sign is a Hiragana, otherwise <see langword="false"/></returns>
         public bool IsHiragana(string signToTest)
             => BaseModel.AllTestsList.Any(found => found.Hiragana == signToTest);
 
@@ -469,7 +469,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Test if the given sign is a Katakana sign
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
-        /// <returns><c>true</c> if the given sign is a Katakana, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the given sign is a Katakana, otherwise <see langword="false"/></returns>
         public bool IsKatakana(string signToTest)
             => BaseModel.AllTestsList.Any(found => found.Katakana == signToTest);
 
@@ -478,7 +478,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
-        /// <returns><c>true</c> if the setting file could be load, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the setting file could be load, otherwise <see langword="false"/></returns>
         public bool TryLoadSettings(in string path, out Exception exception)
         {
             if(string.IsNullOrWhiteSpace(path))
@@ -511,7 +511,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
-        /// <returns><c>true</c> if the setting file could be save, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the setting file could be save, otherwise <see langword="false"/></returns>
         public bool TrySaveSettings(in string path, out Exception exception)
         {
             try
@@ -520,9 +520,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 exception = null;
                 return true;
             }
-            catch(Exception JsonException)
+            catch(Exception jsonException)
             {
-                exception = JsonException;
+                exception = jsonException;
                 return false;
             }
         }
@@ -580,14 +580,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Check the given answer and count the result
         /// </summary>
         /// <param name="answer">The answer to check</param>
-        /// <returns><c>true</c> if the answer was correct, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
         public bool CheckAnswer(in TestBaseModel answer)
         {
             Debug.Assert(answer != null, "Answer can't be null for answer check");
 
             BaseModel.IgnoreInput = true;
 
-            if(answer == null)
+            if(answer is null)
             {
                 answer.WrongnessCounter++;
                 return false;

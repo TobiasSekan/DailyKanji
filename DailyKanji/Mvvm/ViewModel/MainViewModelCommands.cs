@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    public sealed partial class MainViewModel
+    internal sealed partial class MainViewModel
     {
         #region Commands - File Menu
 
@@ -85,7 +85,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Command for change the maximum (running) answer timeout
         /// </summary>
-        public ICommand CommandChangeMaximumAswerTimeout
+        public ICommand CommandChangeMaximumAnswerTimeout
             => new CommandHelper(value
                 =>
                 {
@@ -183,12 +183,6 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Commands - Answer Menu
 
         /// <summary>
-        /// Command for select a answer by a <see cref="TestBaseModel"/> object
-        /// </summary>
-        public ICommand CommandAnswerTest
-            => new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel));
-
-        /// <summary>
         /// Command for select a answer by a number value
         /// </summary>
         public ICommand CommandAnswerTestNumber
@@ -221,11 +215,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     Model.TestTimer.Stop();
 
-                    if(MessageBox.Show(
-                        $"Do you really want to delete the statistics?{Environment.NewLine}{Environment.NewLine}Reset type: {value}",
-                        "Delete statistics",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    if(MessageBox.Show($"Do you really want to delete the statistics?{Environment.NewLine}{Environment.NewLine}Reset type: {value}",
+                                       "Delete statistics",
+                                       MessageBoxButton.YesNo,
+                                       MessageBoxImage.Question)
+                       != MessageBoxResult.Yes)
                     {
                         StartTestTimer();
                         return;
@@ -264,7 +258,7 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandPreviousTest
             => new CommandHelperSlim(() =>
             {
-                if(BaseModel.PreviousTest == null)
+                if(BaseModel.PreviousTest is null)
                 {
                     return;
                 }

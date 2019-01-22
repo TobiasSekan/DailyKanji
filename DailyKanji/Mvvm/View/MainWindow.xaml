@@ -246,105 +246,105 @@
 
                 <MenuItem Header="Answer _time">
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="1000"
                               Header="One second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=1000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="2000"
                               Header="Two second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=2000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="3000"
                               Header="Three second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=3000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="4000"
                               Header="Four second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=4000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="5000"
                               Header="Five second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=5000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="6000"
                               Header="Six second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=6000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="7000"
                               Header="Seven second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=7000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="8000"
                               Header="Eight second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=8000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="9000"
                               Header="Nine second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=9000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="10000"
                               Header="Ten second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=10000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="11000"
                               Header="Eleven second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=11000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="12000"
                               Header="Twelve second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=12000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="13000"
                               Header="Thirteen second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=13000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="14000"
                               Header="Fourteen second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
                                                   Converter={StaticResource ValueToBooleanConverter},
                                                   ConverterParameter=14000}" />
 
-                    <MenuItem Command="{Binding Path=CommandChangeMaximumAswerTimeout}"
+                    <MenuItem Command="{Binding Path=CommandChangeMaximumAnswerTimeout}"
                               CommandParameter="15000"
                               Header="Fifteen second"
                               IsChecked="{Binding Path=BaseModel.MaximumAnswerTimeout,
@@ -756,12 +756,12 @@
 
         </Grid>
 
-        <Grid x:Name="AnswerButtonArea" Grid.Row="6">
+        <Grid Grid.Row="6">
 
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="AnswerRow1" Height="Auto" />
-                <RowDefinition x:Name="AnswerRow2" Height="Auto" />
-                <RowDefinition x:Name="AnswerRow3" Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -1068,7 +1068,7 @@
             </Button>
 
             <TextBlock x:Name="AnswerKey01"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="0"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1077,7 +1077,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey02"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="1"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1086,7 +1086,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey03"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="2"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1095,7 +1095,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey04"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="3"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1104,7 +1104,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey05"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="4"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1113,7 +1113,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey06"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="5"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1122,7 +1122,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey07"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="6"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1131,7 +1131,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey08"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="7"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1140,7 +1140,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey09"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="8"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,
@@ -1149,7 +1149,7 @@
                        TextAlignment="Center" />
 
             <TextBlock x:Name="AnswerKey10"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        Grid.Column="9"
                        FontSize="{Binding RelativeSource={RelativeSource Self},
                                           Path=ActualWidth,

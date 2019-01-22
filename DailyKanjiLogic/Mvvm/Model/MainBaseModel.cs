@@ -259,10 +259,10 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
-        [JsonIgnore]
         /// <summary>
         /// The current answer time in milliseconds
         /// </summary>
+        [JsonIgnore]
         public double CurrentAnswerTime
         {
             get => _currentAnswerTime;

@@ -30,13 +30,13 @@ namespace DailyKanji.Helper
             }
 
             var newFontSize = high * multiplicator / 100;
-            if(newFontSize < 1)
+            if(newFontSize > 1)
             {
-                Debug.WriteLine($"HeightToFontSizeConverter: Calculated value [{newFontSize}] is to low, fallback to 1");
-                return 1;
+                return newFontSize > 100 ? 100 : newFontSize;
             }
 
-            return newFontSize > 100 ? 100 : (object)newFontSize;
+            Debug.WriteLine($"HeightToFontSizeConverter: Calculated value [{newFontSize}] is to low, fallback to 1");
+            return 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

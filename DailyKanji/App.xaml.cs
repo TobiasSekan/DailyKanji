@@ -1,9 +1,9 @@
-﻿using System;
-using DailyKanji.Mvvm.ViewModel;
+﻿using DailyKanji.Mvvm.ViewModel;
+using System;
 
 namespace DailyKanji
 {
-    public partial class App
+    internal sealed partial class App
     {
         private void Application_Startup(object sender, EventArgs e)
             => new MainViewModel();

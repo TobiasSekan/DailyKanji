@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace DailyKanji.Helper
 {
-    public class ColorStringToBrushConverter : IValueConverter
+    internal sealed class ColorStringToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value is string colorValue && !string.IsNullOrWhiteSpace(colorValue)

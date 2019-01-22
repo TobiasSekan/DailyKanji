@@ -58,44 +58,44 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 
-    public sealed partial class MainViewModel : MainBaseViewModel
+    internal sealed partial class MainViewModel : MainBaseViewModel
     {
         #region Private Properties
 
         /// <summary>
         /// The name of the settings file (this file contains all settings and statistics)
         /// </summary>
-        private string _settingFileName
+        private static string _settingFileName
             => "settings.json";
 
         /// <summary>
         /// The colour string for the progress bar
         /// </summary>
-        private string _progressBarColor
+        private static string _progressBarColor
             => Colors.LightBlue.ToString();
 
         /// <summary>
         /// The colour string for the error highlight
         /// </summary>
-        private string _errorColor
+        private static string _errorColor
             => Colors.LightCoral.ToString();
 
         /// <summary>
         /// The colour string for the correct answer (on error highlight)
         /// </summary>
-        private string _correctColor
+        private static string _correctColor
             => Colors.LightGreen.ToString();
 
         /// <summary>
         /// The colour string for invisible text and elements
         /// </summary>
-        private string _transparentColor
+        private static string _transparentColor
             => Colors.Transparent.ToString();
 
         /// <summary>
         /// The colour string for the answer hints (on error highlight)
         /// </summary>
-        private string _hintColor
+        private static string _hintColor
             => Colors.Black.ToString();
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 TestTimer = new System.Timers.Timer(15)
             };
 
-            InitalizieBaseModel(_transparentColor, _progressBarColor);
+            InitalizeBaseModel(_transparentColor, _progressBarColor);
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -180,7 +180,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Create a new test with new question and new possible answers
         /// </summary>
-        internal void CreateNewTest()
+        private void CreateNewTest()
         {
             OrderAllTests();
             BuildTestPool();
@@ -197,7 +197,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer to check</param>
         /// <exception cref="ArgumentNullException"></exception>
-        internal void CheckSelectedAnswer(in TestBaseModel answer)
+        private void CheckSelectedAnswer(in TestBaseModel answer)
         {
             Debug.Assert(answer != null, "Answer can't be null for check selected answer");
 
@@ -220,7 +220,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            _mainWindow.Dispatcher.Invoke(new Action(() =>
+            _mainWindow.Dispatcher.Invoke(() =>
             {
                 SetHighlightColors(_correctColor, _errorColor, _hintColor);
                 BuildAnswerMenuAndButtons();
@@ -229,19 +229,17 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     BaseModel.ErrorHighlightTimer.WaitOne(BaseModel.ErrorTimeout);
 
-                    _mainWindow.Dispatcher.Invoke(new Action(() => SetNormalColors(_transparentColor, _progressBarColor)));
+                    _mainWindow.Dispatcher.Invoke(() => SetNormalColors(_transparentColor, _progressBarColor));
                     CreateNewTest();
-                    return;
                 });
-            }));
+            });
         }
 
         /// <summary>
         /// Build all answer menu entries and buttons
         /// </summary>
-        internal void BuildAnswerMenuAndButtons()
-        {
-            _mainWindow?.Dispatcher?.Invoke(new Action(() =>
+        private void BuildAnswerMenuAndButtons()
+            => _mainWindow?.Dispatcher?.Invoke(() =>
             {
                 _mainWindow.AnswerMenu.Items.Clear();
 
@@ -249,21 +247,21 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
-                        _mainWindow._answerButtonColumn[answerNumber].Width           = new GridLength(1, GridUnitType.Star);
+                        _mainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
 
-                        _mainWindow._buttonList[answerNumber].Visibility              = Visibility.Visible;
-                        _mainWindow._answerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
-                        _mainWindow._answerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
+                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Visible;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
-                        _mainWindow._answerTextList[answerNumber].Text                = GetAnswerText(answerNumber);
-                        _mainWindow._answerHintTextBlock[answerNumber].Text           = GetAnswerHint(answerNumber);
-                        _mainWindow._answerShortCutTextBlock[answerNumber].Text       = BaseModel.ShowAnswerShortcuts
-                                                                                            ? $"{answerNumber + 1}"
-                                                                                            : string.Empty;
+                        _mainWindow.AnswerTextList[answerNumber].Text      = GetAnswerText(answerNumber);
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Text = GetAnswerHint(answerNumber);
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
+                                ? $"{answerNumber + 1}"
+                                : string.Empty;
 
                         _mainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
-                            Command          = CommandAnswerTest,
+                            Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel)),
                             CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
                             Header           = GetAnswerText(answerNumber),
                             InputGestureText = $"{answerNumber + 1}"
@@ -271,24 +269,23 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                     else
                     {
-                        _mainWindow._answerButtonColumn[answerNumber].Width           = GridLength.Auto;
+                        _mainWindow.AnswerButtonColumn[answerNumber].Width = GridLength.Auto;
 
-                        _mainWindow._buttonList[answerNumber].Visibility              = Visibility.Collapsed;
-                        _mainWindow._answerShortCutTextBlock[answerNumber].Visibility = Visibility.Collapsed;
-                        _mainWindow._answerHintTextBlock[answerNumber].Visibility     = Visibility.Collapsed;
+                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Collapsed;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Collapsed;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Collapsed;
 
-                        _mainWindow._answerTextList[answerNumber].Text                = string.Empty;
-                        _mainWindow._answerHintTextBlock[answerNumber].Text           = string.Empty;
-                        _mainWindow._answerShortCutTextBlock[answerNumber].Text       = string.Empty;
+                        _mainWindow.AnswerTextList[answerNumber].Text          = string.Empty;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = string.Empty;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = string.Empty;
                     }
                 }
-            }));
-        }
+            });
 
         /// <summary>
         /// Start the test timer (Start time is <see cref="DateTime.UtcNow"/>)
         /// </summary>
-        internal void StartTestTimer()
+        private void StartTestTimer()
         {
             if(!BaseModel.UseAnswerTimer)
             {
@@ -302,7 +299,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Check if a new version online
         /// </summary>
-        internal void CheckForNewVersion()
+        private void CheckForNewVersion()
         {
             if(!BaseModel.CheckForNewVersionOnStartUp)
             {
@@ -327,7 +324,8 @@ namespace DailyKanji.Mvvm.ViewModel
                                    + "Do you want to go to website to download it?",
                                    "Version check",
                                    MessageBoxButton.YesNo,
-                                   MessageBoxImage.Information) != MessageBoxResult.Yes)
+                                   MessageBoxImage.Information)
+                   != MessageBoxResult.Yes)
                 {
                     return;
                 }
@@ -354,7 +352,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // - Show joystick state and button count inside the status bar
 
             var gamepad = DirectInputHelper.GetFirstGamepad();
-            if(gamepad == null)
+            if(gamepad is null)
             {
                 return;
             }
@@ -368,8 +366,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     manualResetEvent.WaitOne(100);
 
-                    var gamepadButtonState = gamepad?.GetCurrentState();
-                    if(gamepadButtonState == null)
+                    var gamepadButtonState = gamepad.GetCurrentState();
+                    if(gamepadButtonState is null)
                     {
                         continue;
                     }

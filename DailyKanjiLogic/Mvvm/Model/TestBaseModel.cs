@@ -161,7 +161,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForHiragana
-            => CorrectHiraganaCount + WrongHiraganaCount > 0
+            => (CorrectHiraganaCount + WrongHiraganaCount) > 0
                 ? new TimeSpan((CompleteAnswerTimeForCorrectHiragana.Ticks + CompleteAnswerTimeForWrongHiragana.Ticks)
                                / (CorrectHiraganaCount + WrongHiraganaCount))
                 : new TimeSpan();
@@ -171,7 +171,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForKatakana
-            => CorrectKatakanaCount + WrongKatakanaCount > 0
+            => (CorrectKatakanaCount + WrongKatakanaCount) > 0
                 ? new TimeSpan((CompleteAnswerTimeForCorrectKatakana.Ticks + CompleteAnswerTimeForWrongKatakana.Ticks)
                                / (CorrectKatakanaCount + WrongKatakanaCount))
                 : new TimeSpan();
@@ -238,7 +238,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="type">The type of the sign</param>
         public TestBaseModel(string roomaji, string hiragana, string katakana, KanaType type)
         {
-            // use of 'in' modifier will crash JSON serialisation
+            // use of 'in' modifier will crash JSON serialization
 
             Roomaji  = roomaji;
             Hiragana = hiragana;
@@ -254,8 +254,8 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Compare this <see cref="TestBaseModel"/> with the given <see cref="object"/>
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare</param>
-        /// <returns><c>true</c> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
-        /// and Roomaji, Hiragana and Katakana are the same, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
+        /// and Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public override bool Equals(object obj)
             => Equals(obj as TestBaseModel);
 
@@ -281,12 +281,12 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Compare this <see cref="TestBaseModel"/> with the given <see cref="TestBaseModel"/>
         /// </summary>
         /// <param name="other">The <see cref="TestBaseModel"/> to compare</param>
-        /// <returns><c>true</c> when Roomaji, Hiragana and Katakana are the same, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> when Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public bool Equals(TestBaseModel other)
-            => other != null
-            && other.Roomaji == Roomaji
-            && other.Hiragana == Hiragana
-            && other.Katakana == Katakana;
+            => (other != null)
+            && (other.Roomaji == Roomaji)
+            && (other.Hiragana == Hiragana)
+            && (other.Katakana == Katakana);
 
         #endregion IEquatable<TestBaseModel> Implementation
 
@@ -320,9 +320,8 @@ namespace DailyKanjiLogic.Mvvm.Model
                     return Katakana;
 
                 default:
-                    throw new FormatException(
-                        $"Format: '{format}' not supported, only " +
-                        "'R', 'H', 'K', 'RO', 'HI', 'KA', 'Roomaji', 'Hiragana' and 'Katakana' are supported");
+                    throw new FormatException($"Format: '{format}' not supported, only "
+                                              + "'R', 'H', 'K', 'RO', 'HI', 'KA', 'Roomaji', 'Hiragana' and 'Katakana' are supported");
             }
         }
 

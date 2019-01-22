@@ -41,7 +41,7 @@ namespace DailyKanjiLogic.Helper
         /// Return if the action can perform
         /// </summary>
         /// <param name="parameter">(parameter will be ignored)</param>
-        /// <returns>always <c>true</c></returns>
+        /// <returns>always <see langword="true"/></returns>
         public bool CanExecute(object parameter)
             => true;
 

@@ -1,11 +1,10 @@
 ﻿using DailyKanji.Mvvm.ViewModel;
 using System.Diagnostics;
-using System.Windows;
 using System.Windows.Navigation;
 
 namespace DailyKanji.Mvvm.View
 {
-    internal partial class InfoWindow : Window
+    internal sealed partial class InfoWindow
     {
         #region Public Properties
 

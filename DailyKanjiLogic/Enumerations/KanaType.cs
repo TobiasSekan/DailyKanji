@@ -41,6 +41,6 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// Only digraph kana with a little circle
         /// </summary>
-        YooonWithHandakuten = 0x_20,
+        YooonWithHandakuten = 0x_20
     }
 }

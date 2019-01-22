@@ -15,15 +15,15 @@ namespace DailyKanji.Mvvm.View
 
         #region Internal Properties
 
-        internal IReadOnlyList<TextBlock> _answerTextList { get; }
+        internal IReadOnlyList<TextBlock> AnswerTextList { get; }
 
-        internal IReadOnlyList<ButtonBase> _buttonList { get; }
+        internal IReadOnlyList<ButtonBase> ButtonList { get; }
 
-        internal IReadOnlyList<ColumnDefinition> _answerButtonColumn { get; }
+        internal IReadOnlyList<ColumnDefinition> AnswerButtonColumn { get; }
 
-        internal IReadOnlyList<TextBlock> _answerHintTextBlock { get; }
+        internal IReadOnlyList<TextBlock> AnswerHintTextBlock { get; }
 
-        internal IReadOnlyList<TextBlock> _answerShortCutTextBlock { get; }
+        internal IReadOnlyList<TextBlock> AnswerShortCutTextBlock { get; }
 
         #endregion Internal Properties
 
@@ -34,7 +34,7 @@ namespace DailyKanji.Mvvm.View
             ViewModel = viewModel;
             InitializeComponent();
 
-            _answerTextList = new[]
+            AnswerTextList = new[]
             {
                 AnswerText01,
                 AnswerText02,
@@ -48,7 +48,7 @@ namespace DailyKanji.Mvvm.View
                 AnswerText10
             };
 
-            _buttonList = new[]
+            ButtonList = new[]
             {
                 Button01,
                 Button02,
@@ -62,7 +62,7 @@ namespace DailyKanji.Mvvm.View
                 Button10
             };
 
-            _answerButtonColumn = new[]
+            AnswerButtonColumn = new[]
             {
                 AnswerButtonColumn01,
                 AnswerButtonColumn02,
@@ -76,7 +76,7 @@ namespace DailyKanji.Mvvm.View
                 AnswerButtonColumn10
             };
 
-            _answerHintTextBlock = new[]
+            AnswerHintTextBlock = new[]
             {
                 AnswerHint01,
                 AnswerHint02,
@@ -90,7 +90,7 @@ namespace DailyKanji.Mvvm.View
                 AnswerHint10
             };
 
-            _answerShortCutTextBlock = new[]
+            AnswerShortCutTextBlock = new[]
             {
                 AnswerKey01,
                 AnswerKey02,

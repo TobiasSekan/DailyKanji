@@ -77,55 +77,22 @@ namespace DailyKanjiLogic.Helper
         /// <param name="jsonString">The <see cref="string"/> that contains a JSON object</param>
         /// <param name="newObject">The new <see cref="object"/> from the string</param>
         /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
-        /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
-        public static bool TryConvertFromString<T>(in string jsonString, out T newObject, out Exception exception)
+        public static void TryConvertFromString<T>(in string jsonString, out T newObject, out Exception exception)
                 where T : new()
         {
             try
             {
                 exception = null;
                 newObject = JsonConvert.DeserializeObject<T>(jsonString);
-
-                return true;
             }
             catch(Exception jsonException)
             {
-                exception = new JsonException("Exception: " + Environment.NewLine + jsonException + Environment.NewLine
-                                              + "JSON string: " + Environment.NewLine + jsonString + Environment.NewLine);
+                exception = new JsonException($"Exception: {Environment.NewLine}{jsonException}{Environment.NewLine}JSON string: {Environment.NewLine}{jsonString}{Environment.NewLine}");
 
                 // StackTrace class is not supported in .Net Standard 1.3
                 //+ "Stack trace:" + Environment.NewLine + new StackTrace());
 
                 newObject = default;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Convert a <see cref="object"/> to a <see cref="string"/>, that contains a JSON object
-        /// </summary>
-        /// <param name="objectToConvert">The <see cref="object"/> for the JSON inside the string</param>
-        /// <param name="jsonString">A <see cref="string"/> that contains a JSON object</param>
-        /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
-        /// <returns><c>true</c> if the convert was successful, otherwise <c>false</c></returns>
-        public static bool TryConvertToString(in object objectToConvert, out string jsonString, out Exception exception)
-        {
-            try
-            {
-                exception  = null;
-                jsonString = JsonConvert.SerializeObject(objectToConvert);
-                return true;
-            }
-            catch(Exception jsonException)
-            {
-                exception = new JsonException("Exception: " + Environment.NewLine + jsonException + Environment.NewLine
-                                              + "Object: " + Environment.NewLine + objectToConvert + Environment.NewLine);
-
-                // StackTrace class is not supported in .Net Standard 1.3
-                //+ "Stack trace:" + Environment.NewLine + new StackTrace());
-
-                jsonString = null;
-                return false;
             }
         }
     }
