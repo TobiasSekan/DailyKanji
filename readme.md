@@ -1,11 +1,13 @@
 # Daily Kanji
 
 ## Requirements for usage
-* Windows (Vista SP2, 7 SP1, 8, 8.1, 10) or Windows Server (2008 SP2, 2008 R2 SP1, 2012, 2012 SP2)
+* Windows
+  * Windows Vista SP2, 7 SP1, 8, 8.1 and 10
+  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 and 2019
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
 
 ## Current state
-* in development
+* in (slow) development
 
 ## Current features
 * 9 Test types
@@ -37,17 +39,15 @@
 ## Notes about support for Windows Vista and Window 8
 The support for Windows Vista SP2 and Windows 8 will be maintained as long as possible.
 But when I start with next major version of this project it is most likely, that I must drop this support.
-Because I need to switch to a higher version of .Net Standard (1.6, 2.0 or higher).
+Because I need to switch to a higher version of .Net Standard (2.0 or higher).
 
 ## Whats next?
 see [Roadmap](Documentation/Roadmap.md)
 
 ## Requirements for debug, test and contributing
-* [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
+* [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/de/vs/preview/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137) (include .Net Standard 1.3)
-* [Roslynator (Visual Studio Extension)](https://github.com/JosefPihrt/Roslynator) for code rules
-* [XAML Styler (Visual Studio Extension)](https://github.com/Xavalon/XamlStyler/) for styling XAML files
-* C# 7.3
+* C# 8.0
 
 ## Project structure
 | Project         | Used framework     | Operating system             |
