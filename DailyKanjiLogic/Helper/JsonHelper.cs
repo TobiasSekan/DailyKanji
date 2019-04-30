@@ -22,21 +22,17 @@ namespace DailyKanjiLogic.Helper
                 return default;
             }
 
-            var jsonSerializer = new JsonSerializer();
-
-            using(var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using var fileStream   = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using(var streamReader = new StreamReader(fileStream))
             {
-                using(var streamReader = new StreamReader(stream))
+                TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
+
+                if(exception != null)
                 {
-                    TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
-
-                    if(exception != null)
-                    {
-                        throw exception;
-                    }
-
-                    return newObject;
+                    throw exception;
                 }
+
+                return newObject;
             }
         }
 
@@ -58,15 +54,11 @@ namespace DailyKanjiLogic.Helper
                 Formatting = Formatting.Indented
             };
 
-            using(var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            using(var fileStream     = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            using(var streamWriter   = new StreamWriter(fileStream))
+            using(var jsonTextWriter = new JsonTextWriter(streamWriter))
             {
-                using(var streamWriter = new StreamWriter(stream))
-                {
-                    using(var jsonTextWriter = new JsonTextWriter(streamWriter))
-                    {
-                        serializer.Serialize(jsonTextWriter, objectToTransform);
-                    }
-                }
+                serializer.Serialize(jsonTextWriter, objectToTransform);
             }
         }
 

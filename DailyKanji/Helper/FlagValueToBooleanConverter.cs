@@ -4,6 +4,9 @@ using System.Windows.Data;
 
 namespace DailyKanji.Helper
 {
+    /// <summary>
+    /// Compare a given enumeration value with a <see cref="int"/> value and return the result as a <see cref="bool"/>
+    /// </summary>
     public class FlagValueToBooleanConverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

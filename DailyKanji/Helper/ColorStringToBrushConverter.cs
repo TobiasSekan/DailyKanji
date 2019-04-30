@@ -5,6 +5,9 @@ using System.Windows.Media;
 
 namespace DailyKanji.Helper
 {
+    /// <summary>
+    /// Convert a hexadecimal value of a <see cref="Color"/> into a <see cref="SolidColorBrush"/>
+    /// </summary>
     internal sealed class ColorStringToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

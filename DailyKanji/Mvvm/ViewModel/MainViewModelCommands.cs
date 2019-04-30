@@ -17,7 +17,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Command for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
-            => new CommandHelperSlim(() => _mainWindow.Close());
+            => new CommandHelperSlim(() => MainWindow.Close());
 
         #endregion Commands - File Menu
 
@@ -97,7 +97,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     BaseModel.MaximumAnswerTimeout = maximumAnswerTimeout;
 
                     Model.TestTimer.Stop();
-                    BaseModel.ProgressBarColor = _progressBarColor;
+                    BaseModel.ProgressBarColor = ProgressBarColor;
 
                     StartTestTimer();
                 });

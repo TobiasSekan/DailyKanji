@@ -13,16 +13,16 @@
         /// <summary>
         /// The hint is always in Roomaji
         /// </summary>
-        OnlyRoomaji = 1,
+        AlwaysInRoomaji = 1,
 
         /// <summary>
         /// The hint is always in Hiragana
         /// </summary>
-        OnlyHiragana = 2,
+        AlwaysInHiragana = 2,
 
         /// <summary>
         /// The hint is always in Katakana
         /// </summary>
-        OnlyKatakana = 3
+        AlwaysInKatakana = 3
     }
 }

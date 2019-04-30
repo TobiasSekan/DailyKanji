@@ -27,7 +27,7 @@ namespace DailyKanji.Mvvm.View
 
         #endregion Internal Properties
 
-        #region Public Constructors
+        #region Internal Constructors
 
         internal MainWindow(MainViewModel viewModel)
         {
@@ -105,6 +105,6 @@ namespace DailyKanji.Mvvm.View
             };
         }
 
-        #endregion Public Constructors
+        #endregion Internal Constructors
     }
 }

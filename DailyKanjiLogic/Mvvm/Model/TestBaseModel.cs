@@ -227,7 +227,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #endregion Private Backing-fields
 
-        #region Constructors
+        #region Public Constructors
 
         /// <summary>
         /// Create a new test, based on the given values
@@ -246,9 +246,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             Type     = type;
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Class Overrides
+        #region Public Overrides
 
         /// <summary>
         /// Compare this <see cref="TestBaseModel"/> with the given <see cref="object"/>
@@ -273,7 +273,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         public override string ToString()
             => $"Roomaji: {Roomaji}, Hiragana: {Hiragana}, Katakana: {Katakana}";
 
-        #endregion Class Overrides
+        #endregion Public Overrides
 
         #region IEquatable<TestBaseModel> Implementation
 

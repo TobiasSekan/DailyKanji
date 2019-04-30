@@ -15,7 +15,7 @@ namespace DailyKanji.Mvvm.View
 
         #region Internal Constructors
 
-        public StatisticsWindow(MainViewModel viewModel)
+        internal StatisticsWindow(MainViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();

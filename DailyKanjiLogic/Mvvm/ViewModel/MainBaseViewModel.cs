@@ -261,13 +261,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             switch(BaseModel.SelectedHintType)
             {
-                case HintType.OnlyRoomaji:
+                case HintType.AlwaysInRoomaji:
                     return BaseModel.PossibleAnswers[answerNumber].Roomaji;
 
-                case HintType.OnlyHiragana:
+                case HintType.AlwaysInHiragana:
                     return BaseModel.PossibleAnswers[answerNumber].Hiragana;
 
-                case HintType.OnlyKatakana:
+                case HintType.AlwaysInKatakana:
                     return BaseModel.PossibleAnswers[answerNumber].Katakana;
 
                 case HintType.BasedOnAskSign:

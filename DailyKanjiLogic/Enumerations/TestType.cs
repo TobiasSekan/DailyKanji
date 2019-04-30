@@ -36,7 +36,7 @@
         RoomajiToKatakana = 5,
 
         /// <summary>
-        /// Question in Hiragana and answer in Katakana or Question in Katakana and answer in Hiragana
+        /// Question in Hiragana and answer in Katakana or question in Katakana and answer in Hiragana
         /// </summary>
         HiraganaToKatakanaOrKatakanaToHiragana = 6,
 

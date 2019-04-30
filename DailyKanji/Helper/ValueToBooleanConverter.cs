@@ -4,6 +4,9 @@ using System.Windows.Data;
 
 namespace DailyKanji.Helper
 {
+    /// <summary>
+    /// Compare two given <see cref="int"/> values and return the result as a <see cref="bool"/>
+    /// </summary>
     public class ValueToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
