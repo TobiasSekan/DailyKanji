@@ -1,6 +1,13 @@
 ﻿# Roadmap
 
+## Testing
+* Current sign statistics (possible: show wrong count)
+
+## BUG
+* Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+
 ## Version 1.x
+* Show wrong and not selected answeres in yellow
 * Gamepad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -18,13 +25,12 @@
 * Add German language and language selector in menu
 * Add tooltips for each menu entries
 * Make colours choose-able
-* Export statistics (CSV, JSON, XML)
+* Export statistics (XLSX, CSV, JSON, XML)
 
 ## Version 3.x
 * Start with integration of Kanji tests
 
 ## Ideas
-* Export statistics (XLSX)
 * Import statistics (XLSX, CSV, JSON, XML)
 * Ribbon menu
 * Investigate in WPF - FlowDocument (for integrated zooming features)

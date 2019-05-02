@@ -16,13 +16,16 @@ using System.Windows.Media;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    // Test
+    // Current sign statistics (possible: show wrong count)
+
     // BUG
     // ---
-    // Refresh missing for current sign statistics (is always null)
     // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
     // Version 1.x
     // -----------
+    // TODO: Show wrong and not selected answeres in yellow
     // TODO: Gamepad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -44,7 +47,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Add German language and language selector in menu
     // TODO: Add tooltips for each menu entries
     // TODO: Make colours choose-able
-    // TODO: Export statistics (CSV, JSON, XML)
+    // TODO: Export statistics (XLSX, CSV, JSON, XML)
 
     // Version 3.x
     // -----------
@@ -52,7 +55,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Ideas
     // -----
-    // TODO: Export statistics (XLSX)
     // TODO: Import statistics (XLSX, CSV, JSON, XML)
     // TODO: Ribbon menu
     // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
