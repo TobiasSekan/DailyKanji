@@ -25,8 +25,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Show wrong and not selected answeres in yellow
-    // TODO: Gamepad support (with 10 buttons for 10 answers)
+    // TODO: Show highlight and tool-tip on right answers (activate via option)
+    // TODO: Show wrong and not selected answers in yellow
+    // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -45,8 +46,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Add German language and language selector in menu
-    // TODO: Add tooltips for each menu entries
-    // TODO: Make colours choose-able
+    // TODO: Add tool-tips for each menu entries
+    // TODO: Make colors choose-able
     // TODO: Export statistics (XLSX, CSV, JSON, XML)
 
     // Version 3.x

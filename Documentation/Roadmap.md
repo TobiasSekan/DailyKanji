@@ -7,8 +7,9 @@
 * Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
 ## Version 1.x
-* Show wrong and not selected answeres in yellow
-* Gamepad support (with 10 buttons for 10 answers)
+* Show highlight and tool-tip on right answers (activate via option)
+* Show wrong and not selected answers in yellow
+* Game-pad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
@@ -23,8 +24,8 @@
 ## Versions 2.x
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Add German language and language selector in menu
-* Add tooltips for each menu entries
-* Make colours choose-able
+* Add tool-tips for each menu entries
+* Make colors choose-able
 * Export statistics (XLSX, CSV, JSON, XML)
 
 ## Version 3.x
