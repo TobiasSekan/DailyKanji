@@ -8,7 +8,7 @@
 
 ## Version 1.x
 * Show highlight and tool-tip on right answers (activate via option)
-* Show wrong and not selected answers in yellow
+* Add possibility to mark wrong answers (e.g. right mouse click) 
 * Game-pad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

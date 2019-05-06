@@ -528,10 +528,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set the normal colours for all elements
+        /// Set the normal colors for all elements
         /// </summary>
-        /// <param name="baseColor">The base colour for all elements</param>
-        /// <param name="progressBarColor">The base colour for the progress bar</param>
+        /// <param name="baseColor">The base color for all elements</param>
+        /// <param name="progressBarColor">The base color for the progress bar</param>
         public void SetNormalColors(in string baseColor, in string progressBarColor)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
@@ -548,15 +548,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set the highlight colours for all elements
+        /// Set the highlight colors for all elements
         /// </summary>
-        /// <param name="correctColor">The colour string for the correct element</param>
-        /// <param name="errorColor">The colour string for the elements</param>
-        /// <param name="hintColor">The colour string for the hint elements</param>
-        public void SetHighlightColors(in string correctColor, in string errorColor, in string hintColor)
+        /// <param name="answer">The answers of the current test</param>
+        /// <param name="correctColor">The color string for the correct element</param>
+        /// <param name="errorColor">The color string for the elements</param>
+        /// <param name="noneSelectedColor">The color string for none selected elements</param>
+        /// <param name="hintColor">The color string for the hint elements</param>
+        public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
         {
+            Debug.Assert(answer != null, "Answer can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), "Correction color can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), "Error color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), "None selected color can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be null");
 
             BaseModel.CurrentAskSignColor = errorColor;
@@ -564,10 +568,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
-                BaseModel.AnswerButtonColor[answerNumber]
-                    = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
-                        ? correctColor
-                        : errorColor;
+                BaseModel.AnswerButtonColor[answerNumber] = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
+                    ? correctColor
+                    : BaseModel.PossibleAnswers[answerNumber].Roomaji == answer.Roomaji
+                        ? errorColor
+                        : noneSelectedColor;
 
                 if(BaseModel.ShowHints)
                 {

@@ -26,7 +26,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // Version 1.x
     // -----------
     // TODO: Show highlight and tool-tip on right answers (activate via option)
-    // TODO: Show wrong and not selected answers in yellow
+    // TODO: Add possibility to mark wrong answers(e.g.right mouse click)
     // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -79,31 +79,37 @@ namespace DailyKanji.Mvvm.ViewModel
             => "settings.json";
 
         /// <summary>
-        /// The colour string for the progress bar
+        /// The color string for the progress bar (<see cref="Colors.LightBlue"/> - #FFADD8E6)
         /// </summary>
         private static string ProgressBarColor
             => Colors.LightBlue.ToString();
 
         /// <summary>
-        /// The colour string for the error highlight
+        /// The color string for the error highlight (<see cref="Colors.LightCoral"/> - #FFF08080)
         /// </summary>
         private static string ErrorColor
             => Colors.LightCoral.ToString();
 
         /// <summary>
-        /// The colour string for the correct answer (on error highlight)
+        /// The color string for none selected answers (<see cref="Colors.LightGoldenrodYellow"/> - #FFFAFAD2)
+        /// </summary>
+        private static string NoneSelectedColor
+            => Colors.LightGoldenrodYellow.ToString();
+
+        /// <summary>
+        /// The color string for the correct answer (on error highlight, <see cref="Colors.LightGreen"/> - FF90EE90)
         /// </summary>
         private static string CorrectColor
             => Colors.LightGreen.ToString();
 
         /// <summary>
-        /// The colour string for invisible text and elements
+        /// The color string for invisible text and elements (<see cref="Colors.Transparent"/> - #00FFFFFF)
         /// </summary>
         private static string TransparentColor
             => Colors.Transparent.ToString();
 
         /// <summary>
-        /// The colour string for the answer hints (on error highlight)
+        /// The color string for the answer hints (on error highlight, <see cref="Colors.Transparent"/> - #FF000000)
         /// </summary>
         private static string HintColor
             => Colors.Black.ToString();
@@ -224,9 +230,12 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
+            // can't use "in" parameter in anonymous method
+            var answerTemp = answer;
+
             MainWindow.Dispatcher.Invoke(() =>
             {
-                SetHighlightColors(CorrectColor, ErrorColor, HintColor);
+                SetHighlightColors(answerTemp, CorrectColor, ErrorColor, NoneSelectedColor, HintColor);
                 BuildAnswerMenuAndButtons();
 
                 Task.Run(() =>
@@ -312,19 +321,18 @@ namespace DailyKanji.Mvvm.ViewModel
 
             try
             {
-                var yourVersion = AssemblyHelper.GetAssemblyVersion(this);
-
-                var onlineVersion = OnlineResourceHelper.GetVersion(
+                var yourVersion   = AssemblyHelper.GetAssemblyVersion(this);
+                var onLineVersion = OnlineResourceHelper.GetVersion(
                                         "https://raw.githubusercontent.com/TobiasSekan/DailyKanji/master/DailyKanji/Properties/AssemblyInfo.cs");
 
-                if(yourVersion.Equals(onlineVersion))
+                if(yourVersion.Equals(onLineVersion))
                 {
                     return;
                 }
 
                 if(MessageBox.Show($"A new version of Daily Kanji is available.{Environment.NewLine}{Environment.NewLine}"
                                    + $"Your version:\t{yourVersion}{Environment.NewLine}"
-                                   + $"Online version:\t{onlineVersion}{Environment.NewLine}{Environment.NewLine}"
+                                   + $"On-line version:\t{onLineVersion}{Environment.NewLine}{Environment.NewLine}"
                                    + "Do you want to go to website to download it?",
                                    "Version check",
                                    MessageBoxButton.YesNo,
