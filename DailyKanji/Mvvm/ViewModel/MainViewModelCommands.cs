@@ -61,7 +61,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    BaseModel.ErrorTimeout = timeout;
+                    BaseModel.HighlightTimeout = timeout;
                 });
 
         /// <summary>

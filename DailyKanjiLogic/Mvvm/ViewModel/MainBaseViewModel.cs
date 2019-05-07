@@ -51,7 +51,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             BaseModel.TestPool            = new Collection<TestBaseModel>();
             BaseModel.AnswerButtonColor   = new ObservableCollection<string>();
             BaseModel.HintTextColor       = new ObservableCollection<string>();
-            BaseModel.ErrorHighlightTimer = new ManualResetEvent(false);
+            BaseModel.HighlightTimer = new ManualResetEvent(false);
             BaseModel.ProgressBarColor    = progressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
@@ -586,7 +586,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answer">The answer to check</param>
         /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
-        public bool CheckAnswer(in TestBaseModel answer)
+        public bool CheckAndCountAnswer(in TestBaseModel answer)
         {
             Debug.Assert(answer != null, "Answer can't be null for answer check");
 

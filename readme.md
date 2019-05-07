@@ -1,4 +1,4 @@
-# Daily Kanji
+﻿# Daily Kanji
 
 ## Requirements for usage
 * Windows
@@ -20,7 +20,7 @@
 * Test can be answered via left mouse click, number key, menu entry or gamepad buttons
 * Switch to previous test or next test
 * Running answer timer, when time is over the test is automatically answered wrong
-* Highlight wrong and correct answers, when answer was wrong 
+* Highlight wrong and correct answers, when answer was wrong and/or correct
 * Show hint of all possible answers, when answer was wrong (can be hide and change via menu)
 * Wrong answered tests will be ask more often
 * Can show only similar answers

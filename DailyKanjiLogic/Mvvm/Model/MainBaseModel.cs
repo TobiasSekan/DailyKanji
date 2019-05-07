@@ -90,14 +90,14 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The timeout for highlight a wrong answered question in milliseconds
+        /// The timeout for highlight a wrong and/or a correct answered question in milliseconds
         /// </summary>
-        public int ErrorTimeout
+        public int HighlightTimeout
         {
-            get => _errorTimeout;
+            get => _highlightTimeout;
             set
             {
-                _errorTimeout = value;
+                _highlightTimeout = value;
                 OnPropertyChanged();
             }
         }
@@ -221,14 +221,14 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// Indicate that a wrong answered test will highlight with error colours
+        /// Indicate that answers will be highlighted on a wrong answer
         /// </summary>
-        public bool HighlightOnErrors
+        public bool HighlightOnWrongAnswer
         {
-            get => _highlightOnErrors;
+            get => _highlightOnWrongAnswer;
             set
             {
-                _highlightOnErrors = value;
+                _highlightOnWrongAnswer = value;
                 OnPropertyChanged();
             }
         }
@@ -255,6 +255,19 @@ namespace DailyKanjiLogic.Mvvm.Model
             set
             {
                 _selectedKanaType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate that answers will be highlighted on a correct answer
+        /// </summary>
+        public bool HighlightOnCorrectAnswer
+        {
+            get => _highlightOnCorrectAnswer;
+            set
+            {
+                _highlightOnCorrectAnswer = value;
                 OnPropertyChanged();
             }
         }
@@ -485,7 +498,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The current colours of all answer buttons
+        /// The current colors of all answer buttons
         /// </summary>
         [JsonIgnore]
         public ObservableCollection<string> AnswerButtonColor
@@ -499,7 +512,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The current colours of all answer hints
+        /// The current colors of all answer hints
         /// </summary>
         [JsonIgnore]
         public ObservableCollection<string> HintTextColor
@@ -513,7 +526,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The current colour of the ask sign
+        /// The current color of the ask sign
         /// </summary>
         [JsonIgnore]
         public string CurrentAskSignColor
@@ -527,7 +540,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// The colour for the progress bar (running answer time)
+        /// The color for the progress bar (running answer time)
         /// </summary>
         [JsonIgnore]
         public string ProgressBarColor
@@ -562,10 +575,10 @@ namespace DailyKanjiLogic.Mvvm.Model
             => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
         /// <summary>
-        /// Timer for the error highlight, when a test was wrong answered
+        /// Timer for the answer highlight, when a test was correct or wrong answered
         /// </summary>
         [JsonIgnore]
-        public ManualResetEvent ErrorHighlightTimer { get; internal set; }
+        public ManualResetEvent HighlightTimer { get; internal set; }
 
         #endregion Public Properties
 
@@ -597,9 +610,9 @@ namespace DailyKanjiLogic.Mvvm.Model
         private IReadOnlyCollection<TestBaseModel> _testPool;
 
         /// <summary>
-        /// Backing-field for <see cref="ErrorTimeout"/>
+        /// Backing-field for <see cref="HighlightTimeout"/>
         /// </summary>
-        private int _errorTimeout;
+        private int _highlightTimeout;
 
         /// <summary>
         /// Backing-field for <see cref="SelectedTestType"/>
@@ -677,9 +690,14 @@ namespace DailyKanjiLogic.Mvvm.Model
         private bool _checkForNewVersionOnStartUp;
 
         /// <summary>
-        /// Backing-field for <see cref="HighlightOnErrors"/>
+        /// Backing-field for <see cref="HighlightOnWrongAnswer"/>
         /// </summary>
-        private bool _highlightOnErrors;
+        private bool _highlightOnWrongAnswer;
+
+        /// <summary>
+        /// Backing-field for <see cref="HighlightOnCorrectAnswer"/>
+        /// </summary>
+        private bool _highlightOnCorrectAnswer;
 
         /// <summary>
         /// Backing-field for <see cref="UseAnswerTimer"/>
@@ -703,7 +721,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         public MainBaseModel()
         {
             MaximumAnswerTimeout        = 10_000;
-            ErrorTimeout                = 3_000;
+            HighlightTimeout                = 3_000;
             MaximumAnswers              = 7;
 
             SelectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
@@ -721,7 +739,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             ShowRunningAnswerTimer      = true;
             SimilarAnswers              = true;
             CheckForNewVersionOnStartUp = true;
-            HighlightOnErrors           = true;
+            HighlightOnWrongAnswer           = true;
             UseAnswerTimer              = true;
         }
 

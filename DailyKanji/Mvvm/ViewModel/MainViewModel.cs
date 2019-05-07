@@ -25,7 +25,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Show highlight and tool-tip on right answers (activate via option)
+    // TODO: Make highlight timeout and answer timeout set-able as integer value not via menu entries
     // TODO: Add possibility to mark wrong answers(e.g.right mouse click)
     // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -218,13 +218,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.TestTimer.Stop();
 
-            if(CheckAnswer(answer))
-            {
-                CreateNewTest();
-                return;
-            }
+            var result = CheckAndCountAnswer(answer);
 
-            if(!BaseModel.HighlightOnErrors)
+            if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
             {
                 CreateNewTest();
                 return;
@@ -235,12 +231,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
             MainWindow.Dispatcher.Invoke(() =>
             {
-                SetHighlightColors(answerTemp, CorrectColor, ErrorColor, NoneSelectedColor, HintColor);
+                SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, HintColor);
                 BuildAnswerMenuAndButtons();
 
                 Task.Run(() =>
                 {
-                    BaseModel.ErrorHighlightTimer.WaitOne(BaseModel.ErrorTimeout);
+                    BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
 
                     MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
                     CreateNewTest();
