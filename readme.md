@@ -20,6 +20,7 @@
 * Test can be answered via left mouse click, number key, menu entry or gamepad buttons
 * Switch to previous test or next test
 * Running answer timer, when time is over the test is automatically answered wrong
+* Mark possible wrong answers (via mouse right-click or shift + number)
 * Highlight wrong and correct answers, when answer was wrong and/or correct
 * Show hint of all possible answers, when answer was wrong (can be hide and change via menu)
 * Wrong answered tests will be ask more often
@@ -28,7 +29,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10)
+## Pictures (under Windows 10) - outdated
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
@@ -37,9 +38,8 @@
 * Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
 ## Notes about support for Windows Vista and Window 8
-The support for Windows Vista SP2 and Windows 8 will be maintained as long as possible.
-But when I start with next major version of this project it is most likely, that I must drop this support.
-Because I need to switch to a higher version of .Net Standard (2.0 or higher).
+At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista and Window 8 will be end.
+Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
 
 ## Whats next?
 see [Roadmap](Documentation/Roadmap.md)

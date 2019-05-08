@@ -25,8 +25,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Add possibility to de-mark wrong answers (right-click and Shift+Number)
+    // TODO: Add possibility to mark and de-mark wrong answers via menu
     // TODO: Make highlight timeout and answer timeout set-able as integer value not via menu entries
-    // TODO: Add possibility to mark wrong answers(e.g.right mouse click)
     // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -262,8 +263,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
                         MainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
-                        MainWindow.AnswerTextList[answerNumber].Text      = GetAnswerText(answerNumber);
-                        MainWindow.AnswerHintTextBlock[answerNumber].Text = GetAnswerHint(answerNumber);
+                        MainWindow.AnswerTextList[answerNumber].Text          = GetAnswerText(answerNumber);
+                        MainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answerNumber);
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
                                 ? $"{answerNumber + 1}"
                                 : string.Empty;
@@ -306,7 +307,7 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Check if a new version online
+        /// Check if a new version on-line
         /// </summary>
         private void CheckForNewVersion()
         {
@@ -391,6 +392,18 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                 }
             });
+        }
+
+        /// <summary>
+        /// Highlight a answer (button) with the <see cref="NoneSelectedColor"/>
+        /// </summary>
+        /// <param name="answerNumber">The answer number that should be highlighted</param>
+        internal void HighlightAnswer(in byte answerNumber)
+        {
+            // can't use "in" parameter in anonymous method
+            var answerNumberTemp = answerNumber;
+
+            MainWindow.Dispatcher.Invoke(() => SetHighlightColorToOne(answerNumberTemp, NoneSelectedColor));
         }
 
         #endregion Internal Methods

@@ -3,6 +3,7 @@ using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -42,6 +43,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(HintType), value))
                     {
+                        Debug.Fail($"[{value}] is not defined in the [{nameof(HintType)}] enumeration");
                         return;
                     }
 
@@ -58,6 +60,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!int.TryParse(value?.ToString(), out var timeout))
                     {
+                        Debug.Fail($"can't parse [{timeout}] into [int] value");
                         return;
                     }
 
@@ -73,6 +76,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var maximumAnswers))
                     {
+                        Debug.Fail($"can't parse [{maximumAnswers}] into [byte] value");
                         return;
                     }
 
@@ -91,6 +95,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!double.TryParse(value?.ToString(), out var maximumAnswerTimeout))
                     {
+                        Debug.Fail($"can't parse [{maximumAnswerTimeout}] into [double] value");
                         return;
                     }
 
@@ -142,6 +147,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(TestType), value))
                     {
+                        Debug.Fail($"[{value}] is not defined in the [{nameof(TestType)}] enumeration");
                         return;
                     }
 
@@ -158,6 +164,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(KanaType), value))
                     {
+                        Debug.Fail($"[{value}] is not defined in the [{nameof(KanaType)}] enumeration");
                         return;
                     }
 
@@ -191,6 +198,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
+                        Debug.Fail($"can't parse [{answerNumber}] into a [byte] value");
                         return;
                     }
 
@@ -210,6 +218,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(ResetType), value))
                     {
+                        Debug.Fail($"[{value}] is not defined in the [{nameof(ResetType)}] enumeration");
                         return;
                     }
 
@@ -260,6 +269,7 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 if(BaseModel.PreviousTest is null)
                 {
+                    Debug.Fail($"[{nameof(BaseModel.PreviousTest)}] is [null]");
                     return;
                 }
 
@@ -279,6 +289,22 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         public ICommand CommandNextTest
             => new CommandHelperSlim(() => CheckSelectedAnswer(TestBaseModel.EmptyTest));
+
+        /// <summary>
+        /// Command to highlight a (possible) wrong answer
+        /// </summary>
+        public ICommand CommandHighlightAnswer
+            => new CommandHelper(value
+                =>
+                {
+                    if(!byte.TryParse(value?.ToString(), out var answerNumber))
+                    {
+                        Debug.Fail($"can't parse [{answerNumber}] into a [byte] value");
+                        return;
+                    }
+
+                    HighlightAnswer(Convert.ToByte(answerNumber - 1));
+                });
 
         #endregion Commands - Navigation
     }

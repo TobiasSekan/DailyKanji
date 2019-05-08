@@ -21,6 +21,7 @@
 
         <KeyBinding Key="Backspace" Command="{Binding CommandPreviousTest}" />
         <KeyBinding Key="Space" Command="{Binding CommandNextTest}" />
+
         <KeyBinding Key="D1" Command="{Binding CommandAnswerTestNumber}" CommandParameter="1" />
         <KeyBinding Key="D2" Command="{Binding CommandAnswerTestNumber}" CommandParameter="2" />
         <KeyBinding Key="D3" Command="{Binding CommandAnswerTestNumber}" CommandParameter="3" />
@@ -31,6 +32,47 @@
         <KeyBinding Key="D8" Command="{Binding CommandAnswerTestNumber}" CommandParameter="8" />
         <KeyBinding Key="D9" Command="{Binding CommandAnswerTestNumber}" CommandParameter="9" />
         <KeyBinding Key="D0" Command="{Binding CommandAnswerTestNumber}" CommandParameter="10" />
+
+        <KeyBinding Key="D1"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="1"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D2"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="2"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D3"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="3"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D4"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="4"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D5"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="5"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D6"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="6"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D7"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="7"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D8"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="8"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D9"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="9"
+                    Modifiers="Shift" />
+        <KeyBinding Key="D0"
+                    Command="{Binding CommandHighlightAnswer}"
+                    CommandParameter="10"
+                    Modifiers="Shift" />
 
     </Window.InputBindings>
 
@@ -663,7 +705,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="1">
+                    CommandParameter="1"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText01" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -675,7 +718,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="2">
+                    CommandParameter="2"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText02" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -687,7 +731,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="3">
+                    CommandParameter="3"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText03" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -699,7 +744,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="4">
+                    CommandParameter="4"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText04" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -711,7 +757,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="5">
+                    CommandParameter="5"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText05" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -723,7 +770,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="6">
+                    CommandParameter="6"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText06" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -735,7 +783,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="7">
+                    CommandParameter="7"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText07" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -747,7 +796,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="8">
+                    CommandParameter="8"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText08" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -759,7 +809,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="9">
+                    CommandParameter="9"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText09" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 
@@ -771,7 +822,8 @@
                     Margin="5"
                     Background="{Binding Path=BaseModel.AnswerButtonColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
                     Command="{Binding CommandAnswerTestNumber}"
-                    CommandParameter="10">
+                    CommandParameter="10"
+                    MouseRightButtonDown="HighlightAnswer">
 
                 <TextBlock x:Name="AnswerText10" Padding="0,0,0,10" FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
 

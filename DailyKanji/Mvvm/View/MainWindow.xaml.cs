@@ -1,5 +1,7 @@
 ﻿using DailyKanji.Mvvm.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -106,5 +108,25 @@ namespace DailyKanji.Mvvm.View
         }
 
         #endregion Internal Constructors
+
+        # region Private Methods
+
+        /// <summary>
+        /// Command redirection for right-click on a answer button
+        /// </summary>
+        /// <param name="sender">The sender <see cref="object"/> of the right-click</param>
+        /// <param name="e">The arguments of this events (not used)</param>
+        private void HighlightAnswer(object sender, EventArgs e)
+        {
+            if(!(sender is Button button))
+            {
+                Debug.Fail("Button not found");
+                return;
+            }
+
+            ViewModel.CommandHighlightAnswer.Execute(button.Name.Replace("Button", string.Empty));
+        }
+
+        #endregion Private Methods
     }
 }

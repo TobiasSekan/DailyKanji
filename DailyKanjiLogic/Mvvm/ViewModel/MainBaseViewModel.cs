@@ -604,6 +604,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             return answer.Roomaji == BaseModel.CurrentTest.Roomaji;
         }
+
+        /// <summary>
+        /// Set the highlight color for one element
+        /// </summary>
+        /// <param name="number">The number of the element</param>
+        /// <param name="highlightColor">The color string for the element to highlight</param>
+        public void SetHighlightColorToOne(in byte number, in string highlightColor)
+        {
+            Debug.Assert(number < 10, "number must be in range of 0 to 9");
+            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), "None selected color can't be null");
+
+            BaseModel.AnswerButtonColor[number] = highlightColor;
+        }
     }
 
     #endregion Public Methods

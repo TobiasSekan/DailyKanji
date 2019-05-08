@@ -7,8 +7,9 @@
 * Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
 ## Version 1.x
+* Add possibility to de-mark wrong answers (right-click and Shift+Number)
+* Add possibility to mark and de-mark wrong answers via menu
 * Make highlight timeout and answer timeout set-able as integer value not via menu entries
-* Add possibility to mark wrong answers (e.g. right mouse click) 
 * Game-pad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
