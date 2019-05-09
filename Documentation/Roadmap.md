@@ -7,7 +7,6 @@
 * Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
 ## Version 1.x
-* Add possibility to de-mark wrong answers (right-click and Shift+Number)
 * Add possibility to mark and de-mark wrong answers via menu
 * Make highlight timeout and answer timeout set-able as integer value not via menu entries
 * Game-pad support (with 10 buttons for 10 answers)

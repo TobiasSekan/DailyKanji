@@ -25,7 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Add possibility to de-mark wrong answers (right-click and Shift+Number)
     // TODO: Add possibility to mark and de-mark wrong answers via menu
     // TODO: Make highlight timeout and answer timeout set-able as integer value not via menu entries
     // TODO: Game-pad support (with 10 buttons for 10 answers)
@@ -98,7 +97,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => Colors.LightGoldenrodYellow.ToString();
 
         /// <summary>
-        /// The color string for the correct answer (on error highlight, <see cref="Colors.LightGreen"/> - FF90EE90)
+        /// The color string for the correct answer (<see cref="Colors.LightGreen"/> - FF90EE90)
         /// </summary>
         private static string CorrectColor
             => Colors.LightGreen.ToString();
@@ -110,7 +109,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => Colors.Transparent.ToString();
 
         /// <summary>
-        /// The color string for the answer hints (on error highlight, <see cref="Colors.Transparent"/> - #FF000000)
+        /// The color string for the answer hints (<see cref="Colors.Black"/> - #FF000000)
         /// </summary>
         private static string HintColor
             => Colors.Black.ToString();
@@ -405,8 +404,9 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerNumberTemp = answerNumber - 1;
 
-            MainWindow.Dispatcher.Invoke(() => SetHighlightColorToOneAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumberTemp),
-                                                                            NoneSelectedColor));
+            MainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumberTemp),
+                                                                                    NoneSelectedColor,
+                                                                                    TransparentColor));
         }
 
         #endregion Internal Methods

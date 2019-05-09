@@ -32,8 +32,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
         public void InitalizeBaseModel(in string baseColor, in string progressBarColor)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "base color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"{nameof(baseColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
 
             if(BaseModel == null)
             {
@@ -112,7 +112,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ChooseNewSign(TestBaseModel newTest)
         {
-            Debug.Assert(newTest != null, "Test model for choose sign can't be null");
+            Debug.Assert(newTest != null, $"{nameof(newTest)} can't be null");
 
             if(BaseModel.CurrentTest != null)
             {
@@ -219,7 +219,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerText(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
             switch(BaseModel.SelectedTestType)
             {
@@ -256,7 +256,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
             switch(BaseModel.SelectedHintType)
             {
@@ -307,7 +307,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null for counting answer result");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
@@ -529,20 +529,20 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Set the normal colors for all elements
         /// </summary>
-        /// <param name="baseColor">The base color for all elements</param>
+        /// <param name="normalColor">The base color for all elements</param>
         /// <param name="progressBarColor">The base color for the progress bar</param>
-        public void SetNormalColors(in string baseColor, in string progressBarColor)
+        public void SetNormalColors(in string normalColor, in string progressBarColor)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
 
-            BaseModel.CurrentAskSignColor = baseColor;
+            BaseModel.CurrentAskSignColor = normalColor;
             BaseModel.ProgressBarColor    = progressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                BaseModel.AnswerButtonColor[answerNumber] = baseColor;
-                BaseModel.HintTextColor[answerNumber]     = baseColor;
+                BaseModel.AnswerButtonColor[answerNumber] = normalColor;
+                BaseModel.HintTextColor[answerNumber]     = normalColor;
             }
         }
 
@@ -556,11 +556,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="hintColor">The color string for the hint elements</param>
         public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
         {
-            Debug.Assert(answer != null, "Answer can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), "Correction color can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), "Error color can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), "None selected color be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be empty or null");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"{nameof(correctColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"{nameof(errorColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"{nameof(noneSelectedColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"{nameof(hintColor)} can't be empty or null");
 
             BaseModel.CurrentAskSignColor = errorColor;
             BaseModel.ProgressBarColor    = errorColor;
@@ -587,7 +587,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
         public bool CheckAndCountAnswer(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null for answer check");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
             BaseModel.IgnoreInput = true;
 
@@ -605,16 +605,22 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set the highlight color for one answer
+        /// Set or remove the highlight color for one answer (when highlight color is set the color will be removed)
         /// </summary>
         /// <param name="answer">The answer to highlight</param>
         /// <param name="highlightColor">The color string for the answer to highlight</param>
-        public void SetHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor)
+        /// <param name="normalColor">The color string for the answer when it is not highlight</param>
+        public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
         {
-            Debug.Assert(answer != null, "Answer can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), "Highlight color can't be empty or null");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
 
-            BaseModel.AnswerButtonColor[GetAnswerNumber(answer)] = highlightColor;
+            var answerNumber = GetAnswerNumber(answer);
+
+            BaseModel.AnswerButtonColor[answerNumber] = BaseModel.AnswerButtonColor[answerNumber] != highlightColor
+                ? highlightColor
+                : normalColor;
         }
 
         #endregion Public Methods
@@ -628,7 +634,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal int GetAnswerNumber(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null");
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {

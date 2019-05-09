@@ -6,8 +6,9 @@
   * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 and 2019
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
 
-## Current state
-* in (slow) development
+## Current status and version
+* Status: in (slow) development
+* Version: 0.0.3.0
 
 ## Current features
 * 9 Test types
