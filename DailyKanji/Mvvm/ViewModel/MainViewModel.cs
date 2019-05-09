@@ -257,14 +257,16 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
+                        var answer = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+
                         MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
 
                         MainWindow.ButtonList[answerNumber].Visibility              = Visibility.Visible;
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
                         MainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
-                        MainWindow.AnswerTextList[answerNumber].Text          = GetAnswerText(answerNumber);
-                        MainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answerNumber);
+                        MainWindow.AnswerTextList[answerNumber].Text          = GetAnswerText(answer);
+                        MainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answer);
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
                                 ? $"{answerNumber + 1}"
                                 : string.Empty;
@@ -272,8 +274,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         MainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel)),
-                            CommandParameter = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber),
-                            Header           = GetAnswerText(answerNumber),
+                            CommandParameter = answer,
+                            Header           = GetAnswerText(answer),
                             InputGestureText = $"{answerNumber + 1}"
                         });
                     }
@@ -401,9 +403,10 @@ namespace DailyKanji.Mvvm.ViewModel
         internal void HighlightAnswer(in byte answerNumber)
         {
             // can't use "in" parameter in anonymous method
-            var answerNumberTemp = answerNumber;
+            var answerNumberTemp = answerNumber - 1;
 
-            MainWindow.Dispatcher.Invoke(() => SetHighlightColorToOne(answerNumberTemp, NoneSelectedColor));
+            MainWindow.Dispatcher.Invoke(() => SetHighlightColorToOneAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumberTemp),
+                                                                            NoneSelectedColor));
         }
 
         #endregion Internal Methods

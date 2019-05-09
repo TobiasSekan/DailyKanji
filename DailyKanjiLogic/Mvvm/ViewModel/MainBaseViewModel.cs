@@ -214,34 +214,34 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Return a text for a answer, based on the selected <see cref="TestType"/>
         /// </summary>
-        /// <param name="answerNumber">The number of the answer</param>
+        /// <param name="answer">The answer, that should have a text</param>
         /// <returns>A text for a answer</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public string GetAnswerText(in byte answerNumber)
+        public string GetAnswerText(in TestBaseModel answer)
         {
-            Debug.Assert(answerNumber < 10, $"Answer number must between 0 and 9, but it was [{answerNumber}]");
+            Debug.Assert(answer != null, "Answer can't be null");
 
             switch(BaseModel.SelectedTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji:
                 case TestType.HiraganaToRoomaji:
                 case TestType.KatakanaToRoomaji:
-                    return BaseModel.PossibleAnswers[answerNumber].Roomaji;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
 
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                 case TestType.RoomajiToHiragana:
                 case TestType.KatakanaToHiragana:
-                    return BaseModel.PossibleAnswers[answerNumber].Hiragana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
 
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Katakana:
                 case TestType.RoomajiToKatakana:
                 case TestType.HiraganaToKatakana:
-                    return BaseModel.PossibleAnswers[answerNumber].Katakana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 case TestType.RoomajiToHiraganaOrKatakana:
                     return BaseModel.Randomizer.Next(0, 2) == 0
-                            ? BaseModel.PossibleAnswers[answerNumber].Hiragana
-                            : BaseModel.PossibleAnswers[answerNumber].Katakana;
+                            ? BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana
+                            : BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
@@ -249,26 +249,25 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Return a hint for a answer,
-        /// based on the selected <see cref="HintType"/> and selected <see cref="TestType"/>
+        /// Return a hint for a answer, based on the selected <see cref="HintType"/> and selected <see cref="TestType"/>
         /// </summary>
-        /// <param name="answerNumber">The number of the answer</param>
+        /// <param name="answer">The answer that should have a hint</param>
         /// <returns>A hint for a answer</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public string GetAnswerHint(in byte answerNumber)
+        public string GetAnswerHint(in TestBaseModel answer)
         {
-            Debug.Assert(answerNumber < 10, $"Answer number must between 0 and 9, but it was [{answerNumber}]");
+            Debug.Assert(answer != null, "Answer can't be null");
 
             switch(BaseModel.SelectedHintType)
             {
                 case HintType.AlwaysInRoomaji:
-                    return BaseModel.PossibleAnswers[answerNumber].Roomaji;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
 
                 case HintType.AlwaysInHiragana:
-                    return BaseModel.PossibleAnswers[answerNumber].Hiragana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
 
                 case HintType.AlwaysInKatakana:
-                    return BaseModel.PossibleAnswers[answerNumber].Katakana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 case HintType.BasedOnAskSign:
                     break;
@@ -282,19 +281,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.RoomajiToHiraganaOrKatakana:
                 case TestType.RoomajiToHiragana:
                 case TestType.RoomajiToKatakana:
-                    return BaseModel.PossibleAnswers[answerNumber].Roomaji;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                 case TestType.HiraganaToRoomaji:
                 case TestType.HiraganaToKatakana:
-                    return BaseModel.PossibleAnswers[answerNumber].Hiragana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Hiragana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Hiragana:
                 case TestType.KatakanaToRoomaji:
                 case TestType.KatakanaToHiragana:
-                    return BaseModel.PossibleAnswers[answerNumber].Katakana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
@@ -535,7 +534,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         public void SetNormalColors(in string baseColor, in string progressBarColor)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), "Base color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), "Progress bar color can't be empty or null");
 
             BaseModel.CurrentAskSignColor = baseColor;
             BaseModel.ProgressBarColor    = progressBarColor;
@@ -558,10 +557,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
         {
             Debug.Assert(answer != null, "Answer can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), "Correction color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), "Error color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), "None selected color can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), "Correction color can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), "Error color can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), "None selected color be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), "Hint bar color can't be empty or null");
 
             BaseModel.CurrentAskSignColor = errorColor;
             BaseModel.ProgressBarColor    = errorColor;
@@ -606,18 +605,44 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set the highlight color for one element
+        /// Set the highlight color for one answer
         /// </summary>
-        /// <param name="number">The number of the element</param>
-        /// <param name="highlightColor">The color string for the element to highlight</param>
-        public void SetHighlightColorToOne(in byte number, in string highlightColor)
+        /// <param name="answer">The answer to highlight</param>
+        /// <param name="highlightColor">The color string for the answer to highlight</param>
+        public void SetHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor)
         {
-            Debug.Assert(number < 10, "number must be in range of 0 to 9");
-            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), "None selected color can't be null");
+            Debug.Assert(answer != null, "Answer can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), "Highlight color can't be empty or null");
 
-            BaseModel.AnswerButtonColor[number] = highlightColor;
+            BaseModel.AnswerButtonColor[GetAnswerNumber(answer)] = highlightColor;
         }
-    }
 
-    #endregion Public Methods
+        #endregion Public Methods
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Return the answer number for the given answer
+        /// </summary>
+        /// <param name="answer">The answer that should present and have a number</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal int GetAnswerNumber(in TestBaseModel answer)
+        {
+            Debug.Assert(answer != null, "Answer can't be null");
+
+            for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
+            {
+                if(BaseModel.PossibleAnswers[answerNumber].Roomaji != answer.Roomaji)
+                {
+                    continue;
+                }
+
+                return answerNumber;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(answer), "Number for answer not found");
+        }
+
+        #endregion Internal Methods
+    }
 }
