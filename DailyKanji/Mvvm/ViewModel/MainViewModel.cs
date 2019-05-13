@@ -17,7 +17,9 @@ using System.Windows.Media;
 namespace DailyKanji.Mvvm.ViewModel
 {
     // Test
+    // ----
     // Current sign statistics (possible: show wrong count)
+    // Game-pad button calculation
 
     // BUG
     // ---
@@ -25,7 +27,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Add possibility to mark and de-mark wrong answers via menu
     // TODO: Make highlight timeout and answer timeout set-able as integer value not via menu entries
     // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
@@ -251,12 +252,15 @@ namespace DailyKanji.Mvvm.ViewModel
             => MainWindow?.Dispatcher?.Invoke(() =>
             {
                 MainWindow.AnswerMenu.Items.Clear();
+                MainWindow.MarkMenu.Items.Clear();
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
-                        var answer = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                        var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                        var answerText       = GetAnswerText(answer);
+                        var inputGestureText = $"{answerNumber + 1}";
 
                         MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
 
@@ -264,18 +268,26 @@ namespace DailyKanji.Mvvm.ViewModel
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
                         MainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
-                        MainWindow.AnswerTextList[answerNumber].Text          = GetAnswerText(answer);
+                        MainWindow.AnswerTextList[answerNumber].Text          = answerText;
                         MainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answer);
                         MainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
-                                ? $"{answerNumber + 1}"
+                                ? inputGestureText
                                 : string.Empty;
 
                         MainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel)),
                             CommandParameter = answer,
-                            Header           = GetAnswerText(answer),
-                            InputGestureText = $"{answerNumber + 1}"
+                            Header           = answerText,
+                            InputGestureText = inputGestureText
+                        });
+
+                        MainWindow.MarkMenu.Items.Add(new MenuItem
+                        {
+                            Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel)),
+                            CommandParameter = answer,
+                            Header           = answerText,
+                            InputGestureText = $"Shift+{inputGestureText}"
                         });
                     }
                     else
@@ -389,6 +401,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             continue;
                         }
 
+                        // TODO: check if "button + 1" is the correct value
                         CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
                     }
                 }
@@ -398,15 +411,13 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Highlight a answer (button) with the <see cref="NoneSelectedColor"/>
         /// </summary>
-        /// <param name="answerNumber">The answer number that should be highlighted</param>
-        internal void HighlightAnswer(in byte answerNumber)
+        /// <param name="answer">The answer (button) to highlight</param>
+        internal void HighlightAnswer(in TestBaseModel answer)
         {
             // can't use "in" parameter in anonymous method
-            var answerNumberTemp = answerNumber - 1;
+            var answerTemp = answer;
 
-            MainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumberTemp),
-                                                                                    NoneSelectedColor,
-                                                                                    TransparentColor));
+            MainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, NoneSelectedColor, TransparentColor));
         }
 
         #endregion Internal Methods

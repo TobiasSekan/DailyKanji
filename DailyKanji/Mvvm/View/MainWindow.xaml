@@ -546,6 +546,8 @@
 
             <MenuItem x:Name="AnswerMenu" Header="_Answers" />
 
+            <MenuItem x:Name="MarkMenu" Header="_Mark" />
+
             <MenuItem Header="_Help">
 
                 <MenuItem Command="{Binding Path=CommandShowInfoWindow}" Header="_Info" InputGestureText="F1" />

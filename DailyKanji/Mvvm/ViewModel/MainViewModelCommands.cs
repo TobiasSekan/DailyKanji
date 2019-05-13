@@ -303,7 +303,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    HighlightAnswer(Convert.ToByte(answerNumber));
+                    HighlightAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
         #endregion Commands - Navigation

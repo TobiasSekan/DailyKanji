@@ -477,7 +477,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         public Random Randomizer { get; set; }
 
         /// <summary>
-        /// Indicate that the current input (mouse and keyboard) will ignore and no processed
+        /// Indicate that the current input (mouse, keyboard, game-pad and menu) will ignore and no processed
         /// </summary>
         [JsonIgnore]
         public bool IgnoreInput { get; set; }

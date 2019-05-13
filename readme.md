@@ -8,7 +8,7 @@
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.0.3.0
+* Version: 0.0.4.0
 
 ## Current features
 * 9 Test types
@@ -18,10 +18,10 @@
 * 6 Kana types
   * Gojuuon, Gojuuon with dakuten, Gojuuon with handakuten
   * Yooon, Yooon with dakuten, Yooon with handakuten
-* Test can be answered via left mouse click, number key, menu entry or gamepad buttons
+* Test can be answered via mouse left-click, number key, menu entry or gamepad buttons
 * Switch to previous test or next test
 * Running answer timer, when time is over the test is automatically answered wrong
-* Mark possible wrong answers (via mouse right-click or shift + number)
+* Mark possible wrong answers via mouse right-click, shift + number key or menu entry
 * Highlight wrong and correct answers, when answer was wrong and/or correct
 * Show hint of all possible answers, when answer was wrong (can be hide and change via menu)
 * Wrong answered tests will be ask more often
@@ -30,7 +30,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10) - outdated
+## Pictures (under Windows 10) - Version 0.0.4.0
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
@@ -46,7 +46,7 @@ Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
 see [Roadmap](Documentation/Roadmap.md)
 
 ## Requirements for debug, test and contributing
-* [Visual Studio 2017](https://visualstudio.microsoft.com/en/downloads/), [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/de/vs/preview/), [Visual Studio Code](https://visualstudio.microsoft.com/en/downloads/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
+* [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137) (include .Net Standard 1.3)
 * C# 8.0
 
