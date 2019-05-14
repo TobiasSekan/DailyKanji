@@ -52,22 +52,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         /// <summary>
-        /// Command for change the error timeout
-        /// </summary>
-        public ICommand CommandChangeErrorTimeout
-            => new CommandHelper(value
-                =>
-                {
-                    if(!int.TryParse(value?.ToString(), out var timeout))
-                    {
-                        Debug.Fail($"can't parse [{timeout}] into [int] value");
-                        return;
-                    }
-
-                    BaseModel.HighlightTimeout = timeout;
-                });
-
-        /// <summary>
         /// Command for change the answer count (answer button and answer menu entries)
         /// </summary>
         public ICommand CommandChangeAnswerCount
@@ -84,27 +68,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
-                });
-
-        /// <summary>
-        /// Command for change the maximum (running) answer timeout
-        /// </summary>
-        public ICommand CommandChangeMaximumAnswerTimeout
-            => new CommandHelper(value
-                =>
-                {
-                    if(!double.TryParse(value?.ToString(), out var maximumAnswerTimeout))
-                    {
-                        Debug.Fail($"can't parse [{maximumAnswerTimeout}] into [double] value");
-                        return;
-                    }
-
-                    BaseModel.MaximumAnswerTimeout = maximumAnswerTimeout;
-
-                    Model.TestTimer.Stop();
-                    BaseModel.ProgressBarColor = ProgressBarColor;
-
-                    StartTestTimer();
                 });
 
         /// <summary>
@@ -126,7 +89,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     if(BaseModel.UseAnswerTimer)
                     {
-                        StartTestTimer();
+                        RestartTestTimer();
                     }
                     else
                     {
@@ -230,7 +193,7 @@ namespace DailyKanji.Mvvm.ViewModel
                                        MessageBoxImage.Question)
                        != MessageBoxResult.Yes)
                     {
-                        StartTestTimer();
+                        RestartTestTimer();
                         return;
                     }
 
@@ -253,7 +216,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     var infoWindow = new InfoWindow(this);
 
-                    infoWindow.Closed += (_, __) => StartTestTimer();
+                    infoWindow.Closed += (_, __) => RestartTestTimer();
                     infoWindow.Show();
                 });
 
@@ -278,7 +241,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 ChooseNewPossibleAnswers();
                 BuildAnswerMenuAndButtons();
-                StartTestTimer();
+                RestartTestTimer();
 
                 BaseModel.IgnoreInput  = false;
                 BaseModel.PreviousTest = null;

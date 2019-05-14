@@ -18,8 +18,9 @@ namespace DailyKanji.Mvvm.ViewModel
 {
     // Test
     // ----
-    // Current sign statistics (possible: show wrong count)
-    // Game-pad button calculation
+    // Test: Current sign statistics (possible: show wrong count)
+    // Test: Game-pad button calculation
+    // Test: Game-pad support (with 10 buttons for 10 answers)
 
     // BUG
     // ---
@@ -27,8 +28,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Make highlight timeout and answer timeout set-able as integer value not via menu entries
-    // TODO: Game-pad support (with 10 buttons for 10 answers)
     // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
@@ -189,6 +188,28 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Internal Methods
 
         /// <summary>
+        /// Restart the test timer (Start time is <see cref="DateTime.UtcNow"/>)
+        /// </summary>
+        internal void RestartTestTimer()
+        {
+            Model.TestTimer.Stop();
+
+            if(!BaseModel.UseAnswerTimer)
+            {
+                return;
+            }
+
+            BaseModel.ProgressBarColor = ProgressBarColor;
+            BaseModel.TestStartTime    = DateTime.UtcNow;
+
+            Model.TestTimer.Start();
+        }
+
+        #endregion Internal Methods
+
+        #region Private Methods
+
+        /// <summary>
         /// Create a new test with new question and new possible answers
         /// </summary>
         private void CreateNewTest()
@@ -198,7 +219,7 @@ namespace DailyKanji.Mvvm.ViewModel
             ChooseNewSign(GetRandomKanaTest());
             ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
-            StartTestTimer();
+            RestartTestTimer();
 
             BaseModel.IgnoreInput = false;
         }
@@ -306,20 +327,6 @@ namespace DailyKanji.Mvvm.ViewModel
             });
 
         /// <summary>
-        /// Start the test timer (Start time is <see cref="DateTime.UtcNow"/>)
-        /// </summary>
-        private void StartTestTimer()
-        {
-            if(!BaseModel.UseAnswerTimer)
-            {
-                return;
-            }
-
-            BaseModel.TestStartTime = DateTime.UtcNow;
-            Model.TestTimer.Start();
-        }
-
-        /// <summary>
         /// Check if a new version on-line
         /// </summary>
         private void CheckForNewVersion()
@@ -420,6 +427,6 @@ namespace DailyKanji.Mvvm.ViewModel
             MainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, NoneSelectedColor, TransparentColor));
         }
 
-        #endregion Internal Methods
+        #endregion Private Methods
     }
 }

@@ -2,13 +2,13 @@
 
 ## Testing
 * Current sign statistics (possible: show wrong count)
+* Game-pad button calculation
+* Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
 * Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
 ## Version 1.x
-* Make highlight timeout and answer timeout set-able as integer value not via menu entries
-* Game-pad support (with 10 buttons for 10 answers)
 * Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers

@@ -127,6 +127,15 @@ namespace DailyKanji.Mvvm.View
             ViewModel.CommandHighlightAnswer.Execute(button.Name.Replace("Button", string.Empty));
         }
 
+        /// <summary>
+        /// Restart the answer timer after the answer timeout has changed
+        /// </summary>
+        /// <param name="sender">The sender of this event (not used)</param>
+        /// <param name="e">The arguments of this event (not used)</param>
+        private void ChangeAnswerTimer(object sender, EventArgs e)
+            => ViewModel.RestartTestTimer();
+
         #endregion Private Methods
+
     }
 }

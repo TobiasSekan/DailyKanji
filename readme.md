@@ -8,7 +8,7 @@
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.4.0
+* Version: 0.5.0
 
 ## Current features
 * 9 Test types
@@ -30,7 +30,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10) - Version 0.4.0
+## Pictures (under Windows 10) - Version 0.5.0
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
@@ -57,7 +57,8 @@ see [Roadmap](Documentation/Roadmap.md)
 | DailyKanjiLogic | .Net Standard 1.3  | Operating system independent |
 
 ## Used NuGet packages
-| Package             | Reason                          |
-| ------------------- | ------------------------------- |
-| Newtonsoft.Json     | Load and Write JSON files       |
-| SharpDX.DirectInput | Gamepad support via DirectInput |
+| Package              | Version    | Reason                          |
+| -------------------- | ---------- | ------------------------------- |
+| Extended.Wpf.Toolkit | 3.5.0      | WPF elements (e.g. SpinUpDown)  |
+| Newtonsoft.Json      | 12.0.2     | Load and Write JSON files       |
+| SharpDX.DirectInput  | 4.2.0      | Gamepad support via DirectInput |
