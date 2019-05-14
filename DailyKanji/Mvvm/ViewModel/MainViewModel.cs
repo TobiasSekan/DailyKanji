@@ -260,7 +260,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     {
                         var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                         var answerText       = GetAnswerText(answer);
-                        var inputGestureText = $"{answerNumber + 1}";
+                        var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                         MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
 
