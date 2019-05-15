@@ -7,9 +7,9 @@
 
 ## BUG
 * Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+* Fix correct counting for wrong answers on test type "AllToAll"
 
 ## Version 1.x
-* Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this 

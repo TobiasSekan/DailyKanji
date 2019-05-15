@@ -48,6 +48,11 @@
         /// <summary>
         /// Question in Katakana and answer in Hiragana
         /// </summary>
-        KatakanaToHiragana = 8
+        KatakanaToHiragana = 8,
+
+        /// <summary>
+        /// Question in Hiragana, Katakana or Roomaji and answers in Hiragana, Katakana or Roomaji
+        /// </summary>
+        AllToAll = 9
     }
 }

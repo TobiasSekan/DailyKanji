@@ -24,11 +24,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+    // BUG: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
+    // BUG: Fix correct counting for wrong answers on test type "AllToAll"
 
     // Version 1.x
     // -----------
-    // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
