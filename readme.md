@@ -8,7 +8,7 @@
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.5.1
+* Version: 0.6.1
 
 ## Current features
 * 10 Test types
