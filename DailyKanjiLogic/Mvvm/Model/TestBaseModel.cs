@@ -178,6 +178,15 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #endregion Public Properties
 
+        #region Internal Properties
+
+        /// <summary>
+        /// The type of this answer that is shown on the surface (Roomaji, Hiragana or Katakana)
+        /// </summary>
+        internal AnswerType AnswerType { get; set; }
+
+        #endregion Internal Properties
+
         #region Private Backing-fields
 
         /// <summary>

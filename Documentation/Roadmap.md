@@ -2,12 +2,11 @@
 
 ## Testing
 * Current sign statistics (possible: show wrong count)
+* Correct counting for answers on test type "AllToAll"
 * Game-pad button calculation
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-* Fix correct counting for wrong answers on test type "AllToAll"
 
 ## Version 1.x
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

@@ -19,13 +19,12 @@ namespace DailyKanji.Mvvm.ViewModel
     // Test
     // ----
     // Test: Current sign statistics (possible: show wrong count)
+    // Test: Correct counting for answers on test type "AllToAll"
     // Test: Game-pad button calculation
     // Test: Game-pad support (with 10 buttons for 10 answers)
 
     // BUG
     // ---
-    // BUG: Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-    // BUG: Fix correct counting for wrong answers on test type "AllToAll"
 
     // Version 1.x
     // -----------
