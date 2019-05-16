@@ -8,13 +8,14 @@
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.5.0
+* Version: 0.5.1
 
 ## Current features
-* 9 Test types
+* 10 Test types
   * Hiragana or Katakana to Roomaji, Only Hiragana to Roomaji, Only Katakana to Roomaji
   * Roomaji to Hiragana or Katakana, Only Roomaji to Hiragana, Only Roomaji to Katakana
   * Hiragana to Katakana or Katakana to Hiragana, Only Hiragana to Katakana, Only Katakana to Hiragana
+  * All to All
 * 6 Kana types
   * Gojuuon, Gojuuon with dakuten, Gojuuon with handakuten
   * Yooon, Yooon with dakuten, Yooon with handakuten
@@ -30,7 +31,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10) - Version 0.5.0
+## Pictures (under Windows 10) - Version 0.4.0
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 

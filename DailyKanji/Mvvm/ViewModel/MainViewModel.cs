@@ -19,16 +19,15 @@ namespace DailyKanji.Mvvm.ViewModel
     // Test
     // ----
     // Test: Current sign statistics (possible: show wrong count)
+    // Test: Correct counting for answers on test type "AllToAll"
     // Test: Game-pad button calculation
     // Test: Game-pad support (with 10 buttons for 10 answers)
 
     // BUG
     // ---
-    // Fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
 
     // Version 1.x
     // -----------
-    // TODO: Add test type for all -> "Hiragana, Katakana or Roomaji to Hiragana, Katakana or Roomaji"
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //

@@ -46,13 +46,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 BaseModel.AllTestsList = list.ToList();
             }
 
-            BaseModel.Randomizer          = new Random();
-            BaseModel.PossibleAnswers     = new Collection<TestBaseModel>();
-            BaseModel.TestPool            = new Collection<TestBaseModel>();
-            BaseModel.AnswerButtonColor   = new ObservableCollection<string>();
-            BaseModel.HintTextColor       = new ObservableCollection<string>();
-            BaseModel.HighlightTimer = new ManualResetEvent(false);
-            BaseModel.ProgressBarColor    = progressBarColor;
+            BaseModel.Randomizer        = new Random();
+            BaseModel.PossibleAnswers   = new Collection<TestBaseModel>();
+            BaseModel.TestPool          = new Collection<TestBaseModel>();
+            BaseModel.AnswerButtonColor = new ObservableCollection<string>();
+            BaseModel.HintTextColor     = new ObservableCollection<string>();
+            BaseModel.HighlightTimer    = new ManualResetEvent(false);
+            BaseModel.ProgressBarColor  = progressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
@@ -149,6 +149,27 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     BaseModel.CurrentAskSign = BaseModel.CurrentTest.Roomaji;
                     break;
 
+                case TestType.AllToAll:
+                    var random = BaseModel.Randomizer.Next(0, 3);
+                    switch(random)
+                    {
+                        case 0:
+                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Hiragana;
+                            break;
+
+                        case 1:
+                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Katakana;
+                            break;
+
+                        case 2:
+                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Roomaji;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(random), $"[{random}] is not between 0 and 2");
+                    }
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
             }
@@ -226,22 +247,51 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.HiraganaOrKatakanaToRoomaji:
                 case TestType.HiraganaToRoomaji:
                 case TestType.KatakanaToRoomaji:
+                    answer.AnswerType = AnswerType.Roomaji;
                     return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
 
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                 case TestType.RoomajiToHiragana:
                 case TestType.KatakanaToHiragana:
+                    answer.AnswerType = AnswerType.Hiragana;
                     return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
 
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Katakana:
                 case TestType.RoomajiToKatakana:
                 case TestType.HiraganaToKatakana:
+                    answer.AnswerType = AnswerType.Katakana;
                     return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 case TestType.RoomajiToHiraganaOrKatakana:
-                    return BaseModel.Randomizer.Next(0, 2) == 0
-                            ? BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana
-                            : BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
+                    if(BaseModel.Randomizer.Next(0, 2) == 0)
+                    {
+                        answer.AnswerType = AnswerType.Hiragana;
+                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+                    }
+
+                    answer.AnswerType = AnswerType.Katakana;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                    if(BaseModel.Randomizer.Next(0, 2) == 0)
+                    {
+                        answer.AnswerType = AnswerType.Katakana;
+                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+                    }
+
+                    answer.AnswerType = AnswerType.Roomaji;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                    if(BaseModel.Randomizer.Next(0, 2) == 0)
+                    {
+                        answer.AnswerType = AnswerType.Hiragana;
+                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+                    }
+
+                    answer.AnswerType = AnswerType.Roomaji;
+                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
@@ -270,33 +320,34 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
 
                 case HintType.BasedOnAskSign:
-                    break;
+                    switch(BaseModel.SelectedTestType)
+                    {
+                        case TestType.RoomajiToHiraganaOrKatakana:
+                        case TestType.RoomajiToHiragana:
+                        case TestType.RoomajiToKatakana:
+                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
+                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+
+                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                        case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                        case TestType.HiraganaToRoomaji:
+                        case TestType.HiraganaToKatakana:
+                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+
+                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                        case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                        case TestType.KatakanaToRoomaji:
+                        case TestType.KatakanaToHiragana:
+                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+                    }
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedHintType), "Hint type not supported");
-            }
-
-            switch(BaseModel.SelectedTestType)
-            {
-                case TestType.RoomajiToHiraganaOrKatakana:
-                case TestType.RoomajiToHiragana:
-                case TestType.RoomajiToKatakana:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
-
-                case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                case TestType.HiraganaToRoomaji:
-                case TestType.HiraganaToKatakana:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
-
-                case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Hiragana:
-                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Hiragana:
-                case TestType.KatakanaToRoomaji:
-                case TestType.KatakanaToHiragana:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
             }
         }
 
@@ -308,6 +359,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         public void CountAnswerResult(in TestBaseModel answer)
         {
             Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(answer.AnswerType != AnswerType.Unknown, $"{nameof(answer.AnswerType)} can't be {nameof(AnswerType.Unknown)}");
 
             var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
@@ -317,75 +369,81 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 {
                     answer.WrongnessCounter--;
                 }
-
-                switch(BaseModel.SelectedTestType)
+                else
                 {
-                    case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                    case TestType.HiraganaToRoomaji:
-                    case TestType.RoomajiToHiragana:
-                    case TestType.HiraganaToKatakana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
-                        BaseModel.CurrentTest.CorrectHiraganaCount++;
-                        break;
-
-                    case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                    case TestType.KatakanaToRoomaji:
-                    case TestType.RoomajiToKatakana:
-                    case TestType.KatakanaToHiragana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += answerTime;
-                        BaseModel.CurrentTest.CorrectKatakanaCount++;
-                        break;
-
-                    // TODO: fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-                    //case TestType.RoomajiToHiraganaOrKatakana when IsKatakana(answer):
-                    //case TestType.RoomajiToHiraganaOrKatakana when IsHiragana(answer):
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
-                        BaseModel.CurrentTest.CorrectHiraganaCount++;
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+                    answer.WrongnessCounter++;
                 }
-
-                return;
             }
-
-            answer.WrongnessCounter++;
 
             switch(BaseModel.SelectedTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                case TestType.RoomajiToHiraganaOrKatakana when answer.AnswerType == AnswerType.Hiragana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Hiragana:
                 case TestType.HiraganaToRoomaji:
                 case TestType.RoomajiToHiragana:
                 case TestType.HiraganaToKatakana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                    BaseModel.CurrentTest.WrongHiraganaCount++;
+                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
+                        BaseModel.CurrentTest.CorrectHiraganaCount++;
+                    }
+                    else
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
+                        BaseModel.CurrentTest.WrongHiraganaCount++;
+                    }
                     break;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.RoomajiToHiraganaOrKatakana when answer.AnswerType == AnswerType.Katakana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Katakana:
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
                 case TestType.KatakanaToHiragana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
-                    BaseModel.CurrentTest.WrongKatakanaCount++;
+                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += answerTime;
+                        BaseModel.CurrentTest.CorrectKatakanaCount++;
+                    }
+                    else
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
+                        BaseModel.CurrentTest.WrongKatakanaCount++;
+                    }
                     break;
 
-                    // TODO: fix correct counting for wrong answers on test type "RoomajiToHiraganaOrKatakana"
-                    //case TestType.RoomajiToHiraganaOrKatakana when IsKatakana(answer):
-                    //case TestType.RoomajiToHiraganaOrKatakana when IsHiragana(answer):
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                    BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                    BaseModel.CurrentTest.WrongHiraganaCount++;
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Unknown:
+                    // When no answer is selected and the ask sign is in Roomaji,
+                    // we don't know which error counter we should increase. So we decide the coincidence
+                    if(BaseModel.Randomizer.Next(0, 2) == 0)
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
+                        BaseModel.CurrentTest.WrongHiraganaCount++;
+                    }
+                    else
+                    {
+                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
+                        BaseModel.CurrentTest.WrongKatakanaCount++;
+                    }
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType),
+                        "Test type combination not supported\n"
+                        + $"SelectedTestType:     [{BaseModel.SelectedTestType}]\n"
+                        + $"CurrentAskSign:       [{BaseModel.CurrentAskSign}]\n"
+                        + $"CurrentTest.Katakana: [{BaseModel.CurrentTest.Katakana}]\n"
+                        + $"CurrentTest.Hiragana: [{BaseModel.CurrentTest.Hiragana}]\n"
+                        + $"answer.AnswerType:    [{answer.AnswerType}]");
             }
+
+            // Reset the AnswerType - only for testing / debugging
+            answer.AnswerType = AnswerType.Unknown;
         }
 
         /// <summary>

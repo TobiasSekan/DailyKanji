@@ -305,6 +305,11 @@
 
                     <Separator />
 
+                    <MenuItem Command="{Binding Path=CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.AllToAll}"
+                              Header="All to all"
+                              IsChecked="{Binding Path=BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.AllToAll}}" />
+
                 </MenuItem>
 
                 <Separator />

@@ -329,9 +329,13 @@ namespace DailyKanjiLogic.Mvvm.Model
 
                     case TestType.KatakanaToHiragana:
                         return "K => H";
-                }
 
-                return "unknown";
+                    case TestType.AllToAll:
+                        return "All => All";
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(SelectedTestType), "Test type not supported");
+                }
             }
         }
 
@@ -369,6 +373,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.WrongHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
@@ -376,9 +381,11 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.WrongKatakanaCount}";
 
                     case TestType.RoomajiToHiraganaOrKatakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Roomaji:
                         return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
 
                     default:
@@ -404,6 +411,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.CorrectHiraganaCount}";
 
                     case TestType.KatakanaToRoomaji:
@@ -411,9 +419,11 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.CorrectKatakanaCount}";
 
                     case TestType.RoomajiToHiraganaOrKatakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Roomaji:
                         return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
 
                     default:
@@ -439,6 +449,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.RoomajiToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Hiragana:
                         return $"{CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff}";
 
                     case TestType.KatakanaToRoomaji:
@@ -446,9 +457,11 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.KatakanaToHiragana:
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Katakana:
                         return $"{CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
 
                     case TestType.RoomajiToHiraganaOrKatakana:
+                    case TestType.AllToAll when CurrentAskSign == CurrentTest.Roomaji:
                         return $"H: {CurrentTest.AverageAnswerTimeForHiragana:mm\\:ss\\.ff} - K: {CurrentTest.AverageAnswerTimeForKatakana:mm\\:ss\\.ff}";
 
                     default:
@@ -721,7 +734,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         public MainBaseModel()
         {
             MaximumAnswerTimeout        = 10_000;
-            HighlightTimeout                = 3_000;
+            HighlightTimeout            = 3_000;
             MaximumAnswers              = 7;
 
             SelectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
@@ -739,7 +752,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             ShowRunningAnswerTimer      = true;
             SimilarAnswers              = true;
             CheckForNewVersionOnStartUp = true;
-            HighlightOnWrongAnswer           = true;
+            HighlightOnWrongAnswer      = true;
             UseAnswerTimer              = true;
         }
 
