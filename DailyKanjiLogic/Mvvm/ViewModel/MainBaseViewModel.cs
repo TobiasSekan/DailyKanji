@@ -187,49 +187,42 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         public void ChooseNewPossibleAnswers()
         {
-            var firstTestCharacter  = BaseModel.CurrentTest.Roomaji.FirstOrDefault();
-            var secondTestCharacter = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(1);
-            var thirdTestCharacter  = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(2);
-
-            var tryAddCount = 0;
-            var list        = new ObservableCollection<TestBaseModel>
+            var possibleAnswers = new ObservableCollection<TestBaseModel>
             {
+                // add correct answer for this test to list with possible answers
                 BaseModel.CurrentTest
             };
 
-            while(list.Count < BaseModel.MaximumAnswers)
+            var allAnswerList = BaseModel.SimilarAnswers
+                ? KanaHelper.GetSimilarKana(BaseModel.TestPool, BaseModel.CurrentTest, BaseModel.CurrentTest.AnswerType).ToList()
+                : BaseModel.TestPool.ToList();
+
+            allAnswerList.Remove(BaseModel.CurrentTest);
+            allAnswerList.Shuffle();
+
+            while(possibleAnswers.Count < BaseModel.MaximumAnswers)
             {
-                var possibleAnswer = GetRandomKanaTest();
-                Debug.Assert(possibleAnswer != null, "Random kana test is null");
-
-                if((tryAddCount < 50) && list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
+                if(allAnswerList.Count > 0)
                 {
-                    tryAddCount++;
+                    var possibleAnswer = allAnswerList.ElementAtOrDefault(BaseModel.Randomizer.Next(0, allAnswerList.Count));
+                    possibleAnswers.Add(possibleAnswer);
+                    allAnswerList.Remove(possibleAnswer);
                     continue;
                 }
 
-                if(!BaseModel.SimilarAnswers)
+                var anyAnswer = GetRandomKanaTest();
+                if(possibleAnswers.Contains(anyAnswer))
                 {
-                    list.Add(possibleAnswer);
+                    // don't add test twice
                     continue;
                 }
 
-                if((tryAddCount < 50)
-                && !possibleAnswer.Roomaji.Contains(firstTestCharacter)
-                && !possibleAnswer.Roomaji.Contains(secondTestCharacter)
-                && !possibleAnswer.Roomaji.Contains(thirdTestCharacter))
-                {
-                    tryAddCount++;
-                    continue;
-                }
-
-                list.Add(possibleAnswer);
-                tryAddCount = 0;
+                possibleAnswers.Add(anyAnswer);
             }
 
-            list.Shuffle();
+            possibleAnswers.Shuffle();
 
-            BaseModel.PossibleAnswers = list;
+            BaseModel.PossibleAnswers = possibleAnswers;
         }
 
         /// <summary>

@@ -28,6 +28,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Make refresh interval for timer changeable via menu
+    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
+    //
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
@@ -36,10 +39,8 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
     //
-    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Make refresh interval for timer changeable via menu
 
     // Version 2.x
     // -----------

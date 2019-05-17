@@ -2,8 +2,8 @@
 
 ## Requirements for usage
 * Windows
-  * Windows Vista SP2, 7 SP1, 8, 8.1 and 10
-  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 and 2019
+  * Windows Vista SP2, 7 SP1, 8, 8.1 or 10
+  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 or 2019
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
 
 ## Current status and version

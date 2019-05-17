@@ -3,7 +3,7 @@
     /// <summary>
     /// The type of a answer
     /// </summary>
-    internal enum AnswerType : byte
+    public enum AnswerType : byte
     {
         /// <summary>
         /// This answer type is unknown (e.g. used when answer is invalid or no answer is selected)
