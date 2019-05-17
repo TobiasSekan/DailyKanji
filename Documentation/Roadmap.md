@@ -7,6 +7,7 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
+* Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)  
 
 ## Version 1.x
 * Build test pool and choose possible answers on highlight time to avoid extra waiting time
