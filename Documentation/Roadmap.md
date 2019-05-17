@@ -9,6 +9,7 @@
 ## BUG
 
 ## Version 1.x
+* Build test pool and choose possible answers on highlight time to avoid extra waiting time
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

@@ -28,6 +28,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Build test pool and choose possible answers on highlight time to avoid extra waiting time
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     //
