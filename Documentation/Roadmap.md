@@ -7,8 +7,7 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Table in the statistic Window don't zoom on maximizie window or change window size
-* Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)  
+* Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
 ## Version 1.x
 * Build test pool and choose possible answers on highlight time to avoid extra waiting time
