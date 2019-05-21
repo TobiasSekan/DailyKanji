@@ -32,7 +32,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current ask sign
         /// </summary>
         [JsonIgnore]
-        public string CurrentAskSign
+        public string? CurrentAskSign
         {
             get => _currentAskSign;
             set
@@ -53,10 +53,10 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         public byte MaximumAnswers
         {
-            get => _maximumAnswer;
+            get => _maximumAnswers;
             set
             {
-                _maximumAnswer = value;
+                _maximumAnswers = value;
                 OnPropertyChanged();
             }
         }
@@ -160,10 +160,10 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         public double MaximumAnswerTimeout
         {
-            get => _maximumAnswerTime;
+            get => _maximumAnswerTimeout;
             set
             {
-                _maximumAnswerTime = value;
+                _maximumAnswerTimeout = value;
                 OnPropertyChanged();
             }
         }
@@ -484,12 +484,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         public IList<TestBaseModel> PossibleAnswers { get; set; }
 
         /// <summary>
-        /// Global random generator
-        /// </summary>
-        [JsonIgnore]
-        public Random Randomizer { get; set; }
-
-        /// <summary>
         /// Indicate that the current input (mouse, keyboard, game-pad and menu) will ignore and no processed
         /// </summary>
         [JsonIgnore]
@@ -570,7 +564,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The previous tests
         /// </summary>
         [JsonIgnore]
-        public TestBaseModel PreviousTest
+        public TestBaseModel? PreviousTest
         {
             get => _previousTest;
             set
@@ -595,6 +589,15 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #endregion Public Properties
 
+        #region Internal Properties
+
+        /// <summary>
+        /// Global random generator
+        /// </summary>
+        internal Random Randomizer { get; set; }
+
+        #endregion Internal Properties
+
         #region Private Backing-Fields
 
         /// <summary>
@@ -605,12 +608,12 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="CurrentAskSign"/>
         /// </summary>
-        private string _currentAskSign;
+        private string? _currentAskSign;
 
         /// <summary>
         /// Backing-field for <see cref="MaximumAnswers"/>
         /// </summary>
-        private byte _maximumAnswer;
+        private byte _maximumAnswers;
 
         /// <summary>
         /// Backing-field for <see cref="SimilarAnswers"/>
@@ -648,9 +651,9 @@ namespace DailyKanjiLogic.Mvvm.Model
         private DateTime _testStartTime;
 
         /// <summary>
-        /// Backing-field for <see cref="MaximumAnswers"/>
+        /// Backing-field for <see cref="MaximumAnswerTimeout"/>
         /// </summary>
-        private double _maximumAnswerTime;
+        private double _maximumAnswerTimeout;
 
         /// <summary>
         /// Backing-field for <see cref="CurrentAnswerTime"/>
@@ -725,7 +728,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="PreviousTest"/>
         /// </summary>
-        private TestBaseModel _previousTest;
+        private TestBaseModel? _previousTest;
 
         #endregion Private Backing-Fields
 
@@ -733,27 +736,44 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         public MainBaseModel()
         {
-            MaximumAnswerTimeout        = 10_000;
-            HighlightTimeout            = 3_000;
-            MaximumAnswers              = 7;
+            _currentTest                 = new TestBaseModel("n", "ん", "ン", KanaType.Gojuuon);
+            Randomizer                   = new Random();
+            HighlightTimer               = new ManualResetEvent(false);
 
-            SelectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
-            SelectedHintType            = HintType.BasedOnAskSign;
-            SelectedKanaType            = KanaType.Gojuuon
-                                        | KanaType.GojuuonWithDakuten
-                                        | KanaType.GojuuonWithHandakuten
-                                        | KanaType.Yooon
-                                        | KanaType.YooonWithDakuten
-                                        | KanaType.YooonWithHandakuten;
+            _buttonColor                 = new ObservableCollection<string>();
+            _hintTextColor               = new ObservableCollection<string>();
 
-            ShowStatistics              = false;
-            ShowHints                   = true;
-            ShowAnswerShortcuts         = true;
-            ShowRunningAnswerTimer      = true;
-            SimilarAnswers              = true;
-            CheckForNewVersionOnStartUp = true;
-            HighlightOnWrongAnswer      = true;
-            UseAnswerTimer              = true;
+            PossibleAnswers              = new Collection<TestBaseModel>();
+            _testPool                    = new Collection<TestBaseModel>();
+            _allTestsList                = new Collection<TestBaseModel>();
+
+            _progressBarColor            = "#FFADD8E6";
+            _currentAskSignColor         = "#00FFFFFF";
+
+            _currentAskSign              = null;
+            _previousTest                = null;
+
+            _maximumAnswerTimeout        = 10_000;
+            _highlightTimeout            = 3_000;
+            _maximumAnswers              = 7;
+
+            _selectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
+            _selectedHintType            = HintType.BasedOnAskSign;
+            _selectedKanaType            = KanaType.Gojuuon
+                                         | KanaType.GojuuonWithDakuten
+                                         | KanaType.GojuuonWithHandakuten
+                                         | KanaType.Yooon
+                                         | KanaType.YooonWithDakuten
+                                         | KanaType.YooonWithHandakuten;
+
+            _showStatistics              = false;
+            _showHints                   = true;
+            _showAnswerShortcuts         = true;
+            _showRunningAnswerTimer      = true;
+            _similarAnswers              = true;
+            _checkForNewVersionOnStartUp = true;
+            _highlightOnWrongAnswer      = true;
+            _useAnswerTimer              = true;
         }
 
         #endregion Public Constructors

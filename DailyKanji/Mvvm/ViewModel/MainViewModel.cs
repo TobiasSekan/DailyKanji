@@ -25,6 +25,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
+    // BUG: Regression: Same/double answers on 10 answers
     // BUG: Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
     // Version 1.x
@@ -113,7 +114,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// The color string for the answer hints (<see cref="Colors.Black"/> - #FF000000)
         /// </summary>
-        private static string HintColor
+        private static string AnswerHintTextColor
             => Colors.Black.ToString();
 
         /// <summary>
@@ -255,7 +256,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             MainWindow.Dispatcher.Invoke(() =>
             {
-                SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, HintColor);
+                SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor);
                 BuildAnswerMenuAndButtons();
 
                 Task.Run(() =>

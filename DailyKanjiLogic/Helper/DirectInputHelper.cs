@@ -13,7 +13,7 @@ namespace DailyKanjiLogic.Helper
         /// Return the first found gamepad
         /// </summary>
         /// <returns>A gamepad or <c>null</c> when no gamepad was found</returns>
-        public static Joystick GetFirstGamepad()
+        public static Joystick? GetFirstGamepad()
         {
             var directInput = new DirectInput();
 

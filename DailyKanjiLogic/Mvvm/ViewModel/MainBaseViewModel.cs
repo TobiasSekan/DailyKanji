@@ -116,7 +116,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(BaseModel.CurrentTest != null)
             {
-                while(newTest?.Roomaji == BaseModel.CurrentTest.Roomaji)
+                while(newTest.Roomaji == BaseModel.CurrentTest.Roomaji)
                 {
                     newTest = GetRandomKanaTest();
                 }
@@ -529,7 +529,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
         /// <returns><see langword="true"/> if the setting file could be load, otherwise <see langword="false"/></returns>
-        public bool TryLoadSettings(in string path, out Exception exception)
+        public bool TryLoadSettings(in string path, out Exception? exception)
         {
             if(string.IsNullOrWhiteSpace(path))
             {
@@ -562,7 +562,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
         /// <returns><see langword="true"/> if the setting file could be save, otherwise <see langword="false"/></returns>
-        public bool TrySaveSettings(in string path, out Exception exception)
+        public bool TrySaveSettings(in string path, out Exception? exception)
         {
             try
             {
@@ -640,14 +640,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
 
-            BaseModel.IgnoreInput = true;
-
-            if(answer is null)
-            {
-                answer.WrongnessCounter++;
-                return false;
-            }
-
+            BaseModel.IgnoreInput  = true;
             BaseModel.PreviousTest = BaseModel.CurrentTest;
 
             CountAnswerResult(answer);

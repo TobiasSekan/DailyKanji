@@ -266,7 +266,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <returns><see langword="true"/> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
         /// and Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public override bool Equals(object obj)
-            => Equals(obj as TestBaseModel);
+            => obj is TestBaseModel testBaseModel && Equals(testBaseModel);
 
         /// <summary>
         /// Return the hash code for this <see cref="TestBaseModel"/>
