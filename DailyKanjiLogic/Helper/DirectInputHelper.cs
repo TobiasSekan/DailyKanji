@@ -13,24 +13,26 @@ namespace DailyKanjiLogic.Helper
         /// Return the first found gamepad
         /// </summary>
         /// <returns>A gamepad or <c>null</c> when no gamepad was found</returns>
-        public static Joystick? GetFirstGamepad()
+        public static Joystick? GetFirstGamePad()
         {
-            var directInput = new DirectInput();
-
-            var inputDevice = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).FirstOrDefault();
-            if(inputDevice == null)
+            using(var directInput = new DirectInput())
             {
-                Debug.WriteLine("No gamepad found");
-                return null;
+                var inputDevice = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).FirstOrDefault();
+                if(inputDevice == null)
+                {
+                    Debug.WriteLine("No game-pad found");
+                    return null;
+                }
+
+                using(var gamePad = new Joystick(directInput, inputDevice.InstanceGuid))
+                {
+                    Debug.WriteLine($"Found game-pad - with {gamePad.Capabilities.ButtonCount} buttons");
+
+                    gamePad.Acquire();
+
+                    return gamePad;
+                }
             }
-
-            var gamepad = new Joystick(directInput, inputDevice.InstanceGuid);
-
-            Debug.WriteLine($"Found gamepad - with {gamepad.Capabilities.ButtonCount} buttons");
-
-            gamepad.Acquire();
-
-            return gamepad;
         }
     }
 }

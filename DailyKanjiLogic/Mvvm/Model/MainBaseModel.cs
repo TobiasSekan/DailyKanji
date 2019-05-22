@@ -587,6 +587,12 @@ namespace DailyKanjiLogic.Mvvm.Model
         [JsonIgnore]
         public ManualResetEvent HighlightTimer { get; internal set; }
 
+        /// <summary>
+        /// The current answer time of a test
+        /// </summary>
+        public TimeSpan AnswerTime
+            => DateTime.UtcNow - TestStartTime;
+
         #endregion Public Properties
 
         #region Internal Properties

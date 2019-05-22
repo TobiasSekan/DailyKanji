@@ -354,8 +354,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
             Debug.Assert(answer.AnswerType != AnswerType.Unknown, $"{nameof(answer.AnswerType)} can't be {nameof(AnswerType.Unknown)}");
 
-            var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
-
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
             {
                 if(answer.WrongnessCounter > 0)
@@ -378,17 +376,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.HiraganaToRoomaji:
                 case TestType.RoomajiToHiragana:
                 case TestType.HiraganaToKatakana:
-                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
-                        BaseModel.CurrentTest.CorrectHiraganaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                        BaseModel.CurrentTest.WrongHiraganaCount++;
-                    }
-                    break;
+                    CountWrongOrCorrectHiragana(answer);
+                    return;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
@@ -398,31 +387,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
                 case TestType.KatakanaToHiragana:
-                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += answerTime;
-                        BaseModel.CurrentTest.CorrectKatakanaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
-                        BaseModel.CurrentTest.WrongKatakanaCount++;
-                    }
-                    break;
+                    CountWrongOrCorrectKatakana(answer);
+                    return;
 
                 case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Unknown:
-                    // When no answer is selected and the ask sign is in Roomaji,
-                    // we don't know which error counter we should increase. So we decide the coincidence
-                    if(BaseModel.Randomizer.Next(0, 2) == 0)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                        BaseModel.CurrentTest.WrongHiraganaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
-                        BaseModel.CurrentTest.WrongKatakanaCount++;
-                    }
+                    CountWrongHiarganaOrKatakana();
                     break;
 
                 default:
@@ -632,6 +601,25 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
+        /// Set or remove the highlight color for one answer (when highlight color is set the color will be removed)
+        /// </summary>
+        /// <param name="answer">The answer to highlight</param>
+        /// <param name="highlightColor">The color string for the answer to highlight</param>
+        /// <param name="normalColor">The color string for the answer when it is not highlight</param>
+        public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
+        {
+            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
+
+            var answerNumber = GetAnswerNumber(answer);
+
+            BaseModel.AnswerButtonColor[answerNumber] = BaseModel.AnswerButtonColor[answerNumber] != highlightColor
+                ? highlightColor
+                : normalColor;
+        }
+
+        /// <summary>
         /// Check the given answer and count the result
         /// </summary>
         /// <param name="answer">The answer to check</param>
@@ -649,22 +637,58 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set or remove the highlight color for one answer (when highlight color is set the color will be removed)
+        /// Count one correct or wrong result for a Hiragana question, based on the given answer
         /// </summary>
-        /// <param name="answer">The answer to highlight</param>
-        /// <param name="highlightColor">The color string for the answer to highlight</param>
-        /// <param name="normalColor">The color string for the answer when it is not highlight</param>
-        public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
+        /// <param name="answer">The answer for the counting</param>
+        public void CountWrongOrCorrectHiragana(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
+            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.CorrectHiraganaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongHiraganaCount++;
+            }
+        }
 
-            var answerNumber = GetAnswerNumber(answer);
+        /// <summary>
+        /// Count one correct or wrong result for a Katakana question, based on the given answer
+        /// </summary>
+        /// <param name="answer">The answer for the counting</param>
+        public void CountWrongOrCorrectKatakana(in TestBaseModel answer)
+        {
+            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.CorrectKatakanaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongKatakanaCount++;
+            }
+        }
 
-            BaseModel.AnswerButtonColor[answerNumber] = BaseModel.AnswerButtonColor[answerNumber] != highlightColor
-                ? highlightColor
-                : normalColor;
+        /// <summary>
+        /// Count one wrong result for a unknown or skipped answer
+        /// </summary>
+        public void CountWrongHiarganaOrKatakana()
+        {
+            // When no answer is selected and the ask sign is in Roomaji,
+            // we don't know which error counter we should increase. So we decide the coincidence
+            if(BaseModel.Randomizer.Next(0, 2) == 0)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongHiraganaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongKatakanaCount++;
+            }
         }
 
         #endregion Public Methods

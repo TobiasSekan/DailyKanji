@@ -14,10 +14,17 @@ namespace DailyKanji.Helper
         /// <returns>The <see cref="Version"/> from <see cref="AssemblyVersionAttribute"/></returns>
         internal static Version GetVersion(string linkToAssemlyInfoFile)
         {
-            var webClient             = new WebClient();
-            var webData               = webClient.DownloadString(linkToAssemlyInfoFile);
+            string webData;
+
+            using(var webClient = new WebClient())
+            {
+                webData = webClient.DownloadString(linkToAssemlyInfoFile);
+            }
+
             var webDataSplit          = webData.Split('\n');
-            var assemblyVersionLine   = Array.Find(webDataSplit, found => found?.StartsWith("[assembly: AssemblyVersion") == true);
+            var assemblyVersionLine   = Array.Find(webDataSplit,
+                                                   found => found?.StartsWith("[assembly: AssemblyVersion", StringComparison.OrdinalIgnoreCase) == true);
+
             var assemblyVersionString = assemblyVersionLine?.Split('"').ElementAtOrDefault(1);
 
             return string.IsNullOrWhiteSpace(assemblyVersionString)

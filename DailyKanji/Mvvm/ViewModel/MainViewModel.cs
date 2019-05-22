@@ -383,39 +383,41 @@ namespace DailyKanji.Mvvm.ViewModel
             // - Show button names as hints, when gamepad is connected
             // - Show joystick state and button count inside the status bar
 
-            var gamepad = DirectInputHelper.GetFirstGamepad();
+            var gamepad = DirectInputHelper.GetFirstGamePad();
             if(gamepad is null)
             {
                 return;
             }
 
             var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
-            var manualResetEvent = new ManualResetEvent(false);
 
-            Task.Run(() =>
+            using(var manualResetEvent = new ManualResetEvent(false))
             {
-                while(true)
+                Task.Run(() =>
                 {
-                    manualResetEvent.WaitOne(100);
-
-                    var gamepadButtonState = gamepad.GetCurrentState();
-                    if(gamepadButtonState is null)
+                    while(true)
                     {
-                        continue;
-                    }
+                        manualResetEvent.WaitOne(100);
 
-                    for(var button = 0; button < maxButtonCount; button++)
-                    {
-                        if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
+                        var gamepadButtonState = gamepad.GetCurrentState();
+                        if(gamepadButtonState is null)
                         {
                             continue;
                         }
 
-                        // TODO: check if "button + 1" is the correct value
-                        CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                        for(var button = 0; button < maxButtonCount; button++)
+                        {
+                            if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
+                            {
+                                continue;
+                            }
+
+                            // TODO: check if "button + 1" is the correct value
+                            CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         /// <summary>
