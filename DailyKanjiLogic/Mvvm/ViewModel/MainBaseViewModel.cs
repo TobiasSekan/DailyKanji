@@ -194,8 +194,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             };
 
             var allAnswerList = BaseModel.SimilarAnswers
-                ? KanaHelper.GetSimilarKana(BaseModel.TestPool, BaseModel.CurrentTest, BaseModel.CurrentTest.AnswerType).ToList()
-                : BaseModel.TestPool.ToList();
+                ? KanaHelper.GetSimilarKana(BaseModel.TestPool.Distinct(), BaseModel.CurrentTest, BaseModel.CurrentTest.AnswerType).ToList()
+                : BaseModel.TestPool.Distinct().ToList();
 
             allAnswerList.Remove(BaseModel.CurrentTest);
             allAnswerList.Shuffle();

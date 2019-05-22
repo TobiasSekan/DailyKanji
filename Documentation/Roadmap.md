@@ -7,7 +7,6 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Regression: Same/double answers on 10 answers
 * Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
 ## Version 1.x

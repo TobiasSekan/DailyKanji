@@ -160,7 +160,7 @@ namespace DailyKanjiLogic.Helper
         /// <param name="answerType">The type of the answer (Roomaji, Hiragana, Katakana)</param>
         /// <returns>A list with similar test</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<TestBaseModel> GetSimilarKana(IEnumerable<TestBaseModel> testList, TestBaseModel test, AnswerType answerType)
+        public static IEnumerable<TestBaseModel> GetSimilarKana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test, in AnswerType answerType)
         {
             switch(answerType)
             {
@@ -187,7 +187,7 @@ namespace DailyKanjiLogic.Helper
         /// <param name="test">A test with a Roomaji, need to find a similar Roomaji</param>
         /// <returns>A list with similar test</returns>
 
-        public static IEnumerable<TestBaseModel> GetSimilarRoomaji(IEnumerable<TestBaseModel> testList, TestBaseModel test)
+        public static IEnumerable<TestBaseModel> GetSimilarRoomaji(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             var similarTestList = new Collection<TestBaseModel>();
 
@@ -219,7 +219,7 @@ namespace DailyKanjiLogic.Helper
         /// <param name="test">A test with a Hiragana, need to find a similar Hiragana</param>
         /// <returns>A list with similar test</returns>
 
-        public static IEnumerable<TestBaseModel> GetSimilarHiragana(IEnumerable<TestBaseModel> testList, TestBaseModel test)
+        public static IEnumerable<TestBaseModel> GetSimilarHiragana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             // TODO
             return testList;
@@ -232,7 +232,7 @@ namespace DailyKanjiLogic.Helper
         /// <param name="test">A test with a Katakana, need to find a similar Katakana</param>
         /// <returns>A list with similar test</returns>
 
-        public static IEnumerable<TestBaseModel> GetSimilarKatakana(IEnumerable<TestBaseModel> testList, TestBaseModel test)
+        public static IEnumerable<TestBaseModel> GetSimilarKatakana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             // TODO
             return testList;

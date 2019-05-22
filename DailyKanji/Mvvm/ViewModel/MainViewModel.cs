@@ -25,7 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // BUG: Regression: Same/double answers on 10 answers
     // BUG: Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
     // Version 1.x
