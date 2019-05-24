@@ -114,14 +114,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(newTest != null, $"{nameof(newTest)} can't be null");
 
-            if(BaseModel.CurrentTest != null)
-            {
-                while(newTest.Roomaji == BaseModel.CurrentTest.Roomaji)
-                {
-                    newTest = GetRandomKanaTest();
-                }
-            }
-
             BaseModel.CurrentTest = newTest;
 
             switch(BaseModel.SelectedTestType)
@@ -176,11 +168,25 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Return a random kana test
+        /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
         /// <returns>A kana test</returns>
         public TestBaseModel GetRandomKanaTest()
-            => BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+        {
+            var newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+
+            if(BaseModel.CurrentTest == null)
+            {
+                return newTest;
+            }
+
+            while(newTest.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+            }
+
+            return newTest;
+        }
 
         /// <summary>
         /// Choose new possible answers for the current ask sign

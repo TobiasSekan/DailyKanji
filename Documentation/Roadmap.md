@@ -7,10 +7,10 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
+* Test pool have the wrong count of signs
 * Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
 ## Version 1.x
-* Build test pool and choose possible answers on highlight time to avoid extra waiting time
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

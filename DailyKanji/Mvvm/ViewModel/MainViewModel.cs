@@ -25,11 +25,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
+    // BUG: Test pool have the wrong count of signs
     // BUG: Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
 
     // Version 1.x
     // -----------
-    // TODO: Build test pool and choose possible answers on highlight time to avoid extra waiting time
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     //
@@ -164,7 +164,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             CheckForNewVersion();
 
-            CreateNewTest();
+            CreateNewTest(PrepareNewTest());
             SetNormalColors(TransparentColor, ProgressBarColor);
 
             MainWindow.Closed += (_, __) =>
@@ -214,16 +214,26 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Create a new test with new question and new possible answers
         /// </summary>
-        private void CreateNewTest()
+        private void CreateNewTest(TestBaseModel test)
         {
-            OrderAllTests();
-            BuildTestPool();
-            ChooseNewSign(GetRandomKanaTest());
+            ChooseNewSign(test);
             ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
             RestartTestTimer();
 
             BaseModel.IgnoreInput = false;
+        }
+
+        /// <summary>
+        /// Do background work for a new test and return it (no surface changes on main window)
+        /// </summary>
+        /// <returns>A new test</returns>
+        private TestBaseModel PrepareNewTest()
+        {
+            OrderAllTests();
+            BuildTestPool();
+
+            return GetRandomKanaTest();
         }
 
         /// <summary>
@@ -246,7 +256,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
             {
-                CreateNewTest();
+                CreateNewTest(PrepareNewTest());
                 return;
             }
 
@@ -258,12 +268,14 @@ namespace DailyKanji.Mvvm.ViewModel
                 SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor);
                 BuildAnswerMenuAndButtons();
 
+                var newTest = PrepareNewTest();
+
                 Task.Run(() =>
                 {
                     BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
 
                     MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
-                    CreateNewTest();
+                    CreateNewTest(newTest);
                 });
             });
         }
@@ -423,7 +435,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Highlight a answer (button) with the <see cref="NoneSelectedColor"/>
         /// </summary>
         /// <param name="answer">The answer (button) to highlight</param>
-        internal void HighlightAnswer(in TestBaseModel answer)
+        private void HighlightAnswer(in TestBaseModel answer)
         {
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;

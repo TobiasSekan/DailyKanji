@@ -48,7 +48,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     BaseModel.SelectedHintType = (HintType)value;
-                    CreateNewTest();
+                    CreateNewTest(PrepareNewTest());
                 });
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     BaseModel.SelectedTestType = (TestType)value;
-                    CreateNewTest();
+                    CreateNewTest(PrepareNewTest());
                 });
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace DailyKanji.Mvvm.ViewModel
                                         MessageBoxImage.Information);
                     }
 
-                    CreateNewTest();
+                    CreateNewTest(PrepareNewTest());
                 });
 
         #endregion Commands - Tests Menu
@@ -198,7 +198,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     ResetCompleteStatistic((ResetType)value);
-                    CreateNewTest();
+                    CreateNewTest(PrepareNewTest());
                 });
 
         #endregion Commands - Statistics Menu
