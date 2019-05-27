@@ -27,7 +27,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // BUG: Test pool have the wrong count of signs
     // BUG: Answers type flip on highlight time on test type "AllToAll"
-    // BUG: Partial crash when no answer is selected
 
     // Version 1.x
     // -----------

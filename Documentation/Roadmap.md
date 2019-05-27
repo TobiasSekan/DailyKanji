@@ -9,7 +9,6 @@
 ## BUG
 * Test pool have the wrong count of signs
 * Answers type flip on highlight time on test type "AllToAll"
-* Partial crash when no answer is selected
 
 ## Version 1.x
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"

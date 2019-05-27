@@ -323,7 +323,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         public void CountAnswerResult(in TestBaseModel answer)
         {
             Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
-            Debug.Assert(answer.AnswerType != AnswerType.Unknown, $"{nameof(answer.AnswerType)} can't be {nameof(AnswerType.Unknown)}");
 
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
             {
@@ -362,6 +361,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     return;
 
                 case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Unknown:
+                case TestType.RoomajiToHiraganaOrKatakana when answer.AnswerType == AnswerType.Unknown:
                     CountWrongHiarganaOrKatakana();
                     break;
 

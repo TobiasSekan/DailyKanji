@@ -293,6 +293,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <returns><see langword="true"/> when Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public bool Equals(TestBaseModel other)
             => (other != null)
+            && (other.Type == Type)
             && (other.Roomaji == Roomaji)
             && (other.Hiragana == Hiragana)
             && (other.Katakana == Katakana);
