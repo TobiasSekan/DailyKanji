@@ -361,7 +361,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             get
             {
-                if(CurrentTest == null)
+                if(CurrentTest is null)
                 {
                     return string.Empty;
                 }
@@ -399,7 +399,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             get
             {
-                if(CurrentTest == null)
+                if(CurrentTest is null)
                 {
                     return string.Empty;
                 }
@@ -437,7 +437,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             get
             {
-                if(CurrentTest == null)
+                if(CurrentTest is null)
                 {
                     return string.Empty;
                 }
@@ -475,7 +475,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public bool CanGoToLastTest
-            => PreviousTest != null;
+            => !(PreviousTest is null);
 
         /// <summary>
         /// A list with possible answers

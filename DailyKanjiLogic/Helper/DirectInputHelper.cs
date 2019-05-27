@@ -18,7 +18,7 @@ namespace DailyKanjiLogic.Helper
             using(var directInput = new DirectInput())
             {
                 var inputDevice = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).FirstOrDefault();
-                if(inputDevice == null)
+                if(inputDevice is null)
                 {
                     Debug.WriteLine("No game-pad found");
                     return null;

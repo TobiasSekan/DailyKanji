@@ -28,7 +28,7 @@ namespace DailyKanjiLogic.Helper
             {
                 TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
 
-                if(exception != null)
+                if(!(exception is null))
                 {
                     throw exception;
                 }

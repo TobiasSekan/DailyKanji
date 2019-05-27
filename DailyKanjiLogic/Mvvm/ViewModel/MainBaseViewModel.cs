@@ -35,7 +35,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"{nameof(baseColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
 
-            if(BaseModel == null)
+            if(BaseModel is null)
             {
                 BaseModel = new MainBaseModel();
             }
@@ -112,7 +112,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ChooseNewSign(TestBaseModel newTest)
         {
-            Debug.Assert(newTest != null, $"{nameof(newTest)} can't be null");
+            Debug.Assert(!(newTest is null), $"{nameof(newTest)} can't be null");
 
             BaseModel.CurrentTest = newTest;
 
@@ -175,7 +175,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             var newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
 
-            if(BaseModel.CurrentTest == null)
+            if(BaseModel.CurrentTest is null)
             {
                 return newTest;
             }
@@ -240,7 +240,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerText(in TestBaseModel answer, AnswerType answerType)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             answer.AnswerType = answerType;
 
@@ -270,7 +270,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             switch(BaseModel.SelectedHintType)
             {
@@ -322,7 +322,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
             {
@@ -547,7 +547,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="hintColor">The color string for the hint elements</param>
         public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"{nameof(correctColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"{nameof(errorColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"{nameof(noneSelectedColor)} can't be empty or null");
@@ -579,7 +579,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="normalColor">The color string for the answer when it is not highlight</param>
         public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
 
@@ -597,7 +597,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
         public bool CheckAndCountAnswer(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             BaseModel.IgnoreInput  = true;
             BaseModel.PreviousTest = BaseModel.CurrentTest;
@@ -712,7 +712,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal int GetAnswerNumber(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {

@@ -243,7 +243,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <exception cref="ArgumentNullException"></exception>
         private void CheckSelectedAnswer(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null for check selected answer");
+            Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
 
             if(BaseModel.IgnoreInput)
             {
