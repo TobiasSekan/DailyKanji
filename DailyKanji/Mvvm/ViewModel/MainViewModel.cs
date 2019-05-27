@@ -26,7 +26,8 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // BUG: Test pool have the wrong count of signs
-    // BUG: Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
+    // BUG: Answers type flip on highlight time on test type "AllToAll"
+    // BUG: Partial crash when no answer is selected
 
     // Version 1.x
     // -----------
@@ -284,7 +285,10 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Build all answer menu entries and buttons
         /// </summary>
         private void BuildAnswerMenuAndButtons()
-            => MainWindow?.Dispatcher?.Invoke(() =>
+        {
+            var answersType = GetAnswerType();
+
+            MainWindow?.Dispatcher?.Invoke(() =>
             {
                 MainWindow.AnswerMenu.Items.Clear();
                 MainWindow.MarkMenu.Items.Clear();
@@ -294,7 +298,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
                         var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                        var answerText       = GetAnswerText(answer);
+                        var answerText       = GetAnswerText(answer, answersType);
                         var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                         MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
@@ -339,6 +343,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                 }
             });
+        }
 
         /// <summary>
         /// Check if a new version on-line

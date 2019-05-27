@@ -8,7 +8,8 @@
 
 ## BUG
 * Test pool have the wrong count of signs
-* Answers on test type "All To all" should all in the same Kana on a test (not mixed Kana)
+* Answers type flip on highlight time on test type "AllToAll"
+* Partial crash when no answer is selected
 
 ## Version 1.x
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
