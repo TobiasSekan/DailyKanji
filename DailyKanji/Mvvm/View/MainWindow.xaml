@@ -221,19 +221,29 @@
                 </MenuItem>
 
                 <MenuItem Header="Answer _time">
-                    <toolkit:IntegerUpDown Increment="500"
-                                           Maximum="60000"
-                                           Minimum="1000"
-                                           ValueChanged="ChangeAnswerTimer"
-                                           Value="{Binding BaseModel.MaximumAnswerTimeout}" />
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
+                                            FractionalSecondsDigitsCount="0"
+                                            Maximum="00:05:00"
+                                            Minimum="00:00:01"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            UpdateValueOnEnterKey="True"
+                                            ValueChanged="ChangeAnswerTimer"
+                                            Value="{Binding BaseModel.MaximumAnswerTimeout}" />
 
                 </MenuItem>
 
                 <MenuItem Header="_Highlight timeout">
-                    <toolkit:IntegerUpDown Increment="500"
-                                           Maximum="60000"
-                                           Minimum="1000"
-                                           Value="{Binding BaseModel.HighlightTimeout}" />
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
+                                            FractionalSecondsDigitsCount="0"
+                                            Maximum="00:05:00"
+                                            Minimum="00:00:01"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            UpdateValueOnEnterKey="True"
+                                            Value="{Binding BaseModel.HighlightTimeout}" />
                 </MenuItem>
 
                 <MenuItem Command="{Binding Path=CommandBuildNewAnswers}"
@@ -400,10 +410,10 @@
                      Height="20"
                      Margin="5"
                      Foreground="{Binding Path=BaseModel.ProgressBarColor, Converter={StaticResource ColorStringToBrushConverter}}"
-                     Maximum="{Binding Path=BaseModel.MaximumAnswerTimeout}"
+                     Maximum="{Binding Path=BaseModel.MaximumAnswerTimeout.TotalMilliseconds, Mode=OneWay}"
                      Minimum="0"
                      Visibility="{Binding Path=BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                     Value="{Binding Path=BaseModel.CurrentAnswerTime}" />
+                     Value="{Binding Path=BaseModel.AnswerTime.TotalMilliseconds, Mode=OneWay}" />
 
         <Grid Grid.Row="4">
 

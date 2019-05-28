@@ -61,7 +61,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The timeout for highlight a wrong and/or a correct answered question in milliseconds
         /// </summary>
-        public int HighlightTimeout
+        public TimeSpan HighlightTimeout
         {
             get => _highlightTimeout;
             set
@@ -119,7 +119,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The maximum answer timeout in milliseconds
         /// </summary>
-        public double MaximumAnswerTimeout
+        public TimeSpan MaximumAnswerTimeout
         {
             get => _maximumAnswerTimeout;
             set
@@ -233,20 +233,6 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// The current answer time in milliseconds
-        /// </summary>
-        [JsonIgnore]
-        public double CurrentAnswerTime
-        {
-            get => _currentAnswerTime;
-            set
-            {
-                _currentAnswerTime = value;
-                OnPropertyChanged();
-            }
-        }
-
         [JsonIgnore]
         public string WrongAnswerCountString
             => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount)}"
@@ -257,6 +243,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             => $"H: {AllTestsList.Sum(found => found.CorrectHiraganaCount)}"
              + $" K: {AllTestsList.Sum(found => found.CorrectKatakanaCount)}";
 
+        /// <summary>
+        /// Return a short <see cref="string"/> for the current <see cref="SelectedTestType"/>
+        /// </summary>
         [JsonIgnore]
         public string TestTypeString
         {
@@ -317,6 +306,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// A readable <see cref="string"/> with count of wrong answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
+        /// </summary>
         [JsonIgnore]
         public string WrongCount
         {
@@ -355,6 +347,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// A readable <see cref="string"/> with count of correct answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
+        /// </summary>
         [JsonIgnore]
         public string CorrectCount
         {
@@ -393,6 +388,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// A readable <see cref="string"/> with the average answer time for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
+        /// </summary>
         [JsonIgnore]
         public string AverageAnswerTime
         {
@@ -552,7 +550,19 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current answer time of a test
         /// </summary>
         public TimeSpan AnswerTime
-            => DateTime.UtcNow - TestStartTime;
+        {
+            get => _answerTime;
+            set
+            {
+                if(_answerTime == value)
+                {
+                    return;
+                }
+
+                _answerTime = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion Public Properties
 
@@ -580,7 +590,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="HighlightTimeout"/>
         /// </summary>
-        private int _highlightTimeout;
+        private TimeSpan _highlightTimeout;
 
         /// <summary>
         /// Backing-field for <see cref="SelectedTestType"/>
@@ -600,12 +610,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="MaximumAnswerTimeout"/>
         /// </summary>
-        private double _maximumAnswerTimeout;
-
-        /// <summary>
-        /// Backing-field for <see cref="CurrentAnswerTime"/>
-        /// </summary>
-        private double _currentAnswerTime;
+        private TimeSpan _maximumAnswerTimeout;
 
         /// <summary>
         /// Backing-filed for <see cref="ShowAnswerShortcuts"/>
@@ -677,6 +682,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private TestBaseModel? _previousTest;
 
+        /// <summary>
+        /// BAcking-field for <see cref="AnswerTime"/>
+        /// </summary>
+        private TimeSpan _answerTime;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -700,8 +710,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             CurrentAskSign               = null;
             _previousTest                = null;
 
-            _maximumAnswerTimeout        = 10_000;
-            _highlightTimeout            = 3_000;
+            _maximumAnswerTimeout        = new TimeSpan(0, 0, 10);
+            _highlightTimeout            = new TimeSpan(0, 0, 3);
+
             _maximumAnswers              = 7;
 
             _selectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;

@@ -29,7 +29,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Property "CurrentAnswerTime" should have the type "TimeSpan"
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     //
@@ -144,14 +143,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
-                if(!BaseModel.UseAnswerTimer)
-                {
-                    return;
-                }
+                BaseModel.AnswerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
-                BaseModel.CurrentAnswerTime = (DateTime.UtcNow - BaseModel.TestStartTime).TotalMilliseconds;
-
-                if(BaseModel.CurrentAnswerTime < BaseModel.MaximumAnswerTimeout)
+                if(!BaseModel.UseAnswerTimer
+                || BaseModel.AnswerTime < BaseModel.MaximumAnswerTimeout)
                 {
                     return;
                 }

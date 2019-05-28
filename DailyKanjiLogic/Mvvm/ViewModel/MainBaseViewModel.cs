@@ -558,9 +558,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
-                BaseModel.AnswerButtonColor[answerNumber] = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
+                var roomaji = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
+
+                BaseModel.AnswerButtonColor[answerNumber] = roomaji == BaseModel.CurrentTest.Roomaji
                     ? correctColor
-                    : BaseModel.PossibleAnswers[answerNumber].Roomaji == answer.Roomaji
+                    : roomaji == answer.Roomaji
                         ? errorColor
                         : noneSelectedColor;
 
