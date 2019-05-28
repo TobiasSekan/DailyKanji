@@ -17,36 +17,13 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current sign quest
         /// </summary>
         [JsonIgnore]
-        public TestBaseModel CurrentTest
-        {
-            get => _currentTest;
-            set
-            {
-                _currentTest = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(AllTestsList));
-            }
-        }
+        public TestBaseModel CurrentTest { get; set; }
 
         /// <summary>
         /// The current ask sign
         /// </summary>
         [JsonIgnore]
-        public string? CurrentAskSign
-        {
-            get => _currentAskSign;
-            set
-            {
-                _currentAskSign = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(WrongCount));
-                OnPropertyChanged(nameof(CorrectCount));
-                OnPropertyChanged(nameof(AverageAnswerTime));
-                OnPropertyChanged(nameof(WrongAnswerCountString));
-                OnPropertyChanged(nameof(RightAnswerCountString));
-                OnPropertyChanged(nameof(CurrentRateText));
-            }
-        }
+        public string? CurrentAskSign { get; set; }
 
         /// <summary>
         /// The count of maximum answers
@@ -79,15 +56,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// (one of this test will be ask each test round)
         /// </summary>
         [JsonIgnore]
-        public IReadOnlyCollection<TestBaseModel> TestPool
-        {
-            get => _testPool;
-            set
-            {
-                _testPool = value;
-                OnPropertyChanged();
-            }
-        }
+        public IReadOnlyCollection<TestBaseModel> TestPool { get; set; }
 
         /// <summary>
         /// The timeout for highlight a wrong and/or a correct answered question in milliseconds
@@ -132,15 +101,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// List with all possible tests
         /// </summary>
-        public ICollection<TestBaseModel> AllTestsList
-        {
-            get => _allTestsList;
-            set
-            {
-                _allTestsList = value;
-                OnPropertyChanged();
-            }
-        }
+        public ICollection<TestBaseModel> AllTestsList { get; set; }
 
         /// <summary>
         /// Indicate that hints on wrong answers will be shown
@@ -607,16 +568,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         #region Private Backing-Fields
 
         /// <summary>
-        /// Backing-field for <see cref="CurrentTest"/>
-        /// </summary>
-        private TestBaseModel _currentTest;
-
-        /// <summary>
-        /// Backing-field for <see cref="CurrentAskSign"/>
-        /// </summary>
-        private string? _currentAskSign;
-
-        /// <summary>
         /// Backing-field for <see cref="MaximumAnswers"/>
         /// </summary>
         private byte _maximumAnswers;
@@ -627,11 +578,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         private bool _similarAnswers;
 
         /// <summary>
-        /// Backing-field for <see cref="TestPool"/>
-        /// </summary>
-        private IReadOnlyCollection<TestBaseModel> _testPool;
-
-        /// <summary>
         /// Backing-field for <see cref="HighlightTimeout"/>
         /// </summary>
         private int _highlightTimeout;
@@ -640,11 +586,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="SelectedTestType"/>
         /// </summary>
         private TestType _selectedTestType;
-
-        /// <summary>
-        /// Backing-field for <see cref="AllTestsList"/>
-        /// </summary>
-        private ICollection<TestBaseModel> _allTestsList;
 
         /// <summary>
         /// Backing-field for <see cref="ShowHints"/>
@@ -742,7 +683,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         public MainBaseModel()
         {
-            _currentTest                 = new TestBaseModel("n", "ん", "ン", KanaType.Gojuuon);
+            CurrentTest                  = new TestBaseModel("n", "ん", "ン", KanaType.Gojuuon);
             Randomizer                   = new Random();
             HighlightTimer               = new ManualResetEvent(false);
 
@@ -750,13 +691,13 @@ namespace DailyKanjiLogic.Mvvm.Model
             _hintTextColor               = new ObservableCollection<string>();
 
             PossibleAnswers              = new Collection<TestBaseModel>();
-            _testPool                    = new Collection<TestBaseModel>();
-            _allTestsList                = new Collection<TestBaseModel>();
+            TestPool                     = new Collection<TestBaseModel>();
+            AllTestsList                 = new Collection<TestBaseModel>();
 
             _progressBarColor            = "#FFADD8E6";
             _currentAskSignColor         = "#00FFFFFF";
 
-            _currentAskSign              = null;
+            CurrentAskSign               = null;
             _previousTest                = null;
 
             _maximumAnswerTimeout        = 10_000;
@@ -783,5 +724,27 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         #endregion Public Constructors
+
+        #region Public Methods
+
+        /// <summary>
+        /// Refresh the most surface properties
+        /// (Call <see cref="PropertyChangedHelper.OnPropertyChanged(in string)"/> for the most properties)
+        /// </summary>
+        public void OnPropertyChangeForAll()
+        {
+            OnPropertyChanged(nameof(AllTestsList));
+            OnPropertyChanged(nameof(TestPool));
+            OnPropertyChanged(nameof(CurrentTest));
+            OnPropertyChanged(nameof(CurrentAskSign));
+            OnPropertyChanged(nameof(WrongCount));
+            OnPropertyChanged(nameof(CorrectCount));
+            OnPropertyChanged(nameof(AverageAnswerTime));
+            OnPropertyChanged(nameof(WrongAnswerCountString));
+            OnPropertyChanged(nameof(RightAnswerCountString));
+            OnPropertyChanged(nameof(CurrentRateText));
+        }
+
+        #endregion Public Methods
     }
 }

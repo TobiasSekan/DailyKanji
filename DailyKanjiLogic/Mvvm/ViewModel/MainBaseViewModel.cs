@@ -701,6 +701,17 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             }
         }
 
+        /// <summary>
+        /// Do all things to prepare a new test and all possible answers (no surface changes)
+        /// </summary>
+        public void PrepareNewTest()
+        {
+            OrderAllTests();
+            BuildTestPool();
+            ChooseNewSign(GetRandomKanaTest());
+            ChooseNewPossibleAnswers();
+        }
+
         #endregion Public Methods
 
         #region Internal Methods

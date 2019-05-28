@@ -8,9 +8,9 @@
 
 ## BUG
 * Test pool have the wrong count of signs
-* Answers type flip on highlight time on test type "AllToAll"
 
 ## Version 1.x
+* Property "CurrentAnswerTime" should have the type "TimeSpan"
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer

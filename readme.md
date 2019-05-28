@@ -8,7 +8,11 @@
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.6.1
+
+| Type        | Version  | Git-Tag | Branch                                                               |
+| ----------- | -------- | ------- | -------------------------------------------------------------------- |
+| Release     | 0.6.1    | v0.6.1  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
+| Development | 0.6.7    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
 
 ## Current features
 * 10 Test types
@@ -39,9 +43,9 @@
 * Create a new [Bug report](https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md)
 * Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
-## Notes about support for Windows Vista and Window 8
-At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista and Window 8 will be end.
-Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
+## Notes about support for Windows Vista, Window 8 and Windows Server 2008 SP2
+At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista,
+Window 8 and Windows Server 2008 SP2 will be end. Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
 
 ## Whats next?
 see [Roadmap](Documentation/Roadmap.md)

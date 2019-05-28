@@ -26,10 +26,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // BUG: Test pool have the wrong count of signs
-    // BUG: Answers type flip on highlight time on test type "AllToAll"
 
     // Version 1.x
     // -----------
+    // TODO: Property "CurrentAnswerTime" should have the type "TimeSpan"
     // TODO: Make refresh interval for timer changeable via menu
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     //
@@ -164,7 +164,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             CheckForNewVersion();
 
-            CreateNewTest(PrepareNewTest());
+            PrepareNewTest();
+            ShowAndStartNewTest();
             SetNormalColors(TransparentColor, ProgressBarColor);
 
             MainWindow.Closed += (_, __) =>
@@ -212,28 +213,17 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Private Methods
 
         /// <summary>
-        /// Create a new test with new question and new possible answers
+        /// Do all work to show and start a new test
         /// </summary>
-        private void CreateNewTest(TestBaseModel test)
+        private void ShowAndStartNewTest()
         {
-            ChooseNewSign(test);
-            ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
+
+            BaseModel.OnPropertyChangeForAll();
+
             RestartTestTimer();
 
             BaseModel.IgnoreInput = false;
-        }
-
-        /// <summary>
-        /// Do background work for a new test and return it (no surface changes on main window)
-        /// </summary>
-        /// <returns>A new test</returns>
-        private TestBaseModel PrepareNewTest()
-        {
-            OrderAllTests();
-            BuildTestPool();
-
-            return GetRandomKanaTest();
         }
 
         /// <summary>
@@ -256,27 +246,26 @@ namespace DailyKanji.Mvvm.ViewModel
 
             if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
             {
-                CreateNewTest(PrepareNewTest());
+                PrepareNewTest();
+                ShowAndStartNewTest();
                 return;
             }
 
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow.Dispatcher.Invoke(() =>
+            Task.Run(() =>
             {
-                SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor);
-                BuildAnswerMenuAndButtons();
+                MainWindow.Dispatcher.Invoke(()
+                    => SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor));
 
-                var newTest = PrepareNewTest();
+                PrepareNewTest();
 
-                Task.Run(() =>
-                {
-                    BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
+                BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
 
-                    MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
-                    CreateNewTest(newTest);
-                });
+                MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
+
+                ShowAndStartNewTest();
             });
         }
 
