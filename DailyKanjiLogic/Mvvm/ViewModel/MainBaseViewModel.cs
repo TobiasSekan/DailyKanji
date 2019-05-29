@@ -324,18 +324,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
-            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-            {
-                if(answer.WrongnessCounter > 0)
-                {
-                    answer.WrongnessCounter--;
-                }
-                else
-                {
-                    answer.WrongnessCounter++;
-                }
-            }
-
             switch(BaseModel.SelectedTestType)
             {
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
@@ -387,8 +375,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             foreach(var test in BaseModel.AllTestsList)
             {
-                test.WrongnessCounter = 0;
-
                 switch(resetType)
                 {
                     case ResetType.All:

@@ -7,7 +7,6 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Test pool have the wrong count of signs
 
 ## Version 1.x
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"

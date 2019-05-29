@@ -5,8 +5,8 @@
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <CodeAnalysisRuleSet>../DailyKanji.ruleset</CodeAnalysisRuleSet>
-    <AssemblyVersion>0.6.7.0</AssemblyVersion>
-    <FileVersion>0.6.7.0</FileVersion>
+    <AssemblyVersion>0.6.8.0</AssemblyVersion>
+    <FileVersion>0.6.8.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

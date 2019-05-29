@@ -25,7 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // BUG: Test pool have the wrong count of signs
 
     // Version 1.x
     // -----------
