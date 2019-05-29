@@ -220,7 +220,7 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Answer _time">
+                <MenuItem Header="Answer _time" IsEnabled="{Binding Path=BaseModel.UseAnswerTimer}">
                     <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
                                             FractionalSecondsDigitsCount="0"
                                             Maximum="00:05:00"
