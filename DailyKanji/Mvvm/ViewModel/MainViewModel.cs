@@ -41,14 +41,17 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Add more menu underscores (for menu keyboard navigation)
+    // TODO: Add German language and language selector in menu
+    // TODO: Add tool-tips for each menu entries
 
     // Version 2.x
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Add German language and language selector in menu
-    // TODO: Add tool-tips for each menu entries
-    // TODO: Make colors choose-able
     // TODO: Export statistics (XLSX, CSV, JSON, XML)
+    // TODO: Import statistics (XLSX, CSV, JSON, XML)
+    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
+    // TODO: Make colors choose-able
+    // TODO: Ribbon menu
 
     // Version 3.x
     // -----------
@@ -56,9 +59,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Ideas
     // -----
-    // TODO: Import statistics (XLSX, CSV, JSON, XML)
-    // TODO: Ribbon menu
-    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 

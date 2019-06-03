@@ -9,6 +9,8 @@
 ## BUG
 
 ## Version 1.x
+* Add German language and language selector in menu
+* Add tool-tips for each menu entries
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
 * Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -21,17 +23,15 @@
 
 ## Versions 2.x
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
-* Add German language and language selector in menu
-* Add tool-tips for each menu entries
-* Make colors choose-able
 * Export statistics (XLSX, CSV, JSON, XML)
+* Import statistics (XLSX, CSV, JSON, XML)
+* Investigate in WPF - FlowDocument (for integrated zooming features)
+* Make colors choose-able
+* Ribbon menu
 
 ## Version 3.x
 * Start with integration of Kanji tests
 
 ## Ideas
-* Import statistics (XLSX, CSV, JSON, XML)
-* Ribbon menu
-* Investigate in WPF - FlowDocument (for integrated zooming features)
 * Auto update program
 * .Net Xamarin version for Andorid and iOS
