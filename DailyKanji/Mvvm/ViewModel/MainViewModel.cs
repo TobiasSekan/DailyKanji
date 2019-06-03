@@ -28,7 +28,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Make refresh interval for timer changeable via menu
+    // TODO: Add German language and language selector in menu
+    // TODO: Add tool-tips for each menu entries
     // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
     //
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
@@ -41,8 +42,6 @@ namespace DailyKanji.Mvvm.ViewModel
     //
     // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Add German language and language selector in menu
-    // TODO: Add tool-tips for each menu entries
 
     // Version 2.x
     // -----------
@@ -133,10 +132,7 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxImage.Error);
             }
 
-            Model = new MainModel
-            {
-                TestTimer = new System.Timers.Timer(15)
-            };
+            Model = new MainModel();
 
             InitalizeBaseModel(TransparentColor, ProgressBarColor);
 

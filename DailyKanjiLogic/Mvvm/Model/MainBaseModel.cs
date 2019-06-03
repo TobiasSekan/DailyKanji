@@ -691,6 +691,9 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #region Public Constructors
 
+        /// <summary>
+        /// Create a new <see cref="MainBaseModel"/> with default values
+        /// </summary>
         public MainBaseModel()
         {
             CurrentTest                  = new TestBaseModel("n", "ん", "ン", KanaType.Gojuuon);

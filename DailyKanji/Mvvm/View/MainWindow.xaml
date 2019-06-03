@@ -234,6 +234,19 @@
 
                 </MenuItem>
 
+                <MenuItem Header="_Refresh interval" IsEnabled="{Binding Path=BaseModel.UseAnswerTimer}">
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Millisecond"
+                                            FractionalSecondsDigitsCount="3"
+                                            Maximum="00:00:01.000"
+                                            Minimum="00:00:00.005"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            Step="5"
+                                            UpdateValueOnEnterKey="True"
+                                            Value="{Binding Model.ProgressPrefreshInterval}" />
+                </MenuItem>
+
                 <MenuItem Header="_Highlight timeout">
                     <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
                                             FractionalSecondsDigitsCount="0"

@@ -12,7 +12,6 @@
 * Add German language and language selector in menu
 * Add tool-tips for each menu entries
 * Add similar list for each Hiragana and each Katakana character for option "Similar answers"
-* Make refresh interval for timer changeable via menu
 * Prevent double-click and multi-click on correct answers to avoid wrong next answer
   * Note: Prevent it direct inside the command handlers
 * On similar answers, in some circumstance it is easy to direct find the correct answer, we need a prevention for this
