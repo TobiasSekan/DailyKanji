@@ -246,6 +246,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Return a short <see cref="string"/> for the current <see cref="SelectedTestType"/>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         [JsonIgnore]
         public string TestTypeString
         {
@@ -309,6 +310,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with count of wrong answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         [JsonIgnore]
         public string WrongCount
         {
@@ -350,6 +352,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with count of correct answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         [JsonIgnore]
         public string CorrectCount
         {
@@ -391,6 +394,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with the average answer time for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         [JsonIgnore]
         public string AverageAnswerTime
         {
