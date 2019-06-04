@@ -20,91 +20,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         #region Public Properties
 
         /// <summary>
-        /// The type of this sign (e.g. Gojuuon, Yooon)
-        /// </summary>
-        public KanaType Type { get; set; }
-
-        /// <summary>
-        /// The sign in Roomaji
-        /// </summary>
-        public string Roomaji { get; set; }
-
-        /// <summary>
-        /// The sign in Hiragana
-        /// </summary>
-        public string Hiragana { get; set; }
-
-        /// <summary>
-        /// The sign in Katakana
-        /// </summary>
-        public string Katakana { get; set; }
-
-        /// <summary>
-        /// The count of wrong answers when the Hiragana sign was ask
-        /// </summary>
-        public uint WrongHiraganaCount
-        {
-            get => _wrongHiraganaCount;
-            set
-            {
-                _wrongHiraganaCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The count of wrong answers when the Katakana sign was ask
-        /// </summary>
-        public uint WrongKatakanaCount
-        {
-            get => _wrongKatakanaCount;
-            set
-            {
-                _wrongKatakanaCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The count of correct answers when the Hiragana sign was ask
-        /// </summary>
-        public uint CorrectHiraganaCount
-        {
-            get => _correctHiraganaCount;
-            set
-            {
-                _correctHiraganaCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The count of correct answers when the Katakana sign was ask
-        /// </summary>
-        public uint CorrectKatakanaCount
-        {
-            get => _correctKatakanaCount;
-            set
-            {
-                _correctKatakanaCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The long-term fail counter (+1 for each wrong ask question, -1 for each correct question)
-        /// </summary>
-        public uint WrongnessCounter
-        {
-            get => _wrongnessCounter;
-            set
-            {
-                _wrongnessCounter = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
         /// The complete answer time of all correct answered test with a Hiragana signs
         /// </summary>
         public TimeSpan CompleteAnswerTimeForCorrectHiragana
@@ -176,6 +91,93 @@ namespace DailyKanjiLogic.Mvvm.Model
                                / (CorrectKatakanaCount + WrongKatakanaCount))
                 : new TimeSpan();
 
+        /// <summary>
+        /// The sign in Roomaji
+        /// </summary>
+        public string Roomaji { get; set; }
+
+        /// <summary>
+        /// The sign in Hiragana
+        /// </summary>
+        public string Hiragana { get; set; }
+
+        /// <summary>
+        /// The sign in Katakana
+        /// </summary>
+        public string Katakana { get; set; }
+
+        /// <summary>
+        /// The count of wrong answers when the Hiragana sign was ask
+        /// </summary>
+        public uint WrongHiraganaCount
+        {
+            get => _wrongHiraganaCount;
+            set
+            {
+                _wrongHiraganaCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The count of wrong answers when the Katakana sign was ask
+        /// </summary>
+        public uint WrongKatakanaCount
+        {
+            get => _wrongKatakanaCount;
+            set
+            {
+                _wrongKatakanaCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The count of correct answers when the Hiragana sign was ask
+        /// </summary>
+        public uint CorrectHiraganaCount
+        {
+            get => _correctHiraganaCount;
+            set
+            {
+                _correctHiraganaCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The count of correct answers when the Katakana sign was ask
+        /// </summary>
+        public uint CorrectKatakanaCount
+        {
+            get => _correctKatakanaCount;
+            set
+            {
+                _correctKatakanaCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The long-term fail counter (+1 for each wrong ask question, -1 for each correct question)
+        /// </summary>
+        [JsonIgnore]
+        public uint WrongnessCounter
+        {
+            get
+            {
+                var wrong   = WrongHiraganaCount + WrongKatakanaCount;
+                var correct = CorrectHiraganaCount + CorrectKatakanaCount;
+
+                return wrong > correct ? wrong - correct : 0;
+            }
+        }
+
+        /// <summary>
+        /// The type of this sign (e.g. Gojuuon, Yooon)
+        /// </summary>
+        public KanaType Type { get; set; }
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -188,31 +190,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         #endregion Internal Properties
 
         #region Private Backing-fields
-
-        /// <summary>
-        /// Backing-field for <see cref="WrongHiraganaCount"/>
-        /// </summary>
-        private uint _wrongHiraganaCount;
-
-        /// <summary>
-        /// Backing-field for <see cref="WrongKatakanaCount"/>
-        /// </summary>
-        private uint _wrongKatakanaCount;
-
-        /// <summary>
-        /// Backing-field for <see cref="CorrectHiraganaCount"/>
-        /// </summary>
-        private uint _correctHiraganaCount;
-
-        /// <summary>
-        /// Backing-field for <see cref="CorrectKatakanaCount"/>
-        /// </summary>
-        private uint _correctKatakanaCount;
-
-        /// <summary>
-        /// Backing-field for <see cref="WrongnessCounter"/>
-        /// </summary>
-        private uint _wrongnessCounter;
 
         /// <summary>
         /// Backing-field for <see cref="CompleteAnswerTimeForCorrectHiragana"/>
@@ -233,6 +210,26 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="CompleteAnswerTimeForWrongKatakana"/>
         /// </summary>
         private TimeSpan _completeAnswerTimeForWrongKatakana;
+
+        /// <summary>
+        /// Backing-field for <see cref="WrongHiraganaCount"/>
+        /// </summary>
+        private uint _wrongHiraganaCount;
+
+        /// <summary>
+        /// Backing-field for <see cref="WrongKatakanaCount"/>
+        /// </summary>
+        private uint _wrongKatakanaCount;
+
+        /// <summary>
+        /// Backing-field for <see cref="CorrectHiraganaCount"/>
+        /// </summary>
+        private uint _correctHiraganaCount;
+
+        /// <summary>
+        /// Backing-field for <see cref="CorrectKatakanaCount"/>
+        /// </summary>
+        private uint _correctKatakanaCount;
 
         #endregion Private Backing-fields
 
@@ -266,7 +263,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <returns><see langword="true"/> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
         /// and Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public override bool Equals(object obj)
-            => Equals(obj as TestBaseModel);
+            => obj is TestBaseModel testBaseModel && Equals(testBaseModel);
 
         /// <summary>
         /// Return the hash code for this <see cref="TestBaseModel"/>
@@ -292,7 +289,8 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="other">The <see cref="TestBaseModel"/> to compare</param>
         /// <returns><see langword="true"/> when Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
         public bool Equals(TestBaseModel other)
-            => (other != null)
+            => !(other is null)
+            && (other.Type == Type)
             && (other.Roomaji == Roomaji)
             && (other.Hiragana == Hiragana)
             && (other.Katakana == Katakana);

@@ -35,7 +35,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"{nameof(baseColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
 
-            if(BaseModel == null)
+            if(BaseModel is null)
             {
                 BaseModel = new MainBaseModel();
             }
@@ -112,15 +112,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void ChooseNewSign(TestBaseModel newTest)
         {
-            Debug.Assert(newTest != null, $"{nameof(newTest)} can't be null");
-
-            if(BaseModel.CurrentTest != null)
-            {
-                while(newTest?.Roomaji == BaseModel.CurrentTest.Roomaji)
-                {
-                    newTest = GetRandomKanaTest();
-                }
-            }
+            Debug.Assert(!(newTest is null), $"{nameof(newTest)} can't be null");
 
             BaseModel.CurrentTest = newTest;
 
@@ -176,125 +168,97 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Return a random kana test
+        /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
         /// <returns>A kana test</returns>
         public TestBaseModel GetRandomKanaTest()
-            => BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+        {
+            var newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+
+            if(BaseModel.CurrentTest is null)
+            {
+                return newTest;
+            }
+
+            while(newTest.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+            }
+
+            return newTest;
+        }
 
         /// <summary>
         /// Choose new possible answers for the current ask sign
         /// </summary>
         public void ChooseNewPossibleAnswers()
         {
-            var firstTestCharacter  = BaseModel.CurrentTest.Roomaji.FirstOrDefault();
-            var secondTestCharacter = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(1);
-            var thirdTestCharacter  = BaseModel.CurrentTest.Roomaji.ElementAtOrDefault(2);
-
-            var tryAddCount = 0;
-            var list        = new ObservableCollection<TestBaseModel>
+            var possibleAnswers = new ObservableCollection<TestBaseModel>
             {
+                // add correct answer for this test to list with possible answers
                 BaseModel.CurrentTest
             };
 
-            while(list.Count < BaseModel.MaximumAnswers)
+            var allAnswerList = BaseModel.SimilarAnswers
+                ? KanaHelper.GetSimilarKana(BaseModel.TestPool.Distinct(), BaseModel.CurrentTest, BaseModel.CurrentTest.AnswerType).ToList()
+                : BaseModel.TestPool.Distinct().ToList();
+
+            allAnswerList.Remove(BaseModel.CurrentTest);
+            allAnswerList.Shuffle();
+
+            while(possibleAnswers.Count < BaseModel.MaximumAnswers)
             {
-                var possibleAnswer = GetRandomKanaTest();
-                Debug.Assert(possibleAnswer != null, "Random kana test is null");
-
-                if((tryAddCount < 50) && list.Any(found => found.Roomaji == possibleAnswer.Roomaji))
+                if(allAnswerList.Count > 0)
                 {
-                    tryAddCount++;
+                    var possibleAnswer = allAnswerList.ElementAtOrDefault(BaseModel.Randomizer.Next(0, allAnswerList.Count));
+                    possibleAnswers.Add(possibleAnswer);
+                    allAnswerList.Remove(possibleAnswer);
                     continue;
                 }
 
-                if(!BaseModel.SimilarAnswers)
+                var anyAnswer = GetRandomKanaTest();
+                if(possibleAnswers.Contains(anyAnswer))
                 {
-                    list.Add(possibleAnswer);
+                    // don't add test twice
                     continue;
                 }
 
-                if((tryAddCount < 50)
-                && !possibleAnswer.Roomaji.Contains(firstTestCharacter)
-                && !possibleAnswer.Roomaji.Contains(secondTestCharacter)
-                && !possibleAnswer.Roomaji.Contains(thirdTestCharacter))
-                {
-                    tryAddCount++;
-                    continue;
-                }
-
-                list.Add(possibleAnswer);
-                tryAddCount = 0;
+                possibleAnswers.Add(anyAnswer);
             }
 
-            list.Shuffle();
+            possibleAnswers.Shuffle();
 
-            BaseModel.PossibleAnswers = list;
+            BaseModel.PossibleAnswers = possibleAnswers;
         }
 
         /// <summary>
-        /// Return a text for a answer, based on the selected <see cref="TestType"/>
+        /// Return a text for a answer, based on the given <see cref="AnswerType"/>
         /// </summary>
         /// <param name="answer">The answer, that should have a text</param>
+        /// <param name="answerType">The type of the answer</param>
         /// <returns>A text for a answer</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public string GetAnswerText(in TestBaseModel answer)
+        public string GetAnswerText(in TestBaseModel answer, AnswerType answerType)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
-            switch(BaseModel.SelectedTestType)
+            answer.AnswerType = answerType;
+
+            var possibleAnswer = BaseModel.PossibleAnswers[GetAnswerNumber(answer)];
+
+            switch(answerType)
             {
-                case TestType.HiraganaOrKatakanaToRoomaji:
-                case TestType.HiraganaToRoomaji:
-                case TestType.KatakanaToRoomaji:
-                    answer.AnswerType = AnswerType.Roomaji;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+                case AnswerType.Roomaji:
+                    return possibleAnswer.Roomaji;
 
-                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                case TestType.RoomajiToHiragana:
-                case TestType.KatakanaToHiragana:
-                    answer.AnswerType = AnswerType.Hiragana;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+                case AnswerType.Hiragana:
+                    return possibleAnswer.Hiragana;
 
-                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Katakana:
-                case TestType.RoomajiToKatakana:
-                case TestType.HiraganaToKatakana:
-                    answer.AnswerType = AnswerType.Katakana;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
-
-                case TestType.RoomajiToHiraganaOrKatakana:
-                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
-                    if(BaseModel.Randomizer.Next(0, 2) == 0)
-                    {
-                        answer.AnswerType = AnswerType.Hiragana;
-                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
-                    }
-
-                    answer.AnswerType = AnswerType.Katakana;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
-
-                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                    if(BaseModel.Randomizer.Next(0, 2) == 0)
-                    {
-                        answer.AnswerType = AnswerType.Katakana;
-                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
-                    }
-
-                    answer.AnswerType = AnswerType.Roomaji;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
-
-                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                    if(BaseModel.Randomizer.Next(0, 2) == 0)
-                    {
-                        answer.AnswerType = AnswerType.Hiragana;
-                        return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
-                    }
-
-                    answer.AnswerType = AnswerType.Roomaji;
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+                case AnswerType.Katakana:
+                    return possibleAnswer.Katakana;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+                    throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported");
             }
         }
 
@@ -306,7 +270,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             switch(BaseModel.SelectedHintType)
             {
@@ -358,22 +322,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void CountAnswerResult(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
-            Debug.Assert(answer.AnswerType != AnswerType.Unknown, $"{nameof(answer.AnswerType)} can't be {nameof(AnswerType.Unknown)}");
-
-            var answerTime = DateTime.UtcNow - BaseModel.TestStartTime;
-
-            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-            {
-                if(answer.WrongnessCounter > 0)
-                {
-                    answer.WrongnessCounter--;
-                }
-                else
-                {
-                    answer.WrongnessCounter++;
-                }
-            }
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             switch(BaseModel.SelectedTestType)
             {
@@ -385,17 +334,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.HiraganaToRoomaji:
                 case TestType.RoomajiToHiragana:
                 case TestType.HiraganaToKatakana:
-                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += answerTime;
-                        BaseModel.CurrentTest.CorrectHiraganaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                        BaseModel.CurrentTest.WrongHiraganaCount++;
-                    }
-                    break;
+                    CountWrongOrCorrectHiragana(answer);
+                    return;
 
                 case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                 case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
@@ -405,31 +345,12 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 case TestType.KatakanaToRoomaji:
                 case TestType.RoomajiToKatakana:
                 case TestType.KatakanaToHiragana:
-                    if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += answerTime;
-                        BaseModel.CurrentTest.CorrectKatakanaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
-                        BaseModel.CurrentTest.WrongKatakanaCount++;
-                    }
-                    break;
+                    CountWrongOrCorrectKatakana(answer);
+                    return;
 
                 case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji && answer.AnswerType == AnswerType.Unknown:
-                    // When no answer is selected and the ask sign is in Roomaji,
-                    // we don't know which error counter we should increase. So we decide the coincidence
-                    if(BaseModel.Randomizer.Next(0, 2) == 0)
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += answerTime;
-                        BaseModel.CurrentTest.WrongHiraganaCount++;
-                    }
-                    else
-                    {
-                        BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += answerTime;
-                        BaseModel.CurrentTest.WrongKatakanaCount++;
-                    }
+                case TestType.RoomajiToHiraganaOrKatakana when answer.AnswerType == AnswerType.Unknown:
+                    CountWrongHiarganaOrKatakana();
                     break;
 
                 default:
@@ -454,8 +375,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             foreach(var test in BaseModel.AllTestsList)
             {
-                test.WrongnessCounter = 0;
-
                 switch(resetType)
                 {
                     case ResetType.All:
@@ -536,7 +455,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
         /// <returns><see langword="true"/> if the setting file could be load, otherwise <see langword="false"/></returns>
-        public bool TryLoadSettings(in string path, out Exception exception)
+        public bool TryLoadSettings(in string path, out Exception? exception)
         {
             if(string.IsNullOrWhiteSpace(path))
             {
@@ -569,7 +488,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="path">The path to the setting file</param>
         /// <param name="exception">The possible thrown exception until the setting file is load</param>
         /// <returns><see langword="true"/> if the setting file could be save, otherwise <see langword="false"/></returns>
-        public bool TrySaveSettings(in string path, out Exception exception)
+        public bool TrySaveSettings(in string path, out Exception? exception)
         {
             try
             {
@@ -614,7 +533,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="hintColor">The color string for the hint elements</param>
         public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"{nameof(correctColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"{nameof(errorColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"{nameof(noneSelectedColor)} can't be empty or null");
@@ -625,9 +544,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
-                BaseModel.AnswerButtonColor[answerNumber] = BaseModel.PossibleAnswers[answerNumber].Roomaji == BaseModel.CurrentTest.Roomaji
+                var roomaji = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
+
+                BaseModel.AnswerButtonColor[answerNumber] = roomaji == BaseModel.CurrentTest.Roomaji
                     ? correctColor
-                    : BaseModel.PossibleAnswers[answerNumber].Roomaji == answer.Roomaji
+                    : roomaji == answer.Roomaji
                         ? errorColor
                         : noneSelectedColor;
 
@@ -639,30 +560,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Check the given answer and count the result
-        /// </summary>
-        /// <param name="answer">The answer to check</param>
-        /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
-        public bool CheckAndCountAnswer(in TestBaseModel answer)
-        {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
-
-            BaseModel.IgnoreInput = true;
-
-            if(answer is null)
-            {
-                answer.WrongnessCounter++;
-                return false;
-            }
-
-            BaseModel.PreviousTest = BaseModel.CurrentTest;
-
-            CountAnswerResult(answer);
-
-            return answer.Roomaji == BaseModel.CurrentTest.Roomaji;
-        }
-
-        /// <summary>
         /// Set or remove the highlight color for one answer (when highlight color is set the color will be removed)
         /// </summary>
         /// <param name="answer">The answer to highlight</param>
@@ -670,7 +567,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="normalColor">The color string for the answer when it is not highlight</param>
         public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
 
@@ -679,6 +576,128 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             BaseModel.AnswerButtonColor[answerNumber] = BaseModel.AnswerButtonColor[answerNumber] != highlightColor
                 ? highlightColor
                 : normalColor;
+        }
+
+        /// <summary>
+        /// Check the given answer and count the result
+        /// </summary>
+        /// <param name="answer">The answer to check</param>
+        /// <returns><see langword="true"/> if the answer was correct, otherwise <see langword="false"/></returns>
+        public bool CheckAndCountAnswer(in TestBaseModel answer)
+        {
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
+
+            BaseModel.IgnoreInput  = true;
+            BaseModel.PreviousTest = BaseModel.CurrentTest;
+
+            CountAnswerResult(answer);
+
+            return answer.Roomaji == BaseModel.CurrentTest.Roomaji;
+        }
+
+        /// <summary>
+        /// Count one correct or wrong result for a Hiragana question, based on the given answer
+        /// </summary>
+        /// <param name="answer">The answer for the counting</param>
+        public void CountWrongOrCorrectHiragana(in TestBaseModel answer)
+        {
+            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.CorrectHiraganaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongHiraganaCount++;
+            }
+        }
+
+        /// <summary>
+        /// Count one correct or wrong result for a Katakana question, based on the given answer
+        /// </summary>
+        /// <param name="answer">The answer for the counting</param>
+        public void CountWrongOrCorrectKatakana(in TestBaseModel answer)
+        {
+            if(answer.Roomaji == BaseModel.CurrentTest.Roomaji)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.CorrectKatakanaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongKatakanaCount++;
+            }
+        }
+
+        /// <summary>
+        /// Count one wrong result for a unknown or skipped answer
+        /// </summary>
+        public void CountWrongHiarganaOrKatakana()
+        {
+            // When no answer is selected and the ask sign is in Roomaji,
+            // we don't know which error counter we should increase. So we decide the coincidence
+            if(BaseModel.Randomizer.Next(0, 2) == 0)
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongHiragana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongHiraganaCount++;
+            }
+            else
+            {
+                BaseModel.CurrentTest.CompleteAnswerTimeForWrongKatakana += BaseModel.AnswerTime;
+                BaseModel.CurrentTest.WrongKatakanaCount++;
+            }
+        }
+
+        /// <summary>
+        /// Return the answer type for the current selected test, based on the current <see cref="BaseModel.SelectedTestType"/>
+        /// </summary>
+        /// <returns>The answer type for the current test</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public AnswerType GetAnswerType()
+        {
+            switch(BaseModel.SelectedTestType)
+            {
+                case TestType.HiraganaOrKatakanaToRoomaji:
+                case TestType.HiraganaToRoomaji:
+                case TestType.KatakanaToRoomaji:
+                    return AnswerType.Roomaji;
+
+                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.RoomajiToHiragana:
+                case TestType.KatakanaToHiragana:
+                    return AnswerType.Hiragana;
+
+                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign != BaseModel.CurrentTest.Katakana:
+                case TestType.RoomajiToKatakana:
+                case TestType.HiraganaToKatakana:
+                    return AnswerType.Katakana;
+
+                case TestType.RoomajiToHiraganaOrKatakana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
+                    return (BaseModel.Randomizer.Next(0, 2) == 0) ? AnswerType.Hiragana : AnswerType.Katakana;
+
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                    return (BaseModel.Randomizer.Next(0, 2) == 0) ? AnswerType.Katakana : AnswerType.Roomaji;
+
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                    return (BaseModel.Randomizer.Next(0, 2) == 0) ? AnswerType.Hiragana : AnswerType.Roomaji;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+            }
+        }
+
+        /// <summary>
+        /// Do all things to prepare a new test and all possible answers (no surface changes)
+        /// </summary>
+        public void PrepareNewTest()
+        {
+            OrderAllTests();
+            BuildTestPool();
+            ChooseNewSign(GetRandomKanaTest());
+            ChooseNewPossibleAnswers();
         }
 
         #endregion Public Methods
@@ -692,7 +711,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal int GetAnswerNumber(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, $"{nameof(answer)} can't be null");
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {

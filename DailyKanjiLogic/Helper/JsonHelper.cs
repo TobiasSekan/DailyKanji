@@ -15,19 +15,20 @@ namespace DailyKanjiLogic.Helper
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="filename">The name of the JSON file</param>
         /// <returns>The de-serialized object</returns>
-        public static T ReadJson<T>(in string filename) where T : new()
+        /// <exception cref="FileNotFoundException"></exception>
+        public static T ReadJson<T>(in string filename) where T : class, new()
         {
             if(filename.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
-                return default;
+                throw new FileNotFoundException("Path contains illegal characters", filename);
             }
 
-            using var fileStream   = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using(var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using(var streamReader = new StreamReader(fileStream))
             {
                 TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
 
-                if(exception != null)
+                if(!(exception is null))
                 {
                     throw exception;
                 }
@@ -42,7 +43,7 @@ namespace DailyKanjiLogic.Helper
         /// <typeparam name="T">The <see cref="Type"/> of the <see cref="object"/></typeparam>
         /// <param name="filename">The name of the file</param>
         /// <param name="objectToTransform">The object to write</param>
-        public static void WriteJson<T>(in string filename, in T objectToTransform) where T : new()
+        public static void WriteJson<T>(in string filename, in T objectToTransform) where T : class, new()
         {
             if(filename.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
@@ -69,8 +70,9 @@ namespace DailyKanjiLogic.Helper
         /// <param name="jsonString">The <see cref="string"/> that contains a JSON object</param>
         /// <param name="newObject">The new <see cref="object"/> from the string</param>
         /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
-        public static void TryConvertFromString<T>(in string jsonString, out T newObject, out Exception exception)
-                where T : new()
+        /// <exception cref="JsonException"></exception>
+        public static void TryConvertFromString<T>(in string jsonString, out T newObject, out Exception? exception)
+                where T : class, new()
         {
             try
             {
@@ -79,12 +81,7 @@ namespace DailyKanjiLogic.Helper
             }
             catch(Exception jsonException)
             {
-                exception = new JsonException($"Exception: {Environment.NewLine}{jsonException}{Environment.NewLine}JSON string: {Environment.NewLine}{jsonString}{Environment.NewLine}");
-
-                // StackTrace class is not supported in .Net Standard 1.3
-                //+ "Stack trace:" + Environment.NewLine + new StackTrace());
-
-                newObject = default;
+                throw new JsonException($"Exception: {Environment.NewLine}{jsonException}{Environment.NewLine}JSON string: {Environment.NewLine}{jsonString}{Environment.NewLine}");
             }
         }
     }

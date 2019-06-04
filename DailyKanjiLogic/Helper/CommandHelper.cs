@@ -18,7 +18,7 @@ namespace DailyKanjiLogic.Helper
         /// <summary>
         /// <see cref="Predicate{T}"/> of this command indicate that the action can preform
         /// </summary>
-        private readonly Predicate<object> _canExecute;
+        private readonly Predicate<object>? _canExecute;
 
         #endregion Private Fields
 
@@ -29,7 +29,7 @@ namespace DailyKanjiLogic.Helper
         /// </summary>
         /// <param name="action">The <see cref="Action{T}"/> for the command</param>
         /// <param name="canExecute">(Optional) The <see cref="Predicate{T}"/> that indicate that the action can preform</param>
-        public CommandHelper(in Action<object> action, in Predicate<object> canExecute = null)
+        public CommandHelper(in Action<object> action, in Predicate<object>? canExecute = null)
         {
             _action      = action;
             _canExecute = canExecute;

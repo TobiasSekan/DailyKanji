@@ -28,6 +28,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
+    // TODO: Add German language and language selector in menu
+    // TODO: Add tool-tips for each menu entries
+    // TODO: Add more menu underscores (for menu keyboard navigation)
+    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
+    // TODO: Change test order so that all tests will be ask (based on ask counter)
     // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
     //       Note: Prevent it direct inside the command handlers
     //
@@ -35,19 +41,16 @@ namespace DailyKanji.Mvvm.ViewModel
     //       we need a prevention for this
     //
     //       Maybe: Only the first character or last character must are the same on less then five answers
-    //
-    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
-    // TODO: Change test order so that all tests will be ask (based on ask counter)
-    // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Make refresh interval for timer changeable via menu
 
     // Version 2.x
     // -----------
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Add German language and language selector in menu
-    // TODO: Add tool-tips for each menu entries
-    // TODO: Make colors choose-able
+    // TODO: Move more program parts to separate library project in .Net Standard
     // TODO: Export statistics (XLSX, CSV, JSON, XML)
+    // TODO: Import statistics (XLSX, CSV, JSON, XML)
+    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
+    // TODO: Make colors choose-able
+    // TODO: Ribbon menu
 
     // Version 3.x
     // -----------
@@ -55,9 +58,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Ideas
     // -----
-    // TODO: Import statistics (XLSX, CSV, JSON, XML)
-    // TODO: Ribbon menu
-    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 
@@ -110,7 +110,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// The color string for the answer hints (<see cref="Colors.Black"/> - #FF000000)
         /// </summary>
-        private static string HintColor
+        private static string AnswerHintTextColor
             => Colors.Black.ToString();
 
         /// <summary>
@@ -132,23 +132,16 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxImage.Error);
             }
 
-            Model = new MainModel
-            {
-                TestTimer = new System.Timers.Timer(15)
-            };
+            Model = new MainModel();
 
             InitalizeBaseModel(TransparentColor, ProgressBarColor);
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
-                if(!BaseModel.UseAnswerTimer)
-                {
-                    return;
-                }
+                BaseModel.AnswerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
-                BaseModel.CurrentAnswerTime = (DateTime.UtcNow - BaseModel.TestStartTime).TotalMilliseconds;
-
-                if(BaseModel.CurrentAnswerTime < BaseModel.MaximumAnswerTimeout)
+                if(!BaseModel.UseAnswerTimer
+                || BaseModel.AnswerTime < BaseModel.MaximumAnswerTimeout)
                 {
                     return;
                 }
@@ -161,7 +154,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             CheckForNewVersion();
 
-            CreateNewTest();
+            PrepareNewTest();
+            ShowAndStartNewTest();
             SetNormalColors(TransparentColor, ProgressBarColor);
 
             MainWindow.Closed += (_, __) =>
@@ -209,15 +203,14 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Private Methods
 
         /// <summary>
-        /// Create a new test with new question and new possible answers
+        /// Do all work to show and start a new test
         /// </summary>
-        private void CreateNewTest()
+        private void ShowAndStartNewTest()
         {
-            OrderAllTests();
-            BuildTestPool();
-            ChooseNewSign(GetRandomKanaTest());
-            ChooseNewPossibleAnswers();
             BuildAnswerMenuAndButtons();
+
+            BaseModel.OnPropertyChangeForAll();
+
             RestartTestTimer();
 
             BaseModel.IgnoreInput = false;
@@ -230,7 +223,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <exception cref="ArgumentNullException"></exception>
         private void CheckSelectedAnswer(in TestBaseModel answer)
         {
-            Debug.Assert(answer != null, "Answer can't be null for check selected answer");
+            Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
 
             if(BaseModel.IgnoreInput)
             {
@@ -243,25 +236,26 @@ namespace DailyKanji.Mvvm.ViewModel
 
             if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
             {
-                CreateNewTest();
+                PrepareNewTest();
+                ShowAndStartNewTest();
                 return;
             }
 
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow.Dispatcher.Invoke(() =>
+            Task.Run(() =>
             {
-                SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, HintColor);
-                BuildAnswerMenuAndButtons();
+                MainWindow.Dispatcher.Invoke(()
+                    => SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor));
 
-                Task.Run(() =>
-                {
-                    BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
+                PrepareNewTest();
 
-                    MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
-                    CreateNewTest();
-                });
+                BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
+
+                MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
+
+                ShowAndStartNewTest();
             });
         }
 
@@ -269,7 +263,10 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Build all answer menu entries and buttons
         /// </summary>
         private void BuildAnswerMenuAndButtons()
-            => MainWindow?.Dispatcher?.Invoke(() =>
+        {
+            var answersType = GetAnswerType();
+
+            MainWindow?.Dispatcher?.Invoke(() =>
             {
                 MainWindow.AnswerMenu.Items.Clear();
                 MainWindow.MarkMenu.Items.Clear();
@@ -279,7 +276,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     if(answerNumber < BaseModel.MaximumAnswers)
                     {
                         var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                        var answerText       = GetAnswerText(answer);
+                        var answerText       = GetAnswerText(answer, answersType);
                         var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                         MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
@@ -324,6 +321,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                 }
             });
+        }
 
         /// <summary>
         /// Check if a new version on-line
@@ -379,46 +377,48 @@ namespace DailyKanji.Mvvm.ViewModel
             // - Show button names as hints, when gamepad is connected
             // - Show joystick state and button count inside the status bar
 
-            var gamepad = DirectInputHelper.GetFirstGamepad();
+            var gamepad = DirectInputHelper.GetFirstGamePad();
             if(gamepad is null)
             {
                 return;
             }
 
             var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
-            var manualResetEvent = new ManualResetEvent(false);
 
-            Task.Run(() =>
+            using(var manualResetEvent = new ManualResetEvent(false))
             {
-                while(true)
+                Task.Run(() =>
                 {
-                    manualResetEvent.WaitOne(100);
-
-                    var gamepadButtonState = gamepad.GetCurrentState();
-                    if(gamepadButtonState is null)
+                    while(true)
                     {
-                        continue;
-                    }
+                        manualResetEvent.WaitOne(100);
 
-                    for(var button = 0; button < maxButtonCount; button++)
-                    {
-                        if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
+                        var gamepadButtonState = gamepad.GetCurrentState();
+                        if(gamepadButtonState is null)
                         {
                             continue;
                         }
 
-                        // TODO: check if "button + 1" is the correct value
-                        CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                        for(var button = 0; button < maxButtonCount; button++)
+                        {
+                            if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
+                            {
+                                continue;
+                            }
+
+                            // TODO: check if "button + 1" is the correct value
+                            CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         /// <summary>
         /// Highlight a answer (button) with the <see cref="NoneSelectedColor"/>
         /// </summary>
         /// <param name="answer">The answer (button) to highlight</param>
-        internal void HighlightAnswer(in TestBaseModel answer)
+        private void HighlightAnswer(in TestBaseModel answer)
         {
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;

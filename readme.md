@@ -2,13 +2,17 @@
 
 ## Requirements for usage
 * Windows
-  * Windows Vista SP2, 7 SP1, 8, 8.1 and 10
-  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 and 2019
+  * Windows Vista SP2, 7 SP1, 8, 8.1 or 10
+  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 or 2019
 * [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
 
 ## Current status and version
 * Status: in (slow) development
-* Version: 0.6.1
+
+| Type        | Version  | Git-Tag | Branch                                                               |
+| ----------- | -------- | ------- | -------------------------------------------------------------------- |
+| Release     | 0.7.0    | v0.7.0  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
+| Development | 0.7.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
 
 ## Current features
 * 10 Test types
@@ -31,7 +35,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10) - Version 0.4.0
+## Pictures (under Windows 10) - Version 0.7.0
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
@@ -39,9 +43,9 @@
 * Create a new [Bug report](https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md)
 * Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
-## Notes about support for Windows Vista and Window 8
-At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista and Window 8 will be end.
-Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
+## Notes about support for Windows Vista, Window 8 and Windows Server 2008 SP2
+At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista,
+Window 8 and Windows Server 2008 SP2 will be end. Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
 
 ## Whats next?
 see [Roadmap](Documentation/Roadmap.md)
