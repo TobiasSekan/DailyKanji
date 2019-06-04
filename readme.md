@@ -11,7 +11,7 @@
 
 | Type        | Version  | Git-Tag | Branch                                                               |
 | ----------- | -------- | ------- | -------------------------------------------------------------------- |
-| Release     | 0.6.1    | v0.6.1  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
+| Release     | 0.7.0    | v0.7.0  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
 | Development | 0.7.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
 
 ## Current features
@@ -35,7 +35,7 @@
 * Count right and wrong answers and answer times (separates counter for each Hiragana and Katakana)
 * Separate window for statistics, statistics can individual reset via menu
 
-## Pictures (under Windows 10) - Version 0.4.0
+## Pictures (under Windows 10) - Version 0.7.0
 ![Daily Kanji 1](Documentation/Pictures/DailyKanji1.png)
 ![Daily Kanji 2](Documentation/Pictures/DailyKanji2.png)
 
