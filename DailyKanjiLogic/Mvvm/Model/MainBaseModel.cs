@@ -249,46 +249,20 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         [JsonIgnore]
         public string TestTypeString
-        {
-            get
+            => SelectedTestType switch
             {
-                switch(SelectedTestType)
-                {
-                    case TestType.HiraganaOrKatakanaToRoomaji:
-                        return "H / K => R";
-
-                    case TestType.HiraganaToRoomaji:
-                        return "H => R";
-
-                    case TestType.KatakanaToRoomaji:
-                        return "K => R";
-
-                    case TestType.RoomajiToHiraganaOrKatakana:
-                        return "R => H / K";
-
-                    case TestType.RoomajiToHiragana:
-                        return "R => H";
-
-                    case TestType.RoomajiToKatakana:
-                        return "R => K";
-
-                    case TestType.HiraganaToKatakanaOrKatakanaToHiragana:
-                        return "H => K / K => H";
-
-                    case TestType.HiraganaToKatakana:
-                        return "H => K";
-
-                    case TestType.KatakanaToHiragana:
-                        return "K => H";
-
-                    case TestType.AllToAll:
-                        return "All => All";
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(SelectedTestType), "Test type not supported");
-                }
-            }
-        }
+                TestType.HiraganaOrKatakanaToRoomaji            => "H / K => R",
+                TestType.HiraganaToRoomaji                      => "H => R",
+                TestType.KatakanaToRoomaji                      => "K => R",
+                TestType.RoomajiToHiraganaOrKatakana            => "R => H / K",
+                TestType.RoomajiToHiragana                      => "R => H",
+                TestType.RoomajiToKatakana                      => "R => K",
+                TestType.HiraganaToKatakanaOrKatakanaToHiragana => "H => K / K => H",
+                TestType.HiraganaToKatakana                     => "H => K",
+                TestType.KatakanaToHiragana                     => "K => H",
+                TestType.AllToAll                               => "All => All",
+                _                                               => throw new ArgumentOutOfRangeException(nameof(SelectedTestType), "Test type not supported"),
+            };
 
         /// <summary>
         /// Return the current rate in percent

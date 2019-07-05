@@ -143,23 +143,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
                 case TestType.AllToAll:
                     var random = BaseModel.Randomizer.Next(0, 3);
-                    switch(random)
+
+                    BaseModel.CurrentAskSign = random switch
                     {
-                        case 0:
-                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Hiragana;
-                            break;
-
-                        case 1:
-                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Katakana;
-                            break;
-
-                        case 2:
-                            BaseModel.CurrentAskSign = BaseModel.CurrentTest.Roomaji;
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(random), $"[{random}] is not between 0 and 2");
-                    }
+                        0 => BaseModel.CurrentTest.Hiragana,
+                        1 => BaseModel.CurrentTest.Katakana,
+                        2 => BaseModel.CurrentTest.Roomaji,
+                        _ => throw new ArgumentOutOfRangeException(nameof(random), $"[{random}] is not between 0 and 2"),
+                    };
                     break;
 
                 default:
@@ -244,22 +235,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             answer.AnswerType = answerType;
 
-            var possibleAnswer = BaseModel.PossibleAnswers[GetAnswerNumber(answer)];
-
-            switch(answerType)
+            return answerType switch
             {
-                case AnswerType.Roomaji:
-                    return possibleAnswer.Roomaji;
-
-                case AnswerType.Hiragana:
-                    return possibleAnswer.Hiragana;
-
-                case AnswerType.Katakana:
-                    return possibleAnswer.Katakana;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported");
-            }
+                AnswerType.Roomaji  => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji,
+                AnswerType.Hiragana => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana,
+                AnswerType.Katakana => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana,
+                _                   => throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported"),
+            };
         }
 
         /// <summary>

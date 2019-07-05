@@ -162,22 +162,17 @@ namespace DailyKanjiLogic.Helper
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static IEnumerable<TestBaseModel> GetSimilarKana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test, in AnswerType answerType)
         {
-            switch(answerType)
+            return answerType switch
             {
-                case AnswerType.Roomaji:
-                    return GetSimilarRoomaji(testList, test);
+                AnswerType.Roomaji => GetSimilarRoomaji(testList, test),
+                AnswerType.Hiragana => GetSimilarHiragana(testList, test),
+                AnswerType.Katakana => GetSimilarKatakana(testList, test),
 
-                case AnswerType.Hiragana:
-                    return GetSimilarHiragana(testList, test);
+                _ => GetSimilarRoomaji(testList, test),
 
-                case AnswerType.Katakana:
-                    return GetSimilarKatakana(testList , test);
-
-                default:
-                    // TODO
-                    return GetSimilarRoomaji(testList, test);
-                    //throw new ArgumentOutOfRangeException(nameof(answerType), $"{nameof(answerType)} can't be {nameof(AnswerType.Unknown)}");
-            }
+                // TODO
+                //throw new ArgumentOutOfRangeException(nameof(answerType), $"{nameof(answerType)} can't be {nameof(AnswerType.Unknown)}");
+            };
         }
 
         /// <summary>
