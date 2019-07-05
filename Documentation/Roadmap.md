@@ -7,6 +7,9 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
+* In some circumstance the test-pool don't increase on wrong answers
+* In some circumstance the keyboard input doesn't work on the first key press or with delay
+* The background color of the ask sign on wrong/right answers don't fit with the window high and width
 
 ## Version 1.x
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
