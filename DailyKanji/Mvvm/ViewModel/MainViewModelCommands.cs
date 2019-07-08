@@ -20,7 +20,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Command for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
-            => new CommandHelperSlim(() => MainWindow.Close());
+            => new CommandHelperSlim(() => _mainWindow.Close());
 
         #endregion Commands - File Menu
 

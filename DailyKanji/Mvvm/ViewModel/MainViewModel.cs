@@ -79,49 +79,49 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// The name of the settings file (this file contains all settings and statistics)
         /// </summary>
-        private static string SettingFileName
+        private static string _settingFileName
             => "settings.json";
 
         /// <summary>
         /// The color string for the progress bar (<see cref="Colors.LightBlue"/> - #FFADD8E6)
         /// </summary>
-        private static string ProgressBarColor
+        private static string _progressBarColor
             => Colors.LightBlue.ToString();
 
         /// <summary>
         /// The color string for the error highlight (<see cref="Colors.LightCoral"/> - #FFF08080)
         /// </summary>
-        private static string ErrorColor
+        private static string _errorColor
             => Colors.LightCoral.ToString();
 
         /// <summary>
         /// The color string for none selected answers (<see cref="Colors.LightGoldenrodYellow"/> - #FFFAFAD2)
         /// </summary>
-        private static string NoneSelectedColor
+        private static string _noneSelectedColor
             => Colors.LightGoldenrodYellow.ToString();
 
         /// <summary>
         /// The color string for the correct answer (<see cref="Colors.LightGreen"/> - FF90EE90)
         /// </summary>
-        private static string CorrectColor
+        private static string _correctColor
             => Colors.LightGreen.ToString();
 
         /// <summary>
         /// The color string for invisible text and elements (<see cref="Colors.Transparent"/> - #00FFFFFF)
         /// </summary>
-        private static string TransparentColor
+        private static string _transparentColor
             => Colors.Transparent.ToString();
 
         /// <summary>
         /// The color string for the answer hints (<see cref="Colors.Black"/> - #FF000000)
         /// </summary>
-        private static string AnswerHintTextColor
+        private static string _answerHintTextColor
             => Colors.Black.ToString();
 
         /// <summary>
         /// The main viewable window of this application
         /// </summary>
-        private MainWindow MainWindow { get; }
+        private MainWindow _mainWindow { get; }
 
         #endregion Private Properties
 
@@ -129,17 +129,17 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-            if(!TryLoadSettings(SettingFileName, out var loadException) && !(loadException is FileNotFoundException))
+            if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
-                                $"Error on save {SettingFileName}",
+                                $"Error on save {_settingFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
 
             Model = new MainModel();
 
-            InitalizeBaseModel(TransparentColor, ProgressBarColor);
+            InitalizeBaseModel(_transparentColor, _progressBarColor);
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -155,30 +155,30 @@ namespace DailyKanji.Mvvm.ViewModel
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
             };
 
-            MainWindow = new MainWindow(this);
+            _mainWindow = new MainWindow(this);
 
             CheckForNewVersion();
 
             PrepareNewTest();
             ShowAndStartNewTest();
-            SetNormalColors(TransparentColor, ProgressBarColor);
+            SetNormalColors(_transparentColor, _progressBarColor);
 
-            MainWindow.Closed += (_, __) =>
+            _mainWindow.Closed += (_, __) =>
             {
-                if(TrySaveSettings(SettingFileName, out var saveException))
+                if(TrySaveSettings(_settingFileName, out var saveException))
                 {
                     return;
                 }
 
                 MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
-                                $"Error on save {SettingFileName}",
+                                $"Error on save {_settingFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             };
 
             GamepadTest();
 
-            MainWindow.Show();
+            _mainWindow.Show();
         }
 
         #endregion Internal Constructors
@@ -197,7 +197,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            BaseModel.ProgressBarColor = ProgressBarColor;
+            BaseModel.ProgressBarColor = _progressBarColor;
             BaseModel.TestStartTime    = DateTime.UtcNow;
 
             Model.TestTimer.Start();
@@ -251,14 +251,14 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
-                MainWindow.Dispatcher.Invoke(()
-                    => SetHighlightColors(answerTemp, CorrectColor, result ? CorrectColor : ErrorColor, NoneSelectedColor, AnswerHintTextColor));
+                _mainWindow.Dispatcher.Invoke(()
+                    => SetHighlightColors(answerTemp, _correctColor, result ? _correctColor : _errorColor, _noneSelectedColor, _answerHintTextColor));
 
                 PrepareNewTest();
 
                 BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
 
-                MainWindow.Dispatcher.Invoke(() => SetNormalColors(TransparentColor, ProgressBarColor));
+                _mainWindow.Dispatcher.Invoke(() => SetNormalColors(_transparentColor, _progressBarColor));
 
                 ShowAndStartNewTest();
             });
@@ -271,10 +271,10 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             var answersType = GetAnswerType();
 
-            MainWindow?.Dispatcher?.Invoke(() =>
+            _mainWindow?.Dispatcher?.Invoke(() =>
             {
-                MainWindow.AnswerMenu.Items.Clear();
-                MainWindow.MarkMenu.Items.Clear();
+                _mainWindow.AnswerMenu.Items.Clear();
+                _mainWindow.MarkMenu.Items.Clear();
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
@@ -284,19 +284,19 @@ namespace DailyKanji.Mvvm.ViewModel
                         var answerText       = GetAnswerText(answer, answersType);
                         var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
-                        MainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
+                        _mainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
 
-                        MainWindow.ButtonList[answerNumber].Visibility              = Visibility.Visible;
-                        MainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
-                        MainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
+                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Visible;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
-                        MainWindow.AnswerTextList[answerNumber].Text          = answerText;
-                        MainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answer);
-                        MainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
+                        _mainWindow.AnswerTextList[answerNumber].Text          = answerText;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answer);
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
                                 ? inputGestureText
                                 : string.Empty;
 
-                        MainWindow.AnswerMenu.Items.Add(new MenuItem
+                        _mainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -304,7 +304,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             InputGestureText = inputGestureText
                         });
 
-                        MainWindow.MarkMenu.Items.Add(new MenuItem
+                        _mainWindow.MarkMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -314,15 +314,15 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                     else
                     {
-                        MainWindow.AnswerButtonColumn[answerNumber].Width = GridLength.Auto;
+                        _mainWindow.AnswerButtonColumn[answerNumber].Width = GridLength.Auto;
 
-                        MainWindow.ButtonList[answerNumber].Visibility              = Visibility.Collapsed;
-                        MainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Collapsed;
-                        MainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Collapsed;
+                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Collapsed;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Collapsed;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Collapsed;
 
-                        MainWindow.AnswerTextList[answerNumber].Text          = string.Empty;
-                        MainWindow.AnswerHintTextBlock[answerNumber].Text     = string.Empty;
-                        MainWindow.AnswerShortCutTextBlock[answerNumber].Text = string.Empty;
+                        _mainWindow.AnswerTextList[answerNumber].Text          = string.Empty;
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = string.Empty;
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = string.Empty;
                     }
                 }
             });
@@ -420,7 +420,7 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Highlight a answer (button) with the <see cref="NoneSelectedColor"/>
+        /// Highlight a answer (button) with the <see cref="_noneSelectedColor"/>
         /// </summary>
         /// <param name="answer">The answer (button) to highlight</param>
         private void HighlightAnswer(in TestBaseModel answer)
@@ -428,7 +428,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, NoneSelectedColor, TransparentColor));
+            _mainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
         }
 
         #endregion Private Methods
