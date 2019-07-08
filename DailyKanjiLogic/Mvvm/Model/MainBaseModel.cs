@@ -77,6 +77,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                 OnPropertyChanged(nameof(CanGoToLastTest));
             }
         }
+
         /// <summary>
         /// The current sign quest
         /// </summary>
