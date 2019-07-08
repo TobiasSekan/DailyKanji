@@ -56,7 +56,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// (one of this test will be ask each test round)
         /// </summary>
         [JsonIgnore]
-        public IReadOnlyCollection<TestBaseModel> TestPool { get; set; }
+        public IEnumerable<TestBaseModel> TestPool { get; set; }
 
         /// <summary>
         /// The timeout for highlight a wrong and/or a correct answered question in milliseconds
@@ -101,7 +101,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// List with all possible tests
         /// </summary>
-        public ICollection<TestBaseModel> AllTestsList { get; set; }
+        public IEnumerable<TestBaseModel> AllTestsList { get; set; }
 
         /// <summary>
         /// Indicate that hints on wrong answers will be shown
@@ -418,7 +418,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// A list with possible answers
         /// </summary>
         [JsonIgnore]
-        public IList<TestBaseModel> PossibleAnswers { get; set; }
+        public IEnumerable<TestBaseModel> PossibleAnswers { get; set; }
 
         /// <summary>
         /// Indicate that the current input (mouse, keyboard, game-pad and menu) will ignore and no processed

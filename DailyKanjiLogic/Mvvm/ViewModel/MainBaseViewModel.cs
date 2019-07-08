@@ -164,7 +164,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns>A kana test</returns>
         public TestBaseModel GetRandomKanaTest()
         {
-            var newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+            var testPollCount = BaseModel.TestPool.Count();
+            var newTest       = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, testPollCount));
 
             if(BaseModel.CurrentTest is null)
             {
@@ -173,7 +174,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             while(newTest.Roomaji == BaseModel.CurrentTest.Roomaji)
             {
-                newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, BaseModel.TestPool.Count));
+                newTest = BaseModel.TestPool.ElementAtOrDefault(BaseModel.Randomizer.Next(0, testPollCount));
             }
 
             return newTest;
@@ -235,11 +236,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             answer.AnswerType = answerType;
 
+            var possibleAnswer = BaseModel.PossibleAnswers.ElementAtOrDefault(GetAnswerNumber(answer))
+                                 ?? throw new ArgumentOutOfRangeException(nameof(answer), "Answer not found");
+
             return answerType switch
             {
-                AnswerType.Roomaji  => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji,
-                AnswerType.Hiragana => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana,
-                AnswerType.Katakana => BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana,
+                AnswerType.Roomaji  => possibleAnswer.Roomaji,
+                AnswerType.Hiragana => possibleAnswer.Hiragana,
+                AnswerType.Katakana => possibleAnswer.Katakana,
                 _                   => throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported"),
             };
         }
@@ -254,16 +258,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
+            var possibleAnswer = BaseModel.PossibleAnswers.ElementAtOrDefault(GetAnswerNumber(answer))
+                                 ?? throw new ArgumentOutOfRangeException(nameof(answer), "Answer not found");
+
             switch(BaseModel.SelectedHintType)
             {
                 case HintType.AlwaysInRoomaji:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+                    return possibleAnswer.Roomaji;
 
                 case HintType.AlwaysInHiragana:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+                    return possibleAnswer.Hiragana;
 
                 case HintType.AlwaysInKatakana:
-                    return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+                    return possibleAnswer.Katakana;
 
                 case HintType.BasedOnAskSign:
                     switch(BaseModel.SelectedTestType)
@@ -272,21 +279,21 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                         case TestType.RoomajiToHiragana:
                         case TestType.RoomajiToKatakana:
                         case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
-                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Roomaji;
+                            return possibleAnswer.Roomaji;
 
                         case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                         case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                         case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
                         case TestType.HiraganaToRoomaji:
                         case TestType.HiraganaToKatakana:
-                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Hiragana;
+                            return possibleAnswer.Hiragana;
 
                         case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                         case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                         case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
                         case TestType.KatakanaToRoomaji:
                         case TestType.KatakanaToHiragana:
-                            return BaseModel.PossibleAnswers[GetAnswerNumber(answer)].Katakana;
+                            return possibleAnswer.Katakana;
 
                         default:
                             throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
@@ -697,7 +704,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < BaseModel.MaximumAnswers; answerNumber++)
             {
-                if(BaseModel.PossibleAnswers[answerNumber].Roomaji != answer.Roomaji)
+                if(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji != answer.Roomaji)
                 {
                     continue;
                 }

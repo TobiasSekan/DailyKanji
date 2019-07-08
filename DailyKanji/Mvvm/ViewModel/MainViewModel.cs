@@ -33,6 +33,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerText   -> Is search form answer from pool relay needed ?
+    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerHint   -> Is search form answer from pool relay needed ?
+    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
+    //
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
     // TODO: Add tool-tips for each menu entries
