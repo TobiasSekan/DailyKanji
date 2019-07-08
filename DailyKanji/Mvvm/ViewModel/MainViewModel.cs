@@ -14,6 +14,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
+#nullable enable
+
 namespace DailyKanji.Mvvm.ViewModel
 {
     // Test

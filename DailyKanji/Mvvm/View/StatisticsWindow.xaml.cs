@@ -1,5 +1,7 @@
 ﻿using DailyKanji.Mvvm.ViewModel;
 
+#nullable enable
+
 namespace DailyKanji.Mvvm.View
 {
     /// <summary>

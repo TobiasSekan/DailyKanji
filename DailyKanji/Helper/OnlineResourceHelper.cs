@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 
+#nullable enable
+
 namespace DailyKanji.Helper
 {
     internal static class OnlineResourceHelper

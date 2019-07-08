@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
+#nullable enable
+
 namespace DailyKanji.Mvvm.View
 {
     internal partial class MainWindow

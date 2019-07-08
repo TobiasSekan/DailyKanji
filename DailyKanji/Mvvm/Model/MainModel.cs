@@ -2,6 +2,8 @@
 using System;
 using System.Timers;
 
+#nullable enable
+
 namespace DailyKanji.Mvvm.Model
 {
     public sealed class MainModel : PropertyChangedHelper
