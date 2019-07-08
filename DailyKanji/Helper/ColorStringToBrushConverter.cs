@@ -18,6 +18,6 @@ namespace DailyKanji.Helper
                 : new SolidColorBrush(Colors.Transparent);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => null;
+            => value;
     }
 }

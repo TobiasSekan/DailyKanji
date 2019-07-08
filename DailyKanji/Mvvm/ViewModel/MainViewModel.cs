@@ -298,7 +298,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                         MainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
-                            Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel)),
+                            Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
                             Header           = answerText,
                             InputGestureText = inputGestureText
@@ -306,7 +306,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                         MainWindow.MarkMenu.Items.Add(new MenuItem
                         {
-                            Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel)),
+                            Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
                             Header           = answerText,
                             InputGestureText = $"Shift+{inputGestureText}"
