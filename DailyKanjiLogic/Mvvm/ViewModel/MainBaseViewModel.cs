@@ -110,7 +110,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="newTest">The test for the new sign</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void ChooseNewSign(TestBaseModel newTest)
+        public void ChooseNewSign(in TestBaseModel newTest)
         {
             Debug.Assert(!(newTest is null), $"{nameof(newTest)} can't be null");
 
@@ -230,7 +230,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="answerType">The type of the answer</param>
         /// <returns>A text for a answer</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public string GetAnswerText(in TestBaseModel answer, AnswerType answerType)
+        public string GetAnswerText(in TestBaseModel answer, in AnswerType answerType)
         {
             Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
@@ -419,24 +419,36 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
         /// <returns><see langword="true"/> if the given sign is a Roomaji, otherwise <see langword="false"/></returns>
-        public bool IsRoomaji(string signToTest)
-            => BaseModel.AllTestsList.Any(found => found.Roomaji == signToTest);
+        public bool IsRoomaji(in string signToTest)
+        {
+            var romajiToTest = signToTest;
+
+            return BaseModel.AllTestsList.Any(found => found.Roomaji == romajiToTest);
+        }
 
         /// <summary>
         /// Test if the given sign is a Hiragana sign
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
         /// <returns><see langword="true"/> if the given sign is a Hiragana, otherwise <see langword="false"/></returns>
-        public bool IsHiragana(string signToTest)
-            => BaseModel.AllTestsList.Any(found => found.Hiragana == signToTest);
+        public bool IsHiragana(in string signToTest)
+        {
+            var hiarganaToTest = signToTest;
+
+            return BaseModel.AllTestsList.Any(found => found.Hiragana == hiarganaToTest);
+        }
 
         /// <summary>
         /// Test if the given sign is a Katakana sign
         /// </summary>
         /// <param name="signToTest">The sign to test</param>
         /// <returns><see langword="true"/> if the given sign is a Katakana, otherwise <see langword="false"/></returns>
-        public bool IsKatakana(string signToTest)
-            => BaseModel.AllTestsList.Any(found => found.Katakana == signToTest);
+        public bool IsKatakana(in string signToTest)
+        {
+            var katakanaToTest = signToTest;
+
+            return BaseModel.AllTestsList.Any(found => found.Katakana == katakanaToTest);
+        }
 
         /// <summary>
         /// Try to load all settings
@@ -520,7 +532,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="errorColor">The color string for the elements</param>
         /// <param name="noneSelectedColor">The color string for none selected elements</param>
         /// <param name="hintColor">The color string for the hint elements</param>
-        public void SetHighlightColors(in TestBaseModel answer, in string correctColor, in string errorColor, in string noneSelectedColor, in string hintColor)
+        public void SetHighlightColors(in TestBaseModel answer,
+                                       in string correctColor,
+                                       in string errorColor,
+                                       in string noneSelectedColor,
+                                       in string hintColor)
         {
             Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
             Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"{nameof(correctColor)} can't be empty or null");
