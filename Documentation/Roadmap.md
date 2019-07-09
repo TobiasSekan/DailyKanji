@@ -12,8 +12,6 @@
 * The background color of the ask sign on wrong/right answers don't fit with the window high and width
 
 ## Version 1.x
-* Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerText   -> Is search form answer from pool relay needed ?
-* Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerHint   -> Is search form answer from pool relay needed ?
 * Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
 
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)

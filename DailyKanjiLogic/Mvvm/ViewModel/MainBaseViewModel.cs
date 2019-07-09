@@ -236,14 +236,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             answer.AnswerType = answerType;
 
-            var possibleAnswer = BaseModel.PossibleAnswers.ElementAtOrDefault(GetAnswerNumber(answer))
-                                 ?? throw new ArgumentOutOfRangeException(nameof(answer), "Answer not found");
-
             return answerType switch
             {
-                AnswerType.Roomaji  => possibleAnswer.Roomaji,
-                AnswerType.Hiragana => possibleAnswer.Hiragana,
-                AnswerType.Katakana => possibleAnswer.Katakana,
+                AnswerType.Roomaji  => answer.Roomaji,
+                AnswerType.Hiragana => answer.Hiragana,
+                AnswerType.Katakana => answer.Katakana,
                 _                   => throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported"),
             };
         }
@@ -258,50 +255,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
 
-            var possibleAnswer = BaseModel.PossibleAnswers.ElementAtOrDefault(GetAnswerNumber(answer))
-                                 ?? throw new ArgumentOutOfRangeException(nameof(answer), "Answer not found");
-
-            switch(BaseModel.SelectedHintType)
+            return BaseModel.SelectedHintType switch
             {
-                case HintType.AlwaysInRoomaji:
-                    return possibleAnswer.Roomaji;
-
-                case HintType.AlwaysInHiragana:
-                    return possibleAnswer.Hiragana;
-
-                case HintType.AlwaysInKatakana:
-                    return possibleAnswer.Katakana;
-
-                case HintType.BasedOnAskSign:
-                    switch(BaseModel.SelectedTestType)
-                    {
-                        case TestType.RoomajiToHiraganaOrKatakana:
-                        case TestType.RoomajiToHiragana:
-                        case TestType.RoomajiToKatakana:
-                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
-                            return possibleAnswer.Roomaji;
-
-                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                        case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
-                        case TestType.HiraganaToRoomaji:
-                        case TestType.HiraganaToKatakana:
-                            return possibleAnswer.Hiragana;
-
-                        case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                        case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                        case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
-                        case TestType.KatakanaToRoomaji:
-                        case TestType.KatakanaToHiragana:
-                            return possibleAnswer.Katakana;
-
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedHintType), "Hint type not supported");
-            }
+                HintType.AlwaysInRoomaji  => answer.Roomaji,
+                HintType.AlwaysInHiragana => answer.Hiragana,
+                HintType.AlwaysInKatakana => answer.Katakana,
+                HintType.BasedOnAskSign   => GetAnswerHintBasedOnAskSign(answer),
+                _                         => throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedHintType), "Hint type not supported"),
+            };
         }
 
         /// <summary>
@@ -729,6 +690,43 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             }
 
             throw new ArgumentOutOfRangeException(nameof(answer), "Number for answer not found");
+        }
+
+        /// <summary>
+        /// Return the hint for the given answer, based on the current ask sign
+        /// </summary>
+        /// <param name="answer">The answer for the hint</param>
+        /// <returns>The hint for the given answer, based on the current ask sign</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal string GetAnswerHintBasedOnAskSign(TestBaseModel answer)
+        {
+            Debug.Assert(!(answer is null), $"{nameof(answer)} can't be null");
+
+            switch(BaseModel.SelectedTestType)
+            {
+                case TestType.RoomajiToHiraganaOrKatakana:
+                case TestType.RoomajiToHiragana:
+                case TestType.RoomajiToKatakana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Roomaji:
+                    return answer.Roomaji;
+
+                case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Hiragana:
+                case TestType.HiraganaToRoomaji:
+                case TestType.HiraganaToKatakana:
+                    return answer.Hiragana;
+
+                case TestType.HiraganaOrKatakanaToRoomaji when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.HiraganaToKatakanaOrKatakanaToHiragana when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.AllToAll when BaseModel.CurrentAskSign == BaseModel.CurrentTest.Katakana:
+                case TestType.KatakanaToRoomaji:
+                case TestType.KatakanaToHiragana:
+                    return answer.Katakana;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(BaseModel.SelectedTestType), "Test type not supported");
+            }
         }
 
         #endregion Internal Methods
