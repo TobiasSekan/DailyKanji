@@ -5,8 +5,7 @@
         Width="550"
         Height="280"
         x:ClassModifier="internal"
-        DataContext="{Binding Path=ViewModel,
-                              RelativeSource={RelativeSource Mode=Self}}"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow">
 
@@ -58,7 +57,7 @@
 
         <TextBlock Grid.Row="2"
                    Grid.Column="1"
-                   Text="{Binding Path=BaseModel.GetVersion}" />
+                   Text="{Binding ViewModel.BaseModel.GetVersion}" />
 
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
@@ -67,7 +66,7 @@
 
         <TextBlock Grid.Row="4"
                    Grid.Column="1"
-                   Text="{Binding Path=Model.GetVersion}" />
+                   Text="{Binding ViewModel.Model.GetVersion}" />
 
         <TextBlock Grid.Row="6"
                    Grid.Column="0"

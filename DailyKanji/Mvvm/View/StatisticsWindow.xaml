@@ -2,10 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Sign statistics"
-        Width="800"
-        Height="600"
+        Width="850"
         x:ClassModifier="internal"
-        DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Mode=Self}}"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen">
 
     <DataGrid Margin="5"
@@ -14,19 +13,50 @@
               CanUserDeleteRows="False"
               CanUserResizeRows="False"
               HeadersVisibility="Column"
-              ItemsSource="{Binding Path=BaseModel.AllTestsList}">
+              ItemsSource="{Binding ViewModel.BaseModel.AllTestsList}">
 
         <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Path=WrongnessCounter}" Header="Wrongness" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=Roomaji}" Header="Roomaji" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=Hiragana}" Header="Hiragana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=Katakana}" Header="Katakana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=WrongHiraganaCount}" Header="Wrong Hiragana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=WrongKatakanaCount}" Header="Wrong Katakana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=CorrectHiraganaCount}" Header="Correct Hiragana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=CorrectKatakanaCount}" Header="Correct Katakana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForHiragana, StringFormat=mm\\:ss\\.ff}" Header="Time Hiragana" IsReadOnly="True" />
-            <DataGridTextColumn Binding="{Binding Path=AverageAnswerTimeForKatakana, StringFormat=mm\\:ss\\.ff}" Header="Time Katakana" IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding WrongnessCounter}"
+                                Header="Wrongness"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding Roomaji}"
+                                Header="Roomaji"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding Hiragana}"
+                                Header="Hiragana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding Katakana}"
+                                Header="Katakana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding WrongHiraganaCount}"
+                                Header="Wrong Hiragana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding WrongKatakanaCount}"
+                                Header="Wrong Katakana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding CorrectHiraganaCount}"
+                                Header="Correct Hiragana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding CorrectKatakanaCount}"
+                                Header="Correct Katakana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding AverageAnswerTimeForHiragana, StringFormat=mm\\:ss\\.ff}"
+                                Header="Time Hiragana"
+                                IsReadOnly="True" />
+
+            <DataGridTextColumn Binding="{Binding AverageAnswerTimeForKatakana, StringFormat=mm\\:ss\\.ff}"
+                                Header="Time Katakana"
+                                IsReadOnly="True" />
+
         </DataGrid.Columns>
 
     </DataGrid>
