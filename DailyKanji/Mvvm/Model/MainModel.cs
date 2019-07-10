@@ -13,7 +13,7 @@ namespace DailyKanji.Mvvm.Model
         /// <summary>
         /// Return the version and target framework of this program
         /// </summary>
-        public string GetVersion
+        public string GetProgramVersion
             => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
         /// <summary>

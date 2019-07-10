@@ -30,7 +30,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Command for show the sign statistic
         /// </summary>
         public ICommand CommandShowSignStatistics
-            => new CommandHelperSlim(() => new StatisticsWindow(this).Show());
+            => new CommandHelperSlim(() => new StatisticsWindow(BaseModel, this).Show());
 
         #endregion Commands - View Menu
 
@@ -220,7 +220,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     Model.TestTimer.Stop();
 
-                    var infoWindow = new InfoWindow(this);
+                    var infoWindow = new InfoWindow(BaseModel, Model);
 
                     infoWindow.Closed += (_, __) => RestartTestTimer();
                     infoWindow.Show();

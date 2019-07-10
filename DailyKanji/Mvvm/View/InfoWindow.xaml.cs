@@ -1,4 +1,5 @@
-﻿using DailyKanji.Mvvm.ViewModel;
+﻿using DailyKanji.Mvvm.Model;
+using DailyKanjiLogic.Mvvm.Model;
 using System.Diagnostics;
 using System.Windows.Navigation;
 
@@ -10,15 +11,19 @@ namespace DailyKanji.Mvvm.View
     {
         #region Public Properties
 
-        public MainViewModel ViewModel { get; }
+        public MainBaseModel BaseModel { get; }
+
+        public MainModel Model { get; }
 
         #endregion Public Properties
 
         #region Internal Constructors
 
-        internal InfoWindow(MainViewModel viewModel)
+        internal InfoWindow(MainBaseModel baseModel, MainModel model)
         {
-            ViewModel = viewModel;
+            Model     = model;
+            BaseModel = baseModel;
+
             InitializeComponent();
         }
 

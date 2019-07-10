@@ -1,15 +1,15 @@
 ﻿using DailyKanji.Mvvm.ViewModel;
+using DailyKanjiLogic.Mvvm.Model;
 
 #nullable enable
 
 namespace DailyKanji.Mvvm.View
 {
-    /// <summary>
-    /// Interaktionslogik für StatisticsWindow.xaml
-    /// </summary>
     internal partial class StatisticsWindow
     {
         #region Public Properties
+
+        public MainBaseModel Model { get; }
 
         public MainViewModel ViewModel { get; }
 
@@ -17,9 +17,11 @@ namespace DailyKanji.Mvvm.View
 
         #region Internal Constructors
 
-        internal StatisticsWindow(MainViewModel viewModel)
+        internal StatisticsWindow(MainBaseModel model, MainViewModel viewModel)
         {
+            Model     = model;
             ViewModel = viewModel;
+
             InitializeComponent();
         }
 

@@ -182,7 +182,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Return the version and the target framework of this library
         /// </summary>
         [JsonIgnore]
-        public string GetVersion
+        public string GetLibraryVersion
             => $"{AssemblyHelper.GetAssemblyVersion(this)} ({AssemblyHelper.GetTargetFramework(this)})";
 
         [JsonIgnore]

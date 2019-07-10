@@ -57,7 +57,7 @@
 
         <TextBlock Grid.Row="2"
                    Grid.Column="1"
-                   Text="{Binding ViewModel.BaseModel.GetVersion}" />
+                   Text="{Binding BaseModel.GetLibraryVersion}" />
 
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
@@ -66,7 +66,7 @@
 
         <TextBlock Grid.Row="4"
                    Grid.Column="1"
-                   Text="{Binding ViewModel.Model.GetVersion}" />
+                   Text="{Binding Model.GetProgramVersion}" />
 
         <TextBlock Grid.Row="6"
                    Grid.Column="0"

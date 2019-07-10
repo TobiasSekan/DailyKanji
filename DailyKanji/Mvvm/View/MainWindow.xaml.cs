@@ -1,4 +1,6 @@
-﻿using DailyKanji.Mvvm.ViewModel;
+﻿using DailyKanji.Mvvm.Model;
+using DailyKanji.Mvvm.ViewModel;
+using DailyKanjiLogic.Mvvm.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +14,10 @@ namespace DailyKanji.Mvvm.View
     internal partial class MainWindow
     {
         #region Public Properties
+
+        public MainBaseModel BaseModel { get; }
+
+        public MainModel Model { get; }
 
         public MainViewModel ViewModel { get; }
 
@@ -33,9 +39,12 @@ namespace DailyKanji.Mvvm.View
 
         #region Internal Constructors
 
-        internal MainWindow(MainViewModel viewModel)
+        internal MainWindow(MainBaseModel baseModel, MainModel model, MainViewModel viewModel)
         {
+            BaseModel = baseModel;
+            Model     = model;
             ViewModel = viewModel;
+
             InitializeComponent();
 
             AnswerTextList = new[]

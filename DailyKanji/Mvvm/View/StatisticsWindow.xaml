@@ -13,7 +13,7 @@
               CanUserDeleteRows="False"
               CanUserResizeRows="False"
               HeadersVisibility="Column"
-              ItemsSource="{Binding ViewModel.BaseModel.AllTestsList}">
+              ItemsSource="{Binding Model.AllTestsList}">
 
         <DataGrid.Columns>
 

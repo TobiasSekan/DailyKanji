@@ -70,11 +70,13 @@ namespace DailyKanji.Mvvm.ViewModel
 
     internal sealed partial class MainViewModel : MainBaseViewModel
     {
-        #region Public Properties
+        #region Internal Properties
 
-        public MainModel Model { get; }
+        internal MainModel Model { get; }
 
-        #endregion Public Properties
+        internal MainBaseModel BaseModel { get; }
+
+        #endregion Internal Properties
 
         #region Private Properties
 
@@ -131,7 +133,9 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-            if(!TryLoadSettings(_settingFileName, out var loadException) && !(loadException is FileNotFoundException))
+            Model = new MainModel();
+
+            if(!TryLoadSettings(_settingFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
                                 $"Error on save {_settingFileName}",
@@ -139,9 +143,9 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxImage.Error);
             }
 
-            Model = new MainModel();
+            BaseModel = baseModel;
 
-            InitalizeBaseModel(_transparentColor, _progressBarColor);
+            InitalizeBaseModel(BaseModel, _transparentColor, _progressBarColor);
 
             Model.TestTimer.Elapsed += (_, __) =>
             {
@@ -157,7 +161,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
             };
 
-            _mainWindow = new MainWindow(this);
+            _mainWindow = new MainWindow(BaseModel, Model, this);
 
             CheckForNewVersion();
 
