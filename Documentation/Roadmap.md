@@ -11,7 +11,6 @@
 * In some circumstance the keyboard input doesn't work on the first key press or with delay
 
 ## Version 1.x
-* Automatic save and load window position and size
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
 * Add tool-tips for each menu entries

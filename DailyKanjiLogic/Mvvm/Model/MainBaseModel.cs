@@ -359,6 +359,15 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        public double LeftPosition { get; set; } = double.NaN;
+
+        public double TopPosition { get; set; } = double.NaN;
+
+        public double WindowHigh { get; set; } = double.NaN;
+
+        public double WindowWidth { get; set; } = double.NaN;
+
+
         /// <summary>
         /// The current selected test type
         /// </summary>
@@ -676,7 +685,9 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             HighlightTimer               = new ManualResetEvent(false);
             Randomizer                   = new Random();
+
             CurrentTest                  = TestBaseModel.EmptyTest;
+            _previousTest                = null;
 
             _buttonColor                 = new ObservableCollection<string>();
             _hintTextColor               = new ObservableCollection<string>();
@@ -685,11 +696,14 @@ namespace DailyKanjiLogic.Mvvm.Model
             TestPool                     = new Collection<TestBaseModel>();
             AllTestsList                 = new Collection<TestBaseModel>();
 
+            CurrentAskSign               = null;
             _progressBarColor            = "#FFADD8E6"; // Colors.LightBlue
             _currentAskSignColor         = "#00FFFFFF"; // Colors.Transparent
 
-            CurrentAskSign               = null;
-            _previousTest                = null;
+            LeftPosition                 = double.NaN;
+            TopPosition                  = double.NaN;
+            WindowHigh                   = double.NaN;
+            WindowWidth                  = double.NaN;
 
             _maximumAnswerTimeout        = new TimeSpan(0, 0, 10);
             _highlightTimeout            = new TimeSpan(0, 0, 3);

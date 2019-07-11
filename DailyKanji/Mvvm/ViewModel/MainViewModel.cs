@@ -32,7 +32,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Automatic save and load window position and size
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
     // TODO: Add tool-tips for each menu entries
@@ -170,6 +169,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _mainWindow.Closed += (_, __) =>
             {
+                RememberWindowPosition();
+
                 if(TrySaveSettings(_settingFileName, out var saveException))
                 {
                     return;
@@ -184,6 +185,8 @@ namespace DailyKanji.Mvvm.ViewModel
             GamepadTest();
 
             _mainWindow.Show();
+
+            MoveWindowToLastPosition();
         }
 
         #endregion Internal Constructors
@@ -434,6 +437,37 @@ namespace DailyKanji.Mvvm.ViewModel
             var answerTemp = answer;
 
             _mainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
+        }
+
+        private void MoveWindowToLastPosition()
+        {
+            if(!double.IsNaN(BaseModel.WindowHigh))
+            {
+                _mainWindow.Height = BaseModel.WindowHigh;
+            }
+
+            if(!double.IsNaN(BaseModel.WindowWidth))
+            {
+                _mainWindow.Width = BaseModel.WindowWidth;
+            }
+
+            if(!double.IsNaN(BaseModel.LeftPosition))
+            {
+                _mainWindow.Left = BaseModel.LeftPosition;
+            }
+
+            if(!double.IsNaN(BaseModel.TopPosition))
+            {
+                _mainWindow.Top = BaseModel.TopPosition;
+            }
+        }
+
+        private void RememberWindowPosition()
+        {
+            BaseModel.WindowHigh   = _mainWindow.Height;
+            BaseModel.WindowWidth  = _mainWindow.Width;
+            BaseModel.LeftPosition = _mainWindow.Left;
+            BaseModel.TopPosition  = _mainWindow.Top;
         }
 
         #endregion Private Methods
