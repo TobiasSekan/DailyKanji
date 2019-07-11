@@ -12,7 +12,7 @@
 | Type        | Version  | Git-Tag | Branch                                                               |
 | ----------- | -------- | ------- | -------------------------------------------------------------------- |
 | Release     | 0.7.0    | v0.7.0  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
-| Development | 0.7.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
+| Development | 0.8.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
 
 ## Current features
 * 10 Test types
