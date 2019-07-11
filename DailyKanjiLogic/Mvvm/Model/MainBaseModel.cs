@@ -359,13 +359,13 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
-        public double LeftPosition { get; set; } = double.NaN;
+        public double LeftPosition { get; set; }
 
-        public double TopPosition { get; set; } = double.NaN;
+        public double TopPosition { get; set; }
 
-        public double WindowHigh { get; set; } = double.NaN;
+        public double WindowHigh { get; set; }
 
-        public double WindowWidth { get; set; } = double.NaN;
+        public double WindowWidth { get; set; }
 
 
         /// <summary>
