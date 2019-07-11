@@ -34,7 +34,7 @@ namespace DailyKanji.Helper
             var newFontSize = high * multiplicator / 100;
             if(newFontSize > 1)
             {
-                return newFontSize > 100 ? 100 : newFontSize;
+                return newFontSize > 500 ? 500 : newFontSize;
             }
 
             Debug.WriteLine($"HeightToFontSizeConverter: Calculated value [{newFontSize}] is to low, fallback to 1");

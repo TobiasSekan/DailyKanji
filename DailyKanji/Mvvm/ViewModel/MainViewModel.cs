@@ -29,12 +29,10 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // BUG: In some circumstance the test-pool don't increase on wrong answers
     // BUG: In some circumstance the keyboard input doesn't work on the first key press or with delay
-    // BUG: The background color of the ask sign on wrong/right answers don't fit with the window high and width
 
     // Version 1.x
     // -----------
-    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
-    //
+    // TODO: Automatic save and load window position and size
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
     // TODO: Add tool-tips for each menu entries
@@ -51,6 +49,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 2.x
     // -----------
+    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
     // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
     // TODO: Move more program parts to separate library project in .Net Standard
     // TODO: Export statistics (XLSX, CSV, JSON, XML)

@@ -9,11 +9,9 @@
 ## BUG
 * In some circumstance the test-pool don't increase on wrong answers
 * In some circumstance the keyboard input doesn't work on the first key press or with delay
-* The background color of the ask sign on wrong/right answers don't fit with the window high and width
 
 ## Version 1.x
-* Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
-
+* Automatic save and load window position and size
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
 * Add tool-tips for each menu entries
@@ -26,6 +24,7 @@
   * Maybe: Only the first character or last character must are the same on less then five answers
 
 ## Versions 2.x
+* Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
 * Add command line project in .Net Core (usable under Windows, Linux, macOS)
 * Move more program parts to separate library project in .Net Standard
 * Export statistics (XLSX, CSV, JSON, XML)

@@ -5,7 +5,8 @@
         xmlns:helper="clr-namespace:DailyKanji.Helper"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Daily Kanji"
-        Width="850"
+        Width="900"
+        Height="450"
         x:ClassModifier="internal"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen">
@@ -121,19 +122,19 @@
 
             <!--  Menu  -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
 
             <!--  Progress bar - running answer timer  -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
 
             <!--  Grid - Question and previous button and next button  -->
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="0" />
 
             <!--  StackPanel - Answer buttons  -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
 
             <!--  StatusBar  -->
             <RowDefinition Height="Auto" />
@@ -494,7 +495,7 @@
                      Visibility="{Binding BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
                      Value="{Binding BaseModel.AnswerTime.TotalMilliseconds, Mode=OneWay}" />
 
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="4" Background="{Binding BaseModel.CurrentAskSignColor, Converter={StaticResource ColorStringToBrushConverter}}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -512,22 +513,26 @@
                     Content="Previous test"
                     IsEnabled="{Binding BaseModel.CanGoToLastTest}" />
 
-            <StackPanel Grid.Column="2" Background="{Binding BaseModel.CurrentAskSignColor, Converter={StaticResource ColorStringToBrushConverter}}">
+            <TextBox Grid.Column="2"
+                     VerticalAlignment="Center"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     FontSize="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, ConverterParameter=25, Converter={StaticResource HeightToFontSizeConverter}}"
+                     IsReadOnly="True"
+                     Text="{Binding BaseModel.CurrentAskSign}"
+                     TextAlignment="Center" />
 
-                <TextBlock Padding="0,0,0,10"
-                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=ActualWidth, ConverterParameter=65, Converter={StaticResource HeightToFontSizeConverter}}"
-                           Text="{Binding BaseModel.CurrentAskSign}"
-                           TextAlignment="Center" />
+            <StackPanel Grid.Column="3"
+                        Margin="10"
+                        VerticalAlignment="Center">
 
-            </StackPanel>
-
-            <StackPanel Grid.Column="3" Margin="10">
                 <TextBlock Text="Wrong answers" />
                 <TextBlock Text="{Binding BaseModel.WrongCount}" />
                 <TextBlock Text="Correct answers" />
                 <TextBlock Text="{Binding BaseModel.CorrectCount}" />
                 <TextBlock Text="Average answer time" />
                 <TextBlock Text="{Binding BaseModel.AverageAnswerTime}" />
+
             </StackPanel>
 
             <Button Grid.Column="4"
