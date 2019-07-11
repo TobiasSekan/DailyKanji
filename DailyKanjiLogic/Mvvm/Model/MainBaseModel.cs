@@ -148,7 +148,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current ask sign
         /// </summary>
         [JsonIgnore]
-        public string? CurrentAskSign { get; set; }
+        public string CurrentAskSign { get; set; }
 
         /// <summary>
         /// The current color of the ask sign
@@ -696,7 +696,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             TestPool                     = new Collection<TestBaseModel>();
             AllTestsList                 = new Collection<TestBaseModel>();
 
-            CurrentAskSign               = null;
+            CurrentAskSign               = string.Empty;
             _progressBarColor            = "#FFADD8E6"; // Colors.LightBlue
             _currentAskSignColor         = "#00FFFFFF"; // Colors.Transparent
 
