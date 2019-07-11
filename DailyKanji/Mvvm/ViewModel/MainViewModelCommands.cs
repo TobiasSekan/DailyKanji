@@ -236,12 +236,6 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandPreviousTest
             => new CommandHelperSlim(() =>
             {
-                if(BaseModel.PreviousTest is null)
-                {
-                    Debug.Fail($"[{nameof(BaseModel.PreviousTest)}] is [null]");
-                    return;
-                }
-
                 BuildTestPool();
                 ChooseNewSign(BaseModel.PreviousTest);
 
@@ -250,7 +244,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 RestartTestTimer();
 
                 BaseModel.IgnoreInput  = false;
-                BaseModel.PreviousTest = null;
+                BaseModel.PreviousTest = TestBaseModel.EmptyTest;
             });
 
         /// <summary>

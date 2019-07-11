@@ -68,7 +68,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The previous tests
         /// </summary>
         [JsonIgnore]
-        public TestBaseModel? PreviousTest
+        public TestBaseModel PreviousTest
         {
             get => _previousTest;
             set
@@ -530,7 +530,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public bool CanGoToLastTest
-            => !(PreviousTest is null);
+            => !PreviousTest.Equals(TestBaseModel.EmptyTest);
 
         /// <summary>
         /// Indicate that the current input (mouse, keyboard, game-pad and menu) will ignore and no processed
@@ -577,7 +577,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="PreviousTest"/>
         /// </summary>
-        private TestBaseModel? _previousTest;
+        private TestBaseModel _previousTest;
 
         /// <summary>
         /// Backing-filed for <see cref="TestStartTime"/>
@@ -687,7 +687,7 @@ namespace DailyKanjiLogic.Mvvm.Model
             Randomizer                   = new Random();
 
             CurrentTest                  = TestBaseModel.EmptyTest;
-            _previousTest                = null;
+            _previousTest                = TestBaseModel.EmptyTest;
 
             _buttonColor                 = new ObservableCollection<string>();
             _hintTextColor               = new ObservableCollection<string>();
