@@ -367,7 +367,6 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         public double WindowWidth { get; set; }
 
-
         /// <summary>
         /// The current selected test type
         /// </summary>

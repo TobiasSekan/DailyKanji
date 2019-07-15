@@ -440,7 +440,7 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         private void MoveWindowToLastPosition()
-        {
+            {
             if(!double.IsNaN(BaseModel.WindowHigh))
             {
                 _mainWindow.Height = BaseModel.WindowHigh;
@@ -456,10 +456,12 @@ namespace DailyKanji.Mvvm.ViewModel
                 _mainWindow.Left = BaseModel.LeftPosition;
             }
 
-            if(!double.IsNaN(BaseModel.TopPosition))
+            if(double.IsNaN(BaseModel.TopPosition))
             {
-                _mainWindow.Top = BaseModel.TopPosition;
+                return;
             }
+
+            _mainWindow.Top = BaseModel.TopPosition;
         }
 
         private void RememberWindowPosition()
