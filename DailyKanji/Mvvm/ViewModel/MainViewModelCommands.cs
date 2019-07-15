@@ -164,6 +164,8 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelper(value
                 =>
                 {
+                    Debug.WriteLine($"Enter [{nameof(CommandAnswerTestNumber)}] with [{value}]");
+
                     if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
                         Debug.Fail($"can't parse [{answerNumber}] into a [byte] value");

@@ -27,7 +27,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // BUG: In some circumstance the keyboard input doesn't work on the first key press or with delay
 
     // Version 1.x
     // -----------

@@ -7,7 +7,6 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* In some circumstance the keyboard input doesn't work on the first key press or with delay
 
 ## Version 1.x
 * Add UnitTests (NUnit with `Assert.That()`)

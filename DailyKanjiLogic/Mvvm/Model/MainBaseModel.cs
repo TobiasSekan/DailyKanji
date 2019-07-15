@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -535,7 +536,16 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Indicate that the current input (mouse, keyboard, game-pad and menu) will ignore and no processed
         /// </summary>
         [JsonIgnore]
-        public bool IgnoreInput { get; set; }
+        public bool IgnoreInput
+        {
+            get => _ignoreInput;
+            set
+            {
+                Debug.WriteLine($"Change [{nameof(IgnoreInput)}] from [{ _ignoreInput }] to [{value}]");
+
+                _ignoreInput = value;
+            }
+        }
 
         /// <summary>
         /// Indicate that only similar answers will be shown as possible answers
@@ -672,6 +682,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="UseAnswerTimer"/>
         /// </summary>
         private bool _useAnswerTimer;
+
+        /// <summary>
+        /// Backing-field for <see cref="IgnoreInput"/>
+        /// </summary>
+        private bool _ignoreInput;
 
         #endregion Private Backing-Fields
 
