@@ -169,7 +169,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _mainWindow.Closed += (_, __) =>
             {
-                RememberWindowPosition();
+                SetWindowSizeAndPositionInTheMainModel();
 
                 if(TrySaveSettings(_settingFileName, out var saveException))
                 {
@@ -186,7 +186,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _mainWindow.Show();
 
-            MoveWindowToLastPosition();
+            MoveAndResizeWindowToLastPosition();
         }
 
         #endregion Internal Constructors
@@ -439,7 +439,10 @@ namespace DailyKanji.Mvvm.ViewModel
             _mainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
         }
 
-        private void MoveWindowToLastPosition()
+        /// <summary>
+        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="BaseModel"/>
+        /// </summary>
+        private void MoveAndResizeWindowToLastPosition()
             {
             if(!double.IsNaN(BaseModel.WindowHigh))
             {
@@ -464,7 +467,10 @@ namespace DailyKanji.Mvvm.ViewModel
             _mainWindow.Top = BaseModel.TopPosition;
         }
 
-        private void RememberWindowPosition()
+        /// <summary>
+        /// Set the size and the position values inside the <see cref="BaseModel"/>, based on the values of the <see cref="_mainWindow"/>
+        /// </summary>
+        private void SetWindowSizeAndPositionInTheMainModel()
         {
             BaseModel.WindowHigh   = _mainWindow.Height;
             BaseModel.WindowWidth  = _mainWindow.Width;
