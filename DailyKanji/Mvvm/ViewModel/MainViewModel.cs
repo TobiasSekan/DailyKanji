@@ -30,6 +30,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Refresh sign statistics in main window direct after answer
+    // TODO: Show changed counter (wrong / correct) in "bold" when changed after answer
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -65,13 +67,15 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 
-    internal sealed partial class MainViewModel : MainBaseViewModel
+    internal sealed partial class MainViewModel
     {
         #region Internal Properties
 
-        internal MainModel Model { get; }
+        private MainModel _model { get; }
 
-        internal MainBaseModel BaseModel { get; }
+        private MainBaseModel _baseModel { get; }
+
+        private MainBaseViewModel _baseViewModel { get; }
 
         #endregion Internal Properties
 
@@ -130,9 +134,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
         internal MainViewModel()
         {
-            Model = new MainModel();
-
-            if(!TryLoadSettings(_settingFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
+            if(!MainBaseViewModel.TryLoadSettings(_settingFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
                                 $"Error on save {_settingFileName}",
@@ -140,37 +142,37 @@ namespace DailyKanji.Mvvm.ViewModel
                                 MessageBoxImage.Error);
             }
 
-            BaseModel = baseModel;
+            _model         = new MainModel();
+            _baseModel     = baseModel;
+            _baseViewModel = new MainBaseViewModel(baseModel, _transparentColor, _progressBarColor);
 
-            InitalizeBaseModel(BaseModel, _transparentColor, _progressBarColor);
-
-            Model.TestTimer.Elapsed += (_, __) =>
+            _model.TestTimer.Elapsed += (_, __) =>
             {
-                BaseModel.AnswerTime = DateTime.UtcNow - BaseModel.TestStartTime;
+                _baseModel.AnswerTime = DateTime.UtcNow - _baseModel.TestStartTime;
 
-                if(!BaseModel.UseAnswerTimer
-                || BaseModel.AnswerTime < BaseModel.MaximumAnswerTimeout)
+                if(!_baseModel.UseAnswerTimer
+                || _baseModel.AnswerTime < _baseModel.MaximumAnswerTimeout)
                 {
                     return;
                 }
 
-                Model.TestTimer.Stop();
+                _model.TestTimer.Stop();
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
             };
 
-            _mainWindow = new MainWindow(BaseModel, Model, this);
+            _mainWindow = new MainWindow(_baseModel, _model, this);
 
             CheckForNewVersion();
 
-            PrepareNewTest();
+            _baseViewModel.PrepareNewTest();
             ShowAndStartNewTest();
-            SetNormalColors(_transparentColor, _progressBarColor);
+            _baseViewModel.SetNormalColors(_transparentColor, _progressBarColor);
 
             _mainWindow.Closed += (_, __) =>
             {
                 SetWindowSizeAndPositionInTheMainModel();
 
-                if(TrySaveSettings(_settingFileName, out var saveException))
+                if(_baseViewModel.TrySaveSettings(_settingFileName, out var saveException))
                 {
                     return;
                 }
@@ -197,17 +199,17 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void RestartTestTimer()
         {
-            Model.TestTimer.Stop();
+            _model.TestTimer.Stop();
 
-            if(!BaseModel.UseAnswerTimer)
+            if(!_baseModel.UseAnswerTimer)
             {
                 return;
             }
 
-            BaseModel.ProgressBarColor = _progressBarColor;
-            BaseModel.TestStartTime    = DateTime.UtcNow;
+            _baseModel.ProgressBarColor = _progressBarColor;
+            _baseModel.TestStartTime    = DateTime.UtcNow;
 
-            Model.TestTimer.Start();
+            _model.TestTimer.Start();
         }
 
         #endregion Internal Methods
@@ -221,11 +223,11 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             BuildAnswerMenuAndButtons();
 
-            BaseModel.OnPropertyChangeForAll();
+            _baseModel.OnPropertyChangeForAll();
 
             RestartTestTimer();
 
-            BaseModel.IgnoreInput = false;
+            _baseModel.IgnoreInput = false;
         }
 
         /// <summary>
@@ -237,18 +239,18 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
 
-            if(BaseModel.IgnoreInput)
+            if(_baseModel.IgnoreInput)
             {
                 return;
             }
 
-            Model.TestTimer.Stop();
+            _model.TestTimer.Stop();
 
-            var result = CheckAndCountAnswer(answer);
+            var result = _baseViewModel.CheckAndCountAnswer(answer);
 
-            if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
+            if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
             {
-                PrepareNewTest();
+                _baseViewModel.PrepareNewTest();
                 ShowAndStartNewTest();
                 return;
             }
@@ -259,13 +261,13 @@ namespace DailyKanji.Mvvm.ViewModel
             Task.Run(() =>
             {
                 _mainWindow.Dispatcher.Invoke(()
-                    => SetHighlightColors(answerTemp, _correctColor, result ? _correctColor : _errorColor, _noneSelectedColor, _answerHintTextColor));
+                    => _baseViewModel.SetHighlightColors(answerTemp, _correctColor, result ? _correctColor : _errorColor, _noneSelectedColor, _answerHintTextColor));
 
-                PrepareNewTest();
+                _baseViewModel.PrepareNewTest();
 
-                BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
+                _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
-                _mainWindow.Dispatcher.Invoke(() => SetNormalColors(_transparentColor, _progressBarColor));
+                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(_transparentColor, _progressBarColor));
 
                 ShowAndStartNewTest();
             });
@@ -276,7 +278,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         private void BuildAnswerMenuAndButtons()
         {
-            var answersType = GetAnswerType();
+            var answersType = _baseViewModel.GetAnswerType();
 
             _mainWindow?.Dispatcher?.Invoke(() =>
             {
@@ -285,10 +287,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
-                    if(answerNumber < BaseModel.MaximumAnswers)
+                    if(answerNumber < _baseModel.MaximumAnswers)
                     {
-                        var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                        var answerText       = GetAnswerText(answer, answersType);
+                        var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                        var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
                         var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                         _mainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
@@ -298,8 +300,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
 
                         _mainWindow.AnswerTextList[answerNumber].Text          = answerText;
-                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = GetAnswerHint(answer);
-                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = BaseModel.ShowAnswerShortcuts
+                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = _baseViewModel.GetAnswerHint(answer);
+                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = _baseModel.ShowAnswerShortcuts
                                 ? inputGestureText
                                 : string.Empty;
 
@@ -340,7 +342,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         private void CheckForNewVersion()
         {
-            if(!BaseModel.CheckForNewVersionOnStartUp)
+            if(!_baseModel.CheckForNewVersionOnStartUp)
             {
                 return;
             }
@@ -395,7 +397,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            var maxButtonCount   = Math.Min(BaseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
+            var maxButtonCount   = Math.Min(_baseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
 
             using(var manualResetEvent = new ManualResetEvent(false))
             {
@@ -419,7 +421,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             }
 
                             // TODO: check if "button + 1" is the correct value
-                            CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                            CheckSelectedAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
                         }
                     }
                 });
@@ -435,46 +437,46 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            _mainWindow.Dispatcher.Invoke(() => SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
+            _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
         }
 
         /// <summary>
-        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="BaseModel"/>
+        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="_baseModel"/>
         /// </summary>
         private void MoveAndResizeWindowToLastPosition()
             {
-            if(!double.IsNaN(BaseModel.WindowHigh))
+            if(!double.IsNaN(_baseModel.WindowHigh))
             {
-                _mainWindow.Height = BaseModel.WindowHigh;
+                _mainWindow.Height = _baseModel.WindowHigh;
             }
 
-            if(!double.IsNaN(BaseModel.WindowWidth))
+            if(!double.IsNaN(_baseModel.WindowWidth))
             {
-                _mainWindow.Width = BaseModel.WindowWidth;
+                _mainWindow.Width = _baseModel.WindowWidth;
             }
 
-            if(!double.IsNaN(BaseModel.LeftPosition))
+            if(!double.IsNaN(_baseModel.LeftPosition))
             {
-                _mainWindow.Left = BaseModel.LeftPosition;
+                _mainWindow.Left = _baseModel.LeftPosition;
             }
 
-            if(double.IsNaN(BaseModel.TopPosition))
+            if(double.IsNaN(_baseModel.TopPosition))
             {
                 return;
             }
 
-            _mainWindow.Top = BaseModel.TopPosition;
+            _mainWindow.Top = _baseModel.TopPosition;
         }
 
         /// <summary>
-        /// Set the size and the position values inside the <see cref="BaseModel"/>, based on the values of the <see cref="_mainWindow"/>
+        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="_mainWindow"/>
         /// </summary>
         private void SetWindowSizeAndPositionInTheMainModel()
         {
-            BaseModel.WindowHigh   = _mainWindow.Height;
-            BaseModel.WindowWidth  = _mainWindow.Width;
-            BaseModel.LeftPosition = _mainWindow.Left;
-            BaseModel.TopPosition  = _mainWindow.Top;
+            _baseModel.WindowHigh   = _mainWindow.Height;
+            _baseModel.WindowWidth  = _mainWindow.Width;
+            _baseModel.LeftPosition = _mainWindow.Left;
+            _baseModel.TopPosition  = _mainWindow.Top;
         }
 
         #endregion Private Methods

@@ -30,7 +30,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Command for show the sign statistic
         /// </summary>
         public ICommand CommandShowSignStatistics
-            => new CommandHelperSlim(() => new StatisticsWindow(BaseModel, this).Show());
+            => new CommandHelperSlim(() => new StatisticsWindow(_baseModel, this).Show());
 
         #endregion Commands - View Menu
 
@@ -49,8 +49,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    BaseModel.SelectedHintType = (HintType)value;
-                    PrepareNewTest();
+                    _baseModel.SelectedHintType = (HintType)value;
+                    _baseViewModel.PrepareNewTest();
                     ShowAndStartNewTest();
                 });
 
@@ -67,9 +67,9 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    BaseModel.MaximumAnswers = maximumAnswers;
+                    _baseModel.MaximumAnswers = maximumAnswers;
 
-                    ChooseNewPossibleAnswers();
+                    _baseViewModel.ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
                 });
 
@@ -80,7 +80,7 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelperSlim(()
                 =>
                 {
-                    ChooseNewPossibleAnswers();
+                    _baseViewModel.ChooseNewPossibleAnswers();
                     BuildAnswerMenuAndButtons();
                 });
 
@@ -88,15 +88,15 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelperSlim(()
                 =>
                 {
-                    BaseModel.ShowRunningAnswerTimer = BaseModel.UseAnswerTimer;
+                    _baseModel.ShowRunningAnswerTimer = _baseModel.UseAnswerTimer;
 
-                    if(BaseModel.UseAnswerTimer)
+                    if(_baseModel.UseAnswerTimer)
                     {
                         RestartTestTimer();
                     }
                     else
                     {
-                        Model.TestTimer.Stop();
+                        _model.TestTimer.Stop();
                     }
                 });
 
@@ -117,8 +117,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    BaseModel.SelectedTestType = (TestType)value;
-                    PrepareNewTest();
+                    _baseModel.SelectedTestType = (TestType)value;
+                    _baseViewModel.PrepareNewTest();
                     ShowAndStartNewTest();
                 });
 
@@ -135,13 +135,13 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    BaseModel.SelectedKanaType ^= (KanaType)value;
+                    _baseModel.SelectedKanaType ^= (KanaType)value;
 
-                    if(BaseModel.SelectedKanaType == KanaType.None)
+                    if(_baseModel.SelectedKanaType == KanaType.None)
                     {
-                        Model.TestTimer.Stop();
+                        _model.TestTimer.Stop();
 
-                        BaseModel.SelectedKanaType = (KanaType)value;
+                        _baseModel.SelectedKanaType = (KanaType)value;
 
                         MessageBox.Show("At least one Kana type must be selected.",
                                         "Daily Kanji - Information",
@@ -149,7 +149,7 @@ namespace DailyKanji.Mvvm.ViewModel
                                         MessageBoxImage.Information);
                     }
 
-                    PrepareNewTest();
+                    _baseViewModel.PrepareNewTest();
                     ShowAndStartNewTest();
                 });
 
@@ -172,7 +172,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                    CheckSelectedAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
         #endregion Commands - Answer Menu
@@ -192,7 +192,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    Model.TestTimer.Stop();
+                    _model.TestTimer.Stop();
 
                     if(MessageBox.Show($"Do you really want to delete the statistics?{Environment.NewLine}{Environment.NewLine}Reset type: {value}",
                                        "Delete statistics",
@@ -204,8 +204,8 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    ResetCompleteStatistic((ResetType)value);
-                    PrepareNewTest();
+                    _baseViewModel.ResetCompleteStatistic((ResetType)value);
+                    _baseViewModel.PrepareNewTest();
                     ShowAndStartNewTest();
                 });
 
@@ -220,9 +220,9 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelperSlim(()
                 =>
                 {
-                    Model.TestTimer.Stop();
+                    _model.TestTimer.Stop();
 
-                    var infoWindow = new InfoWindow(BaseModel, Model);
+                    var infoWindow = new InfoWindow(_baseModel, _model);
 
                     infoWindow.Closed += (_, __) => RestartTestTimer();
                     infoWindow.Show();
@@ -238,15 +238,15 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandPreviousTest
             => new CommandHelperSlim(() =>
             {
-                BuildTestPool();
-                ChooseNewSign(BaseModel.PreviousTest);
+                _baseViewModel.BuildTestPool();
+                _baseViewModel.ChooseNewSign(_baseModel.PreviousTest);
 
-                ChooseNewPossibleAnswers();
+                _baseViewModel.ChooseNewPossibleAnswers();
                 BuildAnswerMenuAndButtons();
                 RestartTestTimer();
 
-                BaseModel.IgnoreInput  = false;
-                BaseModel.PreviousTest = TestBaseModel.EmptyTest;
+                _baseModel.IgnoreInput  = false;
+                _baseModel.PreviousTest = TestBaseModel.EmptyTest;
             });
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         return;
                     }
 
-                    HighlightAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                    HighlightAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
                 });
 
         #endregion Commands - Navigation

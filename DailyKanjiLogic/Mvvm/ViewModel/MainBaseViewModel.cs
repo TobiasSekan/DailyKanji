@@ -17,20 +17,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Data model that contain all static and changeable runtime data of the program logic
         /// </summary>
-        private MainBaseModel _baseModel { get; set; }
+        private MainBaseModel _baseModel { get; }
 
         #endregion Public Properties
 
         #region Public Constructor
 
-        public MainBaseViewModel()
-            => _baseModel = new MainBaseModel();
-
-        #endregion Public Constructor
-
-        #region Public Methods
-
-        public void InitalizeBaseModel(in MainBaseModel baseModel, in string baseColor, in string progressBarColor)
+        public MainBaseViewModel(in MainBaseModel baseModel, in string baseColor, in string progressBarColor)
         {
             _baseModel = baseModel;
 
@@ -60,6 +53,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             BuildTestPool();
             ChooseNewSign(GetRandomKanaTest());
         }
+
+        #endregion Public Constructor
+
+        #region Public Methods
 
         /// <summary>
         /// Reorder all tests by it own correct and wrong counters
