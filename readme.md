@@ -52,18 +52,23 @@ see [Roadmap](Documentation/Roadmap.md)
 
 ## Requirements for debug, test and contributing
 * [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137) (include .Net Standard 1.3)
+* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
+* [.Net Core 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
 * C# 8.0
 
 ## Project structure
-| Project         | Used framework     | Operating system             |
-| --------------- | ------------------ | ---------------------------- |
-| DailyKanji      | .Net Framework 4.6 | Windows                      |
-| DailyKanjiLogic | .Net Standard 1.3  | Operating system independent |
+| Project             | Used framework     | Operating system             |
+| ------------------- | ------------------ | ---------------------------- |
+| DailyKanji          | .Net Framework 4.6 | Windows                      |
+| DailyKanjiLogic     | .Net Standard 1.3  | Operating system independent |
+| DailyKanjiLogicTest | .Net Core 2.2      | Windows, Linux, macOS        |
 
 ## Used NuGet packages
-| Package              | Version    | Reason                          |
-| -------------------- | ---------- | ------------------------------- |
-| Extended.Wpf.Toolkit | 3.5.0      | WPF elements (e.g. SpinUpDown)  |
-| Newtonsoft.Json      | 12.0.2     | Load and Write JSON files       |
-| SharpDX.DirectInput  | 4.2.0      | Gamepad support via DirectInput |
+| Package                | Version    | Reason                                     |
+| ---------------------- | ---------- | ------------------------------------------ |
+| Extended.Wpf.Toolkit   | 3.5.0      | Additional WPF elements (e.g. SpinUpDown)  |
+| Newtonsoft.Json        | 12.0.2     | Load and write JSON files                  |
+| Microsoft.NET.Test.Sdk | 16.2.0     | Test SDK for .NET                          |
+| NUnit                  | 3.12.0     | NUnit test framework                       |
+| NUnit3TestAdapter      | 3.13.0     | Test adapter for NUnit                     |
+| SharpDX.DirectInput    | 4.2.0      | Game-pad support via DirectInput           |
