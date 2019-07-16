@@ -12,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 #nullable enable
 
@@ -88,42 +87,6 @@ namespace DailyKanji.Mvvm.ViewModel
             => "settings.json";
 
         /// <summary>
-        /// The color string for the progress bar (<see cref="Colors.LightBlue"/> - #FFADD8E6)
-        /// </summary>
-        private static string _progressBarColor
-            => Colors.LightBlue.ToString();
-
-        /// <summary>
-        /// The color string for the error highlight (<see cref="Colors.LightCoral"/> - #FFF08080)
-        /// </summary>
-        private static string _errorColor
-            => Colors.LightCoral.ToString();
-
-        /// <summary>
-        /// The color string for none selected answers (<see cref="Colors.LightGoldenrodYellow"/> - #FFFAFAD2)
-        /// </summary>
-        private static string _noneSelectedColor
-            => Colors.LightGoldenrodYellow.ToString();
-
-        /// <summary>
-        /// The color string for the correct answer (<see cref="Colors.LightGreen"/> - FF90EE90)
-        /// </summary>
-        private static string _correctColor
-            => Colors.LightGreen.ToString();
-
-        /// <summary>
-        /// The color string for invisible text and elements (<see cref="Colors.Transparent"/> - #00FFFFFF)
-        /// </summary>
-        private static string _transparentColor
-            => Colors.Transparent.ToString();
-
-        /// <summary>
-        /// The color string for the answer hints (<see cref="Colors.Black"/> - #FF000000)
-        /// </summary>
-        private static string _answerHintTextColor
-            => Colors.Black.ToString();
-
-        /// <summary>
         /// The main viewable window of this application
         /// </summary>
         private MainWindow _mainWindow { get; }
@@ -144,7 +107,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _model         = new MainModel();
             _baseModel     = baseModel;
-            _baseViewModel = new MainBaseViewModel(baseModel, _transparentColor, _progressBarColor);
+            _baseViewModel = new MainBaseViewModel(baseModel, ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
 
             _model.TestTimer.Elapsed += (_, __) =>
             {
@@ -166,7 +129,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _baseViewModel.PrepareNewTest();
             ShowAndStartNewTest();
-            _baseViewModel.SetNormalColors(_transparentColor, _progressBarColor);
+            _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
 
             _mainWindow.Closed += (_, __) =>
             {
@@ -206,7 +169,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            _baseModel.ProgressBarColor = _progressBarColor;
+            _baseModel.ProgressBarColor = ColorHelper.ProgressBarColor;
             _baseModel.TestStartTime    = DateTime.UtcNow;
 
             _model.TestTimer.Start();
@@ -261,13 +224,16 @@ namespace DailyKanji.Mvvm.ViewModel
             Task.Run(() =>
             {
                 _mainWindow.Dispatcher.Invoke(()
-                    => _baseViewModel.SetHighlightColors(answerTemp, _correctColor, result ? _correctColor : _errorColor, _noneSelectedColor, _answerHintTextColor));
+                    => _baseViewModel.SetHighlightColors(answerTemp,
+                                                         ColorHelper.CorrectColor,
+                                                         result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
+                                                         ColorHelper.NoneSelectedColor, ColorHelper.AnswerHintTextColor));
 
                 _baseViewModel.PrepareNewTest();
 
                 _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
-                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(_transparentColor, _progressBarColor));
+                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
 
                 ShowAndStartNewTest();
             });
@@ -437,7 +403,9 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp, _noneSelectedColor, _transparentColor));
+            _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
+                                                                                                    ColorHelper.NoneSelectedColor,
+                                                                                                    ColorHelper.TransparentColor));
         }
 
         /// <summary>
