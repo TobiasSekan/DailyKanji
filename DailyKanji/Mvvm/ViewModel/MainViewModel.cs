@@ -387,10 +387,10 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             // TODO:
             // - Add "joystick.Unacquire();" on program close
-            // - Move more gamepad logic to DailyKanjiLogic project
+            // - Move more game-pad logic to DailyKanjiLogic project
             // - Refresh "maxButtonCount" on answer change
-            // - Check for disconnected joystick/gamepad
-            // - Show button names as hints, when gamepad is connected
+            // - Check for disconnected joystick/game-pad
+            // - Show button names as hints, when game-pad is connected
             // - Show joystick state and button count inside the status bar
 
             var gamepad = DirectInputHelper.GetFirstGamePad();
