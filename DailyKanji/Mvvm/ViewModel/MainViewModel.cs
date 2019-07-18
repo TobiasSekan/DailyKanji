@@ -29,8 +29,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Refresh sign statistics in main window direct after answer
-    // TODO: Show changed counter (wrong / correct) in "bold" when changed after answer
+    // TODO: Show up or down indicator for wrong count, correct count and average answer time
+    // TODO: Refresh sign statistics (wrong count, correct count and average answer time) in main window direct after answer
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -209,8 +209,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _model.TestTimer.Stop();
 
-            var result = _baseViewModel.CheckAndCountAnswer(answer);
+            var correctCounterBefore = _baseModel.CurrentTest.CorrectHiraganaCount         + _baseModel.CurrentTest.CorrectKatakanaCount;
+            var wrongCounterBefore   = _baseModel.CurrentTest.WrongHiraganaCount           + _baseModel.CurrentTest.WrongKatakanaCount;
+            var answerTimeBefore     = _baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana;
 
+            var result = _baseViewModel.CheckAndCountAnswer(answer);
             if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
             {
                 _baseViewModel.PrepareNewTest();
@@ -223,20 +226,53 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
-                _mainWindow.Dispatcher.Invoke(()
-                    => _baseViewModel.SetHighlightColors(answerTemp,
-                                                         ColorHelper.CorrectColor,
-                                                         result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                                         ColorHelper.NoneSelectedColor, ColorHelper.AnswerHintTextColor));
+                _mainWindow.Dispatcher.Invoke(() => SetHighlight(correctCounterBefore, wrongCounterBefore, answerTimeBefore, result, answerTemp));
 
                 _baseViewModel.PrepareNewTest();
 
                 _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
-                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
+                _mainWindow.Dispatcher.Invoke(RemoveHighlight);
 
                 ShowAndStartNewTest();
             });
+        }
+
+        /// <summary>
+        /// Set highlight on all elements on the main window
+        /// </summary>
+        /// <param name="correctCounterBefore">The correct count before the answer</param>
+        /// <param name="wrongCounterBefore">The wrong count before the answer</param>
+        /// <param name="answerTimeBefore">The answer time before the answer</param>
+        /// <param name="result">The result of the answer</param>
+        /// <param name="answerTemp">A local copy of the answer</param>
+        private void SetHighlight(uint correctCounterBefore, uint wrongCounterBefore, TimeSpan answerTimeBefore, bool result, TestBaseModel answerTemp)
+        {
+            _model.HighlightCorrectCounter =
+                correctCounterBefore != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
+
+            _model.HighlightWrongCounter =
+                wrongCounterBefore != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
+
+            _model.HighlightAnswerTime =
+                answerTimeBefore != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
+
+            _baseViewModel.SetHighlightColors(answerTemp,
+                                              ColorHelper.CorrectColor,
+                                              result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
+                                              ColorHelper.NoneSelectedColor, ColorHelper.AnswerHintTextColor);
+        }
+
+        /// <summary>
+        /// Remove highlight of all elements on the main window
+        /// </summary>
+        private void RemoveHighlight()
+        {
+            _model.HighlightCorrectCounter = false;
+            _model.HighlightWrongCounter   = false;
+            _model.HighlightAnswerTime     = false;
+
+            _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
         }
 
         /// <summary>

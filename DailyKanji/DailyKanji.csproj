@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\BooleanToFontWeightConverter.cs" />
     <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
     <Compile Include="Helper\ColorStringToBrushConverter.cs" />

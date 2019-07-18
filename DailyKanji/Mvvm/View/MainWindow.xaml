@@ -12,11 +12,12 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <helper:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
-        <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
-        <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <helper:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter" />
         <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <helper:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
         <helper:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
+        <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
     </Window.Resources>
 
     <Window.InputBindings>
@@ -527,11 +528,11 @@
                         VerticalAlignment="Center">
 
                 <TextBlock Text="Wrong answers" />
-                <TextBlock Text="{Binding BaseModel.WrongCount}" />
+                <TextBlock FontWeight="{Binding Model.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCount}" />
                 <TextBlock Text="Correct answers" />
-                <TextBlock Text="{Binding BaseModel.CorrectCount}" />
+                <TextBlock FontWeight="{Binding Model.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCount}" />
                 <TextBlock Text="Average answer time" />
-                <TextBlock Text="{Binding BaseModel.AverageAnswerTime}" />
+                <TextBlock FontWeight="{Binding Model.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTime}" />
 
             </StackPanel>
 

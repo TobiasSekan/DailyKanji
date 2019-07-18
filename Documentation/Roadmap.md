@@ -9,8 +9,8 @@
 ## BUG
 
 ## Version 1.x
-* Refresh sign statistics in main window direct after answer
-* Show changed counter (wrong / correct) in "bold" when changed after answer
+* Show up or down indicator for wrong count, correct count and average answer time
+* Refresh sign statistics (wrong count, correct count and average answer time) in main window direct after answer
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
