@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 #nullable enable
 
-namespace DailyKanji.Helper
+namespace DailyKanji.Converter
 {
     /// <summary>
     /// Convert a hexadecimal value of a <see cref="Color"/> into a <see cref="SolidColorBrush"/>
@@ -13,7 +13,7 @@ namespace DailyKanji.Helper
     internal sealed class ColorStringToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value is string colorValue && !string.IsNullOrWhiteSpace(colorValue)
+            => (value is string colorValue) && !string.IsNullOrWhiteSpace(colorValue)
                 ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorValue))
                 : new SolidColorBrush(Colors.Transparent);
 

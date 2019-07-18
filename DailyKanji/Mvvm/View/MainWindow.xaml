@@ -1,8 +1,8 @@
 ﻿<Window x:Class="DailyKanji.Mvvm.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converter="clr-namespace:DailyKanji.Converter"
         xmlns:enumerations="clr-namespace:DailyKanjiLogic.Enumerations;assembly=DailyKanjiLogic"
-        xmlns:helper="clr-namespace:DailyKanji.Helper"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Daily Kanji"
         Width="900"
@@ -12,12 +12,12 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <helper:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter" />
-        <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <helper:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
-        <helper:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
-        <helper:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
-        <helper:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
+        <converter:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <converter:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
+        <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
+        <converter:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
     </Window.Resources>
 
     <Window.InputBindings>

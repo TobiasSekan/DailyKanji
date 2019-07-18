@@ -55,14 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helper\BooleanToFontWeightConverter.cs" />
-    <Compile Include="Helper\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\BooleanToFontWeightConverter.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
-    <Compile Include="Helper\ColorStringToBrushConverter.cs" />
-    <Compile Include="Helper\HeightToFontSizeConverter.cs" />
+    <Compile Include="Converter\ColorStringToBrushConverter.cs" />
+    <Compile Include="Converter\HeightToFontSizeConverter.cs" />
     <Compile Include="Helper\OnlineResourceHelper.cs" />
-    <Compile Include="Helper\FlagValueToBooleanConverter.cs" />
-    <Compile Include="Helper\ValueToBooleanConverter.cs" />
+    <Compile Include="Converter\FlagValueToBooleanConverter.cs" />
+    <Compile Include="Converter\ValueToBooleanConverter.cs" />
     <Page Include="Mvvm\View\InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

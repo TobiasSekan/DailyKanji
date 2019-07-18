@@ -5,12 +5,12 @@ using System.Windows.Data;
 
 #nullable enable
 
-namespace DailyKanji.Helper
+namespace DailyKanji.Converter
 {
     /// <summary>
     /// Multiply the given high value and command parameter to a new font size
     /// </summary>
-    public sealed class HeightToFontSizeConverter : IValueConverter
+    internal sealed class HeightToFontSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

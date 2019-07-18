@@ -5,19 +5,19 @@ using System.Windows.Data;
 
 #nullable enable
 
-namespace DailyKanji.Helper
+namespace DailyKanji.Converter
 {
     /// <summary>
-    /// Convert a <see cref="bool"/> value into a <see cref="Visibility"/> value
+    /// Convert a <see cref="bool"/> value into a <see cref="FontWeight"/> value
     /// </summary>
-    internal sealed class BooleanToVisibilityConverter : IValueConverter
+    internal sealed class BooleanToFontWeightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value is bool booleanValue && booleanValue
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            => (value is bool booleanValue) && booleanValue
+                ? FontWeights.ExtraBold
+                : FontWeights.Normal;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => value;
+            => false;
     }
 }
