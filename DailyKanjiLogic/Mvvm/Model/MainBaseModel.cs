@@ -776,6 +776,45 @@ namespace DailyKanjiLogic.Mvvm.Model
             OnPropertyChanged(nameof(AllTestsList));
         }
 
+        /// <summary>
+        /// Check if all values of this model are in range and use default values, when not
+        /// </summary>
+        public void CheckAndFixValues()
+        {
+            if(double.IsInfinity(LeftPosition))
+            {
+                LeftPosition = double.NaN;
+            }
+
+            if(double.IsInfinity(TopPosition))
+            {
+                TopPosition = double.NaN;
+            }
+
+            if(double.IsInfinity(WindowHigh))
+            {
+                WindowHigh = double.NaN;
+            }
+
+            if(double.IsInfinity(WindowWidth))
+            {
+                WindowWidth = double.NaN;
+            }
+
+            var minTime = new TimeSpan(0, 0, 1);
+            var maxTime = new TimeSpan(0, 0, 5);
+
+            if(HighlightTimeout < minTime || HighlightTimeout > maxTime)
+            {
+                HighlightTimeout = maxTime;
+            }
+
+            if(MaximumAnswerTimeout < minTime || MaximumAnswerTimeout > maxTime)
+            {
+                MaximumAnswerTimeout = maxTime;
+            }
+        }
+
         #endregion Public Methods
 
         #region IDisposable Implementation
@@ -799,9 +838,9 @@ namespace DailyKanjiLogic.Mvvm.Model
             ProgressBarColor     = string.Empty;
 
             TestStartTime        = DateTime.MinValue;
-            AnswerTime           = TimeSpan.MinValue;
-            HighlightTimeout     = TimeSpan.MinValue;
-            MaximumAnswerTimeout = TimeSpan.MinValue;
+            AnswerTime           = TimeSpan.Zero;
+            HighlightTimeout     = TimeSpan.Zero;
+            MaximumAnswerTimeout = TimeSpan.Zero;
 
             LeftPosition         = double.NaN;
             TopPosition          = double.NaN;

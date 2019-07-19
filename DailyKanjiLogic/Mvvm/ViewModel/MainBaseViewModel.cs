@@ -422,6 +422,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             try
             {
                 baseModel = JsonHelper.ReadJson<MainBaseModel>(path);
+
+                baseModel.CheckAndFixValues();
+
                 exception = null;
                 return true;
             }

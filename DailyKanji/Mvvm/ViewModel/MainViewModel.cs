@@ -28,6 +28,14 @@ namespace DailyKanji.Mvvm.ViewModel
     // ---
     // BUG: Investigate why is average answer time is always "00:10.01"
 
+    // BUG: After close program ->  many of "System.Windows.Data Error: 17"
+    //
+    // Cannot get 'Item[]' value (type 'String') from 'AnswerButtonColor' (type 'ObservableCollection`1').
+    // BindingExpression:Path=BaseModel.AnswerButtonColor[0]; DataItem='MainWindow' (Name='');
+    // target element is 'Button' (Name='Button01'); target property is 'Background' (type 'Brush')
+    //
+    // ArgumentOutOfRangeException:'System.ArgumentOutOfRangeException:
+
     // Version 1.x
     // -----------
     // TODO: Show up or down indicator for wrong count, correct count and average answer time
@@ -143,6 +151,13 @@ namespace DailyKanji.Mvvm.ViewModel
                                     MessageBoxImage.Error);
                 }
 
+                // -> System.Windows.Data Error: 17 :
+                // 
+                // Replace "ObservableCollection" with normal collections/lists
+                //
+                // AnswerButtonColor
+                // HintTextColor
+                //
                 Dispose();
             };
 
