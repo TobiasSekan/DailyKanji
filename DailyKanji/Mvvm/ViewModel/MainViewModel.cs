@@ -387,6 +387,9 @@ namespace DailyKanji.Mvvm.ViewModel
             }
         }
 
+        /// <summary>
+        /// Test if a joystick or game-pad is connected to this computer
+        /// </summary>
         private void GamepadTest()
         {
             // TODO:
@@ -403,7 +406,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            var maxButtonCount   = Math.Min(_baseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
+            var maxButtonCount = Math.Min(_baseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
 
             using(var manualResetEvent = new ManualResetEvent(false))
             {
