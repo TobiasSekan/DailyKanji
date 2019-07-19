@@ -26,11 +26,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
+    // BUG: Investigate why is average answer time is always "00:10.01"
 
     // Version 1.x
     // -----------
     // TODO: Show up or down indicator for wrong count, correct count and average answer time
-    // TODO: Refresh sign statistics (wrong count, correct count and average answer time) in main window direct after answer
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -214,6 +214,9 @@ namespace DailyKanji.Mvvm.ViewModel
             var answerTimeBefore     = _baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana;
 
             var result = _baseViewModel.CheckAndCountAnswer(answer);
+
+            RefreshAndSetHighlightForStatisticValues(correctCounterBefore, wrongCounterBefore, answerTimeBefore);
+
             if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
             {
                 _baseViewModel.PrepareNewTest();
@@ -226,7 +229,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
-                _mainWindow.Dispatcher.Invoke(() => SetHighlight(correctCounterBefore, wrongCounterBefore, answerTimeBefore, result, answerTemp));
+                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetHighlightColors(answerTemp,
+                                                                                      ColorHelper.CorrectColor,
+                                                                                      result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
+                                                                                      ColorHelper.NoneSelectedColor,
+                                                                                      ColorHelper.AnswerHintTextColor));
 
                 _baseViewModel.PrepareNewTest();
 
@@ -239,15 +246,17 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Set highlight on all elements on the main window
+        /// Refresh and set highlight for the statistic values on the main window
         /// </summary>
         /// <param name="correctCounterBefore">The correct count before the answer</param>
         /// <param name="wrongCounterBefore">The wrong count before the answer</param>
         /// <param name="answerTimeBefore">The answer time before the answer</param>
         /// <param name="result">The result of the answer</param>
         /// <param name="answerTemp">A local copy of the answer</param>
-        private void SetHighlight(uint correctCounterBefore, uint wrongCounterBefore, TimeSpan answerTimeBefore, bool result, TestBaseModel answerTemp)
+        private void RefreshAndSetHighlightForStatisticValues(uint correctCounterBefore, uint wrongCounterBefore, TimeSpan answerTimeBefore)
         {
+            _baseModel.OnPropertyChangedOnlyForStatistics();
+
             _model.HighlightCorrectCounter =
                 correctCounterBefore != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
 
@@ -256,11 +265,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _model.HighlightAnswerTime =
                 answerTimeBefore != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
-
-            _baseViewModel.SetHighlightColors(answerTemp,
-                                              ColorHelper.CorrectColor,
-                                              result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                              ColorHelper.NoneSelectedColor, ColorHelper.AnswerHintTextColor);
         }
 
         /// <summary>

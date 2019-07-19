@@ -753,16 +753,27 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         public void OnPropertyChangeForAll()
         {
-            OnPropertyChanged(nameof(AllTestsList));
-            OnPropertyChanged(nameof(AverageAnswerTime));
-            OnPropertyChanged(nameof(CorrectCount));
             OnPropertyChanged(nameof(CurrentAskSign));
-            OnPropertyChanged(nameof(CurrentRateText));
-            OnPropertyChanged(nameof(CurrentTest));
-            OnPropertyChanged(nameof(RightAnswerCountString));
-            OnPropertyChanged(nameof(TestPool));
+
+            OnPropertyChangedOnlyForStatistics();
+        }
+
+        /// <summary>
+        /// Refresh all statistic properties
+        /// (Call <see cref="PropertyChangedHelper.OnPropertyChanged(in string)"/> for all statistic properties)
+        /// </summary>
+        public void OnPropertyChangedOnlyForStatistics()
+        {
             OnPropertyChanged(nameof(WrongCount));
+            OnPropertyChanged(nameof(CorrectCount));
+            OnPropertyChanged(nameof(AverageAnswerTime));
+
             OnPropertyChanged(nameof(WrongAnswerCountString));
+            OnPropertyChanged(nameof(RightAnswerCountString));
+            OnPropertyChanged(nameof(CurrentRateText));
+            OnPropertyChanged(nameof(TestPool));
+
+            OnPropertyChanged(nameof(AllTestsList));
         }
 
         #endregion Public Methods

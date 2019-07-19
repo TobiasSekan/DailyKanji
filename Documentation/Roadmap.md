@@ -7,10 +7,10 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
+* Investigate why "average answer time" is always "00:10.01"
 
 ## Version 1.x
 * Show up or down indicator for wrong count, correct count and average answer time
-* Refresh sign statistics (wrong count, correct count and average answer time) in main window direct after answer
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
