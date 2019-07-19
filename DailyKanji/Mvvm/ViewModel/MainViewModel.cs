@@ -66,7 +66,7 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 
-    internal sealed partial class MainViewModel
+    internal sealed partial class MainViewModel : IDisposable
     {
         #region Internal Properties
 
@@ -135,15 +135,15 @@ namespace DailyKanji.Mvvm.ViewModel
             {
                 SetWindowSizeAndPositionInTheMainModel();
 
-                if(_baseViewModel.TrySaveSettings(_settingFileName, out var saveException))
+                if(!_baseViewModel.TrySaveSettings(_settingFileName, out var saveException))
                 {
-                    return;
+                    MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
+                                    $"Error on save {_settingFileName}",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
 
-                MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
-                                $"Error on save {_settingFileName}",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                Dispose();
             };
 
             GamepadTest();
@@ -154,6 +154,13 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         #endregion Internal Constructors
+
+        #region IDisposable Implementation
+
+        public void Dispose()
+            => _baseModel.Dispose();
+
+        #endregion IDisposable Implementation
 
         #region Internal Methods
 

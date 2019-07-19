@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
-    public class MainBaseModel : PropertyChangedHelper
+    public class MainBaseModel : PropertyChangedHelper, IDisposable
     {
         #region Public Properties
 
@@ -777,5 +777,38 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         #endregion Public Methods
+
+        #region IDisposable Implementation
+
+        public void Dispose()
+        {
+            HighlightTimer.Dispose();
+
+            AnswerButtonColor.Clear();
+            HintTextColor.Clear();
+
+            PreviousTest         = TestBaseModel.EmptyTest;
+            CurrentTest          = TestBaseModel.EmptyTest;
+
+            TestPool             = Enumerable.Empty<TestBaseModel>();
+            AllTestsList         = Enumerable.Empty<TestBaseModel>();
+            PossibleAnswers      = Enumerable.Empty<TestBaseModel>();
+
+            CurrentAskSign       = string.Empty;
+            CurrentAskSignColor  = string.Empty;
+            ProgressBarColor     = string.Empty;
+
+            TestStartTime        = DateTime.MinValue;
+            AnswerTime           = TimeSpan.MinValue;
+            HighlightTimeout     = TimeSpan.MinValue;
+            MaximumAnswerTimeout = TimeSpan.MinValue;
+
+            LeftPosition         = double.NaN;
+            TopPosition          = double.NaN;
+            WindowHigh           = double.NaN;
+            WindowWidth          = double.NaN;
+        }
+
+        #endregion IDisposable Implementation
     }
 }
