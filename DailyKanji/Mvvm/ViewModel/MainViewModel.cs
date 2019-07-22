@@ -234,13 +234,10 @@ namespace DailyKanji.Mvvm.ViewModel
 
             _model.TestTimer.Stop();
 
-            var correctCounterBefore = _baseModel.CurrentTest.CorrectHiraganaCount         + _baseModel.CurrentTest.CorrectKatakanaCount;
-            var wrongCounterBefore   = _baseModel.CurrentTest.WrongHiraganaCount           + _baseModel.CurrentTest.WrongKatakanaCount;
-            var answerTimeBefore     = _baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana;
-
+            var test   = (TestBaseModel)answer.Clone();
             var result = _baseViewModel.CheckAndCountAnswer(answer);
 
-            _baseViewModel.RefreshAndSetHighlightForStatisticValues(correctCounterBefore, wrongCounterBefore, answerTimeBefore);
+            _baseViewModel.RefreshAndSetHighlightForStatisticValues(test);
 
             if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
             {

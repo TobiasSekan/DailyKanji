@@ -1,11 +1,12 @@
 ﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
+using DailyKanjiLogic.Interfaces;
 using Newtonsoft.Json;
 using System;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
-    public sealed class TestBaseModel : PropertyChangedHelper, IEquatable<TestBaseModel>, IFormattable
+    public sealed class TestBaseModel : PropertyChangedHelper, IEquatable<TestBaseModel>, IFormattable, ICloneable
     {
         #region Public Static Properties
 
@@ -333,5 +334,23 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         #endregion IFormattable Implementation
+
+        #region ICloneable Implementation
+
+        public object Clone()
+            =>  new TestBaseModel(Roomaji, Hiragana, Katakana, Type)
+            {
+                CompleteAnswerTimeForCorrectHiragana = _completeAnswerTimeForCorrectHiragana,
+                CompleteAnswerTimeForWrongHiragana   = _completeAnswerTimeForWrongHiragana,
+                CompleteAnswerTimeForCorrectKatakana = _completeAnswerTimeForCorrectKatakana,
+                CompleteAnswerTimeForWrongKatakana   = _completeAnswerTimeForWrongKatakana,
+                WrongHiraganaCount                   = _wrongHiraganaCount,
+                WrongKatakanaCount                   = _wrongKatakanaCount,
+                CorrectHiraganaCount                 = _correctHiraganaCount,
+                CorrectKatakanaCount                 = _correctKatakanaCount,
+                AnswerType                           = AnswerType
+            };
+
+        #endregion ICloneable Implementation
     }
 }

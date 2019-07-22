@@ -657,21 +657,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Refresh and set highlight for the statistic values on the main window
         /// </summary>
-        /// <param name="correctCounterBefore">The correct count before the answer</param>
-        /// <param name="wrongCounterBefore">The wrong count before the answer</param>
-        /// <param name="answerTimeBefore">The answer time before the answer</param>
-        public void RefreshAndSetHighlightForStatisticValues(in uint correctCounterBefore, in uint wrongCounterBefore, in TimeSpan answerTimeBefore)
+        /// <param name="test">The test with the statistics values before the answer was count</param>
+        public void RefreshAndSetHighlightForStatisticValues(in TestBaseModel test)
         {
+            _baseModel.HighlightCorrectCounter = (test.CorrectHiraganaCount + test.CorrectKatakanaCount)
+                                              != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
+
+            _baseModel.HighlightWrongCounter = (test.WrongHiraganaCount + test.WrongKatakanaCount)
+                                            != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
+
+            _baseModel.HighlightAnswerTime = (test.AverageAnswerTimeForHiragana + test.AverageAnswerTimeForKatakana)
+                                          != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
+
             _baseModel.OnPropertyChangedOnlyForStatistics();
-
-            _baseModel.HighlightCorrectCounter =
-                correctCounterBefore != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
-
-            _baseModel.HighlightWrongCounter =
-                wrongCounterBefore != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
-
-            _baseModel.HighlightAnswerTime =
-                answerTimeBefore != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
         }
 
         /// <summary>
