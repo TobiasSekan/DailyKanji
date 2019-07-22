@@ -6,7 +6,6 @@ using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +37,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
+    // TODO: Move "MainWindow" property out of the "MainViewModel"
     // TODO: Show up or down indicator for wrong count, correct count and average answer time
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
@@ -76,7 +76,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     internal sealed partial class MainViewModel : IDisposable
     {
-        #region Internal Properties
+        #region Private Properties
 
         private MainModel _model { get; }
 
@@ -84,38 +84,23 @@ namespace DailyKanji.Mvvm.ViewModel
 
         private MainBaseViewModel _baseViewModel { get; }
 
-        #endregion Internal Properties
-
-        #region Private Properties
-
-        /// <summary>
-        /// The name of the settings file (this file contains all settings and statistics)
-        /// </summary>
-        private static string _settingFileName
-            => "settings.json";
-
         /// <summary>
         /// The main viewable window of this application
         /// </summary>
         private MainWindow _mainWindow { get; }
 
+        private string _settingsFileName { get; }
+
         #endregion Private Properties
 
         #region Internal Constructors
 
-        internal MainViewModel()
+        internal MainViewModel(MainModel model, MainBaseModel baseModel, MainBaseViewModel baseViewModel, string settingsFileName)
         {
-            if(!MainBaseViewModel.TryLoadSettings(_settingFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
-            {
-                MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
-                                $"Error on save {_settingFileName}",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-            }
-
-            _model         = new MainModel();
-            _baseModel     = baseModel;
-            _baseViewModel = new MainBaseViewModel(baseModel, ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+            _model            = model;
+            _baseModel        = baseModel;
+            _baseViewModel    = baseViewModel;
+            _settingsFileName = settingsFileName;
 
             _model.TestTimer.Elapsed += (_, __) =>
             {
@@ -131,22 +116,22 @@ namespace DailyKanji.Mvvm.ViewModel
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
             };
 
-            _mainWindow = new MainWindow(_baseModel, _model, this);
-
             CheckForNewVersion();
 
             _baseViewModel.PrepareNewTest();
-            ShowAndStartNewTest();
             _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+
+            // TODO: move initialization out of the view-model
+            _mainWindow = new MainWindow(baseModel, model, this);
 
             _mainWindow.Closed += (_, __) =>
             {
                 SetWindowSizeAndPositionInTheMainModel();
 
-                if(!_baseViewModel.TrySaveSettings(_settingFileName, out var saveException))
+                if(!_baseViewModel.TrySaveSettings(_settingsFileName, out var saveException))
                 {
                     MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
-                                    $"Error on save {_settingFileName}",
+                                    $"Error on save {_settingsFileName}",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                 }
@@ -160,6 +145,8 @@ namespace DailyKanji.Mvvm.ViewModel
                 //
                 Dispose();
             };
+
+            ShowAndStartNewTest();
 
             GamepadTest();
 
@@ -477,7 +464,12 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="_baseModel"/>
         /// </summary>
         private void MoveAndResizeWindowToLastPosition()
+        {
+            if(_mainWindow is null)
             {
+                return;
+            }
+
             if(!double.IsNaN(_baseModel.WindowHigh))
             {
                 _mainWindow.Height = _baseModel.WindowHigh;
