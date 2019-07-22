@@ -260,8 +260,6 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <param name="correctCounterBefore">The correct count before the answer</param>
         /// <param name="wrongCounterBefore">The wrong count before the answer</param>
         /// <param name="answerTimeBefore">The answer time before the answer</param>
-        /// <param name="result">The result of the answer</param>
-        /// <param name="answerTemp">A local copy of the answer</param>
         private void RefreshAndSetHighlightForStatisticValues(uint correctCounterBefore, uint wrongCounterBefore, TimeSpan answerTimeBefore)
         {
             _baseModel.OnPropertyChangedOnlyForStatistics();
