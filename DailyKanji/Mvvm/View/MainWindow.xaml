@@ -528,11 +528,11 @@
                         VerticalAlignment="Center">
 
                 <TextBlock Text="Wrong answers" />
-                <TextBlock FontWeight="{Binding Model.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCount}" />
+                <TextBlock FontWeight="{Binding BaseModel.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCount}" />
                 <TextBlock Text="Correct answers" />
-                <TextBlock FontWeight="{Binding Model.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCount}" />
+                <TextBlock FontWeight="{Binding BaseModel.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCount}" />
                 <TextBlock Text="Average answer time" />
-                <TextBlock FontWeight="{Binding Model.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTime}" />
+                <TextBlock FontWeight="{Binding BaseModel.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTime}" />
 
             </StackPanel>
 

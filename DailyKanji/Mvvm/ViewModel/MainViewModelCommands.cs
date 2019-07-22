@@ -12,6 +12,9 @@ using System.Windows.Input;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
+    /// <summary>
+    /// Partial class of the <see cref="MainViewModel"/> that contains all <see cref="ICommand"/>
+    /// </summary>
     internal sealed partial class MainViewModel
     {
         #region Commands - File Menu

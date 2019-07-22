@@ -74,21 +74,37 @@ namespace DailyKanji.Mvvm.ViewModel
     // TODO: Auto update program
     // TODO: .Net Xamarin version for Andorid and iOS
 
+    /// <summary>
+    /// Partial class of the <see cref="MainViewModel"/> that contains the complete logic
+    /// </summary>
     internal sealed partial class MainViewModel : IDisposable
     {
         #region Private Properties
 
+        /// <summary>
+        /// The model that contains the extended properties
+        /// (all types they are not available in .NET Standard 1.3)
+        /// </summary>
         private MainModel _model { get; }
 
+        /// <summary>
+        /// The model that contains the base properties
+        /// </summary>
         private MainBaseModel _baseModel { get; }
 
+        /// <summary>
+        /// The view-model that contains the base program logic
+        /// </summary>
         private MainBaseViewModel _baseViewModel { get; }
 
         /// <summary>
-        /// The main viewable window of this application
+        /// The window contains all elements of the main window
         /// </summary>
         private MainWindow _mainWindow { get; }
 
+        /// <summary>
+        /// The name of the settings file (this file contains all settings and statistics)
+        /// </summary>
         private string _settingsFileName { get; }
 
         #endregion Private Properties
@@ -224,7 +240,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             var result = _baseViewModel.CheckAndCountAnswer(answer);
 
-            RefreshAndSetHighlightForStatisticValues(correctCounterBefore, wrongCounterBefore, answerTimeBefore);
+            _baseViewModel.RefreshAndSetHighlightForStatisticValues(correctCounterBefore, wrongCounterBefore, answerTimeBefore);
 
             if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
             {
@@ -248,42 +264,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
-                _mainWindow.Dispatcher.Invoke(RemoveHighlight);
+                _baseViewModel.ResetHighlight();
+
+                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
 
                 ShowAndStartNewTest();
             });
-        }
-
-        /// <summary>
-        /// Refresh and set highlight for the statistic values on the main window
-        /// </summary>
-        /// <param name="correctCounterBefore">The correct count before the answer</param>
-        /// <param name="wrongCounterBefore">The wrong count before the answer</param>
-        /// <param name="answerTimeBefore">The answer time before the answer</param>
-        private void RefreshAndSetHighlightForStatisticValues(uint correctCounterBefore, uint wrongCounterBefore, TimeSpan answerTimeBefore)
-        {
-            _baseModel.OnPropertyChangedOnlyForStatistics();
-
-            _model.HighlightCorrectCounter =
-                correctCounterBefore != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
-
-            _model.HighlightWrongCounter =
-                wrongCounterBefore != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
-
-            _model.HighlightAnswerTime =
-                answerTimeBefore != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
-        }
-
-        /// <summary>
-        /// Remove highlight of all elements on the main window
-        /// </summary>
-        private void RemoveHighlight()
-        {
-            _model.HighlightCorrectCounter = false;
-            _model.HighlightWrongCounter   = false;
-            _model.HighlightAnswerTime     = false;
-
-            _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
         }
 
         /// <summary>

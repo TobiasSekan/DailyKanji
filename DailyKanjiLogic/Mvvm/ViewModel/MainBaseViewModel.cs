@@ -654,6 +654,36 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             ChooseNewPossibleAnswers();
         }
 
+        /// <summary>
+        /// Refresh and set highlight for the statistic values on the main window
+        /// </summary>
+        /// <param name="correctCounterBefore">The correct count before the answer</param>
+        /// <param name="wrongCounterBefore">The wrong count before the answer</param>
+        /// <param name="answerTimeBefore">The answer time before the answer</param>
+        public void RefreshAndSetHighlightForStatisticValues(in uint correctCounterBefore, in uint wrongCounterBefore, in TimeSpan answerTimeBefore)
+        {
+            _baseModel.OnPropertyChangedOnlyForStatistics();
+
+            _baseModel.HighlightCorrectCounter =
+                correctCounterBefore != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
+
+            _baseModel.HighlightWrongCounter =
+                wrongCounterBefore != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
+
+            _baseModel.HighlightAnswerTime =
+                answerTimeBefore != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
+        }
+
+        /// <summary>
+        /// Reset all highlight properties
+        /// </summary>
+        public void ResetHighlight()
+        {
+            _baseModel.HighlightCorrectCounter = false;
+            _baseModel.HighlightWrongCounter   = false;
+            _baseModel.HighlightAnswerTime     = false;
+        }
+
         #endregion Public Methods
 
         #region Internal Methods

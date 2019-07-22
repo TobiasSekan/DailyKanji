@@ -41,60 +41,6 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// Indicate that the correct counter is highlighted
-        /// </summary>
-        public bool HighlightCorrectCounter
-        {
-            get => _highlightCorrectCounter;
-            set
-            {
-                if(_highlightCorrectCounter == value)
-                {
-                    return;
-                }
-
-                _highlightCorrectCounter = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Indicate that the wrong counter is highlighted
-        /// </summary>
-        public bool HighlightWrongCounter
-        {
-            get => _highlightWrongCounter;
-            set
-            {
-                if(_highlightWrongCounter == value)
-                {
-                    return;
-                }
-
-                _highlightWrongCounter = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Indicate that the answer time is highlighted
-        /// </summary>
-        public bool HighlightAnswerTime
-        {
-            get => _highlightAnswerTime;
-            set
-            {
-                if(_highlightAnswerTime == value)
-                {
-                    return;
-                }
-
-                _highlightAnswerTime = value;
-                OnPropertyChanged();
-            }
-        }
-
         #endregion Public Properties
 
         #region Internal Properties
@@ -112,21 +58,6 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ProgressPrefreshInterval"/>
         /// </summary>
         private TimeSpan _progressPrefreshInterval;
-
-        /// <summary>
-        /// Backing-field for <see cref="HighlightCorrectCounter"/>
-        /// </summary>
-        private bool _highlightCorrectCounter;
-
-        /// <summary>
-        /// Backing-field for <see cref="HighlightWrongCounter"/>
-        /// </summary>
-        private bool _highlightWrongCounter;
-
-        /// <summary>
-        /// Backing-field for <see cref="HighlightAnswerTime"/>
-        /// </summary>
-        private bool _highlightAnswerTime;
 
         #endregion Private Backing-fields
 
