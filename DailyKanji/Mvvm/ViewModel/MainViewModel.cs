@@ -25,8 +25,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // BUG: Investigate why is average answer time is always "00:10.01"
-
     // BUG: After close program ->  many of "System.Windows.Data Error: 17"
     //
     // Cannot get 'Item[]' value (type 'String') from 'AnswerButtonColor' (type 'ObservableCollection`1').
@@ -189,13 +187,14 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             _model.TestTimer.Stop();
 
+            _baseModel.TestStartTime = DateTime.UtcNow;
+
             if(!_baseModel.UseAnswerTimer)
             {
                 return;
             }
 
             _baseModel.ProgressBarColor = ColorHelper.ProgressBarColor;
-            _baseModel.TestStartTime    = DateTime.UtcNow;
 
             _model.TestTimer.Start();
         }
@@ -233,6 +232,8 @@ namespace DailyKanji.Mvvm.ViewModel
             }
 
             _model.TestTimer.Stop();
+
+            _baseModel.AnswerTime = DateTime.UtcNow - _baseModel.TestStartTime;
 
             var test   = (TestBaseModel)answer.Clone();
             var result = _baseViewModel.CheckAndCountAnswer(answer);

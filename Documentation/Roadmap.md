@@ -7,7 +7,6 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Investigate why "average answer time" is always "00:10.01"
 
 ## Version 1.x
 * Show up or down indicator for wrong count, correct count and average answer time
