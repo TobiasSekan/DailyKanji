@@ -360,6 +360,51 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        [JsonIgnore]
+        public string CorrectCountIndicator
+        {
+            get => _correctCountIndicator;
+            set
+            {
+                if(_correctCountIndicator == value)
+                {
+                    return;
+                }
+
+                _correctCountIndicator = value;
+            }
+        }
+
+        [JsonIgnore]
+        public string WrongCountIndicator
+        {
+            get => _wrongCountIndicator;
+            set
+                {
+                if(_wrongCountIndicator == value)
+                {
+                    return;
+                }
+
+                _wrongCountIndicator = value;
+            }
+        }
+
+        [JsonIgnore]
+        public string AverageAnswerTimeIndicator
+        {
+            get => _averageAnswerTimeIndicator;
+            set
+            {
+                if(_averageAnswerTimeIndicator == value)
+                {
+                    return;
+                }
+
+                _averageAnswerTimeIndicator = value;
+            }
+        }
+
         public double LeftPosition { get; set; }
 
         public double TopPosition { get; set; }
@@ -760,6 +805,21 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         private bool _highlightAnswerTime;
 
+        /// <summary>
+        /// Backing-field for <see cref="AverageAnswerTimeIndicator"/>
+        /// </summary>
+        private string _averageAnswerTimeIndicator;
+
+        /// <summary>
+        /// Backing-field for <see cref="CorrectCountIndicator"/>
+        /// </summary>
+        private string _correctCountIndicator;
+
+        /// <summary>
+        /// Backing-field for <see cref="WrongCountIndicator"/>
+        /// </summary>
+        private string _wrongCountIndicator;
+
         #endregion Private Backing-Fields
 
         #region Public Constructors
@@ -839,6 +899,10 @@ namespace DailyKanjiLogic.Mvvm.Model
             OnPropertyChanged(nameof(WrongCount));
             OnPropertyChanged(nameof(CorrectCount));
             OnPropertyChanged(nameof(AverageAnswerTime));
+
+            OnPropertyChanged(nameof(CorrectCountIndicator));
+            OnPropertyChanged(nameof(WrongCountIndicator));
+            OnPropertyChanged(nameof(AverageAnswerTimeIndicator));
 
             OnPropertyChanged(nameof(WrongAnswerCountString));
             OnPropertyChanged(nameof(RightAnswerCountString));

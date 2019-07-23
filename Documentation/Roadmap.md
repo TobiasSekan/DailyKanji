@@ -9,7 +9,6 @@
 ## BUG
 
 ## Version 1.x
-* Show up or down indicator for wrong count, correct count and average answer time
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu

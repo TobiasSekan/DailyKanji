@@ -660,14 +660,32 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="test">The test with the statistics values before the answer was count</param>
         public void RefreshAndSetHighlightForStatisticValues(in TestBaseModel test)
         {
-            _baseModel.HighlightCorrectCounter = (test.CorrectHiraganaCount + test.CorrectKatakanaCount)
-                                              != (_baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount);
+            var correctBefore = test.CorrectHiraganaCount + test.CorrectKatakanaCount;
+            var correctAfter  = _baseModel.CurrentTest.CorrectHiraganaCount + _baseModel.CurrentTest.CorrectKatakanaCount;
 
-            _baseModel.HighlightWrongCounter = (test.WrongHiraganaCount + test.WrongKatakanaCount)
-                                            != (_baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount);
+            var wrongBefore = test.WrongHiraganaCount + test.WrongKatakanaCount;
+            var wrongAfter  = _baseModel.CurrentTest.WrongHiraganaCount + _baseModel.CurrentTest.WrongKatakanaCount;
 
-            _baseModel.HighlightAnswerTime = (test.AverageAnswerTimeForHiragana + test.AverageAnswerTimeForKatakana)
-                                          != (_baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana);
+            var answerTimeBefore = test.AverageAnswerTimeForHiragana + test.AverageAnswerTimeForKatakana;
+            var answerTimeAfter  = _baseModel.CurrentTest.AverageAnswerTimeForHiragana + _baseModel.CurrentTest.AverageAnswerTimeForKatakana;
+
+            if(correctBefore != correctAfter)
+            {
+                _baseModel.HighlightCorrectCounter = true;
+                _baseModel.CorrectCountIndicator   = correctBefore > correctAfter ? "⇧" : "⇩";
+            }
+
+            if(wrongBefore != wrongAfter)
+            {
+                _baseModel.HighlightWrongCounter = true;
+                _baseModel.WrongCountIndicator = wrongBefore > wrongAfter ? "⇧" : "⇩";
+            }
+
+            if(answerTimeBefore != answerTimeAfter)
+            {
+                _baseModel.HighlightAnswerTime = true;
+                _baseModel.AverageAnswerTimeIndicator = answerTimeBefore > answerTimeAfter ? "⇧" : "⇩";
+            }
 
             _baseModel.OnPropertyChangedOnlyForStatistics();
         }
@@ -680,6 +698,12 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.HighlightCorrectCounter = false;
             _baseModel.HighlightWrongCounter   = false;
             _baseModel.HighlightAnswerTime     = false;
+
+            _baseModel.CorrectCountIndicator      = string.Empty;
+            _baseModel.WrongCountIndicator        = string.Empty;
+            _baseModel.AverageAnswerTimeIndicator = string.Empty;
+
+            _baseModel.OnPropertyChangedOnlyForStatistics();
         }
 
         #endregion Public Methods
