@@ -2,6 +2,7 @@
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -44,11 +45,17 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.HighlightTimer    = new ManualResetEvent(false);
             _baseModel.ProgressBarColor  = progressBarColor;
 
+            var answerButtonColorList = new List<string>(10);
+            var hintTextColorList     = new List<string>(10);
+
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _baseModel.AnswerButtonColor.Add(baseColor);
-                _baseModel.HintTextColor.Add(baseColor);
+                answerButtonColorList.Add(baseColor);
+                hintTextColorList.Add(baseColor);
             }
+
+            _baseModel.AnswerButtonColor = answerButtonColorList;
+            _baseModel.HintTextColor     = hintTextColorList;
 
             BuildTestPool();
             ChooseNewSign(GetRandomKanaTest());
@@ -475,6 +482,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 _baseModel.AnswerButtonColor[answerNumber] = normalColor;
                 _baseModel.HintTextColor[answerNumber]     = normalColor;
             }
+
+            _baseModel.OnPropertyChangedForAnswerButtonColors();
         }
 
         /// <summary>
@@ -514,6 +523,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     _baseModel.HintTextColor[answerNumber] = hintColor;
                 }
             }
+
+            _baseModel.OnPropertyChangedForAnswerButtonColors();
         }
 
         /// <summary>

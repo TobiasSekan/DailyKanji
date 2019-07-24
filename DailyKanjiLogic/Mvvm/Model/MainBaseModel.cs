@@ -24,29 +24,13 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current colors of all answer buttons
         /// </summary>
         [JsonIgnore]
-        public ObservableCollection<string> AnswerButtonColor
-        {
-            get => _buttonColor;
-            set
-            {
-                _buttonColor = value;
-                OnPropertyChanged();
-            }
-        }
+        public IList<string> AnswerButtonColor { get; set; }
 
         /// <summary>
         /// The current colors of all answer hints
         /// </summary>
         [JsonIgnore]
-        public ObservableCollection<string> HintTextColor
-        {
-            get => _hintTextColor;
-            set
-            {
-                _hintTextColor = value;
-                OnPropertyChanged();
-            }
-        }
+        public IList<string> HintTextColor { get; set; }
 
         /// <summary>
         /// List that contains the complete test pool (one of this test will be ask each test round)
@@ -676,16 +660,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         #region Private Backing-Fields
 
         /// <summary>
-        /// Backing-field for <see cref="AnswerButtonColor"/>
-        /// </summary>
-        private ObservableCollection<string> _buttonColor;
-
-        /// <summary>
-        /// Backing-field for <see cref="HintTextColor"/>
-        /// </summary>
-        private ObservableCollection<string> _hintTextColor;
-
-        /// <summary>
         /// Backing-field for <see cref="PreviousTest"/>
         /// </summary>
         private TestBaseModel _previousTest;
@@ -835,14 +809,17 @@ namespace DailyKanjiLogic.Mvvm.Model
             CurrentTest                  = TestBaseModel.EmptyTest;
             _previousTest                = TestBaseModel.EmptyTest;
 
-            _buttonColor                 = new ObservableCollection<string>();
-            _hintTextColor               = new ObservableCollection<string>();
+            AnswerButtonColor            = new List<string>(10);
+            HintTextColor                = new List<string>(10);
 
             PossibleAnswers              = new Collection<TestBaseModel>();
             TestPool                     = new Collection<TestBaseModel>();
             AllTestsList                 = new Collection<TestBaseModel>();
 
             CurrentAskSign               = string.Empty;
+            _averageAnswerTimeIndicator  = string.Empty;
+            _correctCountIndicator       = string.Empty;
+            _wrongCountIndicator         = string.Empty;
             _progressBarColor            = "#FFADD8E6"; // Colors.LightBlue
             _currentAskSignColor         = "#00FFFFFF"; // Colors.Transparent
 
@@ -886,6 +863,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         public void OnPropertyChangeForAll()
         {
             OnPropertyChanged(nameof(CurrentAskSign));
+            OnPropertyChanged(nameof(AllTestsList));
 
             OnPropertyChangedOnlyForStatistics();
         }
@@ -908,8 +886,12 @@ namespace DailyKanjiLogic.Mvvm.Model
             OnPropertyChanged(nameof(RightAnswerCountString));
             OnPropertyChanged(nameof(CurrentRateText));
             OnPropertyChanged(nameof(TestPool));
+        }
 
-            OnPropertyChanged(nameof(AllTestsList));
+        public void OnPropertyChangedForAnswerButtonColors()
+        {
+            OnPropertyChanged(nameof(AnswerButtonColor));
+            OnPropertyChanged(nameof(HintTextColor));
         }
 
         /// <summary>
@@ -959,11 +941,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             HighlightTimer.Dispose();
 
-            AnswerButtonColor.Clear();
-            HintTextColor.Clear();
-
             PreviousTest         = TestBaseModel.EmptyTest;
             CurrentTest          = TestBaseModel.EmptyTest;
+
+            AnswerButtonColor.Clear();
+            HintTextColor.Clear();
 
             TestPool             = Enumerable.Empty<TestBaseModel>();
             AllTestsList         = Enumerable.Empty<TestBaseModel>();
