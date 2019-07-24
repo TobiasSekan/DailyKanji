@@ -683,19 +683,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             if(correctBefore != correctAfter)
             {
                 _baseModel.HighlightCorrectCounter = true;
-                _baseModel.CorrectCountIndicator   = correctBefore > correctAfter ? "⇧" : "⇩";
+                _baseModel.CorrectCountIndicator   = correctBefore < correctAfter ? "⇧" : "⇩";
             }
 
             if(wrongBefore != wrongAfter)
             {
                 _baseModel.HighlightWrongCounter = true;
-                _baseModel.WrongCountIndicator = wrongBefore > wrongAfter ? "⇧" : "⇩";
+                _baseModel.WrongCountIndicator   = wrongBefore < wrongAfter ? "⇧" : "⇩";
             }
 
             if(answerTimeBefore != answerTimeAfter)
             {
-                _baseModel.HighlightAnswerTime = true;
-                _baseModel.AverageAnswerTimeIndicator = answerTimeBefore > answerTimeAfter ? "⇧" : "⇩";
+                _baseModel.HighlightAnswerTime        = true;
+                _baseModel.AverageAnswerTimeIndicator = answerTimeBefore < answerTimeAfter ? "⇧" : "⇩";
             }
 
             _baseModel.OnPropertyChangedOnlyForStatistics();
