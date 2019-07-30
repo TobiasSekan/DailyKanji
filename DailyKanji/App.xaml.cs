@@ -55,6 +55,7 @@ namespace DailyKanji
                 }
 
                 mainViewModel.Dispose();
+                model.Dispose();
             };
 
             mainWindow.Show();

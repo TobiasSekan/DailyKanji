@@ -256,10 +256,10 @@ namespace DailyKanji.Mvvm.ViewModel
             Task.Run(() =>
             {
                 _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetHighlightColors(answerTemp,
-                                                                                      ColorHelper.CorrectColor,
-                                                                                      result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                                                                      ColorHelper.NoneSelectedColor,
-                                                                                      ColorHelper.AnswerHintTextColor));
+                                                                                       ColorHelper.CorrectColor,
+                                                                                       result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
+                                                                                       ColorHelper.NoneSelectedColor,
+                                                                                       ColorHelper.AnswerHintTextColor));
 
                 _baseViewModel.PrepareNewTest();
 
@@ -287,23 +287,25 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
+                    var anserElement = _model.AnswerElements.ElementAtOrDefault(answerNumber);
+                    if(anserElement == null)
+                    {
+                        continue;
+                    }
+
                     if(answerNumber < _baseModel.MaximumAnswers)
                     {
                         var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                         var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
                         var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
-                        _mainWindow.AnswerButtonColumn[answerNumber].Width = new GridLength(1, GridUnitType.Star);
-
-                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Visible;
-                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Visible;
-                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Visible;
-
-                        _mainWindow.AnswerTextList[answerNumber].Text          = answerText;
-                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = _baseViewModel.GetAnswerHint(answer);
-                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = _baseModel.ShowAnswerShortcuts
-                                ? inputGestureText
-                                : string.Empty;
+                        anserElement.AnswerButtonColumn.Width      = new GridLength(1, GridUnitType.Star);
+                        anserElement.Button.Visibility             = Visibility.Visible;
+                        anserElement.AnswerShortCutText.Visibility = Visibility.Visible;
+                        anserElement.AnswerHintText.Visibility     = Visibility.Visible;
+                        anserElement.AnswerText.Text               = answerText;
+                        anserElement.AnswerHintText.Text           = _baseViewModel.GetAnswerHint(answer);
+                        anserElement.AnswerShortCutText.Text       = _baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty;
 
                         _mainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
@@ -323,15 +325,13 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
                     else
                     {
-                        _mainWindow.AnswerButtonColumn[answerNumber].Width = GridLength.Auto;
-
-                        _mainWindow.ButtonList[answerNumber].Visibility              = Visibility.Collapsed;
-                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Visibility = Visibility.Collapsed;
-                        _mainWindow.AnswerHintTextBlock[answerNumber].Visibility     = Visibility.Collapsed;
-
-                        _mainWindow.AnswerTextList[answerNumber].Text          = string.Empty;
-                        _mainWindow.AnswerHintTextBlock[answerNumber].Text     = string.Empty;
-                        _mainWindow.AnswerShortCutTextBlock[answerNumber].Text = string.Empty;
+                        anserElement.AnswerButtonColumn.Width      = GridLength.Auto;
+                        anserElement.Button.Visibility             = Visibility.Collapsed;
+                        anserElement.AnswerHintText.Visibility     = Visibility.Collapsed;
+                        anserElement.AnswerShortCutText.Visibility = Visibility.Collapsed;
+                        anserElement.AnswerText.Text               = string.Empty;
+                        anserElement.AnswerHintText.Text           = string.Empty;
+                        anserElement.AnswerShortCutText.Text       = string.Empty;
                     }
                 }
             });

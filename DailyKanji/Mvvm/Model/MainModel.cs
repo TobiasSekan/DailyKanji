@@ -1,12 +1,13 @@
 ﻿using DailyKanjiLogic.Helper;
 using System;
+using System.Collections.Generic;
 using System.Timers;
 
 #nullable enable
 
 namespace DailyKanji.Mvvm.Model
 {
-    public sealed class MainModel : PropertyChangedHelper
+    public sealed class MainModel : PropertyChangedHelper, IDisposable
     {
         #region Public Properties
 
@@ -50,6 +51,8 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal Timer TestTimer { get; set; }
 
+        internal IList<AnswerViewElement> AnswerElements { get; }
+
         #endregion Internal Properties
 
         #region Private Backing-fields
@@ -70,7 +73,11 @@ namespace DailyKanji.Mvvm.Model
         {
             ProgressPrefreshInterval = new TimeSpan(0, 0, 0, 0, 15);
             TestTimer                = new Timer(ProgressPrefreshInterval.TotalMilliseconds);
+            AnswerElements           = new List<AnswerViewElement>(10);
         }
+
+        public void Dispose()
+            => AnswerElements.Clear();
 
         #endregion Internal Constructors
     }
