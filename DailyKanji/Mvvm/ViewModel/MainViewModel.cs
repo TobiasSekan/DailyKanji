@@ -28,7 +28,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Move "MainWindow" property out of the "MainViewModel"
+    // TODO: Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -90,23 +90,17 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// The window contains all elements of the main window
         /// </summary>
-        private MainWindow _mainWindow { get; }
-
-        /// <summary>
-        /// The name of the settings file (this file contains all settings and statistics)
-        /// </summary>
-        private string _settingsFileName { get; }
+        internal MainWindow? _mainWindow { private get; set; }
 
         #endregion Private Properties
 
         #region Internal Constructors
 
-        internal MainViewModel(MainModel model, MainBaseModel baseModel, MainBaseViewModel baseViewModel, string settingsFileName)
+        internal MainViewModel(MainBaseModel baseModel, MainModel model, MainBaseViewModel baseViewModel)
         {
             _model            = model;
             _baseModel        = baseModel;
             _baseViewModel    = baseViewModel;
-            _settingsFileName = settingsFileName;
 
             _model.TestTimer.Elapsed += (_, __) =>
             {
@@ -123,42 +117,10 @@ namespace DailyKanji.Mvvm.ViewModel
             };
 
             CheckForNewVersion();
+            GamepadTest();
 
             _baseViewModel.PrepareNewTest();
             _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
-
-            // TODO: move initialization out of the view-model
-            _mainWindow = new MainWindow(baseModel, model, this);
-
-            _mainWindow.Closed += (_, __) =>
-            {
-                SetWindowSizeAndPositionInTheMainModel();
-
-                if(!_baseViewModel.TrySaveSettings(_settingsFileName, out var saveException))
-                {
-                    MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
-                                    $"Error on save {_settingsFileName}",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
-                }
-
-                // -> System.Windows.Data Error: 17 :
-                // 
-                // Replace "ObservableCollection" with normal collections/lists
-                //
-                // AnswerButtonColor
-                // HintTextColor
-                //
-                Dispose();
-            };
-
-            ShowAndStartNewTest();
-
-            GamepadTest();
-
-            _mainWindow.Show();
-
-            MoveAndResizeWindowToLastPosition();
         }
 
         #endregion Internal Constructors
@@ -171,6 +133,20 @@ namespace DailyKanji.Mvvm.ViewModel
         #endregion IDisposable Implementation
 
         #region Internal Methods
+
+        /// <summary>
+        /// Do all work to show and start a new test
+        /// </summary>
+        internal void ShowAndStartNewTest()
+        {
+            BuildAnswerMenuAndButtons();
+
+            _baseModel.OnPropertyChangeForAll();
+
+            RestartTestTimer();
+
+            _baseModel.IgnoreInput = false;
+        }
 
         /// <summary>
         /// Restart the test timer (Start time is <see cref="DateTime.UtcNow"/>)
@@ -191,23 +167,58 @@ namespace DailyKanji.Mvvm.ViewModel
             _model.TestTimer.Start();
         }
 
+        /// <summary>
+        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="_baseModel"/>
+        /// </summary>
+        internal void MoveAndResizeWindowToLastPosition()
+        {
+            if(_mainWindow is null)
+            {
+                return;
+            }
+
+            if(!double.IsNaN(_baseModel.WindowHigh))
+            {
+                _mainWindow.Height = _baseModel.WindowHigh;
+            }
+
+            if(!double.IsNaN(_baseModel.WindowWidth))
+            {
+                _mainWindow.Width = _baseModel.WindowWidth;
+            }
+
+            if(!double.IsNaN(_baseModel.LeftPosition))
+            {
+                _mainWindow.Left = _baseModel.LeftPosition;
+            }
+
+            if(double.IsNaN(_baseModel.TopPosition))
+            {
+                return;
+            }
+
+            _mainWindow.Top = _baseModel.TopPosition;
+        }
+
+        /// <summary>
+        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="_mainWindow"/>
+        /// </summary>
+        internal void SetWindowSizeAndPositionInTheMainModel()
+        {
+            if(_mainWindow == null)
+            {
+                return;
+            }
+
+            _baseModel.WindowHigh   = _mainWindow.Height;
+            _baseModel.WindowWidth  = _mainWindow.Width;
+            _baseModel.LeftPosition = _mainWindow.Left;
+            _baseModel.TopPosition  = _mainWindow.Top;
+        }
+
         #endregion Internal Methods
 
         #region Private Methods
-
-        /// <summary>
-        /// Do all work to show and start a new test
-        /// </summary>
-        private void ShowAndStartNewTest()
-        {
-            BuildAnswerMenuAndButtons();
-
-            _baseModel.OnPropertyChangeForAll();
-
-            RestartTestTimer();
-
-            _baseModel.IgnoreInput = false;
-        }
 
         /// <summary>
         /// Check if the given answer is correct
@@ -244,7 +255,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
-                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetHighlightColors(answerTemp,
+                _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetHighlightColors(answerTemp,
                                                                                       ColorHelper.CorrectColor,
                                                                                       result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
                                                                                       ColorHelper.NoneSelectedColor,
@@ -256,7 +267,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 _baseViewModel.ResetHighlight();
 
-                _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
+                _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
 
                 ShowAndStartNewTest();
             });
@@ -269,7 +280,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             var answersType = _baseViewModel.GetAnswerType();
 
-            _mainWindow?.Dispatcher?.Invoke(() =>
+            _mainWindow?.Dispatcher.Invoke(() =>
             {
                 _mainWindow.AnswerMenu.Items.Clear();
                 _mainWindow.MarkMenu.Items.Clear();
@@ -429,53 +440,9 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            _mainWindow.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
+            _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
                                                                                                     ColorHelper.NoneSelectedColor,
                                                                                                     ColorHelper.TransparentColor));
-        }
-
-        /// <summary>
-        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="_baseModel"/>
-        /// </summary>
-        private void MoveAndResizeWindowToLastPosition()
-        {
-            if(_mainWindow is null)
-            {
-                return;
-            }
-
-            if(!double.IsNaN(_baseModel.WindowHigh))
-            {
-                _mainWindow.Height = _baseModel.WindowHigh;
-            }
-
-            if(!double.IsNaN(_baseModel.WindowWidth))
-            {
-                _mainWindow.Width = _baseModel.WindowWidth;
-            }
-
-            if(!double.IsNaN(_baseModel.LeftPosition))
-            {
-                _mainWindow.Left = _baseModel.LeftPosition;
-            }
-
-            if(double.IsNaN(_baseModel.TopPosition))
-            {
-                return;
-            }
-
-            _mainWindow.Top = _baseModel.TopPosition;
-        }
-
-        /// <summary>
-        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="_mainWindow"/>
-        /// </summary>
-        private void SetWindowSizeAndPositionInTheMainModel()
-        {
-            _baseModel.WindowHigh   = _mainWindow.Height;
-            _baseModel.WindowWidth  = _mainWindow.Width;
-            _baseModel.LeftPosition = _mainWindow.Left;
-            _baseModel.TopPosition  = _mainWindow.Top;
         }
 
         #endregion Private Methods

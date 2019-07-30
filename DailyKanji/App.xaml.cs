@@ -1,5 +1,6 @@
 ﻿using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
+using DailyKanji.Mvvm.View;
 using DailyKanji.Mvvm.ViewModel;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using System;
@@ -15,23 +16,48 @@ namespace DailyKanji
         /// <summary>
         /// The name of the settings file (this file contains all settings and statistics)
         /// </summary>
-        private static string _settingFileName
+        private static string _settingsFileName
             => "settings.json";
 
         private void Application_Startup(object sender, EventArgs e)
         {
-            if(!MainBaseViewModel.TryLoadSettings(_settingFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
+            // TODO: move this calls back to the "mainViewModel" constructor
+            if(!MainBaseViewModel.TryLoadSettings(_settingsFileName, out var baseModel, out var loadException) && !(loadException is FileNotFoundException))
             {
                 MessageBox.Show($"Can't load settings{Environment.NewLine}{Environment.NewLine}{loadException}",
-                                $"Error on save {_settingFileName}",
+                                $"Error on save {_settingsFileName}",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
 
             var model         = new MainModel();
             var baseViewModel = new MainBaseViewModel(baseModel, ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+            var mainViewModel = new MainViewModel(baseModel, model, baseViewModel);
+            var mainWindow    = new MainWindow(baseModel, model, mainViewModel);
 
-            new MainViewModel(model, baseModel, baseViewModel, _settingFileName);
+            // TODO: The "mainViewModel" should not contain the view model
+            mainViewModel._mainWindow = mainWindow;
+
+            // TODO: move this calls back to the "mainViewModel" constructor
+            mainViewModel.ShowAndStartNewTest();
+            mainViewModel.MoveAndResizeWindowToLastPosition();
+
+            mainWindow.Closed += (_, __) =>
+            {
+                mainViewModel.SetWindowSizeAndPositionInTheMainModel();
+
+                if(!baseViewModel.TrySaveSettings(_settingsFileName, out var saveException))
+                {
+                    MessageBox.Show($"Can't save settings{Environment.NewLine}{Environment.NewLine}{saveException}",
+                                    $"Error on save {_settingsFileName}",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
+
+                mainViewModel.Dispose();
+            };
+
+            mainWindow.Show();
         }
     }
 }
