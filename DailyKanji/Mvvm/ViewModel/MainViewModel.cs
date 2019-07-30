@@ -255,11 +255,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
-                _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetHighlightColors(answerTemp,
-                                                                                       ColorHelper.CorrectColor,
-                                                                                       result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                                                                       ColorHelper.NoneSelectedColor,
-                                                                                       ColorHelper.AnswerHintTextColor));
+                _baseViewModel.SetHighlightColors(answerTemp,
+                                                  ColorHelper.CorrectColor,
+                                                  result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
+                                                  ColorHelper.NoneSelectedColor,
+                                                  ColorHelper.AnswerHintTextColor);
 
                 _baseViewModel.PrepareNewTest();
 
@@ -267,7 +267,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 _baseViewModel.ResetHighlight();
 
-                _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor));
+                _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
 
                 ShowAndStartNewTest();
             });
