@@ -147,7 +147,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                         0 => _baseModel.CurrentTest.Hiragana,
                         1 => _baseModel.CurrentTest.Katakana,
                         2 => _baseModel.CurrentTest.Roomaji,
-                        _ => throw new ArgumentOutOfRangeException(nameof(random), $"[{random}] is not between 0 and 2"),
+                        _ => throw new ArgumentOutOfRangeException(nameof(random), $"[{random.ToString()}] is not between 0 and 2"),
                     };
                     break;
 
@@ -298,11 +298,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
                         "Test type combination not supported\n"
-                        + $"SelectedTestType:     [{_baseModel.SelectedTestType}]\n"
+                        + $"SelectedTestType:     [{_baseModel.SelectedTestType.ToString()}]\n"
                         + $"CurrentAskSign:       [{_baseModel.CurrentAskSign}]\n"
                         + $"CurrentTest.Katakana: [{_baseModel.CurrentTest.Katakana}]\n"
                         + $"CurrentTest.Hiragana: [{_baseModel.CurrentTest.Hiragana}]\n"
-                        + $"answer.AnswerType:    [{answer.AnswerType}]");
+                        + $"answer.AnswerType:    [{answer.AnswerType.ToString()}]");
             }
 
             // Reset the AnswerType - only for testing / debugging

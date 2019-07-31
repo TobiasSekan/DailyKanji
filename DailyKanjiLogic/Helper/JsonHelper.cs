@@ -23,18 +23,17 @@ namespace DailyKanjiLogic.Helper
                 throw new FileNotFoundException("Path contains illegal characters", filename);
             }
 
-            using(var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using(var streamReader = new StreamReader(fileStream))
+            using var fileStream   = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var streamReader = new StreamReader(fileStream);
+
+            TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
+
+            if(!(exception is null))
             {
-                TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
-
-                if(!(exception is null))
-                {
-                    throw exception;
-                }
-
-                return newObject;
+                throw exception;
             }
+
+            return newObject;
         }
 
         /// <summary>

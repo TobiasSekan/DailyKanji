@@ -23,7 +23,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Command for close the program (same as ALT+F4)
         /// </summary>
         public ICommand CommandCloseProgram
-            => new CommandHelperSlim(() => _mainWindow?.Close());
+            => new CommandHelperSlim(() => MainWindow?.Close());
 
         #endregion Commands - File Menu
 
@@ -66,7 +66,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var maximumAnswers))
                     {
-                        Debug.Fail($"can't parse [{maximumAnswers}] into [byte] value");
+                        Debug.Fail($"can't parse [{maximumAnswers.ToString()}] into [byte] value");
                         return;
                     }
 
@@ -169,7 +169,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
-                        Debug.Fail($"can't parse [{answerNumber}] into a [byte] value");
+                        Debug.Fail($"can't parse [{answerNumber.ToString()}] into a [byte] value");
                         return;
                     }
 
@@ -265,7 +265,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
-                        Debug.Fail($"can't parse [{answerNumber}] into a [byte] value");
+                        Debug.Fail($"can't parse [{answerNumber.ToString()}] into a [byte] value");
                         return;
                     }
 

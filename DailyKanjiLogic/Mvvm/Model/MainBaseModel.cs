@@ -171,13 +171,13 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         [JsonIgnore]
         public string WrongAnswerCountString
-            => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount)}"
-             + $" K: {AllTestsList.Sum(found => found.WrongKatakanaCount)}";
+            => $"H: {AllTestsList.Sum(found => found.WrongHiraganaCount).ToString()}"
+             + $" K: {AllTestsList.Sum(found => found.WrongKatakanaCount).ToString()}";
 
         [JsonIgnore]
         public string RightAnswerCountString
-            => $"H: {AllTestsList.Sum(found => found.CorrectHiraganaCount)}"
-             + $" K: {AllTestsList.Sum(found => found.CorrectKatakanaCount)}";
+            => $"H: {AllTestsList.Sum(found => found.CorrectHiraganaCount).ToString()}"
+             + $" K: {AllTestsList.Sum(found => found.CorrectKatakanaCount).ToString()}";
 
         /// <summary>
         /// Return a short <see cref="string"/> for the current <see cref="SelectedTestType"/>
@@ -212,7 +212,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                 var rightAnswerCount = AllTestsList.Sum(found => found.CorrectHiraganaCount + found.CorrectKatakanaCount);
 
                 return wrongAnswerCount != 0
-                    ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2)}%"
+                    ? $"{Math.Round(100.0 / (wrongAnswerCount + rightAnswerCount) * rightAnswerCount, 2).ToString()}%"
                     : "100%";
             }
         }
@@ -239,7 +239,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Hiragana:
-                        return $"{CurrentTest.WrongHiraganaCount}";
+                        return $"{CurrentTest.WrongHiraganaCount.ToString()}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
@@ -247,11 +247,11 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Katakana:
-                        return $"{CurrentTest.WrongKatakanaCount}";
+                        return $"{CurrentTest.WrongKatakanaCount.ToString()}";
 
                     case TestType.RoomajiToHiraganaOrKatakana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Roomaji:
-                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
+                        return $"H: {CurrentTest.CorrectHiraganaCount.ToString()} - K: {CurrentTest.CorrectKatakanaCount.ToString()}";
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SelectedTestType), SelectedTestType, "test type is not supported");
@@ -281,7 +281,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Hiragana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Hiragana:
-                        return $"{CurrentTest.CorrectHiraganaCount}";
+                        return $"{CurrentTest.CorrectHiraganaCount.ToString()}";
 
                     case TestType.KatakanaToRoomaji:
                     case TestType.RoomajiToKatakana:
@@ -289,11 +289,11 @@ namespace DailyKanjiLogic.Mvvm.Model
                     case TestType.HiraganaToKatakanaOrKatakanaToHiragana when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.HiraganaOrKatakanaToRoomaji when CurrentAskSign == CurrentTest.Katakana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Katakana:
-                        return $"{CurrentTest.CorrectKatakanaCount}";
+                        return $"{CurrentTest.CorrectKatakanaCount.ToString()}";
 
                     case TestType.RoomajiToHiraganaOrKatakana:
                     case TestType.AllToAll when CurrentAskSign == CurrentTest.Roomaji:
-                        return $"H: {CurrentTest.CorrectHiraganaCount} - K: {CurrentTest.CorrectKatakanaCount}";
+                        return $"H: {CurrentTest.CorrectHiraganaCount.ToString()} - K: {CurrentTest.CorrectKatakanaCount.ToString()}";
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SelectedTestType), SelectedTestType, "test type is not supported");
@@ -883,7 +883,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Check if all values of this model are in range and use default values, when not
         /// </summary>
         public void CheckAndFixValues()
-        {
+            {
             if(double.IsInfinity(LeftPosition))
             {
                 LeftPosition = double.NaN;
@@ -912,10 +912,12 @@ namespace DailyKanjiLogic.Mvvm.Model
                 HighlightTimeout = maxTime;
             }
 
-            if(MaximumAnswerTimeout < minTime || MaximumAnswerTimeout > maxTime)
+            if(MaximumAnswerTimeout >= minTime && MaximumAnswerTimeout <= maxTime)
             {
-                MaximumAnswerTimeout = maxTime;
+                return;
             }
+
+            MaximumAnswerTimeout = maxTime;
         }
 
         #endregion Public Methods

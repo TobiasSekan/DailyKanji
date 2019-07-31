@@ -36,7 +36,7 @@ namespace DailyKanji
             var mainWindow    = new MainWindow(baseModel, model, mainViewModel);
 
             // TODO: The "mainViewModel" should not contain the view model
-            mainViewModel._mainWindow = mainWindow;
+            mainViewModel.MainWindow = mainWindow;
 
             // TODO: move this calls back to the "mainViewModel" constructor
             mainViewModel.ShowAndStartNewTest();

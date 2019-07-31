@@ -90,7 +90,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// The window contains all elements of the main window
         /// </summary>
-        internal MainWindow? _mainWindow { private get; set; }
+        internal MainWindow? MainWindow { private get; set; }
 
         #endregion Private Properties
 
@@ -168,28 +168,28 @@ namespace DailyKanji.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Move and resize the <see cref="_mainWindow"/>, based on the values inside the <see cref="_baseModel"/>
+        /// Move and resize the <see cref="MainWindow"/>, based on the values inside the <see cref="_baseModel"/>
         /// </summary>
         internal void MoveAndResizeWindowToLastPosition()
         {
-            if(_mainWindow is null)
+            if(MainWindow is null)
             {
                 return;
             }
 
             if(!double.IsNaN(_baseModel.WindowHigh))
             {
-                _mainWindow.Height = _baseModel.WindowHigh;
+                MainWindow.Height = _baseModel.WindowHigh;
             }
 
             if(!double.IsNaN(_baseModel.WindowWidth))
             {
-                _mainWindow.Width = _baseModel.WindowWidth;
+                MainWindow.Width = _baseModel.WindowWidth;
             }
 
             if(!double.IsNaN(_baseModel.LeftPosition))
             {
-                _mainWindow.Left = _baseModel.LeftPosition;
+                MainWindow.Left = _baseModel.LeftPosition;
             }
 
             if(double.IsNaN(_baseModel.TopPosition))
@@ -197,23 +197,23 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            _mainWindow.Top = _baseModel.TopPosition;
+            MainWindow.Top = _baseModel.TopPosition;
         }
 
         /// <summary>
-        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="_mainWindow"/>
+        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="MainWindow"/>
         /// </summary>
         internal void SetWindowSizeAndPositionInTheMainModel()
         {
-            if(_mainWindow == null)
+            if(MainWindow == null)
             {
                 return;
             }
 
-            _baseModel.WindowHigh   = _mainWindow.Height;
-            _baseModel.WindowWidth  = _mainWindow.Width;
-            _baseModel.LeftPosition = _mainWindow.Left;
-            _baseModel.TopPosition  = _mainWindow.Top;
+            _baseModel.WindowHigh   = MainWindow.Height;
+            _baseModel.WindowWidth  = MainWindow.Width;
+            _baseModel.LeftPosition = MainWindow.Left;
+            _baseModel.TopPosition  = MainWindow.Top;
         }
 
         #endregion Internal Methods
@@ -280,10 +280,10 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             var answersType = _baseViewModel.GetAnswerType();
 
-            _mainWindow?.Dispatcher.Invoke(() =>
+            MainWindow?.Dispatcher.Invoke(() =>
             {
-                _mainWindow.AnswerMenu.Items.Clear();
-                _mainWindow.MarkMenu.Items.Clear();
+                MainWindow.AnswerMenu.Items.Clear();
+                MainWindow.MarkMenu.Items.Clear();
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
@@ -297,7 +297,7 @@ namespace DailyKanji.Mvvm.ViewModel
                     {
                         var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                         var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                        var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
+                        var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
 
                         anserElement.AnswerButtonColumn.Width      = new GridLength(1, GridUnitType.Star);
                         anserElement.Button.Visibility             = Visibility.Visible;
@@ -307,7 +307,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         anserElement.AnswerHintText.Text           = _baseViewModel.GetAnswerHint(answer);
                         anserElement.AnswerShortCutText.Text       = _baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty;
 
-                        _mainWindow.AnswerMenu.Items.Add(new MenuItem
+                        MainWindow.AnswerMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -315,7 +315,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             InputGestureText = inputGestureText
                         });
 
-                        _mainWindow.MarkMenu.Items.Add(new MenuItem
+                        MainWindow.MarkMenu.Items.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -402,33 +402,32 @@ namespace DailyKanji.Mvvm.ViewModel
 
             var maxButtonCount = Math.Min(_baseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
 
-            using(var manualResetEvent = new ManualResetEvent(false))
+            Task.Run(() =>
             {
-                Task.Run(() =>
-                {
-                    while(true)
-                    {
-                        manualResetEvent.WaitOne(100);
+                using var manualResetEvent = new ManualResetEvent(false);
 
-                        var gamepadButtonState = gamepad.GetCurrentState();
-                        if(gamepadButtonState is null)
+                while(true)
+                {
+                    manualResetEvent.WaitOne(100);
+
+                    var gamepadButtonState = gamepad.GetCurrentState();
+                    if(gamepadButtonState is null)
+                    {
+                        continue;
+                    }
+
+                    for(var button = 0; button < maxButtonCount; button++)
+                    {
+                        if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
                         {
                             continue;
                         }
 
-                        for(var button = 0; button < maxButtonCount; button++)
-                        {
-                            if(!gamepadButtonState.Buttons.ElementAtOrDefault(button))
-                            {
-                                continue;
-                            }
-
-                            // TODO: check if "button + 1" is the correct value
-                            CheckSelectedAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
-                        }
+                        // TODO: check if "button + 1" is the correct value
+                        CheckSelectedAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
                     }
-                });
-            }
+                }
+            });
         }
 
         /// <summary>
@@ -440,7 +439,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            _mainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
+            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
                                                                                                     ColorHelper.NoneSelectedColor,
                                                                                                     ColorHelper.TransparentColor));
         }
