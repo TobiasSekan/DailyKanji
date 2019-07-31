@@ -1,7 +1,9 @@
 ﻿using DailyKanjiLogic.Helper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Timers;
+using System.Windows.Controls;
 
 #nullable enable
 
@@ -42,6 +44,10 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        public ObservableCollection<MenuItem> AnswerMenu { get; set; }
+
+        public ObservableCollection<MenuItem> MarkMenu { get; set; }
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -73,6 +79,8 @@ namespace DailyKanji.Mvvm.Model
         {
             ProgressPrefreshInterval = new TimeSpan(0, 0, 0, 0, 15);
             TestTimer                = new Timer(ProgressPrefreshInterval.TotalMilliseconds);
+            AnswerMenu               = new ObservableCollection<MenuItem>();
+            MarkMenu                 = new ObservableCollection<MenuItem>();
             AnswerElements           = new List<AnswerViewElement>(10);
         }
 

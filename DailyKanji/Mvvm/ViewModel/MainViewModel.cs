@@ -25,10 +25,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
+    // Mark a answer is completely broken
 
     // Version 1.x
     // -----------
     // TODO: Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
+    // TODO: Add option to hide sign statistics on main window
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -282,8 +284,8 @@ namespace DailyKanji.Mvvm.ViewModel
 
             MainWindow?.Dispatcher.Invoke(() =>
             {
-                MainWindow.AnswerMenu.Items.Clear();
-                MainWindow.MarkMenu.Items.Clear();
+                _model.AnswerMenu.Clear();
+                _model.MarkMenu.Clear();
 
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
@@ -307,7 +309,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         anserElement.AnswerHintText.Text           = _baseViewModel.GetAnswerHint(answer);
                         anserElement.AnswerShortCutText.Text       = _baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty;
 
-                        MainWindow.AnswerMenu.Items.Add(new MenuItem
+                        _model.AnswerMenu.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -315,7 +317,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             InputGestureText = inputGestureText
                         });
 
-                        MainWindow.MarkMenu.Items.Add(new MenuItem
+                        _model.MarkMenu.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
