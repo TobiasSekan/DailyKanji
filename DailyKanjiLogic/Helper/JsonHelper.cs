@@ -54,12 +54,11 @@ namespace DailyKanjiLogic.Helper
                 Formatting = Formatting.Indented
             };
 
-            using(var fileStream     = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            using(var streamWriter   = new StreamWriter(fileStream))
-            using(var jsonTextWriter = new JsonTextWriter(streamWriter))
-            {
-                serializer.Serialize(jsonTextWriter, objectToTransform);
-            }
+            using var fileStream     = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+            using var streamWriter   = new StreamWriter(fileStream);
+            using var jsonTextWriter = new JsonTextWriter(streamWriter);
+
+            serializer.Serialize(jsonTextWriter, objectToTransform);
         }
 
         /// <summary>
