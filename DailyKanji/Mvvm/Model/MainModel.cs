@@ -1,7 +1,6 @@
 ﻿using DailyKanjiLogic.Helper;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Timers;
 using System.Windows.Controls;
 
@@ -44,9 +43,41 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        public ObservableCollection<MenuItem> AnswerMenu { get; set; }
+        /// <summary>
+        /// List that contains all entries for the "Answer" menu
+        /// </summary>
+        public IList<MenuItem> AnswerMenu
+        {
+            get => _answerMenu;
+            set
+            {
+                if(_answerMenu == value)
+                {
+                    return;
+                }
 
-        public ObservableCollection<MenuItem> MarkMenu { get; set; }
+                _answerMenu = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// List that contains all entries for the "Mark" menu
+        /// </summary>
+        public IList<MenuItem> MarkMenu
+        {
+            get => _markMenu;
+            set
+            {
+                if(_markMenu == value)
+                {
+                    return;
+                }
+
+                _markMenu = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion Public Properties
 
@@ -57,6 +88,9 @@ namespace DailyKanji.Mvvm.Model
         /// </summary>
         internal Timer TestTimer { get; set; }
 
+        /// <summary>
+        /// List that contains all values for the visible answers
+        /// </summary>
         internal IList<AnswerViewElement> AnswerElements { get; }
 
         #endregion Internal Properties
@@ -67,6 +101,16 @@ namespace DailyKanji.Mvvm.Model
         /// Backing-field for <see cref="ProgressPrefreshInterval"/>
         /// </summary>
         private TimeSpan _progressPrefreshInterval;
+
+        /// <summary>
+        /// Backing-field for <see cref="AnswerMenu"/>
+        /// </summary>
+        private IList<MenuItem> _answerMenu;
+
+        /// <summary>
+        /// Backing-field for <see cref="MarkMenu"/>
+        /// </summary>
+        private IList<MenuItem> _markMenu;
 
         #endregion Private Backing-fields
 
@@ -79,14 +123,22 @@ namespace DailyKanji.Mvvm.Model
         {
             ProgressPrefreshInterval = new TimeSpan(0, 0, 0, 0, 15);
             TestTimer                = new Timer(ProgressPrefreshInterval.TotalMilliseconds);
-            AnswerMenu               = new ObservableCollection<MenuItem>();
-            MarkMenu                 = new ObservableCollection<MenuItem>();
+            _answerMenu              = new List<MenuItem>(10);
+            _markMenu                = new List<MenuItem>(10);
             AnswerElements           = new List<AnswerViewElement>(10);
         }
 
-        public void Dispose()
-            => AnswerElements.Clear();
-
         #endregion Internal Constructors
+
+        #region IDisposable Implementation
+
+        public void Dispose()
+        {
+            AnswerElements.Clear();
+            _answerMenu.Clear();
+            _markMenu.Clear();
+        }
+
+        #endregion IDisposable Implementation
     }
 }

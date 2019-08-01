@@ -5,6 +5,7 @@ using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -281,12 +282,11 @@ namespace DailyKanji.Mvvm.ViewModel
         private void BuildAnswerMenuAndButtons()
         {
             var answersType = _baseViewModel.GetAnswerType();
+            var answerMenu  = new List<MenuItem>(10);
+            var markMenu    = new List<MenuItem>(10);
 
             MainWindow?.Dispatcher.Invoke(() =>
             {
-                _model.AnswerMenu.Clear();
-                _model.MarkMenu.Clear();
-
                 for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
                     var anserElement = _model.AnswerElements.ElementAtOrDefault(answerNumber);
@@ -309,7 +309,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         anserElement.AnswerHintText.Text           = _baseViewModel.GetAnswerHint(answer);
                         anserElement.AnswerShortCutText.Text       = _baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty;
 
-                        _model.AnswerMenu.Add(new MenuItem
+                        answerMenu.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -317,7 +317,7 @@ namespace DailyKanji.Mvvm.ViewModel
                             InputGestureText = inputGestureText
                         });
 
-                        _model.MarkMenu.Add(new MenuItem
+                        markMenu.Add(new MenuItem
                         {
                             Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
                             CommandParameter = answer,
@@ -336,6 +336,9 @@ namespace DailyKanji.Mvvm.ViewModel
                         anserElement.AnswerShortCutText.Text       = string.Empty;
                     }
                 }
+
+                _model.AnswerMenu = answerMenu;
+                _model.MarkMenu   = markMenu;
             });
         }
 
