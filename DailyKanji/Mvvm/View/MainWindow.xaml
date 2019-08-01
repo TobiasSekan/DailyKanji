@@ -653,7 +653,7 @@
                  Foreground="{Binding BaseModel.HintTextColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
                  TextAlignment="Center" />
 
-      <Button x:Name="Button01"
+      <Button x:Name="AnswerButton01"
               Grid.Row="1"
               Grid.Column="0"
               Margin="5"
@@ -668,7 +668,7 @@
 
       </Button>
 
-      <Button x:Name="Button02"
+      <Button x:Name="AnswerButton02"
               Grid.Row="1"
               Grid.Column="1"
               Margin="5"
@@ -683,7 +683,7 @@
 
       </Button>
 
-      <Button x:Name="Button03"
+      <Button x:Name="AnswerButton03"
               Grid.Row="1"
               Grid.Column="2"
               Margin="5"
@@ -698,7 +698,7 @@
 
       </Button>
 
-      <Button x:Name="Button04"
+      <Button x:Name="AnswerButton04"
               Grid.Row="1"
               Grid.Column="3"
               Margin="5"
@@ -713,7 +713,7 @@
 
       </Button>
 
-      <Button x:Name="Button05"
+      <Button x:Name="AnswerButton05"
               Grid.Row="1"
               Grid.Column="4"
               Margin="5"
@@ -728,7 +728,7 @@
 
       </Button>
 
-      <Button x:Name="Button06"
+      <Button x:Name="AnswerButton06"
               Grid.Row="1"
               Grid.Column="5"
               Margin="5"
@@ -743,7 +743,7 @@
 
       </Button>
 
-      <Button x:Name="Button07"
+      <Button x:Name="AnswerButton07"
               Grid.Row="1"
               Grid.Column="6"
               Margin="5"
@@ -758,7 +758,7 @@
 
       </Button>
 
-      <Button x:Name="Button08"
+      <Button x:Name="AnswerButton08"
               Grid.Row="1"
               Grid.Column="7"
               Margin="5"
@@ -773,7 +773,7 @@
 
       </Button>
 
-      <Button x:Name="Button09"
+      <Button x:Name="AnswerButton09"
               Grid.Row="1"
               Grid.Column="8"
               Margin="5"
@@ -788,7 +788,7 @@
 
       </Button>
 
-      <Button x:Name="Button10"
+      <Button x:Name="AnswerButton10"
               Grid.Row="1"
               Grid.Column="9"
               Margin="5"

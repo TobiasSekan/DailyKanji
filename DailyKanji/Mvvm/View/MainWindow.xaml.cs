@@ -31,16 +31,16 @@ namespace DailyKanji.Mvvm.View
 
             InitializeComponent();
 
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText01, Button01, AnswerButtonColumn01, AnswerHint01, AnswerKey01));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText02, Button02, AnswerButtonColumn02, AnswerHint02, AnswerKey02));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText03, Button03, AnswerButtonColumn03, AnswerHint03, AnswerKey03));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText04, Button04, AnswerButtonColumn04, AnswerHint04, AnswerKey04));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText05, Button05, AnswerButtonColumn05, AnswerHint05, AnswerKey05));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText06, Button06, AnswerButtonColumn06, AnswerHint06, AnswerKey06));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText07, Button07, AnswerButtonColumn07, AnswerHint07, AnswerKey07));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText08, Button08, AnswerButtonColumn08, AnswerHint08, AnswerKey08));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText09, Button09, AnswerButtonColumn09, AnswerHint09, AnswerKey09));
-            Model.AnswerElements.Add(new AnswerViewElement(AnswerText10, Button10, AnswerButtonColumn10, AnswerHint10, AnswerKey10));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText01, AnswerButton01, AnswerButtonColumn01, AnswerHint01, AnswerKey01));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText02, AnswerButton02, AnswerButtonColumn02, AnswerHint02, AnswerKey02));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText03, AnswerButton03, AnswerButtonColumn03, AnswerHint03, AnswerKey03));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText04, AnswerButton04, AnswerButtonColumn04, AnswerHint04, AnswerKey04));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText05, AnswerButton05, AnswerButtonColumn05, AnswerHint05, AnswerKey05));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText06, AnswerButton06, AnswerButtonColumn06, AnswerHint06, AnswerKey06));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText07, AnswerButton07, AnswerButtonColumn07, AnswerHint07, AnswerKey07));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText08, AnswerButton08, AnswerButtonColumn08, AnswerHint08, AnswerKey08));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText09, AnswerButton09, AnswerButtonColumn09, AnswerHint09, AnswerKey09));
+            Model.AnswerElements.Add(new AnswerViewElement(AnswerText10, AnswerButton10, AnswerButtonColumn10, AnswerHint10, AnswerKey10));
         }
 
         #endregion Internal Constructors
