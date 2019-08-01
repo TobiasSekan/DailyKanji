@@ -571,297 +571,317 @@
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
-        <ColumnDefinition x:Name="AnswerButtonColumn01" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn02" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn03" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn04" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn05" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn06" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn07" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn08" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn09" Width="*" />
-        <ColumnDefinition x:Name="AnswerButtonColumn10" Width="*" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[0]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[1]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[2]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[3]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[4]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[5]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[6]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[7]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[8]}" />
+        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[9]}" />
       </Grid.ColumnDefinitions>
 
-      <TextBlock x:Name="AnswerHint01"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="0"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[0]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[0]}" />
 
-      <TextBlock x:Name="AnswerHint02"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="1"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[1]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[1]}" />
 
-      <TextBlock x:Name="AnswerHint03"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="2"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[2]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[2]}" />
 
-      <TextBlock x:Name="AnswerHint04"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="3"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[3]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[3]}" />
 
-      <TextBlock x:Name="AnswerHint05"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="4"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[4]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[4]}" />
 
-      <TextBlock x:Name="AnswerHint06"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="5"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[5]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[5]}" />
 
-      <TextBlock x:Name="AnswerHint07"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="6"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[6]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[6]}" />
 
-      <TextBlock x:Name="AnswerHint08"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="7"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[7]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[7]}" />
 
-      <TextBlock x:Name="AnswerHint09"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="8"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[8]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[8]}" />
 
-      <TextBlock x:Name="AnswerHint10"
-                 Grid.Row="0"
+      <TextBlock Grid.Row="0"
                  Grid.Column="9"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
                  Foreground="{Binding BaseModel.HintTextColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerHintText[9]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerHintTextVisibility[9]}" />
 
-      <Button x:Name="AnswerButton01"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="0"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="1"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[0]}">
 
-        <TextBlock x:Name="AnswerText01"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[0]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton02"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="1"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="2"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[1]}">
 
-        <TextBlock x:Name="AnswerText02"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[1]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton03"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="2"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="3"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[2]}">
 
-        <TextBlock x:Name="AnswerText03"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[2]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton04"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="3"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="4"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[3]}">
 
-        <TextBlock x:Name="AnswerText04"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[3]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton05"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="4"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="5"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[4]}">
 
-        <TextBlock x:Name="AnswerText05"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[4]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton06"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="5"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="6"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[5]}">
 
-        <TextBlock x:Name="AnswerText06"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[5]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton07"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="6"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="7"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[6]}">
 
-        <TextBlock x:Name="AnswerText07"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[6]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton08"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="7"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="8"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[7]}">
 
-        <TextBlock x:Name="AnswerText08"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[7]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton09"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="8"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="9"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[8]}">
 
-        <TextBlock x:Name="AnswerText09"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[8]}" />
 
       </Button>
 
-      <Button x:Name="AnswerButton10"
-              Grid.Row="1"
+      <Button Grid.Row="1"
               Grid.Column="9"
               Margin="5"
               Background="{Binding BaseModel.AnswerButtonColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
               Command="{Binding ViewModel.CommandAnswerTestNumber}"
               CommandParameter="10"
-              MouseRightButtonDown="HighlightAnswer">
+              MouseRightButtonDown="HighlightAnswer"
+              Visibility="{Binding Model.AnswerButtonVisibility[9]}">
 
-        <TextBlock x:Name="AnswerText10"
-                   Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}" />
+        <TextBlock Padding="0,0,0,10"
+                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                   Text="{Binding Model.AnswerAnswerText[9]}" />
 
       </Button>
 
-      <TextBlock x:Name="AnswerKey01"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="0"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[0]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[0]}" />
 
-      <TextBlock x:Name="AnswerKey02"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="1"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[1]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[1]}" />
 
-      <TextBlock x:Name="AnswerKey03"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="2"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[2]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[2]}" />
 
-      <TextBlock x:Name="AnswerKey04"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="3"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[3]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[3]}" />
 
-      <TextBlock x:Name="AnswerKey05"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="4"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[4]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[4]}" />
 
-      <TextBlock x:Name="AnswerKey06"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="5"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[5]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[5]}" />
 
-      <TextBlock x:Name="AnswerKey07"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="6"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[6]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[6]}" />
 
-      <TextBlock x:Name="AnswerKey08"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="7"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[7]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[7]}" />
 
-      <TextBlock x:Name="AnswerKey09"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="8"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[8]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[8]}" />
 
-      <TextBlock x:Name="AnswerKey10"
-                 Grid.Row="2"
+      <TextBlock Grid.Row="2"
                  Grid.Column="9"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 TextAlignment="Center" />
+                 Text="{Binding Model.AnswerShortCutText[9]}"
+                 TextAlignment="Center"
+                 Visibility="{Binding Model.AnswerShortCutTextVisibility[9]}" />
 
     </Grid>
 

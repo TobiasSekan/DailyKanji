@@ -281,64 +281,72 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         private void BuildAnswerMenuAndButtons()
         {
-            var answersType = _baseViewModel.GetAnswerType();
-            var answerMenu  = new List<MenuItem>(10);
-            var markMenu    = new List<MenuItem>(10);
+            var answersType                  = _baseViewModel.GetAnswerType();
+            var answerMenu                   = new List<MenuItem>(10);
+            var markMenu                     = new List<MenuItem>(10);
+            var answerButtonColumnWidth      = new List<GridLength>(10);
+            var answerButtonVisibility       = new List<Visibility>(10);
+            var answerShortCutTextVisibility = new List<Visibility>(10);
+            var answerHintTextVisibility     = new List<Visibility>(10);
+            var answerAnswerText             = new List<string>(10);
+            var answerHintText               = new List<string>(10);
+            var answerShortCutText           = new List<string>(10);
 
             MainWindow?.Dispatcher.Invoke(() =>
             {
-                for(byte answerNumber = 0; answerNumber < 10; answerNumber++)
+                for(var answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
-                    var anserElement = _model.AnswerElements.ElementAtOrDefault(answerNumber);
-                    if(anserElement == null)
+                    if(answerNumber >= _baseModel.MaximumAnswers)
                     {
+                        answerButtonColumnWidth.Add(GridLength.Auto);
+                        answerButtonVisibility.Add(Visibility.Collapsed);
+                        answerShortCutTextVisibility.Add(Visibility.Collapsed);
+                        answerHintTextVisibility.Add(Visibility.Collapsed);
+                        answerAnswerText.Add(string.Empty);
+                        answerHintText.Add(string.Empty);
+                        answerShortCutText.Add(string.Empty);
+
                         continue;
                     }
 
-                    if(answerNumber < _baseModel.MaximumAnswers)
+                    var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                    var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
+                    var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+
+                    answerMenu.Add(new MenuItem
                     {
-                        var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                        var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                        var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+                        Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
+                        CommandParameter = answer,
+                        Header           = answerText,
+                        InputGestureText = inputGestureText
+                    });
 
-                        anserElement.AnswerButtonColumn.Width      = new GridLength(1, GridUnitType.Star);
-                        anserElement.Button.Visibility             = Visibility.Visible;
-                        anserElement.AnswerShortCutText.Visibility = Visibility.Visible;
-                        anserElement.AnswerHintText.Visibility     = Visibility.Visible;
-                        anserElement.AnswerText.Text               = answerText;
-                        anserElement.AnswerHintText.Text           = _baseViewModel.GetAnswerHint(answer);
-                        anserElement.AnswerShortCutText.Text       = _baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty;
-
-                        answerMenu.Add(new MenuItem
-                        {
-                            Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
-                            CommandParameter = answer,
-                            Header           = answerText,
-                            InputGestureText = inputGestureText
-                        });
-
-                        markMenu.Add(new MenuItem
-                        {
-                            Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
-                            CommandParameter = answer,
-                            Header           = answerText,
-                            InputGestureText = $"Shift+{inputGestureText}"
-                        });
-                    }
-                    else
+                    markMenu.Add(new MenuItem
                     {
-                        anserElement.AnswerButtonColumn.Width      = GridLength.Auto;
-                        anserElement.Button.Visibility             = Visibility.Collapsed;
-                        anserElement.AnswerHintText.Visibility     = Visibility.Collapsed;
-                        anserElement.AnswerShortCutText.Visibility = Visibility.Collapsed;
-                        anserElement.AnswerText.Text               = string.Empty;
-                        anserElement.AnswerHintText.Text           = string.Empty;
-                        anserElement.AnswerShortCutText.Text       = string.Empty;
-                    }
+                        Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
+                        CommandParameter = answer,
+                        Header           = answerText,
+                        InputGestureText = $"Shift+{inputGestureText}"
+                    });
+
+                    answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
+                    answerButtonVisibility.Add(Visibility.Visible);
+                    answerShortCutTextVisibility.Add(Visibility.Visible);
+                    answerHintTextVisibility.Add(Visibility.Visible);
+                    answerAnswerText.Add(answerText);
+                    answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
+                    answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
                 }
 
-                _model.AnswerMenu = answerMenu;
-                _model.MarkMenu   = markMenu;
+                _model.AnswerMenu                   = answerMenu;
+                _model.MarkMenu                     = markMenu;
+                _model.AnswerButtonColumnWidth      = answerButtonColumnWidth;
+                _model.AnswerButtonVisibility       = answerButtonVisibility;
+                _model.AnswerShortCutTextVisibility = answerShortCutTextVisibility;
+                _model.AnswerHintTextVisibility     = answerHintTextVisibility;
+                _model.AnswerAnswerText             = answerAnswerText;
+                _model.AnswerHintText               = answerHintText;
+                _model.AnswerShortCutText           = answerShortCutText;
             });
         }
 
