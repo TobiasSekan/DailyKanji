@@ -15,7 +15,7 @@ namespace DailyKanji.Mvvm.Model
 
         internal TextBlock AnswerShortCutText { get; }
 
-        public AnswerViewElement(TextBlock answerText, UIElement button, ColumnDefinition answerButtonColumn, TextBlock answerHintText, TextBlock answerShortCutText)
+        internal AnswerViewElement(TextBlock answerText, UIElement button, ColumnDefinition answerButtonColumn, TextBlock answerHintText, TextBlock answerShortCutText)
         {
             AnswerText         = answerText;
             Button             = button;
