@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -905,15 +906,17 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
 
             var minTime = new TimeSpan(0, 0, 1);
-            var maxTime = new TimeSpan(0, 0, 5);
+            var maxTime = new TimeSpan(0, 5, 0);
 
             if(HighlightTimeout < minTime || HighlightTimeout > maxTime)
             {
+                Debug.WriteLine($"[{nameof(HighlightTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
                 HighlightTimeout = maxTime;
             }
 
             if(MaximumAnswerTimeout >= minTime && MaximumAnswerTimeout <= maxTime)
             {
+                Debug.WriteLine($"[{nameof(MaximumAnswerTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
                 return;
             }
 
