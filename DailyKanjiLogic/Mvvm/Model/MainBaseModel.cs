@@ -916,10 +916,10 @@ namespace DailyKanjiLogic.Mvvm.Model
 
             if(MaximumAnswerTimeout >= minTime && MaximumAnswerTimeout <= maxTime)
             {
-                Debug.WriteLine($"[{nameof(MaximumAnswerTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
                 return;
             }
 
+            Debug.WriteLine($"[{nameof(MaximumAnswerTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
             MaximumAnswerTimeout = maxTime;
         }
 
