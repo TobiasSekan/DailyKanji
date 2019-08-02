@@ -505,14 +505,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"{nameof(noneSelectedColor)} can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"{nameof(hintColor)} can't be empty or null");
 
+            Debug.WriteLine($"SetHighlightColors -    MaximumAnswers: [{_baseModel.MaximumAnswers.ToString()}]");
+            Debug.WriteLine($"SetHighlightColors -   PossibleAnswers: [{_baseModel.PossibleAnswers.Count().ToString()}]");
+            Debug.WriteLine($"SetHighlightColors - AnswerButtonColor: [{_baseModel.AnswerButtonColor.Count.ToString()}]");
+
             _baseModel.CurrentAskSignColor = errorColor;
             _baseModel.ProgressBarColor    = errorColor;
 
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                var roomaji = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
+                var roomaji           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
+                var answerButtonColor = _baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber);
 
-                _baseModel.AnswerButtonColor[answerNumber] = roomaji == _baseModel.CurrentTest.Roomaji
+                answerButtonColor = roomaji == _baseModel.CurrentTest.Roomaji
                     ? correctColor
                     : roomaji == answer.Roomaji
                         ? errorColor
