@@ -221,6 +221,87 @@ namespace DailyKanji.Mvvm.ViewModel
             _baseModel.TopPosition  = MainWindow.Top;
         }
 
+        /// <summary>
+        /// Build all answer menu entries and buttons
+        /// </summary>
+        internal void BuildAnswerMenuAndButtons()
+        {
+            _model.AnswerHintTextHeight     = _baseModel.ShowHints ? GridLength.Auto : new GridLength(0);
+            _model.AnswerShortCutTextHeight = _baseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
+
+            var answerMenu                   = new List<MenuItem>(10);
+            var markMenu                     = new List<MenuItem>(10);
+            var answerButtonColumnWidth      = new List<GridLength>(10);
+            var answerButtonVisibility       = new List<Visibility>(10);
+            var answerAnswerText             = new List<string>(10);
+            var answerHintText               = new List<string>(10);
+            var answerShortCutText           = new List<string>(10);
+            var answersType                  = _baseViewModel.GetAnswerType();
+
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+            {
+                if(answerNumber >= _baseModel.MaximumAnswers)
+                {
+                    answerButtonColumnWidth.Add(GridLength.Auto);
+                    answerButtonVisibility.Add(Visibility.Collapsed);
+                    answerAnswerText.Add(string.Empty);
+                    answerHintText.Add(string.Empty);
+                    answerShortCutText.Add(string.Empty);
+
+                    continue;
+                }
+
+                var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
+                var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+
+                answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
+                answerButtonVisibility.Add(Visibility.Visible);
+                answerAnswerText.Add(answerText);
+                answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
+                answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
+            }
+
+            MainWindow?.Dispatcher.Invoke(() =>
+            {
+                for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+                {
+                    if(answerNumber >= _baseModel.MaximumAnswers)
+                    {
+                        continue;
+                    }
+
+                    var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                    var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
+                    var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+
+                    answerMenu.Add(new MenuItem
+                    {
+                        Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
+                        CommandParameter = answer,
+                        Header           = answerText,
+                        InputGestureText = inputGestureText
+                    });
+
+                    markMenu.Add(new MenuItem
+                    {
+                        Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
+                        CommandParameter = answer,
+                        Header           = answerText,
+                        InputGestureText = $"Shift+{inputGestureText}"
+                    });
+                }
+
+                _model.AnswerMenu                   = answerMenu;
+                _model.MarkMenu                     = markMenu;
+                _model.AnswerButtonColumnWidth      = answerButtonColumnWidth;
+                _model.AnswerButtonVisibility       = answerButtonVisibility;
+                _model.AnswerAnswerText             = answerAnswerText;
+                _model.AnswerHintText               = answerHintText;
+                _model.AnswerShortCutText           = answerShortCutText;
+            });
+        }
+
         #endregion Internal Methods
 
         #region Private Methods
@@ -275,90 +356,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
 
                 ShowAndStartNewTest();
-            });
-        }
-
-        /// <summary>
-        /// Build all answer menu entries and buttons
-        /// </summary>
-        private void BuildAnswerMenuAndButtons()
-        {
-            _model.AnswerShortCutTextHeight = _baseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
-
-            var answerMenu                   = new List<MenuItem>(10);
-            var markMenu                     = new List<MenuItem>(10);
-            var answerButtonColumnWidth      = new List<GridLength>(10);
-            var answerButtonVisibility       = new List<Visibility>(10);
-            var answerHintTextVisibility     = new List<Visibility>(10);
-            var answerAnswerText             = new List<string>(10);
-            var answerHintText               = new List<string>(10);
-            var answerShortCutText           = new List<string>(10);
-            var answersType                  = _baseViewModel.GetAnswerType();
-
-            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
-            {
-                if(answerNumber >= _baseModel.MaximumAnswers)
-                {
-                    answerButtonColumnWidth.Add(GridLength.Auto);
-                    answerButtonVisibility.Add(Visibility.Collapsed);
-                    answerHintTextVisibility.Add(Visibility.Collapsed);
-                    answerAnswerText.Add(string.Empty);
-                    answerHintText.Add(string.Empty);
-                    answerShortCutText.Add(string.Empty);
-
-                    continue;
-                }
-
-                var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
-
-                answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
-                answerButtonVisibility.Add(Visibility.Visible);
-                answerHintTextVisibility.Add(Visibility.Visible);
-                answerAnswerText.Add(answerText);
-                answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
-                answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
-            }
-
-            MainWindow?.Dispatcher.Invoke(() =>
-            {
-                for(var answerNumber = 0; answerNumber < 10; answerNumber++)
-                {
-                    if(answerNumber >= _baseModel.MaximumAnswers)
-                    {
-                        continue;
-                    }
-
-                    var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-                    var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                    var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
-
-                    answerMenu.Add(new MenuItem
-                    {
-                        Command          = new CommandHelper(value => CheckSelectedAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
-                        CommandParameter = answer,
-                        Header           = answerText,
-                        InputGestureText = inputGestureText
-                    });
-
-                    markMenu.Add(new MenuItem
-                    {
-                        Command          = new CommandHelper(value => HighlightAnswer(value as TestBaseModel ?? TestBaseModel.EmptyTest)),
-                        CommandParameter = answer,
-                        Header           = answerText,
-                        InputGestureText = $"Shift+{inputGestureText}"
-                    });
-                }
-
-                _model.AnswerMenu                   = answerMenu;
-                _model.MarkMenu                     = markMenu;
-                _model.AnswerButtonColumnWidth      = answerButtonColumnWidth;
-                _model.AnswerButtonVisibility       = answerButtonVisibility;
-                _model.AnswerHintTextVisibility     = answerHintTextVisibility;
-                _model.AnswerAnswerText             = answerAnswerText;
-                _model.AnswerHintText               = answerHintText;
-                _model.AnswerShortCutText           = answerShortCutText;
             });
         }
 

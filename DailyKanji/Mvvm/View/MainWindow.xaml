@@ -11,956 +11,947 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         WindowStartupLocation="CenterScreen">
 
-  <Window.Resources>
-    <converter:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter" />
-    <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <converter:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
-    <converter:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
-    <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
-    <converter:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
-  </Window.Resources>
+    <Window.Resources>
+        <converter:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <converter:FlagValueToBooleanConverter x:Key="FlagValueToBooleanConverter" />
+        <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter" />
+        <converter:ValueToBooleanConverter x:Key="ValueToBooleanConverter" />
+    </Window.Resources>
 
-  <Window.InputBindings>
+    <Window.InputBindings>
 
-    <KeyBinding Key="Backspace" Command="{Binding ViewModel.CommandPreviousTest}" />
-    <KeyBinding Key="Space" Command="{Binding ViewModel.CommandNextTest}" />
+        <KeyBinding Key="Backspace" Command="{Binding ViewModel.CommandPreviousTest}" />
+        <KeyBinding Key="Space" Command="{Binding ViewModel.CommandNextTest}" />
 
-    <KeyBinding Key="D1"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="1" />
+        <KeyBinding Key="D1"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="1" />
 
-    <KeyBinding Key="D2"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="2" />
+        <KeyBinding Key="D2"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="2" />
 
-    <KeyBinding Key="D3"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="3" />
+        <KeyBinding Key="D3"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="3" />
 
-    <KeyBinding Key="D4"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="4" />
+        <KeyBinding Key="D4"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="4" />
 
-    <KeyBinding Key="D5"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="5" />
+        <KeyBinding Key="D5"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="5" />
 
-    <KeyBinding Key="D6"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="6" />
+        <KeyBinding Key="D6"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="6" />
 
-    <KeyBinding Key="D7"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="7" />
+        <KeyBinding Key="D7"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="7" />
 
-    <KeyBinding Key="D8"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="8" />
+        <KeyBinding Key="D8"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="8" />
 
-    <KeyBinding Key="D9"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="9" />
+        <KeyBinding Key="D9"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="9" />
 
-    <KeyBinding Key="D0"
-                Command="{Binding ViewModel.CommandAnswerTestNumber}"
-                CommandParameter="10" />
+        <KeyBinding Key="D0"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="10" />
 
-    <KeyBinding Key="D1"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="1"
-                Modifiers="Shift" />
+        <KeyBinding Key="D1"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
+                    CommandParameter="1"
+                    Modifiers="Shift" />
 
-    <KeyBinding Key="D2"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="2"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D3"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="3"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D4"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="4"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D5"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="5"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D6"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="6"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D7"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="7"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D8"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="8"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D9"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="9"
-                Modifiers="Shift" />
-
-    <KeyBinding Key="D0"
-                Command="{Binding ViewModel.CommandHighlightAnswer}"
-                CommandParameter="10"
-                Modifiers="Shift" />
-
-  </Window.InputBindings>
-
-  <Grid>
-
-    <Grid.RowDefinitions>
-
-      <!--  Menu  -->
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="10" />
-
-      <!--  Progress bar - running answer timer  -->
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="10" />
-
-      <!--  Grid - Question and previous button and next button  -->
-      <RowDefinition Height="*" />
-      <RowDefinition Height="0" />
-
-      <!--  StackPanel - Answer buttons  -->
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="5" />
-
-      <!--  StatusBar  -->
-      <RowDefinition Height="Auto" />
-
-    </Grid.RowDefinitions>
-
-    <Menu Grid.Row="0">
-
-      <MenuItem Header="_File">
-
-        <MenuItem Command="{Binding ViewModel.CommandNextTest}"
-                  Header="_Next test"
-                  InputGestureText="Space" />
-
-        <MenuItem Command="{Binding ViewModel.CommandPreviousTest}"
-                  Header="_Previous test"
-                  InputGestureText="Backspace"
-                  IsEnabled="{Binding BaseModel.CanGoToLastTest}" />
-
-        <Separator />
-
-        <MenuItem Command="{Binding ViewModel.CommandCloseProgram}"
-                  Header="_Close Program"
-                  InputGestureText="Alt+F4" />
-
-      </MenuItem>
-
-      <MenuItem Header="_View">
-
-        <MenuItem Header="Highlight on _wrong answered tests"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.HighlightOnWrongAnswer}" />
-
-        <MenuItem Header="Highlight on _correct answered tests"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.HighlightOnCorrectAnswer}" />
-
-        <MenuItem Header="Show _hints on wrong answers"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.ShowHints}" />
-
-        <MenuItem Header="Show running _timer (timer is still running)"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.ShowRunningAnswerTimer}"
-                  IsEnabled="{Binding BaseModel.UseAnswerTimer}" />
-
-        <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
-                  Header="Show short_cuts for answers"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.ShowAnswerShortcuts}" />
-
-        <Separator />
-
-        <MenuItem Command="{Binding ViewModel.CommandShowSignStatistics}" Header="Show sign _statistics " />
-
-      </MenuItem>
-
-      <MenuItem Header="_Options">
-
-        <MenuItem Header="_Hint type">
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
-                    CommandParameter="{x:Static enumerations:HintType.BasedOnAskSign}"
-                    Header="Based on ask sign"
-                    IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.BasedOnAskSign}}" />
-
-          <Separator />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
-                    CommandParameter="{x:Static enumerations:HintType.AlwaysInRoomaji}"
-                    Header="Always in Roomaji"
-                    IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInRoomaji}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
-                    CommandParameter="{x:Static enumerations:HintType.AlwaysInHiragana}"
-                    Header="Always in Hiragana"
-                    IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInHiragana}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
-                    CommandParameter="{x:Static enumerations:HintType.AlwaysInKatakana}"
-                    Header="Always in Katakana"
-                    IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInKatakana}}" />
-
-        </MenuItem>
-
-        <MenuItem Header="Possible _answers">
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D2"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="2"
-                    Header="Two answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=2}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D3"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="3"
-                    Header="Three answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=3}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D4"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="4"
-                    Header="Four answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=4}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D5"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="5"
-                    Header="Five answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=5}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D6"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="6"
-                    Header="Six answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=6}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D7"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="7"
-                    Header="Seven answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=7}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D8"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="8"
-                    Header="Eight answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=8}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D9"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="9"
-                    Header="Nine answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=9}" />
+                    Modifiers="Shift" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+        <KeyBinding Key="D0"
+                    Command="{Binding ViewModel.CommandHighlightAnswer}"
                     CommandParameter="10"
-                    Header="Ten answers"
-                    IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=10}" />
-
-        </MenuItem>
-
-        <MenuItem Header="Answer _time" IsEnabled="{Binding BaseModel.UseAnswerTimer}">
-          <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
-                                  FractionalSecondsDigitsCount="0"
-                                  Maximum="00:05:00"
-                                  Minimum="00:00:01"
-                                  MouseWheelActiveTrigger="MouseOver"
-                                  ShowButtonSpinner="True"
-                                  ShowDays="False"
-                                  UpdateValueOnEnterKey="True"
-                                  ValueChanged="ChangeAnswerTimer"
-                                  Value="{Binding BaseModel.MaximumAnswerTimeout}" />
-
-        </MenuItem>
-
-        <MenuItem Header="_Refresh interval" IsEnabled="{Binding BaseModel.UseAnswerTimer}">
-          <toolkit:TimeSpanUpDown CurrentDateTimePart="Millisecond"
-                                  FractionalSecondsDigitsCount="3"
-                                  Maximum="00:00:01.000"
-                                  Minimum="00:00:00.005"
-                                  MouseWheelActiveTrigger="MouseOver"
-                                  ShowButtonSpinner="True"
-                                  ShowDays="False"
-                                  Step="5"
-                                  UpdateValueOnEnterKey="True"
-                                  Value="{Binding Model.ProgressPrefreshInterval}" />
-        </MenuItem>
-
-        <MenuItem Header="_Highlight timeout">
-          <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
-                                  FractionalSecondsDigitsCount="0"
-                                  Maximum="00:05:00"
-                                  Minimum="00:00:01"
-                                  MouseWheelActiveTrigger="MouseOver"
-                                  ShowButtonSpinner="True"
-                                  ShowDays="False"
-                                  UpdateValueOnEnterKey="True"
-                                  Value="{Binding BaseModel.HighlightTimeout}" />
-        </MenuItem>
-
-        <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
-                  Header="_Similar answers"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.SimilarAnswers}" />
-
-        <MenuItem Command="{Binding ViewModel.CommandUseAnswerTimer}"
-                  Header="Use answer timeout"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.UseAnswerTimer}" />
-
-        <MenuItem Header="Check for new _version on start-up"
-                  IsCheckable="True"
-                  IsChecked="{Binding BaseModel.CheckForNewVersionOnStartUp}" />
-
-      </MenuItem>
-
-      <MenuItem Header="_Tests">
-
-        <MenuItem Header="_Test type">
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}"
-                    Header="Hiragana or Katakana to Roomaji"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.HiraganaToRoomaji}"
-                    Header="Only Hiragana to Roomaji"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToRoomaji}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.KatakanaToRoomaji}"
-                    Header="Only Katakana to Roomaji"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.KatakanaToRoomaji}}" />
-
-          <Separator />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}"
-                    Header="Roomaji to Hiragana or Katakana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.RoomajiToHiragana}"
-                    Header="Only Roomaji to Hiragana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToHiragana}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.RoomajiToKatakana}"
-                    Header="Only Roomaji to Katakana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToKatakana}}" />
-
-          <Separator />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}"
-                    Header="Hiragana to Katakana or Katakana to Hiragana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakana}"
-                    Header="Only Hiragana to Katakana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakana}}" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.KatakanaToHiragana}"
-                    Header="Only Katakana to Hiragana"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.KatakanaToHiragana}}" />
+                    Modifiers="Shift" />
 
-          <Separator />
+    </Window.InputBindings>
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
-                    CommandParameter="{x:Static enumerations:TestType.AllToAll}"
-                    Header="All to all"
-                    IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.AllToAll}}" />
+    <Grid>
 
-        </MenuItem>
+        <Grid.RowDefinitions>
 
-        <Separator />
+            <!--  Menu  -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
 
-        <MenuItem Header="_Kana type">
+            <!--  Progress bar - running answer timer  -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.Gojuuon}"
-                    Header="Gojuuon"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.Gojuuon}}"
-                    ToolTip="Monographs (46 Kana)" />
+            <!--  Grid - Question and previous button and next button  -->
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.GojuuonWithDakuten}"
-                    Header="Gojuuon with Dakuten"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.GojuuonWithDakuten}}"
-                    ToolTip="Monographs with two little strokes (20 Kana)" />
+            <!--  StackPanel - Answer buttons  -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
 
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.GojuuonWithHandakuten}"
-                    Header="Gojuuon with Handakuten"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.GojuuonWithHandakuten}}"
-                    ToolTip="Monographs with a little circle (5 Kana)" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.Yooon}"
-                    Header="Yooon"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.Yooon}}"
-                    ToolTip="Digraphs (21 Kana)" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.YooonWithDakuten}"
-                    Header="Yooon with Dakuten"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.YooonWithDakuten}}"
-                    ToolTip="Digraphs with two little strokes (9 Kana)" />
-
-          <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
-                    CommandParameter="{x:Static enumerations:KanaType.YooonWithHandakuten}"
-                    Header="Yooon with Handakuten"
-                    IsCheckable="True"
-                    IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.YooonWithHandakuten}}"
-                    ToolTip="Digraphs with a little circle (3 Kana)" />
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="_Statistic">
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.All}"
-                  Header="Reset _all answered signs" />
-
-        <Separator />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}"
-                  Header="Reset all _correct answered signs" />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}"
-                  Header="Reset only correct answered Hiragana" />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}"
-                  Header="Reset only correct answered Katakana" />
-
-        <Separator />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}"
-                  Header="Reset all _wrong answered signs" />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}"
-                  Header="Reset only wrong answered Hiragana" />
-
-        <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
-                  CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}"
-                  Header="Reset only wrong answered Katakana" />
-
-      </MenuItem>
-
-      <MenuItem Header="_Answers" ItemsSource="{Binding Model.AnswerMenu}" />
-
-      <MenuItem Header="_Mark" ItemsSource="{Binding Model.MarkMenu}" />
-
-      <MenuItem Header="_Help">
-
-        <MenuItem Command="{Binding ViewModel.CommandShowInfoWindow}"
-                  Header="_Info"
-                  InputGestureText="F1" />
-
-      </MenuItem>
-
-    </Menu>
-
-    <ProgressBar Grid.Row="2"
-                 Height="20"
-                 Margin="5"
-                 Foreground="{Binding BaseModel.ProgressBarColor, Converter={StaticResource ColorStringToBrushConverter}}"
-                 Maximum="{Binding BaseModel.MaximumAnswerTimeout.TotalMilliseconds, Mode=OneWay}"
-                 Minimum="0"
-                 Visibility="{Binding BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                 Value="{Binding BaseModel.AnswerTime.TotalMilliseconds, Mode=OneWay}" />
-
-    <Grid Grid.Row="4" Background="{Binding BaseModel.CurrentAskSignColor, Converter={StaticResource ColorStringToBrushConverter}}">
-
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="Auto" />
-      </Grid.ColumnDefinitions>
-
-      <Button Grid.Column="0"
-              Width="100"
-              Height="50"
-              Margin="5"
-              Command="{Binding ViewModel.CommandPreviousTest}"
-              Content="Previous test"
-              IsEnabled="{Binding BaseModel.CanGoToLastTest}" />
-
-      <TextBox Grid.Column="2"
-               VerticalAlignment="Center"
-               Background="Transparent"
-               BorderThickness="0"
-               FontSize="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, ConverterParameter=25, Converter={StaticResource HeightToFontSizeConverter}}"
-               IsReadOnly="True"
-               Text="{Binding BaseModel.CurrentAskSign}"
-               TextAlignment="Center" />
-
-      <StackPanel Grid.Column="3"
-                  Margin="10"
-                  VerticalAlignment="Center">
-
-        <TextBlock Text="Wrong answers" />
-
-        <StackPanel Orientation="Horizontal">
-          <TextBlock FontWeight="{Binding BaseModel.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCountIndicator}" />
-          <TextBlock Text=" " />
-          <TextBlock FontWeight="{Binding BaseModel.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCount}" />
-        </StackPanel>
-
-        <TextBlock Text="Correct answers" />
-
-        <StackPanel Orientation="Horizontal">
-          <TextBlock FontWeight="{Binding BaseModel.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCountIndicator}" />
-          <TextBlock Text=" " />
-          <TextBlock FontWeight="{Binding BaseModel.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCount}" />
-        </StackPanel>
-
-        <TextBlock Text="Average answer time" />
-
-        <StackPanel Orientation="Horizontal">
-          <TextBlock FontWeight="{Binding BaseModel.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTimeIndicator}" />
-          <TextBlock Text=" " />
-          <TextBlock FontWeight="{Binding BaseModel.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTime}" />
-        </StackPanel>
-
-      </StackPanel>
-
-      <Button Grid.Column="4"
-              Width="100"
-              Height="50"
-              Margin="5"
-              Command="{Binding ViewModel.CommandNextTest}"
-              Content="Next test" />
-
-    </Grid>
-
-    <Grid Grid.Row="6">
-
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="{Binding Model.AnswerShortCutTextHeight}" />
-      </Grid.RowDefinitions>
-
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[0]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[1]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[2]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[3]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[4]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[5]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[6]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[7]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[8]}" />
-        <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[9]}" />
-      </Grid.ColumnDefinitions>
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="0"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[0]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[0]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="1"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[1]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[1]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="2"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[2]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[2]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="3"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[3]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[3]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="4"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[4]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[4]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="5"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[5]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[5]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="6"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[6]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[6]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="7"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[7]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[7]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="8"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[8]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[8]}" />
-
-      <TextBlock Grid.Row="0"
-                 Grid.Column="9"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Foreground="{Binding BaseModel.HintTextColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
-                 Text="{Binding Model.AnswerHintText[9]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerHintTextVisibility[9]}" />
-
-      <Button Grid.Row="1"
-              Grid.Column="0"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="1"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[0]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[0]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="1"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="2"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[1]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[1]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="2"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="3"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[2]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[2]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="3"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="4"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[3]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[3]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="4"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="5"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[4]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[4]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="5"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="6"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[5]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[5]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="6"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="7"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[6]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[6]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="7"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="8"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[7]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[7]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="8"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="9"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[8]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[8]}" />
-
-      </Button>
-
-      <Button Grid.Row="1"
-              Grid.Column="9"
-              Margin="5"
-              Background="{Binding BaseModel.AnswerButtonColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
-              Command="{Binding ViewModel.CommandAnswerTestNumber}"
-              CommandParameter="10"
-              MouseRightButtonDown="HighlightAnswer"
-              Visibility="{Binding Model.AnswerButtonVisibility[9]}">
-
-        <TextBlock Padding="0,0,0,10"
-                   FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
-                   Text="{Binding Model.AnswerAnswerText[9]}" />
-
-      </Button>
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="0"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[0]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="1"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[1]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="2"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[2]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="3"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[3]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="4"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[4]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="5"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[5]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="6"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[6]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="7"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[7]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="8"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[8]}"
-                 TextAlignment="Center" />
-
-      <TextBlock Grid.Row="2"
-                 Grid.Column="9"
-                 FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
-                 Text="{Binding Model.AnswerShortCutText[9]}"
-                 TextAlignment="Center" />
-
-    </Grid>
-
-    <StatusBar Grid.Row="8">
-
-      <StatusBar.ItemsPanel>
-        <ItemsPanelTemplate>
-          <Grid>
+            <!--  StatusBar  -->
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+
+            <MenuItem Header="_File">
+
+                <MenuItem Command="{Binding ViewModel.CommandNextTest}"
+                          Header="_Next test"
+                          InputGestureText="Space" />
+
+                <MenuItem Command="{Binding ViewModel.CommandPreviousTest}"
+                          Header="_Previous test"
+                          InputGestureText="Backspace"
+                          IsEnabled="{Binding BaseModel.CanGoToLastTest}" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding ViewModel.CommandCloseProgram}"
+                          Header="_Close Program"
+                          InputGestureText="Alt+F4" />
+
+            </MenuItem>
+
+            <MenuItem Header="_View">
+
+                <MenuItem Header="Highlight on _wrong answered tests"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.HighlightOnWrongAnswer}" />
+
+                <MenuItem Header="Highlight on _correct answered tests"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.HighlightOnCorrectAnswer}" />
+
+                <MenuItem Command="{Binding ViewModel.CommandShowHints}"
+                          Header="Show _hints on wrong answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.ShowHints}" />
+
+                <MenuItem Header="Show running _timer (timer is still running)"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.ShowRunningAnswerTimer}"
+                          IsEnabled="{Binding BaseModel.UseAnswerTimer}" />
+
+                <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
+                          Header="Show short_cuts for answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.ShowAnswerShortcuts}" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding ViewModel.CommandShowSignStatistics}" Header="Show sign _statistics " />
+
+            </MenuItem>
+
+            <MenuItem Header="_Options">
+
+                <MenuItem Header="_Hint type">
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
+                              CommandParameter="{x:Static enumerations:HintType.BasedOnAskSign}"
+                              Header="Based on ask sign"
+                              IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.BasedOnAskSign}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
+                              CommandParameter="{x:Static enumerations:HintType.AlwaysInRoomaji}"
+                              Header="Always in Roomaji"
+                              IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInRoomaji}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
+                              CommandParameter="{x:Static enumerations:HintType.AlwaysInHiragana}"
+                              Header="Always in Hiragana"
+                              IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInHiragana}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintType}"
+                              CommandParameter="{x:Static enumerations:HintType.AlwaysInKatakana}"
+                              Header="Always in Katakana"
+                              IsChecked="{Binding BaseModel.SelectedHintType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintType.AlwaysInKatakana}}" />
+
+                </MenuItem>
+
+                <MenuItem Header="Possible _answers">
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="2"
+                              Header="Two answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=2}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="3"
+                              Header="Three answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=3}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="4"
+                              Header="Four answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=4}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="5"
+                              Header="Five answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=5}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="6"
+                              Header="Six answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=6}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="7"
+                              Header="Seven answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=7}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="8"
+                              Header="Eight answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=8}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="9"
+                              Header="Nine answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=9}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeAnswerCount}"
+                              CommandParameter="10"
+                              Header="Ten answers"
+                              IsChecked="{Binding BaseModel.MaximumAnswers, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter=10}" />
+
+                </MenuItem>
+
+                <MenuItem Header="Answer _time" IsEnabled="{Binding BaseModel.UseAnswerTimer}">
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
+                                            FractionalSecondsDigitsCount="0"
+                                            Maximum="00:05:00"
+                                            Minimum="00:00:01"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            UpdateValueOnEnterKey="True"
+                                            ValueChanged="ChangeAnswerTimer"
+                                            Value="{Binding BaseModel.MaximumAnswerTimeout}" />
+
+                </MenuItem>
+
+                <MenuItem Header="_Refresh interval" IsEnabled="{Binding BaseModel.UseAnswerTimer}">
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Millisecond"
+                                            FractionalSecondsDigitsCount="3"
+                                            Maximum="00:00:01.000"
+                                            Minimum="00:00:00.005"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            Step="5"
+                                            UpdateValueOnEnterKey="True"
+                                            Value="{Binding Model.ProgressPrefreshInterval}" />
+                </MenuItem>
+
+                <MenuItem Header="_Highlight timeout">
+                    <toolkit:TimeSpanUpDown CurrentDateTimePart="Second"
+                                            FractionalSecondsDigitsCount="0"
+                                            Maximum="00:05:00"
+                                            Minimum="00:00:01"
+                                            MouseWheelActiveTrigger="MouseOver"
+                                            ShowButtonSpinner="True"
+                                            ShowDays="False"
+                                            UpdateValueOnEnterKey="True"
+                                            Value="{Binding BaseModel.HighlightTimeout}" />
+                </MenuItem>
+
+                <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
+                          Header="_Similar answers"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.SimilarAnswers}" />
+
+                <MenuItem Command="{Binding ViewModel.CommandUseAnswerTimer}"
+                          Header="Use answer timeout"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.UseAnswerTimer}" />
+
+                <MenuItem Header="Check for new _version on start-up"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.CheckForNewVersionOnStartUp}" />
+
+            </MenuItem>
+
+            <MenuItem Header="_Tests">
+
+                <MenuItem Header="_Test type">
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}"
+                              Header="Hiragana or Katakana to Roomaji"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaOrKatakanaToRoomaji}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToRoomaji}"
+                              Header="Only Hiragana to Roomaji"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToRoomaji}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.KatakanaToRoomaji}"
+                              Header="Only Katakana to Roomaji"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.KatakanaToRoomaji}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}"
+                              Header="Roomaji to Hiragana or Katakana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToHiraganaOrKatakana}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToHiragana}"
+                              Header="Only Roomaji to Hiragana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToHiragana}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.RoomajiToKatakana}"
+                              Header="Only Roomaji to Katakana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.RoomajiToKatakana}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}"
+                              Header="Hiragana to Katakana or Katakana to Hiragana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakanaOrKatakanaToHiragana}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.HiraganaToKatakana}"
+                              Header="Only Hiragana to Katakana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.HiraganaToKatakana}}" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.KatakanaToHiragana}"
+                              Header="Only Katakana to Hiragana"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.KatakanaToHiragana}}" />
+
+                    <Separator />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeTestType}"
+                              CommandParameter="{x:Static enumerations:TestType.AllToAll}"
+                              Header="All to all"
+                              IsChecked="{Binding BaseModel.SelectedTestType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:TestType.AllToAll}}" />
+
+                </MenuItem>
+
+                <Separator />
+
+                <MenuItem Header="_Kana type">
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.Gojuuon}"
+                              Header="Gojuuon"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.Gojuuon}}"
+                              ToolTip="Monographs (46 Kana)" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.GojuuonWithDakuten}"
+                              Header="Gojuuon with Dakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.GojuuonWithDakuten}}"
+                              ToolTip="Monographs with two little strokes (20 Kana)" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.GojuuonWithHandakuten}"
+                              Header="Gojuuon with Handakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.GojuuonWithHandakuten}}"
+                              ToolTip="Monographs with a little circle (5 Kana)" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.Yooon}"
+                              Header="Yooon"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.Yooon}}"
+                              ToolTip="Digraphs (21 Kana)" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.YooonWithDakuten}"
+                              Header="Yooon with Dakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.YooonWithDakuten}}"
+                              ToolTip="Digraphs with two little strokes (9 Kana)" />
+
+                    <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
+                              CommandParameter="{x:Static enumerations:KanaType.YooonWithHandakuten}"
+                              Header="Yooon with Handakuten"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedKanaType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:KanaType.YooonWithHandakuten}}"
+                              ToolTip="Digraphs with a little circle (3 Kana)" />
+
+                </MenuItem>
+
+            </MenuItem>
+
+            <MenuItem Header="_Statistic">
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.All}"
+                          Header="Reset _all answered signs" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectAll}"
+                          Header="Reset all _correct answered signs" />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectHiragana}"
+                          Header="Reset only correct answered Hiragana" />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyCorrectKatakana}"
+                          Header="Reset only correct answered Katakana" />
+
+                <Separator />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongAll}"
+                          Header="Reset all _wrong answered signs" />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongHiragana}"
+                          Header="Reset only wrong answered Hiragana" />
+
+                <MenuItem Command="{Binding ViewModel.CommandRestStatistic}"
+                          CommandParameter="{x:Static enumerations:ResetType.OnlyWrongKatakana}"
+                          Header="Reset only wrong answered Katakana" />
+
+            </MenuItem>
+
+            <MenuItem Header="_Answers" ItemsSource="{Binding Model.AnswerMenu}" />
+
+            <MenuItem Header="_Mark" ItemsSource="{Binding Model.MarkMenu}" />
+
+            <MenuItem Header="_Help">
+
+                <MenuItem Command="{Binding ViewModel.CommandShowInfoWindow}"
+                          Header="_Info"
+                          InputGestureText="F1" />
+
+            </MenuItem>
+
+        </Menu>
+
+        <ProgressBar Grid.Row="2"
+                     Height="20"
+                     Margin="5"
+                     Foreground="{Binding BaseModel.ProgressBarColor, Converter={StaticResource ColorStringToBrushConverter}}"
+                     Maximum="{Binding BaseModel.MaximumAnswerTimeout.TotalMilliseconds, Mode=OneWay}"
+                     Minimum="0"
+                     Visibility="{Binding BaseModel.ShowRunningAnswerTimer, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Value="{Binding BaseModel.AnswerTime.TotalMilliseconds, Mode=OneWay}" />
+
+        <Grid Grid.Row="4" Background="{Binding BaseModel.CurrentAskSignColor, Converter={StaticResource ColorStringToBrushConverter}}">
+
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-          </Grid>
-        </ItemsPanelTemplate>
-      </StatusBar.ItemsPanel>
 
-      <StatusBarItem Grid.Column="0" HorizontalContentAlignment="Center">
+            <Button Grid.Column="0"
+                    Width="100"
+                    Height="50"
+                    Margin="5"
+                    Command="{Binding ViewModel.CommandPreviousTest}"
+                    Content="Previous test"
+                    IsEnabled="{Binding BaseModel.CanGoToLastTest}" />
 
-        <StackPanel Orientation="Horizontal">
+            <TextBox Grid.Column="2"
+                     VerticalAlignment="Center"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     FontSize="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, ConverterParameter=25, Converter={StaticResource HeightToFontSizeConverter}}"
+                     IsReadOnly="True"
+                     Text="{Binding BaseModel.CurrentAskSign}"
+                     TextAlignment="Center" />
 
-          <TextBlock Text="Correct answers: " />
+            <StackPanel Grid.Column="3"
+                        Margin="10"
+                        VerticalAlignment="Center">
 
-          <TextBlock Text="{Binding BaseModel.RightAnswerCountString}" />
+                <TextBlock Text="Wrong answers" />
 
-        </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCountIndicator}" />
+                    <TextBlock Text=" " />
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightWrongCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.WrongCount}" />
+                </StackPanel>
 
-      </StatusBarItem>
+                <TextBlock Text="Correct answers" />
 
-      <Separator Grid.Column="1" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCountIndicator}" />
+                    <TextBlock Text=" " />
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightCorrectCounter, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.CorrectCount}" />
+                </StackPanel>
 
-      <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
+                <TextBlock Text="Average answer time" />
 
-        <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTimeIndicator}" />
+                    <TextBlock Text=" " />
+                    <TextBlock FontWeight="{Binding BaseModel.HighlightAnswerTime, Converter={StaticResource BooleanToFontWeightConverter}}" Text="{Binding BaseModel.AverageAnswerTime}" />
+                </StackPanel>
 
-          <TextBlock Text="Wrong answers: " />
-          <TextBlock Text="{Binding BaseModel.WrongAnswerCountString}" />
+            </StackPanel>
 
-        </StackPanel>
+            <Button Grid.Column="4"
+                    Width="100"
+                    Height="50"
+                    Margin="5"
+                    Command="{Binding ViewModel.CommandNextTest}"
+                    Content="Next test" />
 
-      </StatusBarItem>
+        </Grid>
 
-      <Separator Grid.Column="3" />
+        <Grid Grid.Row="6">
 
-      <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding Model.AnswerHintTextHeight}" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="{Binding Model.AnswerShortCutTextHeight}" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[0]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[1]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[2]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[3]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[4]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[5]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[6]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[7]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[8]}" />
+                <ColumnDefinition Width="{Binding Model.AnswerButtonColumnWidth[9]}" />
+            </Grid.ColumnDefinitions>
 
-          <TextBlock Text="Rate: " />
-          <TextBlock Text="{Binding BaseModel.CurrentRateText}" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[0]}"
+                       TextAlignment="Center" />
 
-        </StackPanel>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[1]}"
+                       TextAlignment="Center" />
 
-      </StatusBarItem>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="2"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[2]}"
+                       TextAlignment="Center" />
 
-      <Separator Grid.Column="5" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="3"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[3]}"
+                       TextAlignment="Center" />
 
-      <StatusBarItem Grid.Column="6" HorizontalContentAlignment="Center">
+            <TextBlock Grid.Row="0"
+                       Grid.Column="4"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[4]}"
+                       TextAlignment="Center" />
 
-        <StackPanel Orientation="Horizontal">
+            <TextBlock Grid.Row="0"
+                       Grid.Column="5"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[5]}"
+                       TextAlignment="Center" />
 
-          <TextBlock Text="Test pool: " />
-          <TextBlock Text="{Binding BaseModel.TestPool.Count}" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="6"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[6]}"
+                       TextAlignment="Center" />
 
-        </StackPanel>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="7"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[7]}"
+                       TextAlignment="Center" />
 
-      </StatusBarItem>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="8"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[8]}"
+                       TextAlignment="Center" />
 
-      <Separator Grid.Column="7" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="9"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=40, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Foreground="{Binding BaseModel.HintTextColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
+                       Text="{Binding Model.AnswerHintText[9]}"
+                       TextAlignment="Center" />
 
-      <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[0], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="1"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[0]}">
 
-        <StackPanel Orientation="Horizontal">
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[0]}" />
 
-          <TextBlock Text="Test type: " />
-          <TextBlock Text="{Binding BaseModel.TestTypeString}" />
+            </Button>
 
-        </StackPanel>
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[1], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="2"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[1]}">
 
-      </StatusBarItem>
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[1]}" />
 
-    </StatusBar>
+            </Button>
 
-  </Grid>
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[2], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="3"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[2]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[2]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[3], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="4"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[3]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[3]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[4], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="5"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[4]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[4]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="5"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[5], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="6"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[5]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[5]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="6"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[6], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="7"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[6]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[6]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="7"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[7], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="8"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[7]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[7]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="8"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[8], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="9"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[8]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[8]}" />
+
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="9"
+                    Margin="5"
+                    Background="{Binding BaseModel.AnswerButtonColor[9], Converter={StaticResource ColorStringToBrushConverter}}"
+                    Command="{Binding ViewModel.CommandAnswerTestNumber}"
+                    CommandParameter="10"
+                    MouseRightButtonDown="HighlightAnswer"
+                    Visibility="{Binding Model.AnswerButtonVisibility[9]}">
+
+                <TextBlock Padding="0,0,0,10"
+                           FontSize="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth, ConverterParameter=50, Converter={StaticResource HeightToFontSizeConverter}}"
+                           Text="{Binding Model.AnswerAnswerText[9]}" />
+
+            </Button>
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[0]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[1]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="2"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[2]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="3"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[3]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="4"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[4]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="5"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[5]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="6"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[6]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="7"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[7]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="8"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[8]}"
+                       TextAlignment="Center" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="9"
+                       FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
+                       Text="{Binding Model.AnswerShortCutText[9]}"
+                       TextAlignment="Center" />
+
+        </Grid>
+
+        <StatusBar Grid.Row="8">
+
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem Grid.Column="0" HorizontalContentAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="Correct answers: " />
+
+                    <TextBlock Text="{Binding BaseModel.RightAnswerCountString}" />
+
+                </StackPanel>
+
+            </StatusBarItem>
+
+            <Separator Grid.Column="1" />
+
+            <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="Wrong answers: " />
+                    <TextBlock Text="{Binding BaseModel.WrongAnswerCountString}" />
+
+                </StackPanel>
+
+            </StatusBarItem>
+
+            <Separator Grid.Column="3" />
+
+            <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="Rate: " />
+                    <TextBlock Text="{Binding BaseModel.CurrentRateText}" />
+
+                </StackPanel>
+
+            </StatusBarItem>
+
+            <Separator Grid.Column="5" />
+
+            <StatusBarItem Grid.Column="6" HorizontalContentAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="Test pool: " />
+                    <TextBlock Text="{Binding BaseModel.TestPool.Count}" />
+
+                </StackPanel>
+
+            </StatusBarItem>
+
+            <Separator Grid.Column="7" />
+
+            <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="Test type: " />
+                    <TextBlock Text="{Binding BaseModel.TestTypeString}" />
+
+                </StackPanel>
+
+            </StatusBarItem>
+
+        </StatusBar>
+
+    </Grid>
 
 </Window>

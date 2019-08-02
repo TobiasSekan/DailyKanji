@@ -35,6 +35,12 @@ namespace DailyKanji.Mvvm.ViewModel
         public ICommand CommandShowSignStatistics
             => new CommandHelperSlim(() => new StatisticsWindow(_baseModel, this).Show());
 
+        /// <summary>
+        /// Command for show and hide the answer hints
+        /// </summary>
+        public ICommand CommandShowHints
+            => new CommandHelperSlim(BuildAnswerMenuAndButtons);
+
         #endregion Commands - View Menu
 
         #region Commands - Settings Menu
