@@ -281,7 +281,6 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         private void BuildAnswerMenuAndButtons()
         {
-            var answersType                  = _baseViewModel.GetAnswerType();
             var answerMenu                   = new List<MenuItem>(10);
             var markMenu                     = new List<MenuItem>(10);
             var answerButtonColumnWidth      = new List<GridLength>(10);
@@ -291,6 +290,35 @@ namespace DailyKanji.Mvvm.ViewModel
             var answerAnswerText             = new List<string>(10);
             var answerHintText               = new List<string>(10);
             var answerShortCutText           = new List<string>(10);
+            var answersType                  = _baseViewModel.GetAnswerType();
+
+            for(var answerNumber = 0; answerNumber < 10; answerNumber++)
+            {
+                if(answerNumber >= _baseModel.MaximumAnswers)
+                {
+                    answerButtonColumnWidth.Add(GridLength.Auto);
+                    answerButtonVisibility.Add(Visibility.Collapsed);
+                    answerShortCutTextVisibility.Add(Visibility.Collapsed);
+                    answerHintTextVisibility.Add(Visibility.Collapsed);
+                    answerAnswerText.Add(string.Empty);
+                    answerHintText.Add(string.Empty);
+                    answerShortCutText.Add(string.Empty);
+
+                    continue;
+                }
+
+                var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
+                var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+
+                answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
+                answerButtonVisibility.Add(Visibility.Visible);
+                answerShortCutTextVisibility.Add(Visibility.Visible);
+                answerHintTextVisibility.Add(Visibility.Visible);
+                answerAnswerText.Add(answerText);
+                answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
+                answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
+            }
 
             MainWindow?.Dispatcher.Invoke(() =>
             {
@@ -298,14 +326,6 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(answerNumber >= _baseModel.MaximumAnswers)
                     {
-                        answerButtonColumnWidth.Add(GridLength.Auto);
-                        answerButtonVisibility.Add(Visibility.Collapsed);
-                        answerShortCutTextVisibility.Add(Visibility.Collapsed);
-                        answerHintTextVisibility.Add(Visibility.Collapsed);
-                        answerAnswerText.Add(string.Empty);
-                        answerHintText.Add(string.Empty);
-                        answerShortCutText.Add(string.Empty);
-
                         continue;
                     }
 
@@ -328,14 +348,6 @@ namespace DailyKanji.Mvvm.ViewModel
                         Header           = answerText,
                         InputGestureText = $"Shift+{inputGestureText}"
                     });
-
-                    answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
-                    answerButtonVisibility.Add(Visibility.Visible);
-                    answerShortCutTextVisibility.Add(Visibility.Visible);
-                    answerHintTextVisibility.Add(Visibility.Visible);
-                    answerAnswerText.Add(answerText);
-                    answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
-                    answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
                 }
 
                 _model.AnswerMenu                   = answerMenu;
