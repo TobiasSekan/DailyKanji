@@ -110,21 +110,6 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
-        public IList<Visibility> AnswerShortCutTextVisibility
-        {
-            get => _answerShortCutTextVisibility;
-            set
-            {
-                if(_answerShortCutTextVisibility == value)
-                {
-                    return;
-                }
-
-                _answerShortCutTextVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-
         public IList<Visibility> AnswerHintTextVisibility
         {
             get => _answerHintTextVisibility;
@@ -185,6 +170,21 @@ namespace DailyKanji.Mvvm.Model
             }
         }
 
+        public GridLength AnswerShortCutTextHeight
+        {
+            get => _answerShortCutTextHeight;
+            set
+                {
+                if(_answerShortCutTextHeight == value)
+                {
+                    return;
+                }
+
+                _answerShortCutTextHeight = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -215,17 +215,17 @@ namespace DailyKanji.Mvvm.Model
 
         private IList<GridLength> _answerButtonColumnWidth;
 
-        private IList<Visibility>_answerButtonVisibility;
+        private IList<Visibility> _answerButtonVisibility;
 
-        private IList<Visibility>_answerShortCutTextVisibility;
+        private IList<Visibility> _answerHintTextVisibility;
 
-        private IList<Visibility>_answerHintTextVisibility;
-
-        private IList<string>_answerAnswerText;
+        private IList<string> _answerAnswerText;
 
         private IList<string> _answerHintText;
 
-        private IList<string>_answerShortCutText;
+        private IList<string> _answerShortCutText;
+
+        private GridLength _answerShortCutTextHeight;
 
         #endregion Private Backing-fields
 
@@ -242,17 +242,17 @@ namespace DailyKanji.Mvvm.Model
             _markMenu                     = new List<MenuItem>(10);
             _answerButtonColumnWidth      = new List<GridLength>(10);
             _answerButtonVisibility       = new List<Visibility>(10);
-            _answerShortCutTextVisibility = new List<Visibility>(10);
             _answerHintTextVisibility     = new List<Visibility>(10);
             _answerAnswerText             = new List<string>(10);
             _answerHintText               = new List<string>(10);
             _answerShortCutText           = new List<string>(10);
 
+            _answerShortCutTextHeight     = GridLength.Auto;
+
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
                 _answerButtonColumnWidth.Add(GridLength.Auto);
                 _answerButtonVisibility.Add(Visibility.Collapsed);
-                _answerShortCutTextVisibility.Add(Visibility.Collapsed);
                 _answerHintTextVisibility.Add(Visibility.Collapsed);
                 _answerAnswerText.Add(string.Empty);
                 _answerHintText.Add(string.Empty);
@@ -270,7 +270,6 @@ namespace DailyKanji.Mvvm.Model
             _markMenu.Clear();
             _answerButtonColumnWidth.Clear();
             _answerButtonVisibility.Clear();
-            _answerShortCutTextVisibility.Clear();
             _answerHintTextVisibility.Clear();
             _answerAnswerText.Clear();
             _answerHintText.Clear();

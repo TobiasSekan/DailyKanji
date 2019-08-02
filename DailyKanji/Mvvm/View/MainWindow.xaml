@@ -567,7 +567,7 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
+        <RowDefinition Height="{Binding Model.AnswerShortCutTextHeight}" />
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -817,71 +817,61 @@
                  Grid.Column="0"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[0]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[0]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="1"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[1]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[1]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="2"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[2]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[2]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="3"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[3]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[3]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="4"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[4]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[4]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="5"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[5]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[5]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="6"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[6]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[6]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="7"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[7]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[7]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="8"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[8]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[8]}" />
+                 TextAlignment="Center" />
 
       <TextBlock Grid.Row="2"
                  Grid.Column="9"
                  FontSize="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, ConverterParameter=15, Converter={StaticResource HeightToFontSizeConverter}}"
                  Text="{Binding Model.AnswerShortCutText[9]}"
-                 TextAlignment="Center"
-                 Visibility="{Binding Model.AnswerShortCutTextVisibility[9]}" />
+                 TextAlignment="Center" />
 
     </Grid>
 
