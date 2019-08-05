@@ -552,6 +552,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.AnswerButtonColor[answerNumber] = _baseModel.AnswerButtonColor[answerNumber] != highlightColor
                 ? highlightColor
                 : normalColor;
+
+            _baseModel.OnPropertyChangedForAnswerButtonColors();
         }
 
         /// <summary>

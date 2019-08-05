@@ -26,7 +26,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
-    // Mark a answer is completely broken
 
     // Version 1.x
     // -----------

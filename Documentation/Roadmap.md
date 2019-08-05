@@ -7,7 +7,6 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
-* Mark a answer is completely broken
 
 ## Version 1.x
 * Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
