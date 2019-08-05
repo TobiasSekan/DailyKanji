@@ -248,16 +248,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns>A hint for a answer</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public string GetAnswerHint(in TestBaseModel answer)
-        {
-            return _baseModel.SelectedHintType switch
+            => _baseModel.SelectedHintType switch
             {
-                HintType.AlwaysInRoomaji  => answer.Roomaji,
+                HintType.AlwaysInRoomaji => answer.Roomaji,
                 HintType.AlwaysInHiragana => answer.Hiragana,
                 HintType.AlwaysInKatakana => answer.Katakana,
-                HintType.BasedOnAskSign   => GetAnswerHintBasedOnAskSign(answer),
-                _                         => throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedHintType), "Hint type not supported"),
+                HintType.BasedOnAskSign => GetAnswerHintBasedOnAskSign(answer),
+                _ => throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedHintType), "Hint type not supported"),
             };
-        }
 
         /// <summary>
         /// Count the result of a test, based on the given answer and the selected <see cref="TestType"/>
