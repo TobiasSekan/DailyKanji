@@ -28,8 +28,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             _baseModel = baseModel;
 
-            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"{nameof(baseColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"MainBaseViewModel: [{nameof(baseColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"MainBaseViewModel: [{nameof(progressBarColor)}] can't be empty or null");
 
             var list = KanaHelper.GetKanaList();
             if(list?.Count() != _baseModel.AllTestsList?.Count())
@@ -82,7 +82,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Build the test pool (wrong answered tests will add multiple)
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void BuildTestPool()
         {
             var testPool = new Collection<TestBaseModel>();
@@ -140,19 +139,23 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     break;
 
                 case TestType.AllToAll:
-                    var random = _baseModel.Randomizer.Next(0, 3);
+                    var randomNumber = _baseModel.Randomizer.Next(0, 3);
 
-                    _baseModel.CurrentAskSign = random switch
+                    _baseModel.CurrentAskSign = randomNumber switch
                     {
                         0 => _baseModel.CurrentTest.Hiragana,
                         1 => _baseModel.CurrentTest.Katakana,
                         2 => _baseModel.CurrentTest.Roomaji,
-                        _ => throw new ArgumentOutOfRangeException(nameof(random), $"[{random.ToString()}] is not between 0 and 2"),
+                        _ => throw new ArgumentOutOfRangeException(nameof(randomNumber),
+                                                                   randomNumber,
+                                                                   "ChooseNewSign: is not between 0 and 2"),
                     };
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType), "Test type not supported");
+                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
+                                                          _baseModel.SelectedTestType,
+                                                          "ChooseNewSign: Test type not supported");
             }
         }
 
@@ -237,7 +240,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 AnswerType.Roomaji  => answer.Roomaji,
                 AnswerType.Hiragana => answer.Hiragana,
                 AnswerType.Katakana => answer.Katakana,
-                _                   => throw new ArgumentOutOfRangeException(nameof(answerType), "Answer type not supported"),
+                _                   => throw new ArgumentOutOfRangeException(nameof(answerType), answerType, "Answer type not supported"),
             };
         }
 
@@ -254,7 +257,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 HintType.AlwaysInHiragana => answer.Hiragana,
                 HintType.AlwaysInKatakana => answer.Katakana,
                 HintType.BasedOnAskSign => GetAnswerHintBasedOnAskSign(answer),
-                _ => throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedHintType), "Hint type not supported"),
+                _ => throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedHintType), _baseModel.SelectedHintType, "Hint type not supported"),
             };
 
         /// <summary>
@@ -295,12 +298,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
-                        "Test type combination not supported\n"
-                        + $"SelectedTestType:     [{_baseModel.SelectedTestType.ToString()}]\n"
-                        + $"CurrentAskSign:       [{_baseModel.CurrentAskSign}]\n"
-                        + $"CurrentTest.Katakana: [{_baseModel.CurrentTest.Katakana}]\n"
-                        + $"CurrentTest.Hiragana: [{_baseModel.CurrentTest.Hiragana}]\n"
-                        + $"answer.AnswerType:    [{answer.AnswerType.ToString()}]");
+                                                         _baseModel,
+                                                         "CountAnswerResult: Test type combination not supported\n"
+                                                         + $"SelectedTestType:     [{_baseModel.SelectedTestType.ToString()}]\n"
+                                                         + $"CurrentAskSign:       [{_baseModel.CurrentAskSign}]\n"
+                                                         + $"CurrentTest.Katakana: [{_baseModel.CurrentTest.Katakana}]\n"
+                                                         + $"CurrentTest.Hiragana: [{_baseModel.CurrentTest.Hiragana}]\n"
+                                                         + $"answer.AnswerType:    [{answer.AnswerType.ToString()}]");
             }
 
             // Reset the AnswerType - only for testing / debugging
@@ -413,14 +417,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             if(string.IsNullOrWhiteSpace(path))
             {
                 baseModel = new MainBaseModel();
-                exception = new ArgumentException("Settings path is empty.", nameof(path));
+                exception = new ArgumentException("TryLoadSettings: Settings path is empty.", nameof(path));
                 return false;
             }
 
             if(!File.Exists(path))
             {
                 baseModel = new MainBaseModel();
-                exception = new FileNotFoundException("Settings file not found.", path);
+                exception = new FileNotFoundException("TryLoadSettings: Settings file not found.", path);
                 return false;
             }
 
@@ -469,8 +473,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="progressBarColor">The base color for the progress bar</param>
         public void SetNormalColors(in string normalColor, in string progressBarColor)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"{nameof(progressBarColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"SetNormalColors: [{nameof(normalColor)}] can't be null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"SetNormalColors: [{nameof(progressBarColor)}] can't be empty or null");
 
             _baseModel.CurrentAskSignColor = normalColor;
             _baseModel.ProgressBarColor    = progressBarColor;
@@ -498,10 +502,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                                        in string noneSelectedColor,
                                        in string hintColor)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"{nameof(correctColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"{nameof(errorColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"{nameof(noneSelectedColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"{nameof(hintColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"SetHighlightColors: [{nameof(correctColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"SetHighlightColors: [{nameof(errorColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"SetHighlightColors: [{nameof(noneSelectedColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHighlightColors: [{nameof(hintColor)}] can't be empty or null");
 
             Debug.WriteLine($"SetHighlightColors -    MaximumAnswers: [{_baseModel.MaximumAnswers.ToString()}]");
             Debug.WriteLine($"SetHighlightColors -   PossibleAnswers: [{_baseModel.PossibleAnswers.Count().ToString()}]");
@@ -514,11 +518,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             {
                 if(_baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber) != null)
                 {
-                    var roomaji = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
+                    var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
 
-                    _baseModel.AnswerButtonColor[answerNumber] = roomaji == _baseModel.CurrentTest.Roomaji
+                    _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer .Roomaji == _baseModel.CurrentTest.Roomaji
                         ? correctColor
-                        : roomaji == answer.Roomaji
+                        : possibleAnswer.Roomaji == answer.Roomaji
                             ? errorColor
                             : noneSelectedColor;
                 }
@@ -540,8 +544,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="normalColor">The color string for the answer when it is not highlight</param>
         public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"{nameof(highlightColor)} can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"{nameof(normalColor)} can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"SetOrRemoveHighlightColorToOneAnswer: [{nameof(highlightColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"SetOrRemoveHighlightColorToOneAnswer: [{nameof(normalColor)}] can't be empty or null");
 
             var answerNumber = GetAnswerNumber(answer);
 
@@ -655,7 +659,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     return (_baseModel.Randomizer.Next(0, 2) == 0) ? AnswerType.Hiragana : AnswerType.Roomaji;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType), "Test type not supported");
+                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType), _baseModel.SelectedTestType, "GetAnswerType: Test type not supported");
             }
         }
 
@@ -743,7 +747,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return answerNumber;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(answer), "Number for answer not found");
+            throw new ArgumentOutOfRangeException(nameof(answer), answer, "GetAnswerNumber: Number for answer not found");
         }
 
         /// <summary>
@@ -777,7 +781,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     return answer.Katakana;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType), "Test type not supported");
+                    throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
+                                                          _baseModel.SelectedTestType,
+                                                          "GetAnswerHintBasedOnAskSign: Test type not supported");
             }
         }
 

@@ -54,7 +54,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(HintType), value))
                     {
-                        Debug.Fail($"[{value}] is not defined in the [{nameof(HintType)}] enumeration");
+                        Debug.Fail($"CommandChangeHintType: [{value}] is not defined in the [{nameof(HintType)}] enumeration");
                         return;
                     }
 
@@ -72,7 +72,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var maximumAnswers))
                     {
-                        Debug.Fail($"can't parse [{maximumAnswers.ToString()}] into [byte] value");
+                        Debug.Fail($"CommandChangeAnswerCount: Can't parse [{value}] into [byte] value");
                         return;
                     }
 
@@ -122,7 +122,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(TestType), value))
                     {
-                        Debug.Fail($"[{value}] is not defined in the [{nameof(TestType)}] enumeration");
+                        Debug.Fail($"CommandChangeTestType: [{value}] is not defined in the [{nameof(TestType)}] enumeration");
                         return;
                     }
 
@@ -140,7 +140,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(KanaType), value))
                     {
-                        Debug.Fail($"[{value}] is not defined in the [{nameof(KanaType)}] enumeration");
+                        Debug.Fail($"CommandChangeKanaType: [{value}] is not defined in the [{nameof(KanaType)}] enumeration");
                         return;
                     }
 
@@ -175,7 +175,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!byte.TryParse(value?.ToString(), out var answerNumber))
                     {
-                        Debug.Fail($"can't parse [{answerNumber.ToString()}] into a [byte] value");
+                        Debug.Fail($"CommandAnswerTestNumber: Can't parse [{value}] into a [byte] value");
                         return;
                     }
 
@@ -183,6 +183,26 @@ namespace DailyKanji.Mvvm.ViewModel
                 });
 
         #endregion Commands - Answer Menu
+
+        #region Commands - Mark Menu
+
+        /// <summary>
+        /// Command to highlight a (possible) wrong answer
+        /// </summary>
+        public ICommand CommandHighlightAnswer
+            => new CommandHelper(value
+                =>
+                {
+                    if(!byte.TryParse(value?.ToString(), out var answerNumber))
+                    {
+                        Debug.Fail($"CommandHighlightAnswer: Can't parse [{value}] into a [byte] value");
+                        return;
+                    }
+
+                    HighlightAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
+                });
+
+        #endregion Commands - Mark Menu
 
         #region Commands - Statistics Menu
 
@@ -195,7 +215,7 @@ namespace DailyKanji.Mvvm.ViewModel
                 {
                     if(!Enum.IsDefined(typeof(ResetType), value))
                     {
-                        Debug.Fail($"[{value}] is not defined in the [{nameof(ResetType)}] enumeration");
+                        Debug.Fail($"CommandRestStatistic: [{value}] is not defined in the [{nameof(ResetType)}] enumeration");
                         return;
                     }
 
@@ -261,22 +281,6 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         public ICommand CommandNextTest
             => new CommandHelperSlim(() => CheckSelectedAnswer(TestBaseModel.EmptyTest));
-
-        /// <summary>
-        /// Command to highlight a (possible) wrong answer
-        /// </summary>
-        public ICommand CommandHighlightAnswer
-            => new CommandHelper(value
-                =>
-                {
-                    if(!byte.TryParse(value?.ToString(), out var answerNumber))
-                    {
-                        Debug.Fail($"can't parse [{answerNumber.ToString()}] into a [byte] value");
-                        return;
-                    }
-
-                    HighlightAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber - 1));
-                });
 
         #endregion Commands - Navigation
     }

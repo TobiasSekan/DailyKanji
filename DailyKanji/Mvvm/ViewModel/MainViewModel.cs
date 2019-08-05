@@ -308,7 +308,6 @@ namespace DailyKanji.Mvvm.ViewModel
         /// Check if the given answer is correct
         /// </summary>
         /// <param name="answer">The answer to check</param>
-        /// <exception cref="ArgumentNullException"></exception>
         private void CheckSelectedAnswer(in TestBaseModel answer)
         {
             Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
