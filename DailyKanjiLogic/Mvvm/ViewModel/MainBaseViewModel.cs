@@ -514,16 +514,18 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                var roomaji           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
-                var answerButtonColor = _baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber);
+                if(_baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber) != null)
+                {
+                    var roomaji = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji;
 
-                answerButtonColor = roomaji == _baseModel.CurrentTest.Roomaji
-                    ? correctColor
-                    : roomaji == answer.Roomaji
-                        ? errorColor
-                        : noneSelectedColor;
+                    _baseModel.AnswerButtonColor[answerNumber] = roomaji == _baseModel.CurrentTest.Roomaji
+                        ? correctColor
+                        : roomaji == answer.Roomaji
+                            ? errorColor
+                            : noneSelectedColor;
+                }
 
-                if(_baseModel.ShowHints)
+                if(_baseModel.ShowHints && _baseModel.HintTextColor.ElementAtOrDefault(answerNumber) != null)
                 {
                     _baseModel.HintTextColor[answerNumber] = hintColor;
                 }

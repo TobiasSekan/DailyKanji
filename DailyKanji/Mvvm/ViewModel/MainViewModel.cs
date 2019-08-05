@@ -27,8 +27,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // BUG
     // ---
     // Mark a answer is completely broken
-    // Highlight color of answers is completely broken
-
 
     // Version 1.x
     // -----------
