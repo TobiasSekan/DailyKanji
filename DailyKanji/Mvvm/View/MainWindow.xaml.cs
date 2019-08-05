@@ -49,7 +49,7 @@ namespace DailyKanji.Mvvm.View
                 return;
             }
 
-            ViewModel.CommandHighlightAnswer.Execute(button.Name.Replace("Button", string.Empty));
+            ViewModel.CommandHighlightAnswer.Execute(button.CommandParameter);
         }
 
         /// <summary>
