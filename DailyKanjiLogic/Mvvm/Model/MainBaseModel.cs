@@ -704,6 +704,21 @@ namespace DailyKanjiLogic.Mvvm.Model
         private string _progressBarColor;
 
         /// <summary>
+        /// Backing-field for <see cref="AverageAnswerTimeIndicator"/>
+        /// </summary>
+        private string _averageAnswerTimeIndicator;
+
+        /// <summary>
+        /// Backing-field for <see cref="CorrectCountIndicator"/>
+        /// </summary>
+        private string _correctCountIndicator;
+
+        /// <summary>
+        /// Backing-field for <see cref="WrongCountIndicator"/>
+        /// </summary>
+        private string _wrongCountIndicator;
+
+        /// <summary>
         /// Backing-field for <see cref="SelectedHintType"/>
         /// </summary>
         private HintType _selectedHintType;
@@ -782,21 +797,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="HighlightAnswerTime"/>
         /// </summary>
         private bool _highlightAnswerTime;
-
-        /// <summary>
-        /// Backing-field for <see cref="AverageAnswerTimeIndicator"/>
-        /// </summary>
-        private string _averageAnswerTimeIndicator;
-
-        /// <summary>
-        /// Backing-field for <see cref="CorrectCountIndicator"/>
-        /// </summary>
-        private string _correctCountIndicator;
-
-        /// <summary>
-        /// Backing-field for <see cref="WrongCountIndicator"/>
-        /// </summary>
-        private string _wrongCountIndicator;
 
         /// <summary>
         /// Backing-field for <see cref="ShowSignStatistics"/>
