@@ -10,7 +10,6 @@
 
 ## Version 1.x
 * Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
-* Add option to hide sign statistics on main window
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu

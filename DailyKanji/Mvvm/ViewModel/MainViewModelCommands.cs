@@ -32,7 +32,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <summary>
         /// Command for show the sign statistic
         /// </summary>
-        public ICommand CommandShowSignStatistics
+        public ICommand CommandShowAllSignStatistics
             => new CommandHelperSlim(() => new StatisticsWindow(_baseModel, this).Show());
 
         /// <summary>

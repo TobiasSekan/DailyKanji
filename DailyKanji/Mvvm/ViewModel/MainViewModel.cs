@@ -30,7 +30,6 @@ namespace DailyKanji.Mvvm.ViewModel
     // Version 1.x
     // -----------
     // TODO: Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
-    // TODO: Add option to hide sign statistics on main window
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu

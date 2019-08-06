@@ -637,6 +637,24 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that the statistics of the current ask sign is shown
+        /// </summary>
+        public bool ShowSignStatistics
+        {
+            get => _showSignStatistics;
+            set
+            {
+                if(_showSignStatistics == value)
+                {
+                    return;
+                }
+
+                _showSignStatistics = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -779,6 +797,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="WrongCountIndicator"/>
         /// </summary>
         private string _wrongCountIndicator;
+
+        /// <summary>
+        /// Backing-field for <see cref="ShowSignStatistics"/>
+        /// </summary>
+        private bool _showSignStatistics;
 
         #endregion Private Backing-Fields
 

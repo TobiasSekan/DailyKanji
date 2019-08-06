@@ -174,7 +174,7 @@
                           IsChecked="{Binding BaseModel.HighlightOnCorrectAnswer}" />
 
                 <MenuItem Command="{Binding ViewModel.CommandShowHints}"
-                          Header="Show _hints on wrong answers"
+                          Header="Show _hints after answered tests"
                           IsCheckable="True"
                           IsChecked="{Binding BaseModel.ShowHints}" />
 
@@ -184,13 +184,17 @@
                           IsEnabled="{Binding BaseModel.UseAnswerTimer}" />
 
                 <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
-                          Header="Show short_cuts for answers"
+                          Header="Show _shortcuts for answers"
                           IsCheckable="True"
                           IsChecked="{Binding BaseModel.ShowAnswerShortcuts}" />
 
+                <MenuItem Header="Show current sig_n statistic"
+                          IsCheckable="True"
+                          IsChecked="{Binding BaseModel.ShowSignStatistics}" />
+
                 <Separator />
 
-                <MenuItem Command="{Binding ViewModel.CommandShowSignStatistics}" Header="Show sign _statistics " />
+                <MenuItem Command="{Binding ViewModel.CommandShowAllSignStatistics}" Header="Show _all sign statistics" />
 
             </MenuItem>
 
@@ -526,7 +530,8 @@
 
             <StackPanel Grid.Column="3"
                         Margin="10"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        Visibility="{Binding BaseModel.ShowSignStatistics, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                 <TextBlock Text="Wrong answers" />
 
