@@ -974,7 +974,7 @@
     <Rule Id="RCS1062" Action="Warning" />    <!-- RCS1062: Avoid interpolated string with no interpolation -->
     <Rule Id="RCS1063" Action="Warning" />    <!-- RCS1063: Avoid usage of do statement to create an infinite loop -->
     <Rule Id="RCS1064" Action="Warning" />    <!-- RCS1064: Avoid usage of for statement to create an infinite loop -->
-    <Rule Id="RCS1065" Action="Warning" />    <!-- RCS1065: Avoid usage of while statement to create an infinite loop -->
+    <Rule Id="RCS1065" Action="None" />       <!-- RCS1065: Avoid usage of while statement to create an infinite loop -->
     <Rule Id="RCS1066" Action="Warning" />    <!-- RCS1066: Remove empty finally clause -->
     <Rule Id="RCS1067" Action="Warning" />    <!-- RCS1067: Remove argument list from object creation expression -->
     <Rule Id="RCS1068" Action="Warning" />    <!-- RCS1068: Simplify logical negation -->
@@ -1005,7 +1005,7 @@
     <Rule Id="RCS1092" Action="Warning" />    <!-- RCS1092: Add empty line before 'while' keyword in 'do' statement -->
     <Rule Id="RCS1093" Action="Warning" />    <!-- RCS1093: Remove file with no code -->
     <Rule Id="RCS1094" Action="Warning" />    <!-- RCS1094: Declare using directive on top level -->
-    <Rule Id="RCS1096" Action="Warning" />    <!-- RCS1096: Use bitwise operation instead of calling 'HasFlag' -->
+    <Rule Id="RCS1096" Action="None" />       <!-- RCS1096: Use bitwise operation instead of calling 'HasFlag' -->
     <Rule Id="RCS1097" Action="Warning" />    <!-- RCS1097: Remove redundant 'ToString' call -->
     <Rule Id="RCS1098" Action="Warning" />    <!-- RCS1098: Avoid 'null' on the left side of a binary expression -->
     <Rule Id="RCS1099" Action="Warning" />    <!-- RCS1099: Default label should be the last label in a switch section -->
