@@ -34,7 +34,7 @@ namespace DailyKanji.Mvvm.View
 
         #endregion Internal Constructors
 
-        # region Private Methods
+        #region Private Methods
 
         /// <summary>
         /// Command redirection for right-click on a answer button
