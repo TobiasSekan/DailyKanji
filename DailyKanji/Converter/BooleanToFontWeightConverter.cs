@@ -12,11 +12,13 @@ namespace DailyKanji.Converter
     /// </summary>
     internal sealed class BooleanToFontWeightConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => (value is bool booleanValue) && booleanValue
                 ? FontWeights.ExtraBold
                 : FontWeights.Normal;
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => false;
     }

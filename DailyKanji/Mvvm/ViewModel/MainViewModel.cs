@@ -128,6 +128,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #region IDisposable Implementation
 
+        /// <inheritdoc/>
         public void Dispose()
             => _baseModel.Dispose();
 

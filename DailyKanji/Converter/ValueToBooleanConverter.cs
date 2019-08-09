@@ -11,9 +11,11 @@ namespace DailyKanji.Converter
     /// </summary>
     internal sealed class ValueToBooleanConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => System.Convert.ToInt32(value) == System.Convert.ToInt32(parameter);
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => value;
     }

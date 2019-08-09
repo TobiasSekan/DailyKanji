@@ -304,6 +304,7 @@ namespace DailyKanji.Mvvm.Model
 
         #region IDisposable Implementation
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             _answerMenu.Clear();

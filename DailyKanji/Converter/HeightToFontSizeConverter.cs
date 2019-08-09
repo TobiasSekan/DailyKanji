@@ -12,6 +12,7 @@ namespace DailyKanji.Converter
     /// </summary>
     internal sealed class HeightToFontSizeConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if(!float.TryParse(value.ToString(), NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, out var high))
@@ -41,6 +42,7 @@ namespace DailyKanji.Converter
             return 1;
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => value;
     }

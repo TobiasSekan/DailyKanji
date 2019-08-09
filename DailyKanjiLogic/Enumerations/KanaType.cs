@@ -3,7 +3,7 @@
 namespace DailyKanjiLogic.Enumerations
 {
     /// <summary>
-    /// The type of the kana
+    /// The type of the kana (enum used <see cref="FlagsAttribute"/>)
     /// </summary>
     [Flags]
     public enum KanaType : byte
