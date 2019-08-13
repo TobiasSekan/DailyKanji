@@ -1040,6 +1040,7 @@
     <Rule Id="RCS1134" Action="Warning" />    <!-- RCS1134: Remove redundant statement -->
     <Rule Id="RCS1135" Action="Warning" />    <!-- RCS1135: Declare enum member with zero value (when enum has FlagsAttribute) -->
     <Rule Id="RCS1136" Action="Warning" />    <!-- RCS1136: Merge switch sections with equivalent content -->
+    <Rule Id="RCS1137" Action="Warning" />    <!-- RCS1137: Use bit shift operator -->
     <Rule Id="RCS1138" Action="Warning" />    <!-- RCS1138: Add summary to documentation comment -->
     <Rule Id="RCS1139" Action="Warning" />    <!-- RCS1139: Add summary element to documentation comment -->
 

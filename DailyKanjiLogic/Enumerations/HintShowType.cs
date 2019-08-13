@@ -11,26 +11,26 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// Show no hint
         /// </summary>
-        ShowOnNoAnswers = 0x_00,
+        ShowOnNoAnswers = 0,
 
         /// <summary>
         /// Show the hint on the wrong answer
         /// </summary>
-        ShowOnWrongAnswer = 0x_01,
+        ShowOnWrongAnswer = 1,
 
         /// <summary>
         /// Show the hint on the right answer
         /// </summary>
-        ShowOnRightAnswer = 0x_02,
+        ShowOnRightAnswer = 1 << 1,
 
         /// <summary>
         /// Show the hint on all marked answers
         /// </summary>
-        ShowOnMarkedAnswers = 0x_04,
+        ShowOnMarkedAnswers = 1 << 2,
 
         /// <summary>
         /// Show the hint on all other answers (not marked answers, not right, not wrong)
         /// </summary>
-        ShowOnOtherAnswers = 0x_08
+        ShowOnOtherAnswers = 1 << 3
     }
 }
