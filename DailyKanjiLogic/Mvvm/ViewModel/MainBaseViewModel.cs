@@ -520,11 +520,16 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 {
                     var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
 
-                    _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer .Roomaji == _baseModel.CurrentTest.Roomaji
-                        ? correctColor
-                        : possibleAnswer.Roomaji == answer.Roomaji
+                    if(possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
+                    {
+                        _baseModel.AnswerButtonColor[answerNumber] = correctColor;
+                    }
+                    else
+                    {
+                        _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer.Roomaji == answer.Roomaji
                             ? errorColor
                             : noneSelectedColor;
+                    }
                 }
 
                 if(_baseModel.ShowHints && _baseModel.HintTextColor.ElementAtOrDefault(answerNumber) != null)
