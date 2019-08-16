@@ -1,4 +1,4 @@
-﻿using DailyKanji.Mvvm.View;
+using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
@@ -36,10 +36,20 @@ namespace DailyKanji.Mvvm.ViewModel
             => new CommandHelperSlim(() => new StatisticsWindow(_baseModel, this).Show());
 
         /// <summary>
-        /// Command for show and hide the answer hints
+        /// Command for change the hint show type
         /// </summary>
-        public ICommand CommandShowHints
-            => new CommandHelperSlim(BuildAnswerMenuAndButtons);
+        public ICommand CommandChangeHintShowType
+            => new CommandHelper(value
+                =>
+                {
+                    if(!Enum.IsDefined(typeof(HintShowType), value))
+                    {
+                        Debug.Fail($"{nameof(CommandChangeHintShowType)}: [{value}] is not defined in the [{nameof(HintShowType)}] enumeration");
+                        return;
+                    }
+
+                    _baseModel.SelectedHintShowType ^= (HintShowType)value;
+                });
 
         #endregion Commands - View Menu
 

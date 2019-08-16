@@ -175,21 +175,25 @@
 
                 <MenuItem Header="Show _hints after answered tests">
 
-                    <MenuItem Header="Show hints on _wrong answer"
-                              IsCheckable="True"
-                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnWrongAnswer}}" />
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintShowType}"
+                              CommandParameter="{x:Static enumerations:HintShowType.ShowOnWrongAnswer}"
+                              Header="Show hints on _wrong answer"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnWrongAnswer}}" />
 
-                    <MenuItem Header="Show hints on _correct answer"
-                              IsCheckable="True"
-                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnCorrectAnswer}}" />
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintShowType}"
+                              CommandParameter="{x:Static enumerations:HintShowType.ShowOnCorrectAnswer}"
+                              Header="Show hints on _correct answer"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnCorrectAnswer}}" />
 
-                    <MenuItem Header="Show hints on _marked answers"
-                              IsCheckable="True"
-                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnMarkedAnswers}}" />
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintShowType}"
+                              CommandParameter="{x:Static enumerations:HintShowType.ShowOnMarkedAnswers}"
+                              Header="Show hints on _marked answers"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnMarkedAnswers}}" />
 
-                    <MenuItem Header="Show hints on _other answers"
-                              IsCheckable="True"
-                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnOtherAnswers}}" />
+                    <MenuItem Command="{Binding ViewModel.CommandChangeHintShowType}"
+                              CommandParameter="{x:Static enumerations:HintShowType.ShowOnOtherAnswers}"
+                              Header="Show hints on _other answers"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource FlagValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnOtherAnswers}}" />
 
                 </MenuItem>
 
