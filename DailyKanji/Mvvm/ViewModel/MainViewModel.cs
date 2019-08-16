@@ -1,6 +1,7 @@
-﻿using DailyKanji.Helper;
+using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
@@ -29,7 +30,6 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // TODO: Add more options for hints (Show hint only on the: wrong answer, correct answer, all other answers)
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -223,7 +223,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void BuildAnswerMenuAndButtons()
         {
-            _model.AnswerHintTextHeight     = _baseModel.ShowHints ? GridLength.Auto : new GridLength(0);
+            _model.AnswerHintTextHeight     = _baseModel.SelectedHintShowType != HintShowType.ShowOnNoAnswers ? GridLength.Auto : new GridLength(0);
             _model.AnswerShortCutTextHeight = _baseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
 
             var answerMenu                   = new List<MenuItem>(10);

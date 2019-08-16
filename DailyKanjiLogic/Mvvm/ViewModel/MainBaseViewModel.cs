@@ -495,17 +495,17 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="answer">The answers of the current test</param>
         /// <param name="correctColor">The color string for the correct element</param>
         /// <param name="errorColor">The color string for the elements</param>
-        /// <param name="noneSelectedColor">The color string for none selected elements</param>
+        /// <param name="markedColor">The color string for marked elements</param>
         /// <param name="hintColor">The color string for the hint elements</param>
         public void SetHighlightColors(in TestBaseModel answer,
                                        in string correctColor,
                                        in string errorColor,
-                                       in string noneSelectedColor,
+                                       in string markedColor,
                                        in string hintColor)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"SetHighlightColors: [{nameof(correctColor)}] can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"SetHighlightColors: [{nameof(errorColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"SetHighlightColors: [{nameof(noneSelectedColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHighlightColors: [{nameof(markedColor)}] can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHighlightColors: [{nameof(hintColor)}] can't be empty or null");
 
             _baseModel.CurrentAskSignColor = errorColor;
@@ -513,25 +513,24 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                if(_baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber) != null)
-                {
-                    var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                SetHintTextColors(answerNumber, answer, markedColor, hintColor);
 
-                    if(possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
-                    {
-                        _baseModel.AnswerButtonColor[answerNumber] = correctColor;
-                    }
-                    else
-                    {
-                        _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer.Roomaji == answer.Roomaji
-                            ? errorColor
-                            : noneSelectedColor;
-                    }
+                if(_baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber) == null)
+                {
+                    continue;
                 }
 
-                if(_baseModel.ShowHints && _baseModel.HintTextColor.ElementAtOrDefault(answerNumber) != null)
+                var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+
+                if(possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
                 {
-                    _baseModel.HintTextColor[answerNumber] = hintColor;
+                    _baseModel.AnswerButtonColor[answerNumber] = correctColor;
+                }
+                else
+                {
+                    _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer.Roomaji == answer.Roomaji
+                        ? errorColor
+                        : markedColor;
                 }
             }
 
@@ -788,6 +787,61 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
                                                           _baseModel.SelectedTestType,
                                                           "GetAnswerHintBasedOnAskSign: Test type not supported");
+            }
+        }
+
+        /// <summary>
+        /// Set the colors for all hint texts (above of the answer buttons)
+        /// </summary>
+        /// <param name="answerNumber">The answer number or button number</param>
+        /// <param name="answer">The given answer of the user</param>
+        /// <param name="markedColor">The color string for marked elements</param>
+        /// <param name="hintColor">The color string for the hint elements</param>
+        internal void SetHintTextColors(in int answerNumber, in TestBaseModel answer, in string markedColor, in string hintColor)
+        {
+            Debug.Assert(answerNumber >= 0 && answerNumber <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
+            Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHintTextColors: [{nameof(markedColor)}] can't be empty or null");
+            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHintTextColors: [{nameof(hintColor)}] can't be empty or null");
+
+            var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+
+            if(_baseModel.HintTextColor.ElementAtOrDefault(answerNumber) == null)
+            {
+                return;
+            }
+
+            if(_baseModel.SelectedHintShowType == HintShowType.ShowOnNoAnswers)
+            {
+                return;
+            }
+
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnCorrectAnswer)
+            && possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
+            }
+
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnWrongAnswer)
+            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
+            && possibleAnswer.Roomaji == answer.Roomaji)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
+            }
+
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
+            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
+            && possibleAnswer.Roomaji != answer.Roomaji
+            && _baseModel.AnswerButtonColor[answerNumber] == markedColor)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
+            }
+
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnOtherAnswers)
+            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
+            && possibleAnswer.Roomaji != answer.Roomaji
+            && _baseModel.AnswerButtonColor[answerNumber] != markedColor)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
             }
         }
 

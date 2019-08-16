@@ -519,24 +519,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         }
 
         /// <summary>
-        /// Indicate that hints on wrong answers will be shown
-        /// </summary>
-        public bool ShowHints
-        {
-            get => _showHints;
-            set
-            {
-                if(_showHints == value)
-                {
-                    return;
-                }
-
-                _showHints = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
         /// Indicate that the shortcuts for the answers will be shown
         /// </summary>
         public bool ShowAnswerShortcuts
@@ -832,6 +814,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         private string _wrongCountIndicator;
 
         /// <summary>
+        /// Backing-field for <see cref="SelectedHintShowType"/>
+        /// </summary>
+        private HintShowType _selectedHintShowType;
+
+        /// <summary>
         /// Backing-field for <see cref="SelectedHintType"/>
         /// </summary>
         private HintType _selectedHintType;
@@ -855,11 +842,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="SimilarAnswers"/>
         /// </summary>
         private bool _similarAnswers;
-
-        /// <summary>
-        /// Backing-field for <see cref="ShowHints"/>
-        /// </summary>
-        private bool _showHints;
 
         /// <summary>
         /// Backing-filed for <see cref="ShowAnswerShortcuts"/>
@@ -915,7 +897,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="ShowSignStatistics"/>
         /// </summary>
         private bool _showSignStatistics;
-        private HintShowType _selectedHintShowType;
 
         #endregion Private Backing-Fields
 
@@ -958,6 +939,12 @@ namespace DailyKanjiLogic.Mvvm.Model
 
             _selectedTestType            = TestType.HiraganaOrKatakanaToRoomaji;
             _selectedHintType            = HintType.BasedOnAskSign;
+
+            _selectedHintShowType        = HintShowType.ShowOnCorrectAnswer
+                                         | HintShowType.ShowOnWrongAnswer
+                                         | HintShowType.ShowOnMarkedAnswers
+                                         | HintShowType.ShowOnOtherAnswers;
+
             _selectedKanaType            = KanaType.Gojuuon
                                          | KanaType.GojuuonWithDakuten
                                          | KanaType.GojuuonWithHandakuten
@@ -966,7 +953,6 @@ namespace DailyKanjiLogic.Mvvm.Model
                                          | KanaType.YooonWithHandakuten;
 
             _showStatistics              = false;
-            _showHints                   = true;
             _showAnswerShortcuts         = true;
             _showRunningAnswerTimer      = true;
             _similarAnswers              = true;

@@ -1,4 +1,4 @@
-﻿using DailyKanji.Mvvm.View;
+using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
@@ -49,6 +49,8 @@ namespace DailyKanji.Mvvm.ViewModel
                     }
 
                     _baseModel.SelectedHintShowType ^= (HintShowType)value;
+
+                    BuildAnswerMenuAndButtons();
                 });
 
         #endregion Commands - View Menu
