@@ -174,12 +174,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             if(testPollCount < 1)
             {
                 // TODO: this condition should not occur -> try to find the bug
+                Debug.Write(new StackTrace(new ArgumentOutOfRangeException(nameof(testPollCount)), false));
                 throw new ArgumentOutOfRangeException(nameof(testPollCount));
             }
 
             if(newTest is null)
             {
                 // TODO: this condition should not occur -> try to find the bug
+                Debug.Write(new StackTrace(new ArgumentNullException(nameof(newTest)), false));
                 throw new ArgumentNullException(nameof(newTest));
             }
 
