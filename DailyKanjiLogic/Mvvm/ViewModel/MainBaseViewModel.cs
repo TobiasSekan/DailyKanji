@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.ViewModel
@@ -509,10 +508,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(noneSelectedColor), $"SetHighlightColors: [{nameof(noneSelectedColor)}] can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHighlightColors: [{nameof(hintColor)}] can't be empty or null");
 
-            Debug.WriteLine($"SetHighlightColors -    MaximumAnswers: [{_baseModel.MaximumAnswers.ToString()}]");
-            Debug.WriteLine($"SetHighlightColors -   PossibleAnswers: [{_baseModel.PossibleAnswers.Count().ToString()}]");
-            Debug.WriteLine($"SetHighlightColors - AnswerButtonColor: [{_baseModel.AnswerButtonColor.Count.ToString()}]");
-
             _baseModel.CurrentAskSignColor = errorColor;
             _baseModel.ProgressBarColor    = errorColor;
 
@@ -675,27 +670,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Do all things to prepare a new test and all possible answers (no surface changes)
         /// </summary>
-        public void PrepareNewTest([CallerMemberName] string callerMemberName = "")
+        public void PrepareNewTest()
         {
-            if(!_baseModel.AllTestsList.Any())
-            {
-                Debug.WriteLine(callerMemberName);
-                Debug.WriteLine(nameof(PrepareNewTest));
-                Debug.WriteLine("We should not here");
-                return;
-            }
-
             OrderAllTests();
             BuildTestPool();
-
-            if(!_baseModel.TestPool.Any())
-            {
-                Debug.WriteLine(callerMemberName);
-                Debug.WriteLine(nameof(PrepareNewTest));
-                Debug.WriteLine("We should not here");
-                return;
-            }
-
             ChooseNewSign(GetRandomKanaTest());
             ChooseNewPossibleAnswers();
         }
