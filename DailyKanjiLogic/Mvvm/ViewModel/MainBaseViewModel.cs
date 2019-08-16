@@ -171,7 +171,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
 
-            if(testPollCount > 0)
+            if(testPollCount < 1)
             {
                 // TODO: this condition should not occur -> try to find the bug
                 throw new ArgumentOutOfRangeException(nameof(testPollCount));
