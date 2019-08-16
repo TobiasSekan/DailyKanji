@@ -1,4 +1,4 @@
-﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
@@ -58,6 +58,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.HintTextColor     = hintTextColorList;
 
             BuildTestPool();
+
             ChooseNewSign(GetRandomKanaTest());
         }
 
@@ -163,10 +164,24 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
         /// <returns>A kana test</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public TestBaseModel GetRandomKanaTest()
         {
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
+
+            if(testPollCount > 0)
+            {
+                // TODO: this condition should not occur -> try to find the bug
+                throw new ArgumentOutOfRangeException(nameof(testPollCount));
+            }
+
+            if(newTest is null)
+            {
+                // TODO: this condition should not occur -> try to find the bug
+                throw new ArgumentNullException(nameof(newTest));
+            }
 
             if(_baseModel.CurrentTest is null)
             {
