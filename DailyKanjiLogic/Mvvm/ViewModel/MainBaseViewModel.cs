@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.ViewModel
@@ -164,26 +165,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
         /// <returns>A kana test</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <exception cref="ArgumentNullException"></exception>
         public TestBaseModel GetRandomKanaTest()
         {
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
-
-            if(testPollCount < 1)
-            {
-                // TODO: this condition should not occur -> try to find the bug
-                Debug.Write(new StackTrace(new ArgumentOutOfRangeException(nameof(testPollCount)), false));
-                throw new ArgumentOutOfRangeException(nameof(testPollCount));
-            }
-
-            if(newTest is null)
-            {
-                // TODO: this condition should not occur -> try to find the bug
-                Debug.Write(new StackTrace(new ArgumentNullException(nameof(newTest)), false));
-                throw new ArgumentNullException(nameof(newTest));
-            }
 
             if(_baseModel.CurrentTest is null)
             {
@@ -690,10 +675,27 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Do all things to prepare a new test and all possible answers (no surface changes)
         /// </summary>
-        public void PrepareNewTest()
+        public void PrepareNewTest([CallerMemberName] string callerMemberName = "")
         {
+            if(!_baseModel.AllTestsList.Any())
+            {
+                Debug.WriteLine(callerMemberName);
+                Debug.WriteLine(nameof(PrepareNewTest));
+                Debug.WriteLine("We should not here");
+                return;
+            }
+
             OrderAllTests();
             BuildTestPool();
+
+            if(!_baseModel.TestPool.Any())
+            {
+                Debug.WriteLine(callerMemberName);
+                Debug.WriteLine(nameof(PrepareNewTest));
+                Debug.WriteLine("We should not here");
+                return;
+            }
+
             ChooseNewSign(GetRandomKanaTest());
             ChooseNewPossibleAnswers();
         }

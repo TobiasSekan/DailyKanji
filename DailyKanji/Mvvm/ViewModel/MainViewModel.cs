@@ -1,4 +1,4 @@
-﻿using DailyKanji.Helper;
+using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Helper;
@@ -337,6 +337,11 @@ namespace DailyKanji.Mvvm.ViewModel
 
             Task.Run(() =>
             {
+                if(_baseModel.HighlightTimer.SafeWaitHandle.IsClosed)
+                {
+                    return;
+                }
+
                 _baseViewModel.SetHighlightColors(answerTemp,
                                                   ColorHelper.CorrectColor,
                                                   result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
