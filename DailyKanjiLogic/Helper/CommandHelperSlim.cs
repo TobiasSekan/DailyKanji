@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Input;
 
 namespace DailyKanjiLogic.Helper
@@ -45,7 +45,7 @@ namespace DailyKanjiLogic.Helper
         public bool CanExecute(object parameter)
             => true;
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         #endregion ICommand Implementation
     }

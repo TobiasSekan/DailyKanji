@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace DailyKanjiLogic.Helper
@@ -11,7 +11,7 @@ namespace DailyKanjiLogic.Helper
         /// <summary>
         /// Event is called when a property has changed
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Notify the WPF subsystem that a property has changed

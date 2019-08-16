@@ -311,7 +311,7 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
 
-            if(_baseModel.IgnoreInput)
+            if(_baseModel.IgnoreInput || answer is null)
             {
                 return;
             }
