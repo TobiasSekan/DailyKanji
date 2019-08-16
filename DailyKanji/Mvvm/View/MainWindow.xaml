@@ -1,4 +1,4 @@
-﻿<Window x:Class="DailyKanji.Mvvm.View.MainWindow"
+<Window x:Class="DailyKanji.Mvvm.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converter="clr-namespace:DailyKanji.Converter"
@@ -173,10 +173,25 @@
                           IsCheckable="True"
                           IsChecked="{Binding BaseModel.HighlightOnCorrectAnswer}" />
 
-                <MenuItem Command="{Binding ViewModel.CommandShowHints}"
-                          Header="Show _hints after answered tests"
-                          IsCheckable="True"
-                          IsChecked="{Binding BaseModel.ShowHints}" />
+                <MenuItem Header="Show _hints after answered tests">
+
+                    <MenuItem Header="Show hints on _wrong answer"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnWrongAnswer}}" />
+
+                    <MenuItem Header="Show hints on _correct answer"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnCorrectAnswer}}" />
+
+                    <MenuItem Header="Show hints on _marked answers"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnMarkedAnswers}}" />
+
+                    <MenuItem Header="Show hints on _other answers"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.SelectedHintShowType, Converter={StaticResource ValueToBooleanConverter}, ConverterParameter={x:Static enumerations:HintShowType.ShowOnOtherAnswers}}" />
+
+                </MenuItem>
 
                 <MenuItem Header="Show running _timer (timer is still running)"
                           IsCheckable="True"

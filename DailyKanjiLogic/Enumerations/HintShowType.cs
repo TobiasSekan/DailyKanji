@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace DailyKanjiLogic.Enumerations
 {
@@ -19,9 +19,9 @@ namespace DailyKanjiLogic.Enumerations
         ShowOnWrongAnswer = 1,
 
         /// <summary>
-        /// Show the hint on the right answer
+        /// Show the hint on the correct answer
         /// </summary>
-        ShowOnRightAnswer = 1 << 1,
+        ShowOnCorrectAnswer = 1 << 1,
 
         /// <summary>
         /// Show the hint on all marked answers
