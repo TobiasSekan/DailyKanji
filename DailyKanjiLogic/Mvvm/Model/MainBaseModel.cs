@@ -1,4 +1,4 @@
-﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
@@ -58,6 +58,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _previousTest;
             set
             {
+                if(_previousTest == value)
+                {
+                    return;
+                }
+
                 _previousTest = value;
                 OnPropertyChanged(nameof(CanGoToLastTest));
             }
@@ -79,6 +84,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _testStartTime;
             set
             {
+                if(_testStartTime == value)
+                {
+                    return;
+                }
+
                 _testStartTime = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanGoToLastTest));
@@ -111,6 +121,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _highlightTimeout;
             set
             {
+                if(_highlightTimeout == value)
+                {
+                    return;
+                }
+
                 _highlightTimeout = value;
                 OnPropertyChanged();
             }
@@ -124,6 +139,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _maximumAnswerTimeout;
             set
             {
+                if(_maximumAnswerTimeout == value)
+                {
+                    return;
+                }
+
                 _maximumAnswerTimeout = value;
                 OnPropertyChanged();
             }
@@ -144,6 +164,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _currentAskSignColor;
             set
             {
+                if(_currentAskSignColor == value)
+                {
+                    return;
+                }
+
                 _currentAskSignColor = value;
                 OnPropertyChanged();
             }
@@ -158,6 +183,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _progressBarColor;
             set
             {
+                if(_progressBarColor == value)
+                {
+                    return;
+                }
+
                 _progressBarColor = value;
                 OnPropertyChanged();
             }
@@ -364,7 +394,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         {
             get => _wrongCountIndicator;
             set
-                {
+            {
                 if(_wrongCountIndicator == value)
                 {
                     return;
@@ -405,6 +435,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _selectedTestType;
             set
             {
+                if(_selectedTestType == value)
+                {
+                    return;
+                }
+
                 _selectedTestType = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(TestTypeString));
@@ -419,6 +454,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _selectedHintType;
             set
             {
+                if(_selectedHintType == value)
+                {
+                    return;
+                }
+
                 _selectedHintType = value;
                 OnPropertyChanged();
             }
@@ -432,7 +472,30 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _selectedKanaType;
             set
             {
+                if(_selectedKanaType == value)
+                {
+                    return;
+                }
+
                 _selectedKanaType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The type of hints that should show, when a answer was wrong and/or correct
+        /// </summary>
+        public HintShowType SelectedHintShowType
+        {
+            get => _selectedHintShowType;
+            set
+            {
+                if(_selectedHintShowType == value)
+                {
+                    return;
+                }
+
+                _selectedHintShowType = value;
                 OnPropertyChanged();
             }
         }
@@ -445,6 +508,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _maximumAnswers;
             set
             {
+                if(_maximumAnswers == value)
+                {
+                    return;
+                }
+
                 _maximumAnswers = value;
                 OnPropertyChanged();
             }
@@ -458,6 +526,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _showHints;
             set
             {
+                if(_showHints == value)
+                {
+                    return;
+                }
+
                 _showHints = value;
                 OnPropertyChanged();
             }
@@ -471,6 +544,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _showAnswerShortcuts;
             set
             {
+                if(_showAnswerShortcuts == value)
+                {
+                    return;
+                }
+
                 _showAnswerShortcuts = value;
                 OnPropertyChanged();
             }
@@ -484,6 +562,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _showRunningAnswerTimer;
             set
             {
+                if(_showRunningAnswerTimer == value)
+                {
+                    return;
+                }
+
                 _showRunningAnswerTimer = value;
                 OnPropertyChanged();
             }
@@ -497,6 +580,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _showStatistics;
             set
             {
+                if(_showStatistics == value)
+                {
+                    return;
+                }
+
                 _showStatistics = value;
                 OnPropertyChanged();
             }
@@ -510,6 +598,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _checkForNewVersionOnStartUp;
             set
             {
+                if(_checkForNewVersionOnStartUp == value)
+                {
+                    return;
+                }
+
                 _checkForNewVersionOnStartUp = value;
                 OnPropertyChanged();
             }
@@ -523,6 +616,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _highlightOnWrongAnswer;
             set
             {
+                if(_highlightOnWrongAnswer == value)
+                {
+                    return;
+                }
+
                 _highlightOnWrongAnswer = value;
                 OnPropertyChanged();
             }
@@ -536,6 +634,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _useAnswerTimer;
             set
             {
+                if(_useAnswerTimer == value)
+                {
+                    return;
+                }
+
                 _useAnswerTimer = value;
                 OnPropertyChanged();
             }
@@ -549,6 +652,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _highlightOnCorrectAnswer;
             set
             {
+                if(_highlightOnCorrectAnswer == value)
+                {
+                    return;
+                }
+
                 _highlightOnCorrectAnswer = value;
                 OnPropertyChanged();
             }
@@ -575,6 +683,11 @@ namespace DailyKanjiLogic.Mvvm.Model
             get => _similarAnswers;
             set
             {
+                if(_similarAnswers == value)
+                {
+                    return;
+                }
+
                 _similarAnswers = value;
                 OnPropertyChanged();
             }
@@ -679,7 +792,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         private DateTime _testStartTime;
 
         /// <summary>
-        /// BAcking-field for <see cref="AnswerTime"/>
+        /// Backing-field for <see cref="AnswerTime"/>
         /// </summary>
         private TimeSpan _answerTime;
 
@@ -802,6 +915,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="ShowSignStatistics"/>
         /// </summary>
         private bool _showSignStatistics;
+        private HintShowType _selectedHintShowType;
 
         #endregion Private Backing-Fields
 
