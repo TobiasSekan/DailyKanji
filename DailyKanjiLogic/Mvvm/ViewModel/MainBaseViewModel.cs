@@ -806,14 +806,18 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHintTextColors: [{nameof(markedColor)}] can't be empty or null");
             Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHintTextColors: [{nameof(hintColor)}] can't be empty or null");
 
-            var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-
-            if(_baseModel.HintTextColor.ElementAtOrDefault(answerNumber) == null)
+            if(_baseModel.SelectedHintShowType == HintShowType.ShowOnNoAnswers)
             {
                 return;
             }
 
-            if(_baseModel.SelectedHintShowType == HintShowType.ShowOnNoAnswers)
+            var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+            if(possibleAnswer == null)
+            {
+                return;
+            }
+
+            if(_baseModel.HintTextColor.ElementAtOrDefault(answerNumber) == null)
             {
                 return;
             }

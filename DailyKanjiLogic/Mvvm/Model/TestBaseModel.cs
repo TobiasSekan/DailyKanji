@@ -1,4 +1,4 @@
-﻿using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Interfaces;
 using Newtonsoft.Json;
