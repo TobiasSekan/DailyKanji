@@ -7,7 +7,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
+
+[assembly: InternalsVisibleTo("DailyKanjiLogicTest")]
 
 namespace DailyKanjiLogic.Mvvm.ViewModel
 {

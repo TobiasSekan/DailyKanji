@@ -9,6 +9,7 @@
 ## BUG
 
 ## Version 1.x
+* Internal: Move all colors to DailyKanjiLogic (for easier testing)
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
