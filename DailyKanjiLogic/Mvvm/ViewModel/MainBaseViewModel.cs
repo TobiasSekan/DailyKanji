@@ -811,13 +811,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return;
             }
 
-            var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-            if(possibleAnswer == null)
+            if(_baseModel.HintTextColor.ElementAtOrDefault(answerNumber) == null)
             {
                 return;
             }
 
-            if(_baseModel.HintTextColor.ElementAtOrDefault(answerNumber) == null)
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
+            && _baseModel.AnswerButtonColor[answerNumber] == markedColor)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
+            }
+
+            var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+            if(possibleAnswer == null)
             {
                 return;
             }
@@ -831,14 +837,6 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnWrongAnswer)
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
             && possibleAnswer.Roomaji == answer.Roomaji)
-            {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
-            }
-
-            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
-            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji != answer.Roomaji
-            && _baseModel.AnswerButtonColor[answerNumber] == markedColor)
             {
                 _baseModel.HintTextColor[answerNumber] = hintColor;
             }
