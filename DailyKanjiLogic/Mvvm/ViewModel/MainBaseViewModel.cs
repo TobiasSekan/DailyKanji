@@ -797,10 +797,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Set the colors for all hint texts (above of the answer buttons)
         /// </summary>
         /// <param name="answerNumber">The answer number or button number</param>
-        /// <param name="answer">The given answer of the user</param>
+        /// <param name="currentAnswer">The given answer of the user</param>
         /// <param name="markedColor">The color string for marked elements</param>
         /// <param name="hintColor">The color string for the hint elements</param>
-        internal void SetHintTextColors(in int answerNumber, in TestBaseModel answer, in string markedColor, in string hintColor)
+        internal void SetHintTextColors(in int answerNumber, in TestBaseModel currentAnswer, in string markedColor, in string hintColor)
         {
             Debug.Assert(answerNumber >= 0 && answerNumber <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
             Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHintTextColors: [{nameof(markedColor)}] can't be empty or null");
@@ -816,16 +816,18 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return;
             }
 
-            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
-            && _baseModel.AnswerButtonColor[answerNumber] == markedColor)
-            {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
-            }
-
             var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
             if(possibleAnswer == null)
             {
                 return;
+            }
+
+            if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
+            && _baseModel.AnswerButtonColor[answerNumber] == markedColor
+            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
+            && possibleAnswer.Roomaji != currentAnswer.Roomaji)
+            {
+                _baseModel.HintTextColor[answerNumber] = hintColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnCorrectAnswer)
@@ -836,15 +838,15 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnWrongAnswer)
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji == answer.Roomaji)
+            && possibleAnswer.Roomaji == currentAnswer.Roomaji)
             {
                 _baseModel.HintTextColor[answerNumber] = hintColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnOtherAnswers)
+            && _baseModel.AnswerButtonColor[answerNumber] != markedColor
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji != answer.Roomaji
-            && _baseModel.AnswerButtonColor[answerNumber] != markedColor)
+            && possibleAnswer.Roomaji != currentAnswer.Roomaji)
             {
                 _baseModel.HintTextColor[answerNumber] = hintColor;
             }
