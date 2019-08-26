@@ -27,12 +27,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
         #region Public Constructor
 
-        public MainBaseViewModel(in MainBaseModel baseModel, in string baseColor, in string progressBarColor)
+        public MainBaseViewModel(in MainBaseModel baseModel)
         {
             _baseModel = baseModel;
-
-            Debug.Assert(!string.IsNullOrWhiteSpace(baseColor), $"MainBaseViewModel: [{nameof(baseColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"MainBaseViewModel: [{nameof(progressBarColor)}] can't be empty or null");
 
             var list = KanaHelper.GetKanaList();
             if(list?.Count() != _baseModel.AllTestsList?.Count())
@@ -46,15 +43,15 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.AnswerButtonColor = new ObservableCollection<string>();
             _baseModel.HintTextColor     = new ObservableCollection<string>();
             _baseModel.HighlightTimer    = new ManualResetEvent(false);
-            _baseModel.ProgressBarColor  = progressBarColor;
+            _baseModel.ProgressBarColor  = ColorHelper.ProgressBarColor;
 
             var answerButtonColorList = new List<string>(10);
             var hintTextColorList     = new List<string>(10);
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                answerButtonColorList.Add(baseColor);
-                hintTextColorList.Add(baseColor);
+                answerButtonColorList.Add(ColorHelper.TransparentColor);
+                hintTextColorList.Add(ColorHelper.TransparentColor);
             }
 
             _baseModel.AnswerButtonColor = answerButtonColorList;
@@ -473,20 +470,15 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Set the normal colors for all elements
         /// </summary>
-        /// <param name="normalColor">The base color for all elements</param>
-        /// <param name="progressBarColor">The base color for the progress bar</param>
-        public void SetNormalColors(in string normalColor, in string progressBarColor)
+        public void SetNormalColors()
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"SetNormalColors: [{nameof(normalColor)}] can't be null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(progressBarColor), $"SetNormalColors: [{nameof(progressBarColor)}] can't be empty or null");
-
-            _baseModel.CurrentAskSignColor = normalColor;
-            _baseModel.ProgressBarColor    = progressBarColor;
+            _baseModel.CurrentAskSignColor = ColorHelper.TransparentColor;
+            _baseModel.ProgressBarColor    = ColorHelper.ProgressBarColor;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _baseModel.AnswerButtonColor[answerNumber] = normalColor;
-                _baseModel.HintTextColor[answerNumber]     = normalColor;
+                _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.TransparentColor;
+                _baseModel.HintTextColor[answerNumber]     = ColorHelper.TransparentColor;
             }
 
             _baseModel.OnPropertyChangedForAnswerButtonColors();
@@ -496,27 +488,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Set the highlight colors for all elements
         /// </summary>
         /// <param name="answer">The answers of the current test</param>
-        /// <param name="correctColor">The color string for the correct element</param>
-        /// <param name="errorColor">The color string for the elements</param>
-        /// <param name="markedColor">The color string for marked elements</param>
-        /// <param name="hintColor">The color string for the hint elements</param>
-        public void SetHighlightColors(in TestBaseModel answer,
-                                       in string correctColor,
-                                       in string errorColor,
-                                       in string markedColor,
-                                       in string hintColor)
+        public void SetHighlightColors(in TestBaseModel answer)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(correctColor), $"SetHighlightColors: [{nameof(correctColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(errorColor), $"SetHighlightColors: [{nameof(errorColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHighlightColors: [{nameof(markedColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHighlightColors: [{nameof(hintColor)}] can't be empty or null");
-
-            _baseModel.CurrentAskSignColor = errorColor;
-            _baseModel.ProgressBarColor    = errorColor;
+            _baseModel.CurrentAskSignColor = answer.Roomaji == _baseModel.CurrentTest.Roomaji ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
+            _baseModel.ProgressBarColor    = answer.Roomaji == _baseModel.CurrentTest.Roomaji ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
 
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                SetHintTextColors(answerNumber, answer, markedColor, hintColor);
+                SetHintTextColors(answerNumber, answer);
 
                 if(_baseModel.AnswerButtonColor.ElementAtOrDefault(answerNumber) == null)
                 {
@@ -527,14 +506,22 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
                 if(possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
                 {
-                    _baseModel.AnswerButtonColor[answerNumber] = correctColor;
+                    _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.CorrectColor;
+                    continue;
                 }
-                else
+
+                if(possibleAnswer.Roomaji == answer.Roomaji)
                 {
-                    _baseModel.AnswerButtonColor[answerNumber] = possibleAnswer.Roomaji == answer.Roomaji
-                        ? errorColor
-                        : markedColor;
+                    _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.ErrorColor;
+                    continue;
                 }
+
+                if(_baseModel.AnswerButtonColor[answerNumber] == ColorHelper.MarkedColor)
+                {
+                    continue;
+                }
+
+                _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.TransparentColor;
             }
 
             _baseModel.OnPropertyChangedForAnswerButtonColors();
@@ -544,18 +531,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// Set or remove the highlight color for one answer (when highlight color is set the color will be removed)
         /// </summary>
         /// <param name="answer">The answer to highlight</param>
-        /// <param name="highlightColor">The color string for the answer to highlight</param>
-        /// <param name="normalColor">The color string for the answer when it is not highlight</param>
-        public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer, in string highlightColor, in string normalColor)
+        public void SetOrRemoveHighlightColorToOneAnswer(in TestBaseModel answer)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(highlightColor), $"SetOrRemoveHighlightColorToOneAnswer: [{nameof(highlightColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(normalColor), $"SetOrRemoveHighlightColorToOneAnswer: [{nameof(normalColor)}] can't be empty or null");
-
             var answerNumber = GetAnswerNumber(answer);
 
-            _baseModel.AnswerButtonColor[answerNumber] = _baseModel.AnswerButtonColor[answerNumber] != highlightColor
-                ? highlightColor
-                : normalColor;
+            _baseModel.AnswerButtonColor[answerNumber] = _baseModel.AnswerButtonColor[answerNumber] != ColorHelper.MarkedColor
+                ? ColorHelper.MarkedColor
+                : ColorHelper.TransparentColor;
 
             _baseModel.OnPropertyChangedForAnswerButtonColors();
         }
@@ -798,13 +780,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// </summary>
         /// <param name="answerNumber">The answer number or button number</param>
         /// <param name="currentAnswer">The given answer of the user</param>
-        /// <param name="markedColor">The color string for marked elements</param>
-        /// <param name="hintColor">The color string for the hint elements</param>
-        internal void SetHintTextColors(in int answerNumber, in TestBaseModel currentAnswer, in string markedColor, in string hintColor)
+        internal void SetHintTextColors(in int answerNumber, in TestBaseModel currentAnswer)
         {
             Debug.Assert(answerNumber >= 0 && answerNumber <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
-            Debug.Assert(!string.IsNullOrWhiteSpace(markedColor), $"SetHintTextColors: [{nameof(markedColor)}] can't be empty or null");
-            Debug.Assert(!string.IsNullOrWhiteSpace(hintColor), $"SetHintTextColors: [{nameof(hintColor)}] can't be empty or null");
 
             if(_baseModel.SelectedHintShowType == HintShowType.ShowOnNoAnswers)
             {
@@ -823,32 +801,32 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
-            && _baseModel.AnswerButtonColor[answerNumber] == markedColor
+            && _baseModel.AnswerButtonColor[answerNumber] == ColorHelper.MarkedColor
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
             && possibleAnswer.Roomaji != currentAnswer.Roomaji)
             {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
+                _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnCorrectAnswer)
             && possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
             {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
+                _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnWrongAnswer)
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
             && possibleAnswer.Roomaji == currentAnswer.Roomaji)
             {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
+                _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnOtherAnswers)
-            && _baseModel.AnswerButtonColor[answerNumber] != markedColor
+            && _baseModel.AnswerButtonColor[answerNumber] != ColorHelper.MarkedColor
             && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
             && possibleAnswer.Roomaji != currentAnswer.Roomaji)
             {
-                _baseModel.HintTextColor[answerNumber] = hintColor;
+                _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
         }
 

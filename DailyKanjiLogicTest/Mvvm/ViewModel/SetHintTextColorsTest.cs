@@ -1,4 +1,5 @@
 using DailyKanjiLogic.Enumerations;
+using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
 using NUnit.Framework;
@@ -26,12 +27,6 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
 #pragma warning restore CS8618
 
-        private const string _transparentColor = "transparentColor";
-
-        private const string _hintColor = "hintColor";
-
-        private const string _markedColor = "markedColor";
-
         [SetUp]
         public void SetUp()
         {
@@ -40,7 +35,7 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
                 MaximumAnswers = 10
             };
 
-            _viewModel = new MainBaseViewModel(_model, _transparentColor, "progressBarColor");
+            _viewModel = new MainBaseViewModel(_model);
             _viewModel.PrepareNewTest();
 
             Assert.That(_model.HintTextColor.Count, Is.EqualTo(10));
@@ -72,14 +67,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
             Assert.That(_correctAnswer, Is.Not.Null);
             Assert.That(_wrongAnswer, Is.Not.Null);
 
-            _model.AnswerButtonColor[0] = _markedColor;
-            _model.AnswerButtonColor[2] = _markedColor;
-            _model.AnswerButtonColor[4] = _markedColor;
-            _model.AnswerButtonColor[6] = _markedColor;
-            _model.AnswerButtonColor[8] = _markedColor;
+            _model.AnswerButtonColor[0] = ColorHelper.MarkedColor;
+            _model.AnswerButtonColor[2] = ColorHelper.MarkedColor;
+            _model.AnswerButtonColor[4] = ColorHelper.MarkedColor;
+            _model.AnswerButtonColor[6] = ColorHelper.MarkedColor;
+            _model.AnswerButtonColor[8] = ColorHelper.MarkedColor;
 
-            Assert.That(_model.AnswerButtonColor.Count(found => found == _markedColor), Is.EqualTo(5));
-            Assert.That(_model.AnswerButtonColor.Count(found => found == _transparentColor), Is.EqualTo(5));
+            Assert.That(_model.AnswerButtonColor.Count(found => found == ColorHelper.MarkedColor), Is.EqualTo(5));
+            Assert.That(_model.AnswerButtonColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(5));
         }
 
         [Test]
@@ -89,14 +84,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(10), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.Zero, nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(10), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.Zero, nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -106,14 +101,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(10), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.Zero, nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(10), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.Zero, nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -123,14 +118,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(9), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(1), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(9), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(1), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -140,14 +135,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(9), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(1), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(9), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(1), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -157,14 +152,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(10), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.Zero, nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(10), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.Zero, nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -174,14 +169,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(9), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(1), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(9), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(1), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -191,14 +186,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(9), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(1), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(9), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(1), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -208,14 +203,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(8), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(2), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(8), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(2), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -225,14 +220,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(5), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(5), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(5), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(5), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -242,14 +237,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(4), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(6), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(4), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(6), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -259,14 +254,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(5), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(5), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(5), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(5), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -276,14 +271,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(5), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(5), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(5), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(5), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -293,14 +288,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(4), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(6), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(4), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(6), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -310,14 +305,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(5), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(5), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(5), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(5), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_hintColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
         }
 
         [Test]
@@ -327,14 +322,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(4), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(6), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(4), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(6), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -344,14 +339,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? 5 : 4), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? 5 : 6), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? 5 : 4), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(_wrongAnswerNumber % 2 == 0 ? 5 : 6), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? _hintColor : _transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_correctAnswerNumber % 2 == 0 ? ColorHelper.HintTextColor : ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -361,14 +356,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _correctAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _correctAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(1), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(9), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(1), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(9), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_hintColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.HintTextColor));
         }
 
         [Test]
@@ -378,14 +373,14 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer, _markedColor, _hintColor);
+                _viewModel.SetHintTextColors(answerNumber, _wrongAnswer);
             }
 
-            Assert.That(_model.HintTextColor.Count(found => found == _transparentColor), Is.EqualTo(2), nameof(_transparentColor));
-            Assert.That(_model.HintTextColor.Count(found => found == _hintColor), Is.EqualTo(8), nameof(_hintColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.TransparentColor), Is.EqualTo(2), nameof(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor.Count(found => found == ColorHelper.HintTextColor), Is.EqualTo(8), nameof(ColorHelper.HintTextColor));
 
-            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(_transparentColor));
-            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(_transparentColor));
+            Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
+            Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
 
         // TODO: Add tests for all other HintShowTypes

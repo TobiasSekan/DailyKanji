@@ -30,7 +30,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // Version 1.x
     // -----------
-    // Internal: Move all colors to DailyKanjiLogic (for easier testing)
+    // TODO: Add option to avoid show of different kana types (e.g. with Dakuten, Handakuten)on answers (to make tests little bit harder)
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu
@@ -122,7 +122,7 @@ namespace DailyKanji.Mvvm.ViewModel
             GamepadTest();
 
             _baseViewModel.PrepareNewTest();
-            _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+            _baseViewModel.SetNormalColors();
         }
 
         #endregion Internal Constructors
@@ -343,19 +343,13 @@ namespace DailyKanji.Mvvm.ViewModel
                     return;
                 }
 
-                _baseViewModel.SetHighlightColors(answerTemp,
-                                                  ColorHelper.CorrectColor,
-                                                  result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                                  ColorHelper.NoneSelectedColor,
-                                                  ColorHelper.AnswerHintTextColor);
-
+                _baseViewModel.SetHighlightColors(answerTemp);
                 _baseViewModel.PrepareNewTest();
 
                 _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
                 _baseViewModel.ResetHighlight();
-
-                _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+                _baseViewModel.SetNormalColors();
 
                 ShowAndStartNewTest();
             });
@@ -463,9 +457,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
-                                                                                                    ColorHelper.NoneSelectedColor,
-                                                                                                    ColorHelper.TransparentColor));
+            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp));
         }
 
         #endregion Private Methods

@@ -9,7 +9,7 @@
 ## BUG
 
 ## Version 1.x
-* Internal: Move all colors to DailyKanjiLogic (for easier testing)
+* Add option to avoid show of different kana types (e.g. with Dakuten, Handakuten)on answers (to make tests little bit harder)
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu
