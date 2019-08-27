@@ -415,6 +415,13 @@
 
                 <MenuItem Header="_Kana type">
 
+                    <MenuItem Command="{Binding ViewModel.CommandBuildNewAnswers}"
+                              Header="Show only answers with same kana"
+                              IsCheckable="True"
+                              IsChecked="{Binding BaseModel.ShowOnlySameKanaOnAnswers}" />
+
+                    <Separator />
+
                     <MenuItem Command="{Binding ViewModel.CommandChangeKanaType}"
                               CommandParameter="{x:Static enumerations:KanaType.Gojuuon}"
                               Header="Gojuuon"
