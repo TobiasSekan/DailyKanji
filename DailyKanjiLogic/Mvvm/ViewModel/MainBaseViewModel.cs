@@ -1,4 +1,4 @@
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using System;
@@ -59,7 +59,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             BuildTestPool();
 
-            ChooseNewSign(GetRandomKanaTest());
+            ChooseNewSign(GetRandomKanaTest(KanaType.All));
         }
 
         #endregion Public Constructor
@@ -163,8 +163,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
+        /// <param name="kanaType">The Kana type of the random test</param>
         /// <returns>A kana test</returns>
-        public TestBaseModel GetRandomKanaTest()
+        public TestBaseModel GetRandomKanaTest(KanaType kanaType)
         {
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
@@ -174,9 +175,19 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return newTest;
             }
 
-            while(newTest.Roomaji == _baseModel.CurrentTest.Roomaji)
+            if(kanaType == KanaType.All)
             {
-                newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
+                while(newTest.Roomaji == _baseModel.CurrentTest.Roomaji)
+                {
+                    newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
+                }
+            }
+            else
+            {
+                while(newTest.Roomaji == _baseModel.CurrentTest.Roomaji && newTest.Type != _baseModel.CurrentTest.Type)
+                {
+                    newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
+                }
             }
 
             return newTest;
@@ -214,15 +225,10 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     continue;
                 }
 
-                var anyAnswer = GetRandomKanaTest();
+                var anyAnswer = GetRandomKanaTest(_baseModel.ShowOnlySameKanaOnAnswers ? _baseModel.CurrentTest.Type : KanaType.All);
 
                 // don't add test twice
                 if(possibleAnswers.Contains(anyAnswer))
-                {
-                    continue;
-                }
-
-                if(_baseModel.ShowOnlySameKanaOnAnswers && anyAnswer.Type == _baseModel.CurrentTest.Type)
                 {
                     continue;
                 }
@@ -668,7 +674,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             OrderAllTests();
             BuildTestPool();
-            ChooseNewSign(GetRandomKanaTest());
+            ChooseNewSign(GetRandomKanaTest(KanaType.All));
             ChooseNewPossibleAnswers();
         }
 

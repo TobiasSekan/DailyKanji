@@ -41,6 +41,11 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// Only digraph kana with a little circle
         /// </summary>
-        YooonWithHandakuten = 1 << 5
+        YooonWithHandakuten = 1 << 5,
+
+        /// <summary>
+        /// All possible kana types
+        /// </summary>
+        All = Gojuuon | GojuuonWithDakuten | GojuuonWithHandakuten | Yooon | YooonWithDakuten | YooonWithHandakuten
     }
 }
