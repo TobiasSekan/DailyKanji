@@ -1,4 +1,4 @@
-using DailyKanji.Mvvm.Model;
+﻿using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using DailyKanji.Mvvm.ViewModel;
 using DailyKanjiLogic.Mvvm.ViewModel;
