@@ -27,10 +27,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
     // BUG
     // ---
+    // BUG: Fix crash on ten possible answers and when only kana with Handakuten are selected
+    // BUG: Avoid that "ji",  "じ", "ジ" to be taken as "ji",  "ぢ", "ヂ"
 
     // Version 1.x
     // -----------
-    // TODO: Add option to avoid show of different kana types (e.g. with Dakuten, Handakuten)on answers (to make tests little bit harder)
+    // TODO: Find a way to differentiate tests (maybe via hash)
     // TODO  Add UnitTests - NUnit with Assert.That()
     // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
     // TODO: Add German language and language selector in menu

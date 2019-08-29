@@ -7,9 +7,11 @@
 * Game-pad support (with 10 buttons for 10 answers)
 
 ## BUG
+* Fix crash on ten possible answers and when only kana with Handakuten are selected
+* Avoid that "ji",  "じ", "ジ" to be taken as "ji",  "ぢ", "ヂ"
 
 ## Version 1.x
-* Add option to avoid show of different kana types (e.g. with Dakuten, Handakuten)on answers (to make tests little bit harder)
+* Find a way to differentiate tests (maybe via hash)
 * Add UnitTests (NUnit with `Assert.That()`)
 * Add extended Katakana (see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
 * Add German language and language selector in menu

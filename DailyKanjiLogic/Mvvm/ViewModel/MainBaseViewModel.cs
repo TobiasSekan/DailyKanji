@@ -193,9 +193,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 _baseModel.CurrentTest
             };
 
-            var allAnswerList = _baseModel.SimilarAnswers
-                ? KanaHelper.GetSimilarKana(_baseModel.TestPool.Distinct(), _baseModel.CurrentTest, _baseModel.CurrentTest.AnswerType).ToList()
-                : _baseModel.TestPool.Distinct().ToList();
+            var similarAnswerList = _baseModel.SimilarAnswers
+                ? KanaHelper.GetSimilarKana(_baseModel.TestPool.Distinct(), _baseModel.CurrentTest, _baseModel.CurrentTest.AnswerType)
+                : _baseModel.TestPool.Distinct();
+
+            var allAnswerList = _baseModel.ShowOnlySameKanaOnAnswers
+                ? KanaHelper.GetSameKana(similarAnswerList, _baseModel.CurrentTest).ToList()
+                : similarAnswerList.ToList();
 
             allAnswerList.Remove(_baseModel.CurrentTest);
             allAnswerList.Shuffle();
@@ -211,9 +215,15 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 }
 
                 var anyAnswer = GetRandomKanaTest();
+
+                // don't add test twice
                 if(possibleAnswers.Contains(anyAnswer))
                 {
-                    // don't add test twice
+                    continue;
+                }
+
+                if(_baseModel.ShowOnlySameKanaOnAnswers && anyAnswer.Type == _baseModel.CurrentTest.Type)
+                {
                     continue;
                 }
 
