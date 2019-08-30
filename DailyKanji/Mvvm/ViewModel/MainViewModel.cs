@@ -18,56 +18,6 @@ using System.Windows.Controls;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // Test
-    // ----
-    // Test: Current sign statistics (possible: show wrong count)
-    // Test: Correct counting for answers on test type "AllToAll"
-    // Test: Game-pad button calculation
-    // Test: Game-pad support (with 10 buttons for 10 answers)
-
-    // BUG
-    // ---
-    // BUG: Fix crash on ten possible answers and when only kana with Handakuten are selected
-    // BUG: Avoid that "ji",  "じ", "ジ" to be taken as "ji",  "ぢ", "ヂ"
-
-    // Version 1.x
-    // -----------
-    // TODO: Find a way to differentiate tests (maybe via hash)
-    // TODO  Add UnitTests - NUnit with Assert.That()
-    // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
-    // TODO: Add German language and language selector in menu
-    // TODO: Add tool-tips for each menu entries
-    // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
-    // TODO: Change test order so that all tests will be ask (based on ask counter)
-    // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
-    //       Note: Prevent it direct inside the command handlers
-    //
-    // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
-    //       we need a prevention for this
-    //
-    //       Maybe: Only the first character or last character must are the same on less then five answers
-
-    // Version 2.x
-    // -----------
-    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
-    // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Move more program parts to separate library project in .Net Standard
-    // TODO: Export statistics (XLSX, CSV, JSON, XML)
-    // TODO: Import statistics (XLSX, CSV, JSON, XML)
-    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
-    // TODO: Make colors choose-able
-    // TODO: Ribbon menu
-
-    // Version 3.x
-    // -----------
-    // TODO: Start with integration of Kanji tests
-
-    // Ideas
-    // -----
-    // TODO: Auto update program
-    // TODO: .Net Xamarin version for Andorid and iOS
-
     /// <summary>
     /// Partial class of the <see cref="MainViewModel"/> that contains the complete logic
     /// </summary>
