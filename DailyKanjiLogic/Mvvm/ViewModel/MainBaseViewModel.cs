@@ -225,15 +225,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     continue;
                 }
 
-                var anyAnswer = GetRandomKanaTest(_baseModel.ShowOnlySameKanaOnAnswers ? _baseModel.CurrentTest.Type : KanaType.All);
-
-                // don't add test twice
-                if(possibleAnswers.Contains(anyAnswer))
-                {
-                    continue;
-                }
-
-                possibleAnswers.Add(anyAnswer);
+                possibleAnswers.Add(TestBaseModel.EmptyTest);
             }
 
             possibleAnswers.Shuffle();
