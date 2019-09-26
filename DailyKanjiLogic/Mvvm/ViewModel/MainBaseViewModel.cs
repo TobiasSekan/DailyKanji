@@ -723,7 +723,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                if(!_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber).Equals(answer))
+                if(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Equals(answer) != true)
                 {
                     continue;
                 }
