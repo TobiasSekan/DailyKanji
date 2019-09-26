@@ -177,14 +177,14 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(kanaType == KanaType.All)
             {
-                while(newTest.Roomaji == _baseModel.CurrentTest.Roomaji)
+                while(newTest.Equals(_baseModel.CurrentTest))
                 {
                     newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
                 }
             }
             else
             {
-                while(newTest.Roomaji == _baseModel.CurrentTest.Roomaji && newTest.Type != _baseModel.CurrentTest.Type)
+                while(newTest.Equals(_baseModel.CurrentTest) && newTest.Type != _baseModel.CurrentTest.Type)
                 {
                     newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
                 }
@@ -498,8 +498,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="answer">The answers of the current test</param>
         public void SetHighlightColors(in TestBaseModel answer)
         {
-            _baseModel.CurrentAskSignColor = answer.Roomaji == _baseModel.CurrentTest.Roomaji ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
-            _baseModel.ProgressBarColor    = answer.Roomaji == _baseModel.CurrentTest.Roomaji ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
+            _baseModel.CurrentAskSignColor = answer.Equals(_baseModel.CurrentTest) ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
+            _baseModel.ProgressBarColor    = answer.Equals(_baseModel.CurrentTest) ? ColorHelper.CorrectColor : ColorHelper.ErrorColor;
 
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
@@ -511,14 +511,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 }
 
                 var possibleAnswer = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
-
-                if(possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
+                if(possibleAnswer.Equals(_baseModel.CurrentTest))
                 {
                     _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.CorrectColor;
                     continue;
                 }
 
-                if(possibleAnswer.Roomaji == answer.Roomaji)
+                if(possibleAnswer.Equals(answer))
                 {
                     _baseModel.AnswerButtonColor[answerNumber] = ColorHelper.ErrorColor;
                     continue;
@@ -562,7 +561,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             CountAnswerResult(answer);
 
-            return answer.Roomaji == _baseModel.CurrentTest.Roomaji;
+            return answer.Equals(_baseModel.CurrentTest);
         }
 
         /// <summary>
@@ -571,7 +570,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="answer">The answer for the counting</param>
         public void CountWrongOrCorrectHiragana(in TestBaseModel answer)
         {
-            if(answer.Roomaji == _baseModel.CurrentTest.Roomaji)
+            if(answer.Equals(_baseModel.CurrentTest))
             {
                 _baseModel.CurrentTest.CompleteAnswerTimeForCorrectHiragana += _baseModel.AnswerTime;
                 _baseModel.CurrentTest.CorrectHiraganaCount++;
@@ -589,7 +588,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="answer">The answer for the counting</param>
         public void CountWrongOrCorrectKatakana(in TestBaseModel answer)
         {
-            if(answer.Roomaji == _baseModel.CurrentTest.Roomaji)
+            if(answer.Equals(_baseModel.CurrentTest))
             {
                 _baseModel.CurrentTest.CompleteAnswerTimeForCorrectKatakana += _baseModel.AnswerTime;
                 _baseModel.CurrentTest.CorrectKatakanaCount++;
@@ -735,7 +734,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             for(var answerNumber = 0; answerNumber < _baseModel.MaximumAnswers; answerNumber++)
             {
-                if(_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber)?.Roomaji != answer.Roomaji)
+                if(!_baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber).Equals(answer))
                 {
                     continue;
                 }
@@ -810,29 +809,29 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnMarkedAnswers)
             && _baseModel.AnswerButtonColor[answerNumber] == ColorHelper.MarkedColor
-            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji != currentAnswer.Roomaji)
+            && !possibleAnswer.Equals(_baseModel.CurrentTest)
+            && !possibleAnswer.Equals(currentAnswer))
             {
                 _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnCorrectAnswer)
-            && possibleAnswer.Roomaji == _baseModel.CurrentTest.Roomaji)
+            && possibleAnswer.Equals(_baseModel.CurrentTest))
             {
                 _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnWrongAnswer)
-            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji == currentAnswer.Roomaji)
+            && !possibleAnswer.Equals(_baseModel.CurrentTest)
+            && possibleAnswer.Equals(currentAnswer))
             {
                 _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
 
             if(_baseModel.SelectedHintShowType.HasFlag(HintShowType.ShowOnOtherAnswers)
             && _baseModel.AnswerButtonColor[answerNumber] != ColorHelper.MarkedColor
-            && possibleAnswer.Roomaji != _baseModel.CurrentTest.Roomaji
-            && possibleAnswer.Roomaji != currentAnswer.Roomaji)
+            && !possibleAnswer.Equals(_baseModel.CurrentTest)
+            && !possibleAnswer.Equals(currentAnswer))
             {
                 _baseModel.HintTextColor[answerNumber] = ColorHelper.HintTextColor;
             }
