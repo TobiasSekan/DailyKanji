@@ -59,7 +59,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
 
             BuildTestPool();
 
-            ChooseNewSign(GetRandomKanaTest(KanaType.All));
+            ChooseNewSign(GetRandomKanaTest());
         }
 
         #endregion Public Constructor
@@ -163,9 +163,8 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <summary>
         /// Return a random kana test and avoid that the test is the same as the current selected test
         /// </summary>
-        /// <param name="kanaType">The Kana type of the random test</param>
         /// <returns>A kana test</returns>
-        public TestBaseModel GetRandomKanaTest(KanaType kanaType)
+        public TestBaseModel GetRandomKanaTest()
         {
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
@@ -175,19 +174,9 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return newTest;
             }
 
-            if(kanaType == KanaType.All)
+            while(newTest.Equals(_baseModel.CurrentTest))
             {
-                while(newTest.Equals(_baseModel.CurrentTest))
-                {
-                    newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
-                }
-            }
-            else
-            {
-                while(newTest.Equals(_baseModel.CurrentTest) && newTest.Type != _baseModel.CurrentTest.Type)
-                {
-                    newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
-                }
+                newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
             }
 
             return newTest;
@@ -665,7 +654,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             OrderAllTests();
             BuildTestPool();
-            ChooseNewSign(GetRandomKanaTest(KanaType.All));
+            ChooseNewSign(GetRandomKanaTest());
             ChooseNewPossibleAnswers();
         }
 
