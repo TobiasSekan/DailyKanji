@@ -1,4 +1,4 @@
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +10,9 @@ using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
+    /// <summary>
+    /// A data model that contain all data for the program logic and all Kanji data
+    /// </summary>
     public class MainBaseModel : PropertyChangedHelper, IDisposable
     {
         #region Public Properties

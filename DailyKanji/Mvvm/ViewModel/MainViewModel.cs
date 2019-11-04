@@ -26,13 +26,12 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Private Properties
 
         /// <summary>
-        /// The model that contains the extended properties
-        /// (all types they are not available in .NET Standard 1.3)
+        /// A data model that contains all data for the surface and the application
         /// </summary>
         private MainModel _model { get; }
 
         /// <summary>
-        /// The model that contains the base properties
+        /// A data model that contain all data for the program logic and all Kanji data
         /// </summary>
         private MainBaseModel _baseModel { get; }
 
@@ -50,6 +49,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #region Internal Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class
+        /// </summary>
+        /// <param name="baseModel"> A data model that contain all data for the program logic and all Kanji data</param>
+        /// <param name="model">A data model that contains all data for the surface and the application</param>
+        /// <param name="baseViewModel"></param>
         internal MainViewModel(MainBaseModel baseModel, MainModel model, MainBaseViewModel baseViewModel)
         {
             _model            = model;

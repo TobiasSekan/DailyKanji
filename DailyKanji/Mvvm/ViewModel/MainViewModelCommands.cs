@@ -105,10 +105,14 @@ namespace DailyKanji.Mvvm.ViewModel
                     BuildAnswerMenuAndButtons();
                 });
 
+        /// <summary>
+        /// Command for change the usage of the answer timer
+        /// </summary>
         public ICommand CommandUseAnswerTimer
             => new CommandHelperSlim(()
                 =>
                 {
+                    // TODO: check if this code line is correct
                     _baseModel.ShowRunningAnswerTimer = _baseModel.UseAnswerTimer;
 
                     if(_baseModel.UseAnswerTimer)

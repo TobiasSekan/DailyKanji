@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace DailyKanji.Helper
 {
+    /// <summary>
+    /// Helper class to easier work with online resources
+    /// </summary>
     internal static class OnlineResourceHelper
     {
         /// <summary>
