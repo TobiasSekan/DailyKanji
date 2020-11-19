@@ -167,6 +167,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <returns>A kana test</returns>
         public TestBaseModel GetRandomKanaTest()
         {
+            if(!_baseModel.TestPool.Any())
+            {
+                return TestBaseModel.EmptyTest;
+            }
+
             var testPollCount = _baseModel.TestPool.Count();
             var newTest       = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
 
@@ -175,7 +180,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                 return newTest;
             }
 
-            while(newTest.Equals(_baseModel.CurrentTest))
+            while(newTest.Equals(_baseModel.CurrentTest) )
             {
                 newTest = _baseModel.TestPool.ElementAtOrDefault(_baseModel.Randomizer.Next(0, testPollCount));
             }
