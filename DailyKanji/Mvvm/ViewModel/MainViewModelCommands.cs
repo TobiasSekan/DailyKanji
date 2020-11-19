@@ -8,8 +8,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-#nullable enable
-
 namespace DailyKanji.Mvvm.ViewModel
 {
     /// <summary>
