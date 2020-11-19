@@ -1,4 +1,4 @@
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using DailyKanjiLogic.Mvvm.Model;
 using DailyKanjiLogic.Mvvm.ViewModel;
@@ -9,7 +9,7 @@ using System.Linq;
 namespace DailyKanjiLogicTest.Mvvm.ViewModel
 {
     [TestFixture]
-    public sealed class SetHintTextColorsTest
+    public sealed class SetHintTextColorsTest : IDisposable
     {
 #pragma warning disable CS8618
 
@@ -382,6 +382,9 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
             Assert.That(_model.HintTextColor[_correctAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
             Assert.That(_model.HintTextColor[_wrongAnswerNumber], Is.EqualTo(ColorHelper.TransparentColor));
         }
+
+        public void Dispose()
+            => _model.Dispose();
 
         // TODO: Add tests for all other HintShowTypes
     }
