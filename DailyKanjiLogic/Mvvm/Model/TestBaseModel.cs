@@ -271,7 +271,9 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         /// <returns>The hash code for this <see cref="TestBaseModel"/></returns>
         public override int GetHashCode()
-            => (Roomaji.GetHashCode() << 5) ^ (Hiragana.GetHashCode() << 5) ^ (Katakana.GetHashCode() << 5);
+            => (Roomaji.GetHashCode(StringComparison.InvariantCulture) << 5)
+            ^ (Hiragana.GetHashCode(StringComparison.InvariantCulture) << 5)
+            ^ (Katakana.GetHashCode(StringComparison.InvariantCulture) << 5);
 
         /// <summary>
         /// Return a readable <see cref="string"/> of this <see cref="TestBaseModel"/>
