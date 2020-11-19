@@ -53,7 +53,7 @@ namespace DailyKanji.Mvvm.View
         /// <param name="e">The arguments of this events (not used)</param>
         private void HighlightAnswer(object sender, EventArgs e)
         {
-            if(!(sender is Button button))
+            if(sender is not Button button)
             {
                 Debug.Fail("Button not found");
                 return;
