@@ -3,7 +3,7 @@
     /// <summary>
     /// Type of statistic reset
     /// </summary>
-    public enum ResetType : byte
+    public enum ResetType
     {
         /// <summary>
         /// Reset the complete statistic

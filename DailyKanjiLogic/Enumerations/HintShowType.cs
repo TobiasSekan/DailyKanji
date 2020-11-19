@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace DailyKanjiLogic.Enumerations
 {
@@ -6,7 +6,7 @@ namespace DailyKanjiLogic.Enumerations
     /// The kind of hints that should show on wrong/right answers
     /// </summary>
     [Flags]
-    public enum HintShowType : byte
+    public enum HintShowType
     {
         /// <summary>
         /// Show no hint

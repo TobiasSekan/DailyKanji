@@ -3,7 +3,7 @@
     /// <summary>
     /// The type of a test (test direction)
     /// </summary>
-    public enum TestType : byte
+    public enum TestType
     {
         /// <summary>
         /// Question in Hiragana or Katakana and answer in Roomaji

@@ -6,7 +6,7 @@ namespace DailyKanjiLogic.Enumerations
     /// The type of the kana (enum used <see cref="FlagsAttribute"/>)
     /// </summary>
     [Flags]
-    public enum KanaType : byte
+    public enum KanaType
     {
         /// <summary>
         /// Indicate that no kana type is selected
