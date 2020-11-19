@@ -1,5 +1,4 @@
-using DailyKanjiLogic.Helper;
-using DailyKanjiLogic.Interfaces;
+﻿using DailyKanjiLogic.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
