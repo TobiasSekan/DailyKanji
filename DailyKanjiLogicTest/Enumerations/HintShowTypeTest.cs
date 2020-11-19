@@ -1,4 +1,4 @@
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using NUnit.Framework;
 
 namespace DailyKanjiLogicTest.Enumerations
@@ -9,7 +9,7 @@ namespace DailyKanjiLogicTest.Enumerations
         [Test]
         public void EnumerationNumberTest()
         {
-            Assert.That((byte)HintShowType.ShowOnNoAnswers,       Is.EqualTo(0));
+            Assert.That((byte)HintShowType.None,                  Is.EqualTo(0));
             Assert.That((byte)HintShowType.ShowOnWrongAnswer,     Is.EqualTo(1));
             Assert.That((byte)HintShowType.ShowOnCorrectAnswer,   Is.EqualTo(2));
             Assert.That((byte)HintShowType.ShowOnMarkedAnswers,   Is.EqualTo(4));

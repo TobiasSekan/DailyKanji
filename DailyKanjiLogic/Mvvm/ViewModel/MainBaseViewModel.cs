@@ -780,7 +780,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         {
             Debug.Assert(answerNumber >= 0 && answerNumber <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
 
-            if(_baseModel.SelectedHintShowType == HintShowType.ShowOnNoAnswers)
+            if(_baseModel.SelectedHintShowType == HintShowType.None)
             {
                 return;
             }

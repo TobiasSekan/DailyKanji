@@ -11,7 +11,7 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// Show no hint
         /// </summary>
-        ShowOnNoAnswers = 0,
+        None = 0,
 
         /// <summary>
         /// Show the hint on the wrong answer

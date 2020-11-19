@@ -80,7 +80,7 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
         [Test]
         public void Test_HintShowType_ShowOnNoAnswers_WithCorrectAnswer()
         {
-            _model.SelectedHintShowType = HintShowType.ShowOnNoAnswers;
+            _model.SelectedHintShowType = HintShowType.None;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
@@ -97,7 +97,7 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
         [Test]
         public void Test_HintShowType_ShowOnNoAnswers_WithWrongAnswer()
         {
-            _model.SelectedHintShowType = HintShowType.ShowOnNoAnswers;
+            _model.SelectedHintShowType = HintShowType.None;
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
