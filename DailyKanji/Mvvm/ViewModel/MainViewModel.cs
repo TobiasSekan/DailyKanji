@@ -206,7 +206,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                 var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                 var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+                var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                 answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
                 answerButtonVisibility.Add(Visibility.Visible);
@@ -226,7 +226,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
                     var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                     var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
-                    var inputGestureText = answerNumber < 9 ? $"{(answerNumber + 1).ToString()}" : "0";
+                    var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                     answerMenu.Add(new MenuItem
                     {
