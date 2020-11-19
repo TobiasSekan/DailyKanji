@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <LangVersion>preview</LangVersion>
         <Nullable>enable</Nullable>
-        <UseWpf>true</UseWpf>
+        <UseWPF>true</UseWPF>
         <CodeAnalysisRuleSet>../DailyKanji.ruleset</CodeAnalysisRuleSet>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
+        <OutputType>WinExe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />
@@ -24,9 +26,6 @@
     </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>4.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
