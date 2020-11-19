@@ -2,6 +2,7 @@
 using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
+using System.Globalization;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
@@ -308,29 +309,13 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <returns>A readable <see cref="string"/></returns>
         /// <exception cref="FormatException"></exception>
         public string ToString(string format, IFormatProvider formatProvider)
-        {
-            switch(format?.ToUpper())
+            => format?.ToUpper(CultureInfo.CurrentCulture) switch
             {
-                case "R":
-                case "RO":
-                case "ROOMAJI":
-                    return Roomaji;
-
-                case "H":
-                case "HI":
-                case "HIRAGANA":
-                    return Hiragana;
-
-                case "K":
-                case "KA":
-                case "KATAKANA":
-                    return Katakana;
-
-                default:
-                    throw new FormatException($"Format: '{format}' not supported, only "
-                                              + "'R', 'H', 'K', 'RO', 'HI', 'KA', 'Roomaji', 'Hiragana' and 'Katakana' are supported");
-            }
-        }
+                "R" or "RO" or "ROOMAJI" => Roomaji,
+                "H" or "HI" or "HIRAGANA" => Hiragana,
+                "K" or "KA" or "KATAKANA" => Katakana,
+                _ => throw new FormatException($"Format: '{format}' not supported, only 'R', 'H', 'K', 'RO', 'HI', 'KA', 'Roomaji', 'Hiragana' and 'Katakana' are supported"),
+            };
 
         #endregion IFormattable Implementation
 
