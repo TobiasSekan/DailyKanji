@@ -22,7 +22,7 @@
         <Name>DailyKanjiLogic</Name>
     </ProjectReference>
     </ItemGroup>
-    
+
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>4.0.1</Version>
