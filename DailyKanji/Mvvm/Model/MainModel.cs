@@ -5,8 +5,6 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 
-#nullable enable
-
 namespace DailyKanji.Mvvm.Model
 {
     /// <summary>

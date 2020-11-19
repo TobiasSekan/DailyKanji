@@ -3,8 +3,6 @@ using DailyKanjiLogic.Mvvm.Model;
 using System.Diagnostics;
 using System.Windows.Navigation;
 
-#nullable enable
-
 namespace DailyKanji.Mvvm.View
 {
     internal sealed partial class InfoWindow

@@ -3,8 +3,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-#nullable enable
-
 namespace DailyKanji.Converter
 {
     /// <summary>

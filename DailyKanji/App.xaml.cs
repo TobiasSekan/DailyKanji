@@ -6,8 +6,6 @@ using System;
 using System.IO;
 using System.Windows;
 
-#nullable enable
-
 namespace DailyKanji
 {
     internal sealed partial class App

@@ -1,8 +1,6 @@
 ﻿using DailyKanji.Mvvm.ViewModel;
 using DailyKanjiLogic.Mvvm.Model;
 
-#nullable enable
-
 namespace DailyKanji.Mvvm.View
 {
     internal partial class StatisticsWindow
