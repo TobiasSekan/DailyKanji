@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -40,13 +41,13 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
             _baseModel.Randomizer        = new Random();
             _baseModel.PossibleAnswers   = new Collection<TestBaseModel>();
             _baseModel.TestPool          = new Collection<TestBaseModel>();
-            _baseModel.AnswerButtonColor = new ObservableCollection<string>();
-            _baseModel.HintTextColor     = new ObservableCollection<string>();
+            _baseModel.AnswerButtonColor = new ObservableCollection<Color>();
+            _baseModel.HintTextColor     = new ObservableCollection<Color>();
             _baseModel.HighlightTimer    = new ManualResetEvent(false);
             _baseModel.ProgressBarColor  = ColorHelper.ProgressBarColor;
 
-            var answerButtonColorList = new List<string>(10);
-            var hintTextColorList     = new List<string>(10);
+            var answerButtonColorList = new List<Color>(10);
+            var hintTextColorList     = new List<Color>(10);
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {

@@ -1,3 +1,5 @@
+﻿using System.Drawing;
+
 namespace DailyKanjiLogic.Helper
 {
     /// <summary>
@@ -6,33 +8,33 @@ namespace DailyKanjiLogic.Helper
     public static class ColorHelper
     {
         /// <summary>
-        /// The color string for the progress bar (System.Windows.Media.Colors.LightBlue - #FFADD8E6)
+        /// The color string for the progress bar
         /// </summary>
-        public const string ProgressBarColor = "#FFADD8E6"; // System.Windows.Media.Colors.LightBlue.ToString();
+        public static readonly Color ProgressBarColor = Color.LightBlue;
 
         /// <summary>
-        /// The color string for the error highlight (System.Windows.Media.Colors.LightCoral - #FFF08080)
+        /// The color string for the error highlight
         /// </summary>
-        public const string ErrorColor = "#FFF08080"; // System.Windows.Media.Colors.LightCoral.ToString();
+        public static readonly Color ErrorColor = Color.LightCoral;
 
         /// <summary>
-        /// The color string for marked answers (System.Windows.Media.Colors.LightGoldenrodYellow - #FFFAFAD2)
+        /// The color string for marked answers
         /// </summary>
-        public const string MarkedColor =  "#FFFAFAD2"; // System.Windows.Media.Colors.LightGoldenrodYellow.ToString();
+        public static readonly Color MarkedColor =  Color.LightGoldenrodYellow;
 
         /// <summary>
-        /// The color string for the correct answer (System.Windows.Media.Colors.LightGreen - FF90EE90)
+        /// The color string for the correct answer
         /// </summary>
-        public const string CorrectColor = "#FF90EE90"; // System.Windows.Media.Colors.LightGreen.ToString();
+        public static readonly Color CorrectColor = Color.LightGreen;
 
         /// <summary>
-        /// The color string for invisible text and elements (System.Windows.Media.Colors.Transparent - #00FFFFFF)
+        /// The color string for invisible text and elements
         /// </summary>
-        public const string TransparentColor = " #00FFFFFF"; // System.Windows.Media.Colors.Transparent.ToString();
+        public static readonly Color TransparentColor = Color.Transparent;
 
         /// <summary>
-        /// The color string for the answer hints (System.Windows.Media.Colors.Black - #FF000000)
+        /// The color string for the answer hints
         /// </summary>
-        public const string HintTextColor = "#FF000000"; // System.Windows.Media.Colors.Black.ToString();
+        public static readonly Color HintTextColor = Color.Black;
     }
 }

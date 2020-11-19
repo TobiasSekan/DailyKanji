@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 
@@ -27,13 +28,13 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current colors of all answer buttons
         /// </summary>
         [JsonIgnore]
-        public IList<string> AnswerButtonColor { get; set; }
+        public IList<Color> AnswerButtonColor { get; set; }
 
         /// <summary>
         /// The current colors of all answer hints
         /// </summary>
         [JsonIgnore]
-        public IList<string> HintTextColor { get; set; }
+        public IList<Color> HintTextColor { get; set; }
 
         /// <summary>
         /// List that contains the complete test pool (one of this test will be ask each test round)
@@ -162,7 +163,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The current color of the ask sign
         /// </summary>
         [JsonIgnore]
-        public string CurrentAskSignColor
+        public Color CurrentAskSignColor
         {
             get => _currentAskSignColor;
             set
@@ -181,7 +182,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// The color for the progress bar (running answer time)
         /// </summary>
         [JsonIgnore]
-        public string ProgressBarColor
+        public Color ProgressBarColor
         {
             get => _progressBarColor;
             set
@@ -812,12 +813,12 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Backing-field for <see cref="CurrentAskSignColor"/>
         /// </summary>
-        private string _currentAskSignColor;
+        private Color _currentAskSignColor;
 
         /// <summary>
         /// Backing-field for <see cref="ProgressBarColor"/>
         /// </summary>
-        private string _progressBarColor;
+        private Color _progressBarColor;
 
         /// <summary>
         /// Backing-field for <see cref="AverageAnswerTimeIndicator"/>
@@ -939,8 +940,8 @@ namespace DailyKanjiLogic.Mvvm.Model
             CurrentTest                  = TestBaseModel.EmptyTest;
             _previousTest                = TestBaseModel.EmptyTest;
 
-            AnswerButtonColor            = new List<string>(10);
-            HintTextColor                = new List<string>(10);
+            AnswerButtonColor            = new List<Color>(10);
+            HintTextColor                = new List<Color>(10);
 
             PossibleAnswers              = new Collection<TestBaseModel>();
             TestPool                     = new Collection<TestBaseModel>();
@@ -950,8 +951,8 @@ namespace DailyKanjiLogic.Mvvm.Model
             _averageAnswerTimeIndicator  = string.Empty;
             _correctCountIndicator       = string.Empty;
             _wrongCountIndicator         = string.Empty;
-            _progressBarColor            = "#FFADD8E6"; // Colors.LightBlue
-            _currentAskSignColor         = "#00FFFFFF"; // Colors.Transparent
+            _progressBarColor            = Color.LightBlue;
+            _currentAskSignColor         = Color.Transparent;
 
             LeftPosition                 = double.NaN;
             TopPosition                  = double.NaN;
@@ -1091,8 +1092,8 @@ namespace DailyKanjiLogic.Mvvm.Model
             PossibleAnswers      = Enumerable.Empty<TestBaseModel>();
 
             CurrentAskSign       = string.Empty;
-            CurrentAskSignColor  = string.Empty;
-            ProgressBarColor     = string.Empty;
+            CurrentAskSignColor  = Color.Black;
+            ProgressBarColor     = Color.Black;
 
             TestStartTime        = DateTime.MinValue;
             AnswerTime           = TimeSpan.Zero;
