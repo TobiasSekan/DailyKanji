@@ -778,7 +778,7 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
         /// <param name="currentAnswer">The given answer of the user</param>
         internal void SetHintTextColors(in int answerNumber, in TestBaseModel currentAnswer)
         {
-            Debug.Assert(answerNumber >= 0 && answerNumber <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
+            Debug.Assert(answerNumber is >= 0 and <= 9, $"SetHintTextColors: [{nameof(answerNumber)}] must be in range of 0 to 9");
 
             if(_baseModel.SelectedHintShowType == HintShowType.None)
             {
