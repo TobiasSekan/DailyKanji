@@ -179,7 +179,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void BuildAnswerMenuAndButtons()
         {
-            _model.AnswerHintTextHeight     = _baseModel.SelectedHintShowType != HintShowType.ShowOnNoAnswers ? GridLength.Auto : new GridLength(0);
+            _model.AnswerHintTextHeight     = _baseModel.SelectedHintShowType != HintShowType.None ? GridLength.Auto : new GridLength(0);
             _model.AnswerShortCutTextHeight = _baseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
 
             var answerMenu                   = new List<MenuItem>(10);
