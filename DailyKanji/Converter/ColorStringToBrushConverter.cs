@@ -12,8 +12,8 @@ namespace DailyKanji.Converter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (value is string colorValue) && !string.IsNullOrWhiteSpace(colorValue)
-                ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorValue))
+            => value is System.Drawing.Color color
+                ? new SolidColorBrush(Color.FromRgb(color.R, color.G, color.B))
                 : new SolidColorBrush(Colors.Transparent);
 
         /// <inheritdoc/>
