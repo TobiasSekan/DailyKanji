@@ -298,11 +298,11 @@ namespace DailyKanjiLogic.Mvvm.ViewModel
                     throw new ArgumentOutOfRangeException(nameof(_baseModel.SelectedTestType),
                                                          _baseModel,
                                                          "CountAnswerResult: Test type combination not supported\n"
-                                                         + $"SelectedTestType:     [{_baseModel.SelectedTestType.ToString()}]\n"
+                                                         + $"SelectedTestType:     [{_baseModel.SelectedTestType}]\n"
                                                          + $"CurrentAskSign:       [{_baseModel.CurrentAskSign}]\n"
                                                          + $"CurrentTest.Katakana: [{_baseModel.CurrentTest.Katakana}]\n"
                                                          + $"CurrentTest.Hiragana: [{_baseModel.CurrentTest.Hiragana}]\n"
-                                                         + $"answer.AnswerType:    [{answer.AnswerType.ToString()}]");
+                                                         + $"answer.AnswerType:    [{answer.AnswerType}]");
             }
 
             // Reset the AnswerType - only for testing / debugging

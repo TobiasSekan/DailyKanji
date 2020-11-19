@@ -26,7 +26,7 @@ namespace DailyKanjiLogic.Helper
 
             using var gamePad = new Joystick(directInput, inputDevice.InstanceGuid);
 
-            Debug.WriteLine($"Found game-pad - with {gamePad.Capabilities.ButtonCount.ToString()} buttons");
+            Debug.WriteLine($"Found game-pad - with {gamePad.Capabilities.ButtonCount} buttons");
 
             gamePad.Acquire();
 
