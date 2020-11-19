@@ -153,6 +153,18 @@ namespace DailyKanjiLogic.Helper
             };
 
         /// <summary>
+        /// Return a list with tests that have the same Kana type as the given test
+        /// </summary>
+        /// <param name="testList">A list with all tests</param>
+        /// <param name="test">The test that contains the kana type for the new list</param>
+        /// <returns>A list with tests that have the same Kana type</returns>
+        public static IEnumerable<TestBaseModel> GetSameKana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
+        {
+            var tempTest = test;
+            return testList.Where(found => found.Type == tempTest.Type);
+        }
+
+        /// <summary>
         /// Return a tests with a similar Kana (similar look) from the given list, based on the given test
         /// </summary>
         /// <param name="testList">A list with all tests</param>

@@ -14,33 +14,38 @@ namespace DailyKanjiLogic.Enumerations
         None = 0,
 
         /// <summary>
-        /// Only monograph kana
+        /// Only monograph kana (45 kana)
         /// </summary>
         Gojuuon = 1,
 
         /// <summary>
-        /// Only monograph kana with two little strokes
+        /// Only monograph kana with two little strokes (20 kana)
         /// </summary>
         GojuuonWithDakuten = 1 << 1,
 
         /// <summary>
-        /// Only monograph kana with a little circle
+        /// Only monograph kana with a little circle (5 kana)
         /// </summary>
         GojuuonWithHandakuten = 1 << 2,
 
         /// <summary>
-        /// Only digraph kana
+        /// Only digraph kana (21 kana)
         /// </summary>
         Yooon = 1 << 3,
 
         /// <summary>
-        /// Only digraph kana with two little strokes
+        /// Only digraph kana with two little strokes (9 kana)
         /// </summary>
         YooonWithDakuten = 1 << 4,
 
         /// <summary>
-        /// Only digraph kana with a little circle
+        /// Only digraph kana with a little circle (3 kana)
         /// </summary>
-        YooonWithHandakuten = 1 << 5
+        YooonWithHandakuten = 1 << 5,
+
+        /// <summary>
+        /// All possible kana types
+        /// </summary>
+        All = Gojuuon | GojuuonWithDakuten | GojuuonWithHandakuten | Yooon | YooonWithDakuten | YooonWithHandakuten
     }
 }

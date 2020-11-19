@@ -13,8 +13,14 @@ namespace DailyKanji.Mvvm.View
     {
         #region Public Properties
 
+        /// <summary>
+        /// A data model that contain all data for the program logic and all Kanji data
+        /// </summary>
         public MainBaseModel BaseModel { get; }
 
+        /// <summary>
+        /// A data model that contains all data for the surface and the application
+        /// </summary>
         public MainModel Model { get; }
 
         public MainViewModel ViewModel { get; }
@@ -23,6 +29,12 @@ namespace DailyKanji.Mvvm.View
 
         #region Internal Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class
+        /// </summary>
+        /// <param name="baseModel">A data model that contain all data for the program logic and all Kanji data</param>
+        /// <param name="model">A data model that contains all data for the surface and the application</param>
+        /// <param name="viewModel"></param>
         internal MainWindow(MainBaseModel baseModel, MainModel model, MainViewModel viewModel)
         {
             BaseModel = baseModel;

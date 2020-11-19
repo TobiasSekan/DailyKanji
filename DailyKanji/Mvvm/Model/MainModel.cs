@@ -9,6 +9,10 @@ using System.Windows.Controls;
 
 namespace DailyKanji.Mvvm.Model
 {
+    /// <summary>
+    /// A data model that contains all data for the surface and the application
+    /// (this model doesn't contain data for the program logic and doesn't contain Kanji data)
+    /// </summary>
     public sealed class MainModel : PropertyChangedHelper, IDisposable
     {
         #region Public Properties

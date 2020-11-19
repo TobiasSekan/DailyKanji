@@ -1,4 +1,4 @@
-using DailyKanjiLogic.Enumerations;
+﻿using DailyKanjiLogic.Enumerations;
 using DailyKanjiLogic.Helper;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +10,9 @@ using System.Threading;
 
 namespace DailyKanjiLogic.Mvvm.Model
 {
+    /// <summary>
+    /// A data model that contain all data for the program logic and all Kanji data
+    /// </summary>
     public class MainBaseModel : PropertyChangedHelper, IDisposable
     {
         #region Public Properties
@@ -750,6 +753,24 @@ namespace DailyKanjiLogic.Mvvm.Model
             }
         }
 
+        /// <summary>
+        /// Indicate that all answers have only the same kana type (make tests a little bit harder)
+        /// </summary>
+        public bool ShowOnlySameKanaOnAnswers
+        {
+            get => _showOnlySameKanaOnAnswers;
+            set
+            {
+                if(_showOnlySameKanaOnAnswers == value)
+                {
+                    return;
+                }
+
+                _showOnlySameKanaOnAnswers = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Public Properties
 
         #region Internal Properties
@@ -897,6 +918,11 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// Backing-field for <see cref="ShowSignStatistics"/>
         /// </summary>
         private bool _showSignStatistics;
+
+        /// <summary>
+        /// Backing-field for <see cref="ShowOnlySameKanaOnAnswers"/>
+        /// </summary>
+        private bool _showOnlySameKanaOnAnswers;
 
         #endregion Private Backing-Fields
 

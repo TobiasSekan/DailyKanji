@@ -48,7 +48,10 @@ At the very latest with the first release of .NET 5 (November 2020) the support 
 Window 8 and Windows Server 2008 SP2 will be end. Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
 
 ## Whats next?
-see [Roadmap](Documentation/Roadmap.md)
+* [Version 1.0](https://github.com/TobiasSekan/DailyKanji/milestone/1)
+* [Version 2.0](https://github.com/TobiasSekan/DailyKanji/milestone/4)
+* [Version 3.0](https://github.com/TobiasSekan/DailyKanji/milestone/2)
+* [Ideas](https://github.com/TobiasSekan/DailyKanji/milestone/3)
 
 ## Requirements for debug, test and contributing
 * [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar

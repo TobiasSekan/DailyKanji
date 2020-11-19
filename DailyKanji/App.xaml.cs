@@ -1,5 +1,4 @@
-﻿using DailyKanji.Helper;
-using DailyKanji.Mvvm.Model;
+﻿using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using DailyKanji.Mvvm.ViewModel;
 using DailyKanjiLogic.Mvvm.ViewModel;
@@ -31,7 +30,7 @@ namespace DailyKanji
             }
 
             var model         = new MainModel();
-            var baseViewModel = new MainBaseViewModel(baseModel, ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+            var baseViewModel = new MainBaseViewModel(baseModel);
             var mainViewModel = new MainViewModel(baseModel, model, baseViewModel);
             var mainWindow    = new MainWindow(baseModel, model, mainViewModel);
 

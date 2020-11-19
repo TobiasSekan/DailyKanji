@@ -103,7 +103,6 @@
     <Rule Id="CA1500" Action="Warning" />       <!-- CA1500: Variable names should not match field names -->
     <Rule Id="CA1501" Action="Warning" />       <!-- CA1501: Avoid excessive inheritance -->
     <Rule Id="CA1502" Action="Warning" />       <!-- CA1502: Avoid excessive complexity-->
-    <Rule Id="CA1502" Action="Warning" />       <!-- CA1502: Avoid excessive complexity-->
     <Rule Id="CA1504" Action="Warning" />       <!-- CA1504: Review misleading field names -->
     <Rule Id="CA1505" Action="Warning" />       <!-- CA1505: Avoid unmaintainable code -->
     <Rule Id="CA1506" Action="Warning" />       <!-- CA1506: Avoid excessive class coupling -->

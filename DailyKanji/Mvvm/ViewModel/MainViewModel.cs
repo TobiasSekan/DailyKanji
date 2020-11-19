@@ -1,4 +1,4 @@
-using DailyKanji.Helper;
+﻿using DailyKanji.Helper;
 using DailyKanji.Mvvm.Model;
 using DailyKanji.Mvvm.View;
 using DailyKanjiLogic.Enumerations;
@@ -18,54 +18,6 @@ using System.Windows.Controls;
 
 namespace DailyKanji.Mvvm.ViewModel
 {
-    // Test
-    // ----
-    // Test: Current sign statistics (possible: show wrong count)
-    // Test: Correct counting for answers on test type "AllToAll"
-    // Test: Game-pad button calculation
-    // Test: Game-pad support (with 10 buttons for 10 answers)
-
-    // BUG
-    // ---
-
-    // Version 1.x
-    // -----------
-    // Internal: Move all colors to DailyKanjiLogic (for easier testing)
-    // TODO  Add UnitTests - NUnit with Assert.That()
-    // TODO: Add extended Katakana(see https://en.wikipedia.org/wiki/Transcription_into_Japanese#Extended_katakana_2)
-    // TODO: Add German language and language selector in menu
-    // TODO: Add tool-tips for each menu entries
-    // TODO: Add more menu underscores (for menu keyboard navigation)
-    // TODO: Add similar list for each Hiragana and each Katakana character for option "Similar answers"
-    // TODO: Change test order so that all tests will be ask (based on ask counter)
-    // TODO: Prevent double-click and multi-click on correct answers to avoid wrong next answer
-    //       Note: Prevent it direct inside the command handlers
-    //
-    // TODO: On similar answers, in some circumstance it is easy to direct find the correct answer
-    //       we need a prevention for this
-    //
-    //       Maybe: Only the first character or last character must are the same on less then five answers
-
-    // Version 2.x
-    // -----------
-    // Internal: DailyKanjiLogic.Mvvm.ViewModel.GetAnswerNumber -> Can we use foreach here ?
-    // TODO: Add command line project in .Net Core 2.1 (usable under Windows, Linux, macOS)
-    // TODO: Move more program parts to separate library project in .Net Standard
-    // TODO: Export statistics (XLSX, CSV, JSON, XML)
-    // TODO: Import statistics (XLSX, CSV, JSON, XML)
-    // TODO: Investigate in WPF - FlowDocument (for integrated zooming features)
-    // TODO: Make colors choose-able
-    // TODO: Ribbon menu
-
-    // Version 3.x
-    // -----------
-    // TODO: Start with integration of Kanji tests
-
-    // Ideas
-    // -----
-    // TODO: Auto update program
-    // TODO: .Net Xamarin version for Andorid and iOS
-
     /// <summary>
     /// Partial class of the <see cref="MainViewModel"/> that contains the complete logic
     /// </summary>
@@ -74,13 +26,12 @@ namespace DailyKanji.Mvvm.ViewModel
         #region Private Properties
 
         /// <summary>
-        /// The model that contains the extended properties
-        /// (all types they are not available in .NET Standard 1.3)
+        /// A data model that contains all data for the surface and the application
         /// </summary>
         private MainModel _model { get; }
 
         /// <summary>
-        /// The model that contains the base properties
+        /// A data model that contain all data for the program logic and all Kanji data
         /// </summary>
         private MainBaseModel _baseModel { get; }
 
@@ -98,6 +49,12 @@ namespace DailyKanji.Mvvm.ViewModel
 
         #region Internal Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class
+        /// </summary>
+        /// <param name="baseModel"> A data model that contain all data for the program logic and all Kanji data</param>
+        /// <param name="model">A data model that contains all data for the surface and the application</param>
+        /// <param name="baseViewModel"></param>
         internal MainViewModel(MainBaseModel baseModel, MainModel model, MainBaseViewModel baseViewModel)
         {
             _model            = model;
@@ -122,7 +79,7 @@ namespace DailyKanji.Mvvm.ViewModel
             GamepadTest();
 
             _baseViewModel.PrepareNewTest();
-            _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+            _baseViewModel.SetNormalColors();
         }
 
         #endregion Internal Constructors
@@ -343,19 +300,13 @@ namespace DailyKanji.Mvvm.ViewModel
                     return;
                 }
 
-                _baseViewModel.SetHighlightColors(answerTemp,
-                                                  ColorHelper.CorrectColor,
-                                                  result ? ColorHelper.CorrectColor : ColorHelper.ErrorColor,
-                                                  ColorHelper.NoneSelectedColor,
-                                                  ColorHelper.AnswerHintTextColor);
-
+                _baseViewModel.SetHighlightColors(answerTemp);
                 _baseViewModel.PrepareNewTest();
 
                 _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
 
                 _baseViewModel.ResetHighlight();
-
-                _baseViewModel.SetNormalColors(ColorHelper.TransparentColor, ColorHelper.ProgressBarColor);
+                _baseViewModel.SetNormalColors();
 
                 ShowAndStartNewTest();
             });
@@ -463,9 +414,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp,
-                                                                                                    ColorHelper.NoneSelectedColor,
-                                                                                                    ColorHelper.TransparentColor));
+            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp));
         }
 
         #endregion Private Methods
