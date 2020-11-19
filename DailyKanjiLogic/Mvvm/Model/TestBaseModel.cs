@@ -14,7 +14,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// A empty test
         /// </summary>
         public static TestBaseModel EmptyTest
-            => new TestBaseModel(string.Empty, string.Empty, string.Empty, KanaType.None);
+            => new(string.Empty, string.Empty, string.Empty, KanaType.None);
 
         #endregion Public Static Properties
 
