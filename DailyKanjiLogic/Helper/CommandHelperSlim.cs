@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace DailyKanjiLogic.Helper
@@ -34,7 +34,7 @@ namespace DailyKanjiLogic.Helper
         /// Execute the <see cref="Action"/>
         /// </summary>
         /// <param name="parameter">(parameter will be ignored)</param>
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
             => _action?.Invoke();
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace DailyKanjiLogic.Helper
         /// </summary>
         /// <param name="parameter">(parameter will be ignored)</param>
         /// <returns>always <see langword="true"/></returns>
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
             => true;
 
         public event EventHandler? CanExecuteChanged;
