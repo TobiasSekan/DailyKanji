@@ -74,4 +74,3 @@
 | Roslynator.Analyzers          | 3.0.0      | Code guidelines                            |
 | SharpDX.DirectInput           | 4.2.0      | Game-pad support via DirectInput           |
 | StyleCop.Analyzers            | 1.2.0-beta | Code guidelines                            |
-| System.Diagnostics.StackTrace | 4.3.0      | StracTrace output                          |
