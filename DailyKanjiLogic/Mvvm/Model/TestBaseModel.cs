@@ -263,7 +263,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="obj">The <see cref="object"/> to compare</param>
         /// <returns><see langword="true"/> when <see cref="object"/> is from type <see cref="TestBaseModel"/>
         /// and Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
             => obj is TestBaseModel testBaseModel && Equals(testBaseModel);
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         /// <param name="other">The <see cref="TestBaseModel"/> to compare</param>
         /// <returns><see langword="true"/> when Roomaji, Hiragana and Katakana are the same, otherwise <see langword="false"/></returns>
-        public bool Equals(TestBaseModel other)
+        public bool Equals(TestBaseModel? other)
             => !(other is null)
             && (other.Type == Type)
             && (other.Roomaji == Roomaji)
@@ -308,7 +308,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <param name="formatProvider">not used and ignored</param>
         /// <returns>A readable <see cref="string"/></returns>
         /// <exception cref="FormatException"></exception>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
             => format?.ToUpper(CultureInfo.CurrentCulture) switch
             {
                 "R" or "RO" or "ROOMAJI" => Roomaji,
