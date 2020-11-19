@@ -38,6 +38,6 @@
         /// <summary>
         /// Reset only entries for wrong Katakana answers
         /// </summary>
-        OnlyWrongKatakana = 6
+        OnlyWrongKatakana = 6,
     }
 }

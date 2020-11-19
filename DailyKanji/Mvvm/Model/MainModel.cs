@@ -179,7 +179,7 @@ namespace DailyKanji.Mvvm.Model
         {
             get => _answerHintTextHeight;
             set
-                {
+            {
                 if(_answerHintTextHeight == value)
                 {
                     return;
@@ -197,7 +197,7 @@ namespace DailyKanji.Mvvm.Model
         {
             get => _answerShortCutTextHeight;
             set
-                {
+            {
                 if(_answerShortCutTextHeight == value)
                 {
                     return;

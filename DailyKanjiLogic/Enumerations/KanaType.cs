@@ -46,6 +46,6 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// All possible kana types
         /// </summary>
-        All = Gojuuon | GojuuonWithDakuten | GojuuonWithHandakuten | Yooon | YooonWithDakuten | YooonWithHandakuten
+        All = Gojuuon | GojuuonWithDakuten | GojuuonWithHandakuten | Yooon | YooonWithDakuten | YooonWithHandakuten,
     }
 }

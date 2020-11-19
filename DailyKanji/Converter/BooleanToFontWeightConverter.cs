@@ -12,7 +12,7 @@ namespace DailyKanji.Converter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (value is bool booleanValue) && booleanValue
+            => ((value is bool booleanValue) && booleanValue)
                 ? FontWeights.ExtraBold
                 : FontWeights.Normal;
 

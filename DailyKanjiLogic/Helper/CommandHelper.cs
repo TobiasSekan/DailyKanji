@@ -39,21 +39,16 @@ namespace DailyKanjiLogic.Helper
 
         #region ICommand Implementation
 
-        /// <summary>
-        /// Execute the <see cref="Action{T}"/> with the given parameter
-        /// </summary>
-        /// <param name="parameter">The parameter for the action</param>
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">parameter is null</exception>
         public void Execute(object? parameter)
             => _action?.Invoke(parameter ?? throw new ArgumentNullException(nameof(parameter)));
 
-        /// <summary>
-        /// Return if the action can perform, based on the <see cref="Predicate{T}"/> of this <see cref="Action{T}"/> and the given parameter
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <returns><see langword="true"/> if command is usable, otherwise <see langword="false"/></returns>
+        /// <inheritdoc/>
         public bool CanExecute(object? parameter)
             => parameter is null || _canExecute?.Invoke(parameter) != false;
 
+        /// <inheritdoc/>
         public event EventHandler? CanExecuteChanged;
 
         #endregion ICommand Implementation

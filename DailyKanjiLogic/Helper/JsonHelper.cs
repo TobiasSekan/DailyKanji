@@ -15,7 +15,7 @@ namespace DailyKanjiLogic.Helper
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="filename">The name of the JSON file</param>
         /// <returns>The de-serialized object</returns>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="FileNotFoundException">Path contains illegal characters</exception>
         public static T ReadJson<T>(in string filename) where T : class, new()
         {
             if(filename.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
@@ -28,12 +28,7 @@ namespace DailyKanjiLogic.Helper
 
             TryConvertFromString<T>(streamReader.ReadToEnd(), out var newObject, out var exception);
 
-            if(!(exception is null))
-            {
-                throw exception;
-            }
-
-            return newObject;
+            return exception is null ? newObject : throw exception;
         }
 
         /// <summary>
@@ -51,7 +46,7 @@ namespace DailyKanjiLogic.Helper
 
             var serializer = new JsonSerializer
             {
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
             };
 
             using var fileStream     = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
@@ -68,7 +63,7 @@ namespace DailyKanjiLogic.Helper
         /// <param name="jsonString">The <see cref="string"/> that contains a JSON object</param>
         /// <param name="newObject">The new <see cref="object"/> from the string</param>
         /// <param name="exception">The thrown <see cref="Exception"/> until the converting</param>
-        /// <exception cref="JsonException"></exception>
+        /// <exception cref="JsonException">Error on pasing JSON</exception>
         public static void TryConvertFromString<T>(in string jsonString, out T newObject, out Exception? exception)
                 where T : class, new()
         {

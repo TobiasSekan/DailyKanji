@@ -53,6 +53,6 @@
         /// <summary>
         /// Question in Hiragana, Katakana or Roomaji and answers in Hiragana, Katakana or Roomaji
         /// </summary>
-        AllToAll = 9
+        AllToAll = 9,
     }
 }

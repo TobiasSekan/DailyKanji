@@ -25,10 +25,13 @@ namespace DailyKanji.Helper
             }
 
             var webDataSplit          = webData.Split('\n');
-            var assemblyVersionLine   = Array.Find(webDataSplit,
-                                                   found => found?.StartsWith("[assembly: AssemblyVersion", StringComparison.OrdinalIgnoreCase) == true);
+            var assemblyVersionLine   = Array.Find(
+                webDataSplit,
+                found => found?.StartsWith("[assembly: AssemblyVersion", StringComparison.OrdinalIgnoreCase) == true);
 
-            var assemblyVersionString = assemblyVersionLine?.Split('"').ElementAtOrDefault(1);
+            var assemblyVersionString = assemblyVersionLine?
+                .Split('"')
+                .ElementAtOrDefault(1);
 
             return string.IsNullOrWhiteSpace(assemblyVersionString)
                     ? new Version()

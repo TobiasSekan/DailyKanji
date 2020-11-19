@@ -32,7 +32,7 @@ namespace DailyKanjiLogicTest.Mvvm.ViewModel
         {
             _model = new MainBaseModel
             {
-                MaximumAnswers = 10
+                MaximumAnswers = 10,
             };
 
             _viewModel = new MainBaseViewModel(_model);

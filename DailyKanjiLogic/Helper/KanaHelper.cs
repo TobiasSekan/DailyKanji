@@ -149,7 +149,7 @@ namespace DailyKanjiLogic.Helper
 
                 new TestBaseModel("pya", "ぴゃ", "ピャ", KanaType.YooonWithHandakuten),
                 new TestBaseModel("pyu", "ぴゅ", "ピュ", KanaType.YooonWithHandakuten),
-                new TestBaseModel("pyo", "ぴょ", "ピョ", KanaType.YooonWithHandakuten)
+                new TestBaseModel("pyo", "ぴょ", "ピョ", KanaType.YooonWithHandakuten),
             };
 
         /// <summary>
@@ -171,7 +171,6 @@ namespace DailyKanjiLogic.Helper
         /// <param name="test">A test with a Kana, need to find a similar Kana</param>
         /// <param name="answerType">The type of the answer (Roomaji, Hiragana, Katakana)</param>
         /// <returns>A list with similar test</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static IEnumerable<TestBaseModel> GetSimilarKana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test, in AnswerType answerType)
         {
             return answerType switch
@@ -183,7 +182,7 @@ namespace DailyKanjiLogic.Helper
                 _ => GetSimilarRoomaji(testList, test),
 
                 // TODO
-                //throw new ArgumentOutOfRangeException(nameof(answerType), $"{nameof(answerType)} can't be {nameof(AnswerType.Unknown)}");
+                // throw new ArgumentOutOfRangeException(nameof(answerType), $"{nameof(answerType)} can't be {nameof(AnswerType.Unknown)}");
             };
         }
 
@@ -193,7 +192,6 @@ namespace DailyKanjiLogic.Helper
         /// <param name="testList">A list with all tests</param>
         /// <param name="test">A test with a Roomaji, need to find a similar Roomaji</param>
         /// <returns>A list with similar test</returns>
-
         public static IEnumerable<TestBaseModel> GetSimilarRoomaji(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             var similarTestList = new Collection<TestBaseModel>();
@@ -225,7 +223,6 @@ namespace DailyKanjiLogic.Helper
         /// <param name="testList">A list with all tests</param>
         /// <param name="test">A test with a Hiragana, need to find a similar Hiragana</param>
         /// <returns>A list with similar test</returns>
-
         public static IEnumerable<TestBaseModel> GetSimilarHiragana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             // TODO
@@ -238,7 +235,6 @@ namespace DailyKanjiLogic.Helper
         /// <param name="testList">A list with all tests</param>
         /// <param name="test">A test with a Katakana, need to find a similar Katakana</param>
         /// <returns>A list with similar test</returns>
-
         public static IEnumerable<TestBaseModel> GetSimilarKatakana(in IEnumerable<TestBaseModel> testList, in TestBaseModel test)
         {
             // TODO

@@ -31,6 +31,6 @@ namespace DailyKanjiLogic.Enumerations
         /// <summary>
         /// Show the hint on all other answers (not marked answers, not right, not wrong)
         /// </summary>
-        ShowOnOtherAnswers = 1 << 3
+        ShowOnOtherAnswers = 1 << 3,
     }
 }

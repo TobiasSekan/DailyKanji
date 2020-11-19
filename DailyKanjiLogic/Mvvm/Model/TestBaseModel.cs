@@ -77,7 +77,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForHiragana
-            => (CorrectHiraganaCount + WrongHiraganaCount) > 0
+            => ((CorrectHiraganaCount + WrongHiraganaCount) > 0)
                 ? new TimeSpan((CompleteAnswerTimeForCorrectHiragana.Ticks + CompleteAnswerTimeForWrongHiragana.Ticks)
                                / (CorrectHiraganaCount + WrongHiraganaCount))
                 : new TimeSpan();
@@ -87,7 +87,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// </summary>
         [JsonIgnore]
         public TimeSpan AverageAnswerTimeForKatakana
-            => (CorrectKatakanaCount + WrongKatakanaCount) > 0
+            => ((CorrectKatakanaCount + WrongKatakanaCount) > 0)
                 ? new TimeSpan((CompleteAnswerTimeForCorrectKatakana.Ticks + CompleteAnswerTimeForWrongKatakana.Ticks)
                                / (CorrectKatakanaCount + WrongKatakanaCount))
                 : new TimeSpan();
@@ -309,7 +309,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// (R, H, K, RO, HI, KA, Roomaji, Hiragana or Katakana)</param>
         /// <param name="formatProvider">not used and ignored</param>
         /// <returns>A readable <see cref="string"/></returns>
-        /// <exception cref="FormatException"></exception>
+        /// <exception cref="FormatException">Format not supported</exception>
         public string ToString(string? format, IFormatProvider? formatProvider)
             => format?.ToUpper(CultureInfo.CurrentCulture) switch
             {
@@ -323,6 +323,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #region ICloneable Implementation
 
+        /// <inheritdoc/>
         public object Clone()
             =>  new TestBaseModel(Roomaji, Hiragana, Katakana, Type)
             {
@@ -334,7 +335,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                 WrongKatakanaCount                   = _wrongKatakanaCount,
                 CorrectHiraganaCount                 = _correctHiraganaCount,
                 CorrectKatakanaCount                 = _correctKatakanaCount,
-                AnswerType                           = AnswerType
+                AnswerType                           = AnswerType,
             };
 
         #endregion ICloneable Implementation

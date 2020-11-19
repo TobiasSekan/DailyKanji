@@ -75,7 +75,6 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// The current sign quest
         /// </summary>
-
         [JsonIgnore]
         public TestBaseModel CurrentTest { get; set; }
 
@@ -217,7 +216,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// Return a short <see cref="string"/> for the current <see cref="SelectedTestType"/>
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Unknown test type</exception>
         [JsonIgnore]
         public string TestTypeString
             => SelectedTestType switch
@@ -255,7 +254,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with count of wrong answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">unknown test type combination</exception>
         [JsonIgnore]
         public string WrongCount
         {
@@ -297,7 +296,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with count of correct answers for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Unknown test type combination</exception>
         [JsonIgnore]
         public string CorrectCount
         {
@@ -339,7 +338,7 @@ namespace DailyKanjiLogic.Mvvm.Model
         /// <summary>
         /// A readable <see cref="string"/> with the average answer time for the <see cref="CurrentTest"/>, based on the <see cref="SelectedTestType"/>
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Unknown test type combination</exception>
         [JsonIgnore]
         public string AverageAnswerTime
         {
@@ -1060,7 +1059,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
             if(HighlightTimeout < minTime || HighlightTimeout > maxTime)
             {
-                Debug.WriteLine($"[{nameof(HighlightTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
+                Debug.WriteLine($"[{nameof(HighlightTimeout)}] is not between {minTime} and {maxTime}");
                 HighlightTimeout = maxTime;
             }
 
@@ -1069,7 +1068,7 @@ namespace DailyKanjiLogic.Mvvm.Model
                 return;
             }
 
-            Debug.WriteLine($"[{nameof(MaximumAnswerTimeout)}] is not between {minTime.ToString()} and {maxTime.ToString()}");
+            Debug.WriteLine($"[{nameof(MaximumAnswerTimeout)}] is not between {minTime} and {maxTime}");
             MaximumAnswerTimeout = maxTime;
         }
 
@@ -1077,6 +1076,7 @@ namespace DailyKanjiLogic.Mvvm.Model
 
         #region IDisposable Implementation
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             HighlightTimer.Dispose();

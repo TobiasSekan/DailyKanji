@@ -30,21 +30,15 @@ namespace DailyKanjiLogic.Helper
 
         #region ICommand Implementation
 
-        /// <summary>
-        /// Execute the <see cref="Action"/>
-        /// </summary>
-        /// <param name="parameter">(parameter will be ignored)</param>
+        /// <inheritdoc/>
         public void Execute(object? parameter)
             => _action?.Invoke();
 
-        /// <summary>
-        /// Return if the action can perform
-        /// </summary>
-        /// <param name="parameter">(parameter will be ignored)</param>
-        /// <returns>always <see langword="true"/></returns>
+        /// <inheritdoc/>
         public bool CanExecute(object? parameter)
             => true;
 
+        /// <inheritdoc/>
         public event EventHandler? CanExecuteChanged;
 
         #endregion ICommand Implementation

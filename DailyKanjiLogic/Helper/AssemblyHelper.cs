@@ -16,7 +16,13 @@ namespace DailyKanjiLogic.Helper
         /// <param name="assemblyClass">A class of the assembly (typical <c>this</c></param>
         /// <returns>A target framework</returns>
         public static string GetTargetFramework<T>(in T assemblyClass) where T : class
-            => assemblyClass.GetType().GetTypeInfo().Assembly.GetCustomAttribute<TargetFrameworkAttribute>().FrameworkName;
+            => assemblyClass
+                .GetType()
+                .GetTypeInfo()
+                .Assembly
+                .GetCustomAttribute<TargetFrameworkAttribute>()?
+                .FrameworkName
+            ?? string.Empty;
 
         /// <summary>
         /// Return the assembly version of the assembly of the given class
@@ -25,6 +31,12 @@ namespace DailyKanjiLogic.Helper
         /// <param name="assemblyClass">A class of the assembly (typical <c>this</c></param>
         /// <returns>A assembly version</returns>
         public static Version GetAssemblyVersion<T>(in T assemblyClass) where T : class
-            => assemblyClass.GetType().GetTypeInfo().Assembly.GetName().Version;
+            => assemblyClass
+                .GetType()
+                .GetTypeInfo()
+                .Assembly
+                .GetName()
+                .Version
+            ?? new Version();
     }
 }

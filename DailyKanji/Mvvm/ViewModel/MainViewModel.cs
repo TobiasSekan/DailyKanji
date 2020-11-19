@@ -21,27 +21,31 @@ namespace DailyKanji.Mvvm.ViewModel
     /// </summary>
     internal sealed partial class MainViewModel : IDisposable
     {
-        #region Private Properties
-
-        /// <summary>
-        /// A data model that contains all data for the surface and the application
-        /// </summary>
-        private MainModel _model { get; }
-
-        /// <summary>
-        /// A data model that contain all data for the program logic and all Kanji data
-        /// </summary>
-        private MainBaseModel _baseModel { get; }
-
-        /// <summary>
-        /// The view-model that contains the base program logic
-        /// </summary>
-        private MainBaseViewModel _baseViewModel { get; }
+        #region Internal Properties
 
         /// <summary>
         /// The window contains all elements of the main window
         /// </summary>
         internal MainWindow? MainWindow { private get; set; }
+
+        #endregion Internal Properties
+
+        #region Private Properties
+
+        /// <summary>
+        /// A data model that contains all data for the surface and the application
+        /// </summary>
+        private MainModel Model { get; }
+
+        /// <summary>
+        /// A data model that contain all data for the program logic and all Kanji data
+        /// </summary>
+        private MainBaseModel BaseModel { get; }
+
+        /// <summary>
+        /// The view-model that contains the base program logic
+        /// </summary>
+        private MainBaseViewModel BaseViewModel { get; }
 
         #endregion Private Properties
 
@@ -55,29 +59,29 @@ namespace DailyKanji.Mvvm.ViewModel
         /// <param name="baseViewModel"></param>
         internal MainViewModel(MainBaseModel baseModel, MainModel model, MainBaseViewModel baseViewModel)
         {
-            _model            = model;
-            _baseModel        = baseModel;
-            _baseViewModel    = baseViewModel;
+            Model            = model;
+            BaseModel        = baseModel;
+            BaseViewModel    = baseViewModel;
 
-            _model.TestTimer.Elapsed += (_, __) =>
+            Model.TestTimer.Elapsed += (_, __) =>
             {
-                _baseModel.AnswerTime = DateTime.UtcNow - _baseModel.TestStartTime;
+                BaseModel.AnswerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
-                if(!_baseModel.UseAnswerTimer
-                || _baseModel.AnswerTime < _baseModel.MaximumAnswerTimeout)
+                if(!BaseModel.UseAnswerTimer
+                || BaseModel.AnswerTime < BaseModel.MaximumAnswerTimeout)
                 {
                     return;
                 }
 
-                _model.TestTimer.Stop();
+                Model.TestTimer.Stop();
                 CheckSelectedAnswer(TestBaseModel.EmptyTest);
             };
 
             CheckForNewVersion();
             GamepadTest();
 
-            _baseViewModel.PrepareNewTest();
-            _baseViewModel.SetNormalColors();
+            BaseViewModel.PrepareNewTest();
+            BaseViewModel.SetNormalColors();
         }
 
         #endregion Internal Constructors
@@ -86,7 +90,7 @@ namespace DailyKanji.Mvvm.ViewModel
 
         /// <inheritdoc/>
         public void Dispose()
-            => _baseModel.Dispose();
+            => BaseModel.Dispose();
 
         #endregion IDisposable Implementation
 
@@ -99,11 +103,11 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             BuildAnswerMenuAndButtons();
 
-            _baseModel.OnPropertyChangeForAll();
+            BaseModel.OnPropertyChangeForAll();
 
             RestartTestTimer();
 
-            _baseModel.IgnoreInput = false;
+            BaseModel.IgnoreInput = false;
         }
 
         /// <summary>
@@ -111,22 +115,22 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void RestartTestTimer()
         {
-            _model.TestTimer.Stop();
+            Model.TestTimer.Stop();
 
-            _baseModel.TestStartTime = DateTime.UtcNow;
+            BaseModel.TestStartTime = DateTime.UtcNow;
 
-            if(!_baseModel.UseAnswerTimer)
+            if(!BaseModel.UseAnswerTimer)
             {
                 return;
             }
 
-            _baseModel.ProgressBarColor = ColorHelper.ProgressBarColor;
+            BaseModel.ProgressBarColor = ColorHelper.ProgressBarColor;
 
-            _model.TestTimer.Start();
+            Model.TestTimer.Start();
         }
 
         /// <summary>
-        /// Move and resize the <see cref="MainWindow"/>, based on the values inside the <see cref="_baseModel"/>
+        /// Move and resize the <see cref="MainWindow"/>, based on the values inside the <see cref="BaseModel"/>
         /// </summary>
         internal void MoveAndResizeWindowToLastPosition()
         {
@@ -135,31 +139,31 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            if(!double.IsNaN(_baseModel.WindowHigh))
+            if(!double.IsNaN(BaseModel.WindowHigh))
             {
-                MainWindow.Height = _baseModel.WindowHigh;
+                MainWindow.Height = BaseModel.WindowHigh;
             }
 
-            if(!double.IsNaN(_baseModel.WindowWidth))
+            if(!double.IsNaN(BaseModel.WindowWidth))
             {
-                MainWindow.Width = _baseModel.WindowWidth;
+                MainWindow.Width = BaseModel.WindowWidth;
             }
 
-            if(!double.IsNaN(_baseModel.LeftPosition))
+            if(!double.IsNaN(BaseModel.LeftPosition))
             {
-                MainWindow.Left = _baseModel.LeftPosition;
+                MainWindow.Left = BaseModel.LeftPosition;
             }
 
-            if(double.IsNaN(_baseModel.TopPosition))
+            if(double.IsNaN(BaseModel.TopPosition))
             {
                 return;
             }
 
-            MainWindow.Top = _baseModel.TopPosition;
+            MainWindow.Top = BaseModel.TopPosition;
         }
 
         /// <summary>
-        /// Set the size and the position values inside the <see cref="_baseModel"/>, based on the values of the <see cref="MainWindow"/>
+        /// Set the size and the position values inside the <see cref="BaseModel"/>, based on the values of the <see cref="MainWindow"/>
         /// </summary>
         internal void SetWindowSizeAndPositionInTheMainModel()
         {
@@ -168,10 +172,10 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            _baseModel.WindowHigh   = MainWindow.Height;
-            _baseModel.WindowWidth  = MainWindow.Width;
-            _baseModel.LeftPosition = MainWindow.Left;
-            _baseModel.TopPosition  = MainWindow.Top;
+            BaseModel.WindowHigh   = MainWindow.Height;
+            BaseModel.WindowWidth  = MainWindow.Width;
+            BaseModel.LeftPosition = MainWindow.Left;
+            BaseModel.TopPosition  = MainWindow.Top;
         }
 
         /// <summary>
@@ -179,8 +183,8 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         internal void BuildAnswerMenuAndButtons()
         {
-            _model.AnswerHintTextHeight     = _baseModel.SelectedHintShowType != HintShowType.None ? GridLength.Auto : new GridLength(0);
-            _model.AnswerShortCutTextHeight = _baseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
+            Model.AnswerHintTextHeight     = BaseModel.SelectedHintShowType != HintShowType.None ? GridLength.Auto : new GridLength(0);
+            Model.AnswerShortCutTextHeight = BaseModel.ShowAnswerShortcuts ? GridLength.Auto : new GridLength(0);
 
             var answerMenu                   = new List<MenuItem>(10);
             var markMenu                     = new List<MenuItem>(10);
@@ -189,11 +193,11 @@ namespace DailyKanji.Mvvm.ViewModel
             var answerAnswerText             = new List<string>(10);
             var answerHintText               = new List<string>(10);
             var answerShortCutText           = new List<string>(10);
-            var answersType                  = _baseViewModel.GetAnswerType();
+            var answersType                  = BaseViewModel.GetAnswerType();
 
             for(var answerNumber = 0; answerNumber < 10; answerNumber++)
             {
-                if(answerNumber >= _baseModel.MaximumAnswers)
+                if(answerNumber >= BaseModel.MaximumAnswers)
                 {
                     answerButtonColumnWidth.Add(GridLength.Auto);
                     answerButtonVisibility.Add(Visibility.Collapsed);
@@ -204,27 +208,27 @@ namespace DailyKanji.Mvvm.ViewModel
                     continue;
                 }
 
-                var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                 var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
                 var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
                 answerButtonColumnWidth.Add(new GridLength(1, GridUnitType.Star));
                 answerButtonVisibility.Add(Visibility.Visible);
                 answerAnswerText.Add(answerText);
-                answerHintText.Add(_baseViewModel.GetAnswerHint(answer));
-                answerShortCutText.Add(_baseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
+                answerHintText.Add(BaseViewModel.GetAnswerHint(answer));
+                answerShortCutText.Add(BaseModel.ShowAnswerShortcuts ? inputGestureText : string.Empty);
             }
 
             MainWindow?.Dispatcher.Invoke(() =>
             {
                 for(var answerNumber = 0; answerNumber < 10; answerNumber++)
                 {
-                    if(answerNumber >= _baseModel.MaximumAnswers)
+                    if(answerNumber >= BaseModel.MaximumAnswers)
                     {
                         continue;
                     }
 
-                    var answer           = _baseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
+                    var answer           = BaseModel.PossibleAnswers.ElementAtOrDefault(answerNumber);
                     var answerText       = MainBaseViewModel.GetAnswerText(answer, answersType);
                     var inputGestureText = answerNumber < 9 ? $"{answerNumber + 1}" : "0";
 
@@ -245,13 +249,13 @@ namespace DailyKanji.Mvvm.ViewModel
                     });
                 }
 
-                _model.AnswerMenu                   = answerMenu;
-                _model.MarkMenu                     = markMenu;
-                _model.AnswerButtonColumnWidth      = answerButtonColumnWidth;
-                _model.AnswerButtonVisibility       = answerButtonVisibility;
-                _model.AnswerAnswerText             = answerAnswerText;
-                _model.AnswerHintText               = answerHintText;
-                _model.AnswerShortCutText           = answerShortCutText;
+                Model.AnswerMenu                   = answerMenu;
+                Model.MarkMenu                     = markMenu;
+                Model.AnswerButtonColumnWidth      = answerButtonColumnWidth;
+                Model.AnswerButtonVisibility       = answerButtonVisibility;
+                Model.AnswerAnswerText             = answerAnswerText;
+                Model.AnswerHintText               = answerHintText;
+                Model.AnswerShortCutText           = answerShortCutText;
             });
         }
 
@@ -267,23 +271,23 @@ namespace DailyKanji.Mvvm.ViewModel
         {
             Debug.Assert(!(answer is null), "Answer can't be null for check selected answer");
 
-            if(_baseModel.IgnoreInput || answer is null)
+            if(BaseModel.IgnoreInput || answer is null)
             {
                 return;
             }
 
-            _model.TestTimer.Stop();
+            Model.TestTimer.Stop();
 
-            _baseModel.AnswerTime = DateTime.UtcNow - _baseModel.TestStartTime;
+            BaseModel.AnswerTime = DateTime.UtcNow - BaseModel.TestStartTime;
 
             var test   = (TestBaseModel)answer.Clone();
-            var result = _baseViewModel.CheckAndCountAnswer(answer);
+            var result = BaseViewModel.CheckAndCountAnswer(answer);
 
-            _baseViewModel.RefreshAndSetHighlightForStatisticValues(test);
+            BaseViewModel.RefreshAndSetHighlightForStatisticValues(test);
 
-            if((result && !_baseModel.HighlightOnCorrectAnswer) || (!result && !_baseModel.HighlightOnWrongAnswer))
+            if((result && !BaseModel.HighlightOnCorrectAnswer) || (!result && !BaseModel.HighlightOnWrongAnswer))
             {
-                _baseViewModel.PrepareNewTest();
+                BaseViewModel.PrepareNewTest();
                 ShowAndStartNewTest();
                 return;
             }
@@ -291,20 +295,20 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            Task.Run(() =>
+            _ = Task.Run(() =>
             {
-                if(_baseModel.HighlightTimer.SafeWaitHandle.IsClosed)
+                if(BaseModel.HighlightTimer.SafeWaitHandle.IsClosed)
                 {
                     return;
                 }
 
-                _baseViewModel.SetHighlightColors(answerTemp);
-                _baseViewModel.PrepareNewTest();
+                BaseViewModel.SetHighlightColors(answerTemp);
+                BaseViewModel.PrepareNewTest();
 
-                _baseModel.HighlightTimer.WaitOne(_baseModel.HighlightTimeout);
+                _ = BaseModel.HighlightTimer.WaitOne(BaseModel.HighlightTimeout);
 
-                _baseViewModel.ResetHighlight();
-                _baseViewModel.SetNormalColors();
+                BaseViewModel.ResetHighlight();
+                BaseViewModel.SetNormalColors();
 
                 ShowAndStartNewTest();
             });
@@ -315,7 +319,7 @@ namespace DailyKanji.Mvvm.ViewModel
         /// </summary>
         private void CheckForNewVersion()
         {
-            if(!_baseModel.CheckForNewVersionOnStartUp)
+            if(!BaseModel.CheckForNewVersionOnStartUp)
             {
                 return;
             }
@@ -331,26 +335,28 @@ namespace DailyKanji.Mvvm.ViewModel
                     return;
                 }
 
-                if(MessageBox.Show($"A new version of Daily Kanji is available.{Environment.NewLine}{Environment.NewLine}"
-                                   + $"Your version:\t{yourVersion}{Environment.NewLine}"
-                                   + $"On-line version:\t{onLineVersion}{Environment.NewLine}{Environment.NewLine}"
-                                   + "Do you want to go to website to download it?",
-                                   "Version check",
-                                   MessageBoxButton.YesNo,
-                                   MessageBoxImage.Information)
+                if(MessageBox.Show(
+                        $"A new version of Daily Kanji is available.{Environment.NewLine}{Environment.NewLine}"
+                        + $"Your version:\t{yourVersion}{Environment.NewLine}"
+                        + $"On-line version:\t{onLineVersion}{Environment.NewLine}{Environment.NewLine}"
+                        + "Do you want to go to website to download it?",
+                        "Version check",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Information)
                    != MessageBoxResult.Yes)
                 {
                     return;
                 }
 
-                Process.Start("https://github.com/TobiasSekan/DailyKanji/releases");
+                _ = Process.Start("https://github.com/TobiasSekan/DailyKanji/releases");
             }
             catch(Exception exception)
             {
-                MessageBox.Show($"Can't check for updates{Environment.NewLine}{Environment.NewLine}{exception}",
-                                "Error on check for updates",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                _ = MessageBox.Show(
+                        $"Can't check for updates{Environment.NewLine}{Environment.NewLine}{exception}",
+                        "Error on check for updates",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
             }
         }
 
@@ -373,15 +379,15 @@ namespace DailyKanji.Mvvm.ViewModel
                 return;
             }
 
-            var maxButtonCount = Math.Min(_baseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
+            var maxButtonCount = Math.Min(BaseModel.MaximumAnswers, gamepad.Capabilities.ButtonCount);
 
-            Task.Run(() =>
+            _ = Task.Run(() =>
             {
                 using var manualResetEvent = new ManualResetEvent(false);
 
                 while(true)
                 {
-                    manualResetEvent.WaitOne(100);
+                    _ = manualResetEvent.WaitOne(100);
 
                     var gamepadButtonState = gamepad.GetCurrentState();
                     if(gamepadButtonState is null)
@@ -397,7 +403,7 @@ namespace DailyKanji.Mvvm.ViewModel
                         }
 
                         // TODO: check if "button + 1" is the correct value
-                        CheckSelectedAnswer(_baseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
+                        CheckSelectedAnswer(BaseModel.PossibleAnswers.ElementAtOrDefault(button + 1));
                     }
                 }
             });
@@ -412,7 +418,7 @@ namespace DailyKanji.Mvvm.ViewModel
             // can't use "in" parameter in anonymous method
             var answerTemp = answer;
 
-            MainWindow?.Dispatcher.Invoke(() => _baseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp));
+            MainWindow?.Dispatcher.Invoke(() => BaseViewModel.SetOrRemoveHighlightColorToOneAnswer(answerTemp));
         }
 
         #endregion Private Methods

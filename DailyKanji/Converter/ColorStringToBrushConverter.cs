@@ -12,7 +12,7 @@ namespace DailyKanji.Converter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value is System.Drawing.Color color
+            => (value is System.Drawing.Color color)
                 ? new SolidColorBrush(Color.FromRgb(color.R, color.G, color.B))
                 : new SolidColorBrush(Colors.Transparent);
 

@@ -23,6 +23,6 @@
         /// <summary>
         /// The hint is always in Katakana
         /// </summary>
-        AlwaysInKatakana = 3
+        AlwaysInKatakana = 3,
     }
 }
