@@ -2,9 +2,11 @@
 
 ## Requirements for usage
 * Windows
-  * Windows Vista SP2, 7 SP1, 8, 8.1 or 10
-  * Windows Server 2008 SP2, 2008 R2 SP1, 2012, 2012 SP2, 2016 or 2019
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
+  * Windows 7 SP1 with [Extended Security Updates](https://docs.microsoft.com/en-us/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
+  * Windows 8.1
+  * Windows 10 Version 1607 or higher
+  * Windows Server 2012 R2, 2016 or 2019
+* [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
 ## Current status and version
 * Status: in (slow) development
@@ -12,7 +14,7 @@
 | Type        | Version  | Git-Tag | Branch                                                               |
 | ----------- | -------- | ------- | -------------------------------------------------------------------- |
 | Release     | 0.7.0    | v0.7.0  | [master](https://github.com/TobiasSekan/DailyKanji/commits/master)   |
-| Development | 0.8.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
+| Development | 1.0.0    | -       | [develop](https://github.com/TobiasSekan/DailyKanji/commits/develop) |
 
 ## Current features
 * 10 Test types
@@ -43,10 +45,6 @@
 * Create a new [Bug report](https://github.com/TobiasSekan/DailyKanji/issues/new?template=bug_report.md)
 * Create a new [Feature request](https://github.com/TobiasSekan/DailyKanji/issues/new?template=feature_request.md)
 
-## Notes about support for Windows Vista, Window 8 and Windows Server 2008 SP2
-At the very latest with the first release of .NET 5 (November 2020) the support for Windows Vista,
-Window 8 and Windows Server 2008 SP2 will be end. Because we switch to .NET Standard 2.1 and .NET Core 3.0 .
-
 ## Whats next?
 * [Version 1.0](https://github.com/TobiasSekan/DailyKanji/milestone/1)
 * [Version 2.0](https://github.com/TobiasSekan/DailyKanji/milestone/4)
@@ -55,23 +53,25 @@ Window 8 and Windows Server 2008 SP2 will be end. Because we switch to .NET Stan
 
 ## Requirements for debug, test and contributing
 * [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [JetBrains Rider](https://www.jetbrains.com/rider/) or similar
-* [.Net Framework 4.6](https://www.microsoft.com/en-US/download/details.aspx?id=48137)
-* [.Net Core 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
-* C# 8.0
+* [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+* C# 9.0
 
 ## Project structure
-| Project             | Used framework     | Operating system             |
-| ------------------- | ------------------ | ---------------------------- |
-| DailyKanji          | .Net Framework 4.6 | Windows                      |
-| DailyKanjiLogic     | .Net Standard 1.3  | Operating system independent |
-| DailyKanjiLogicTest | .Net Core 2.2      | Windows, Linux, macOS        |
+| Project             | Target framework | Operating system             |
+| ------------------- | ---------------- | ---------------------------- |
+| DailyKanji          | .Net Core 3.1    | Windows (because WPF)        |
+| DailyKanjiLogic     | .Net Core 3.1    | Operating system independent |
+| DailyKanjiLogicTest | .Net Core 3.1    | Operating system independent |
 
 ## Used NuGet packages
-| Package                | Version    | Reason                                     |
-| ---------------------- | ---------- | ------------------------------------------ |
-| Extended.Wpf.Toolkit   | 3.5.0      | Additional WPF elements (e.g. SpinUpDown)  |
-| Newtonsoft.Json        | 12.0.2     | Load and write JSON files                  |
-| Microsoft.NET.Test.Sdk | 16.2.0     | Test SDK for .NET                          |
-| NUnit                  | 3.12.0     | NUnit test framework                       |
-| NUnit3TestAdapter      | 3.13.0     | Test adapter for NUnit                     |
-| SharpDX.DirectInput    | 4.2.0      | Game-pad support via DirectInput           |
+| Package                       | Version    | Reason                                     |
+| ----------------------------- | ---------- | ------------------------------------------ |
+| Extended.Wpf.Toolkit          | 4.0.1      | Additional WPF elements (e.g. SpinUpDown)  |
+| Newtonsoft.Json               | 12.0.3     | Load and write JSON files                  |
+| Microsoft.NET.Test.Sdk        | 16.8.0     | Test SDK for .NET                          |
+| NUnit                         | 3.12.0     | NUnit test framework                       |
+| NUnit3TestAdapter             | 3.17.0     | Test adapter for NUnit                     |
+| Roslynator.Analyzers          | 3.0.0      | Code guidelines                            |
+| SharpDX.DirectInput           | 4.2.0      | Game-pad support via DirectInput           |
+| StyleCop.Analyzers            | 1.2.0-beta | Code guidelines                            |
+| System.Diagnostics.StackTrace | 4.3.0      | StracTrace output                          |
